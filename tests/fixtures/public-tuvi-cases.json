@@ -1,0 +1,3117 @@
+[
+  {
+    "id": "82761",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-1-9-1992-ty-82761",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 9,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 9,
+        "day": 26
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "15430",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-26-11-1991-dan-15430",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 11,
+        "day": 26,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 12,
+        "day": 31
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Cự Môn"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "20250",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-29-8-1992-ty-20250",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 8,
+        "day": 29,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 9,
+        "day": 25
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Mệnh",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "56441",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-1-10-1991-mao-56441",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 10,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 11,
+        "day": 6
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Cự Môn"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "297598",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-nghich-ly-9-4-1992-ngo-297598",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 4,
+        "day": 9,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 7,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 5,
+        "day": 11
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 5,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "82497",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-28-8-1992-ty-82497",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 8,
+        "day": 28,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 9,
+        "day": 24
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Mệnh",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Thiên Di",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Cự Môn"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "126639",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-6-8-1992-ty-126639",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 8,
+        "day": 6,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 9,
+        "day": 2
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "17747",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-5-10-1992-ty-17747",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 10,
+        "day": 5,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 10,
+        "day": 30
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Quan Lộc",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thất Sát"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "90426",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-26-6-1993-suu-90426",
+    "input": {
+      "lunar": {
+        "year": 1993,
+        "month": 6,
+        "day": 26,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 2,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1993,
+        "month": 8,
+        "day": 13
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tử Tức",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Tử Vi",
+            "Thiên Tướng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "438065",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-13-8-1991-suu-438065",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 8,
+        "day": 13,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 2,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 9,
+        "day": 20
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "32244",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-18-3-1992-mao-32244",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 3,
+        "day": 18,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1992,
+        "month": 4,
+        "day": 20
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 2,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "10792",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-26-11-1991-ngo-10792",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 11,
+        "day": 26,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 7,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 12,
+        "day": 31
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tử Tức",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Tử Vi",
+            "Thiên Tướng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "12427",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-5-8-1993-dan-12427",
+    "input": {
+      "lunar": {
+        "year": 1993,
+        "month": 8,
+        "day": 5,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1993,
+        "month": 9,
+        "day": 20
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Thái Dương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "124094",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-18-3-1991-ngo-124094",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 3,
+        "day": 18,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 7,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 5,
+        "day": 2
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "7158",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-1-8-1985-ty-7158",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 8,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1985,
+        "month": 9,
+        "day": 15
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Mệnh",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thái Dương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "61489",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-20-7-1987-ngo-61489",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 7,
+        "day": 20,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 7,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1987,
+        "month": 8,
+        "day": 14
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tật Ách",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "577343",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-11-8-1985-suu-577343",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 8,
+        "day": 11,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 2,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1985,
+        "month": 9,
+        "day": 25
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "590959",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-thuan-ly-3-7-1987-mui-590959",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 7,
+        "day": 3,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1987,
+        "month": 7,
+        "day": 28
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "22690",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-23-9-1986-mui-22690",
+    "input": {
+      "lunar": {
+        "year": 1986,
+        "month": 9,
+        "day": 23,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1986,
+        "month": 10,
+        "day": 26
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Tham Lang"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "14999",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-10-2-1985-mao-14999",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 2,
+        "day": 10,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1985,
+        "month": 3,
+        "day": 1
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phu Thê",
+          "majorStars": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "7217",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-thuan-ly-5-10-1984-mao-7217",
+    "input": {
+      "lunar": {
+        "year": 1984,
+        "month": 10,
+        "day": 5,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1984,
+        "month": 10,
+        "day": 28
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thất Sát"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "217146",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-21-8-1985-ty-217146",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 8,
+        "day": 21,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1985,
+        "month": 10,
+        "day": 5
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Nô Bộc",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Phá Quân"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "503678",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-22-2-1987-mui-503678",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 2,
+        "day": 22,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1987,
+        "month": 3,
+        "day": 21
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "543642",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-24-2-1987-dau-543642",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 2,
+        "day": 24,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1987,
+        "month": 3,
+        "day": 23
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thái Dương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "611755",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-15-9-1985-hoi-611755",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 9,
+        "day": 15,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 12,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1985,
+        "month": 10,
+        "day": 28
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phu Thê",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Phá Quân"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "551545",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-20-8-1986-mao-551545",
+    "input": {
+      "lunar": {
+        "year": 1986,
+        "month": 8,
+        "day": 20,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1986,
+        "month": 9,
+        "day": 23
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Điền Trạch",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "48311",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-6-10-1986-tuat-48311",
+    "input": {
+      "lunar": {
+        "year": 1986,
+        "month": 10,
+        "day": 6,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1986,
+        "month": 11,
+        "day": 7
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "33923",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-1-1-1997-mao-33923",
+    "input": {
+      "lunar": {
+        "year": 1997,
+        "month": 1,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1997,
+        "month": 2,
+        "day": 7
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "20966",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-21-2-1996-ty-20966",
+    "input": {
+      "lunar": {
+        "year": 1996,
+        "month": 2,
+        "day": 21,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1996,
+        "month": 4,
+        "day": 8
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Tham Lang"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "31288",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-8-1-1994-ty-31288",
+    "input": {
+      "lunar": {
+        "year": 1994,
+        "month": 1,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1994,
+        "month": 2,
+        "day": 17
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Mệnh",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "78558",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-9-11-1995-tuat-78558",
+    "input": {
+      "lunar": {
+        "year": 1995,
+        "month": 11,
+        "day": 9,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1995,
+        "month": 12,
+        "day": 30
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "85488",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-10-11-1994-dau-85488",
+    "input": {
+      "lunar": {
+        "year": 1994,
+        "month": 11,
+        "day": 10,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1994,
+        "month": 12,
+        "day": 12
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "80852",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-24-7-1995-mui-80852",
+    "input": {
+      "lunar": {
+        "year": 1995,
+        "month": 7,
+        "day": 24,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1995,
+        "month": 8,
+        "day": 19
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tử Tức",
+          "majorStars": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "7286",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-7-6-1996-thin-7286",
+    "input": {
+      "lunar": {
+        "year": 1996,
+        "month": 6,
+        "day": 7,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 5,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1996,
+        "month": 7,
+        "day": 21
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "7085",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-nghich-ly-7-8-1994-ngo-7085",
+    "input": {
+      "lunar": {
+        "year": 1994,
+        "month": 8,
+        "day": 7,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 7,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1994,
+        "month": 9,
+        "day": 12
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Tử Vi",
+            "Thiên Tướng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "19962",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-6-11-1995-dan-19962",
+    "input": {
+      "lunar": {
+        "year": 1995,
+        "month": 11,
+        "day": 6,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1995,
+        "month": 12,
+        "day": 27
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "7525",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-5-3-1996-ty-7525",
+    "input": {
+      "lunar": {
+        "year": 1996,
+        "month": 3,
+        "day": 5,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1996,
+        "month": 4,
+        "day": 22
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Nô Bộc",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "75416",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-thuan-ly-1-9-1997-mui-75416",
+    "input": {
+      "lunar": {
+        "year": 1997,
+        "month": 9,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1997,
+        "month": 10,
+        "day": 1
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "35412",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-11-1-1995-ty-35412",
+    "input": {
+      "lunar": {
+        "year": 1995,
+        "month": 1,
+        "day": 11,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1995,
+        "month": 2,
+        "day": 10
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Tham Lang"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "49722",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-27-3-1997-dau-49722",
+    "input": {
+      "lunar": {
+        "year": 1997,
+        "month": 3,
+        "day": 27,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1997,
+        "month": 5,
+        "day": 3
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "38943",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-21-4-1997-dau-38943",
+    "input": {
+      "lunar": {
+        "year": 1997,
+        "month": 4,
+        "day": 21,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1997,
+        "month": 5,
+        "day": 27
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Tử Vi",
+            "Thiên Tướng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "26646",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-20-9-1999-tuat-26646",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 9,
+        "day": 20,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 10,
+        "day": 28
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "418848",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-11-10-1999-than-418848",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 10,
+        "day": 11,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 9,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 11,
+        "day": 18
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "37457",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-26-1-1998-hoi-37457",
+    "input": {
+      "lunar": {
+        "year": 1998,
+        "month": 1,
+        "day": 26,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 12,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1998,
+        "month": 2,
+        "day": 22
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "22609",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-thuan-ly-22-6-1999-dan-22609",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 6,
+        "day": 22,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 8,
+        "day": 3
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "125078",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-19-4-1999-dan-125078",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 4,
+        "day": 19,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 6,
+        "day": 2
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thái Dương",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thất Sát"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "12771",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-3-11-1999-dau-12771",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 11,
+        "day": 3,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 12,
+        "day": 10
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Liêm Trinh",
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Thiên Cơ",
+            "Thiên Lương"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "70793",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-27-10-1999-hoi-70793",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 10,
+        "day": 27,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 12,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 12,
+        "day": 4
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tử Tức",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "469634",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-28-4-1998-mui-469634",
+    "input": {
+      "lunar": {
+        "year": 1998,
+        "month": 4,
+        "day": 28,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1998,
+        "month": 5,
+        "day": 23
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "100296",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-2-9-1998-ty-100296",
+    "input": {
+      "lunar": {
+        "year": 1998,
+        "month": 9,
+        "day": 2,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1998,
+        "month": 10,
+        "day": 21
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Nô Bộc",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "58546",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-20-8-1998-dan-58546",
+    "input": {
+      "lunar": {
+        "year": 1998,
+        "month": 8,
+        "day": 20,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1998,
+        "month": 10,
+        "day": 10
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tài Bạch",
+          "majorStars": []
+        },
+        {
+          "branch": 11,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Cự Môn"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "12679",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-9-10-1999-mui-12679",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 10,
+        "day": 9,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 8,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 11,
+        "day": 16
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Nô Bộc",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Huynh Đệ",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Phá Quân"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "6026",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-nghich-ly-17-1-1999-ty-6026",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 1,
+        "day": 17,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 3,
+        "day": 4
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Tật Ách",
+          "majorStars": []
+        },
+        {
+          "branch": 4,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Tử Vi",
+            "Tham Lang"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "103591",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-6-11-1999-dau-103591",
+    "input": {
+      "lunar": {
+        "year": 1999,
+        "month": 11,
+        "day": 6,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 10,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1999,
+        "month": 12,
+        "day": 13
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "19144",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-8-7-2001-ty-19144",
+    "input": {
+      "lunar": {
+        "year": 2001,
+        "month": 7,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 2001,
+        "month": 8,
+        "day": 26
+      },
+      "bureau": {
+        "element": "Hỏa",
+        "number": 6
+      },
+      "palaces": [
+        {
+          "branch": 10,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Tật Ách",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thất Sát"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phúc Đức",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "421213",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-27-4-2001-ty-421213",
+    "input": {
+      "lunar": {
+        "year": 2001,
+        "month": 4,
+        "day": 27,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 2001,
+        "month": 5,
+        "day": 19
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 1,
+          "name": "Mệnh",
+          "majorStars": [
+            "Vũ Khúc",
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Phu Thê",
+          "majorStars": [
+            "Phá Quân"
+          ]
+        },
+        {
+          "branch": 5,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Tử Vi",
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Điền Trạch",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "7310",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-8-6-1991-mao-7310",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 6,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 7,
+        "day": 19
+      },
+      "bureau": {
+        "element": "Thủy",
+        "number": 2
+      },
+      "palaces": [
+        {
+          "branch": 5,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Lương",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 1,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thái Âm",
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 9,
+          "name": "Quan Lộc",
+          "majorStars": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "34219",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-8-3-1991-tuat-34219",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 3,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 4,
+        "day": 22
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 7,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 3,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thái Âm",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "10240",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-18-6-1991-ty-10240",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 6,
+        "day": 18,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1991,
+        "month": 7,
+        "day": 29
+      },
+      "bureau": {
+        "element": "Mộc",
+        "number": 3
+      },
+      "palaces": [
+        {
+          "branch": 3,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Đồng",
+            "Thiên Lương"
+          ]
+        },
+        {
+          "branch": 11,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Thái Âm"
+          ]
+        },
+        {
+          "branch": 7,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thiên Cơ"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "120536",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-10-9-1987-ty-120536",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 9,
+        "day": 10,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1987,
+        "month": 11,
+        "day": 1
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 11,
+          "name": "Mệnh",
+          "majorStars": [
+            "Liêm Trinh",
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 7,
+          "name": "Tài Bạch",
+          "majorStars": [
+            "Tử Vi"
+          ]
+        },
+        {
+          "branch": 3,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thiên Tướng",
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "14997",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-nghich-ly-12-10-1990-than-14997",
+    "input": {
+      "lunar": {
+        "year": 1990,
+        "month": 10,
+        "day": 12,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 9,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1990,
+        "month": 11,
+        "day": 28
+      },
+      "bureau": {
+        "element": "Thổ",
+        "number": 5
+      },
+      "palaces": [
+        {
+          "branch": 4,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Phủ"
+          ]
+        },
+        {
+          "branch": 8,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Thiên Tướng"
+          ]
+        },
+        {
+          "branch": 10,
+          "name": "Thiên Di",
+          "majorStars": [
+            "Thất Sát",
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "40817",
+    "source": "tuvi.vn",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-thuan-ly-12-11-1987-suu-40817",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 11,
+        "day": 12,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 2,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "expected": {
+      "solar": {
+        "year": 1988,
+        "month": 1,
+        "day": 1
+      },
+      "bureau": {
+        "element": "Kim",
+        "number": 4
+      },
+      "palaces": [
+        {
+          "branch": 12,
+          "name": "Mệnh",
+          "majorStars": [
+            "Thiên Đồng"
+          ]
+        },
+        {
+          "branch": 4,
+          "name": "Quan Lộc",
+          "majorStars": [
+            "Cự Môn",
+            "Thiên Cơ"
+          ]
+        },
+        {
+          "branch": 1,
+          "name": "Phụ Mẫu",
+          "majorStars": [
+            "Thiên Phủ",
+            "Vũ Khúc"
+          ]
+        }
+      ]
+    }
+  }
+]

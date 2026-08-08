@@ -1,0 +1,44 @@
+name: Verify
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install PDF and browser test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ghostscript poppler-utils
+          python3 -m pip install --upgrade pypdf playwright
+          python3 -m playwright install --with-deps chromium
+      - name: Run release verification
+        run: npm run codex-check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: generated-text-pdf
+          path: sample/MXiao-Tu-Vi-2026-text-final.pdf
+
+  pdfua:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: generated-text-pdf
+          path: sample
+      - name: Validate PDF/UA-1 with veraPDF 1.30.2
+        run: |
+          docker run --rm -v "$PWD:/data" verapdf/cli:v1.30.2 \
+            -f ua1 /data/sample/MXiao-Tu-Vi-2026-text-final.pdf > verapdf-report.xml
+          python3 tests/verify_verapdf_report.py verapdf-report.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verapdf-report
+          path: verapdf-report.xml

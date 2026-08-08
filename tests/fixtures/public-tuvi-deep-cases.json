@@ -1,0 +1,3200 @@
+[
+  {
+    "id": "82761",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-thuan-ly-1-9-1992-ty-82761",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 9,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Phúc Đức",
+        "majorStars": []
+      },
+      {
+        "branch": 2,
+        "name": "Điền Trạch",
+        "majorStars": []
+      },
+      {
+        "branch": 3,
+        "name": "Quan Lộc",
+        "majorStars": []
+      },
+      {
+        "branch": 4,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Liêm Trinh",
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Thiên Di",
+        "majorStars": []
+      },
+      {
+        "branch": 6,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thái Âm",
+          "Thiên Đồng"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Tham Lang",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Cự Môn",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Cơ",
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thất Sát",
+          "Tử Vi"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Tả Phù",
+          "Tam Thai",
+          "Long Trì",
+          "Kình Dương",
+          "Hóa Khoa"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Hữu Bật",
+          "Bát Tọa",
+          "Hỏa Tinh",
+          "Phượng Các",
+          "Thiên Mã"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Thiên Khôi",
+          "Địa Giải",
+          "Long Đức",
+          "Bệnh Phù",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Việt",
+          "Thiên Đức",
+          "Thiên Hình"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Hồng Loan",
+          "Quả Tú",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Đào Hoa",
+          "Thiếu Dương",
+          "Ân Quang",
+          "Thiên Không"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Văn Xương",
+          "Linh Tinh",
+          "Đà La",
+          "Thiên Khốc",
+          "Hóa Lộc"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Lộc Tồn",
+          "Địa Không",
+          "Địa Kiếp",
+          "Hóa Quyền"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": "15430",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-26-11-1991-dan-15430",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 11,
+        "day": 26,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 3,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Liêm Trinh",
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Quan Lộc",
+        "majorStars": []
+      },
+      {
+        "branch": 4,
+        "name": "Nô Bộc",
+        "majorStars": []
+      },
+      {
+        "branch": 5,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thiên Đồng"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Phá Quân",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Thiên Cơ",
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Tham Lang",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Mệnh",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Hữu Bật",
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Hóa Quyền"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Địa Kiếp",
+          "Thiên Hư",
+          "Phá Toái"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Tả Phù",
+          "Thiên Việt",
+          "Thiên Hỷ",
+          "Long Đức"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Tam Thai",
+          "Giải Thần",
+          "Phượng Các",
+          "Bạch Hổ"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Phúc",
+          "Thiên Mã",
+          "Quốc Ấn",
+          "Địa Giải"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Văn Khúc",
+          "Thiên Khôi",
+          "Thiên Quý",
+          "Hóa Khoa"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Văn Xương",
+          "Linh Tinh",
+          "Đà La",
+          "Hồng Loan",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Kình Dương",
+          "Hóa Lộc"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "32244",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-18-3-1992-mao-32244",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 3,
+        "day": 18,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thiên Đồng",
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thất Sát",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Quan Lộc",
+        "majorStars": []
+      },
+      {
+        "branch": 7,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Phá Quân",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Tật Ách",
+        "majorStars": []
+      },
+      {
+        "branch": 10,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Liêm Trinh",
+          "Tham Lang"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Kình Dương",
+          "Long Trì"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Linh Tinh",
+          "Thiên Hỷ",
+          "Nguyệt Đức"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Thiên Mã",
+          "Giải Thần",
+          "Phượng Các",
+          "Địa Kiếp",
+          "Hóa Lộc"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Thiên Khôi",
+          "Thiên Quý",
+          "Bát Tọa",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Tả Phù",
+          "Thiên Phúc",
+          "Hóa Khoa"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Văn Xương",
+          "Văn Khúc",
+          "Quốc Ấn",
+          "Hồng Loan",
+          "Hóa Quyền"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Địa Giải",
+          "Thai Phụ",
+          "Đào Hoa",
+          "Thiên Không"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Lộc Tồn",
+          "Tam Thai",
+          "Ân Quang",
+          "Hỏa Tinh"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": "421213",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-27-4-2001-ty-421213",
+    "input": {
+      "lunar": {
+        "year": 2001,
+        "month": 4,
+        "day": 27,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Phủ",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thái Âm",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Cự Môn",
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Tướng",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Tật Ách",
+        "majorStars": []
+      },
+      {
+        "branch": 9,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Tử Tức",
+        "majorStars": []
+      },
+      {
+        "branch": 11,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Đồng"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Thiên Hình",
+          "Long Đức"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hoa Cái",
+          "Thiên Khốc"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Thiên Việt",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Đường Phù"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Thiên Thọ",
+          "Lưu Hà",
+          "Hóa Lộc"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Địa Kiếp",
+          "Thiên Hỷ",
+          "Thiên Riêu",
+          "Thiên Y"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Văn Xương",
+          "Linh Tinh",
+          "Bát Tọa",
+          "Quốc Ấn",
+          "Hóa Quyền",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Khôi",
+          "Đào Hoa",
+          "Ân Quang",
+          "Địa Không"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Tả Phù",
+          "Hữu Bật",
+          "Phong Cáo"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Hỏa Tinh",
+          "Đà La",
+          "Thiên Quý"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Văn Khúc",
+          "Lộc Tồn",
+          "Tam Thai",
+          "Long Trì",
+          "Hóa Khoa"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Kình Dương",
+          "Hồng Loan",
+          "Nguyệt Đức",
+          "Địa Giải"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Thai Phụ",
+          "Thiên Giải",
+          "Thiên Mã"
+        ]
+      }
+    ],
+    "tuan": [
+      9,
+      10
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "20250",
+    "url": "https://tuvi.vn/la-so-duong-nu-am-duong-nghich-ly-29-8-1992-ty-20250",
+    "input": {
+      "lunar": {
+        "year": 1992,
+        "month": 8,
+        "day": 29,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Đồng",
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Tướng",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thiên Lương",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Phu Thê",
+        "majorStars": []
+      },
+      {
+        "branch": 9,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Mệnh",
+        "majorStars": []
+      },
+      {
+        "branch": 11,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Liêm Trinh",
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Việt",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Thiên Tài",
+          "Thiên Thọ",
+          "Kiếp Sát",
+          "Phi Liêm"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thai Phụ",
+          "Thiên Phúc",
+          "Tấu Thư"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Quốc Ấn",
+          "Hồng Loan",
+          "Quả Tú",
+          "Trực Phù",
+          "Tướng Quân"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Thiên Y",
+          "Thiên Riêu",
+          "Thái Tuế",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Văn Khúc",
+          "Đường Phù",
+          "Hoa Cái",
+          "Hỷ Thần",
+          "Thiên Hình",
+          "Bạch Hổ",
+          "Thiên La",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Thiên Trù",
+          "Đào Hoa",
+          "Thiếu Dương",
+          "Thanh Long",
+          "Phá Toái",
+          "Thiên Không"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Hữu Bật",
+          "Thiên Giải",
+          "Thiên Khôi",
+          "Long Đức",
+          "Tam Thai",
+          "Hóa Lộc",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Văn Xương",
+          "Thiên Quan",
+          "Lực Sĩ",
+          "Linh Tinh",
+          "Đà La",
+          "Thiên Khốc",
+          "Tang Môn",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Phong Cáo",
+          "Địa Giải",
+          "Thiên Mã",
+          "Giải Thần",
+          "Phượng Các",
+          "Hỏa Tinh",
+          "Thiên Hư",
+          "Tuế Phá",
+          "Đại Hao",
+          "Thiên Thương",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Thiên Hỷ",
+          "Nguyệt Đức",
+          "Ân Quang",
+          "Thiên Quý",
+          "Tử Phù",
+          "Phục Binh",
+          "Đẩu Quân"
+        ]
+      },
+      {
+        "branch": 1,
+        "names": [
+          "Long Trì",
+          "Kình Dương",
+          "Quan Phù",
+          "Quan Phủ"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Tả Phù",
+          "Lộc Tồn",
+          "Thiếu Âm",
+          "Bác Sĩ",
+          "Bát Tọa",
+          "Hóa Khoa",
+          "Địa Không",
+          "Địa Kiếp",
+          "Lưu Hà",
+          "Cô Thần"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7158",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-thuan-ly-1-8-1985-ty-7158",
+    "input": {
+      "lunar": {
+        "year": 1985,
+        "month": 8,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Phá Quân",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Nô Bộc",
+        "majorStars": []
+      },
+      {
+        "branch": 4,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Tham Lang",
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Đồng",
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thất Sát",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phúc Đức",
+        "majorStars": []
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 6,
+        "names": [
+          "Long Trì",
+          "Thanh Long",
+          "Thiên Quý",
+          "Thiên Khốc",
+          "Quan Phù"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thai Phụ",
+          "Thiên Trù",
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Tử Phù",
+          "Tiểu Hao",
+          "Đẩu Quân"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Thiên Hư",
+          "Tuế Phá",
+          "Tướng Quân"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Thiên Y",
+          "Thiên Việt",
+          "Thiên Phúc",
+          "Đường Phù",
+          "Thiên Hỷ",
+          "Long Đức",
+          "Tấu Thư",
+          "Thiên Riêu",
+          "Hóa Quyền"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Văn Khúc",
+          "Thiên Quan",
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Thiên Hình",
+          "Kình Dương",
+          "Thiên La",
+          "Thiên Sứ",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Giải Thần",
+          "Phượng Các",
+          "Ân Quang",
+          "Bạch Hổ",
+          "Phi Liêm"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Hữu Bật",
+          "Thiên Giải",
+          "Lộc Tồn",
+          "Bác Sĩ",
+          "Bát Tọa",
+          "Hỏa Tinh",
+          "Tang Môn"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Văn Xương",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Thiên Tài",
+          "Thiên Thọ",
+          "Linh Tinh",
+          "Lưu Hà",
+          "Quả Tú",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Phong Cáo",
+          "Địa Giải",
+          "Hồng Loan",
+          "Thiếu Dương",
+          "Đà La",
+          "Cô Thần",
+          "Kiếp Sát",
+          "Thiên Không",
+          "Quan Phủ",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hoa Cái",
+          "Hóa Khoa",
+          "Phá Toái",
+          "Thái Tuế",
+          "Phục Binh"
+        ]
+      },
+      {
+        "branch": 1,
+        "names": [
+          "Thiên Khôi",
+          "Hóa Lộc",
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Tả Phù",
+          "Quốc Ấn",
+          "Thiên Mã",
+          "Tam Thai",
+          "Địa Không",
+          "Địa Kiếp",
+          "Điếu Khách",
+          "Bệnh Phù"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7217",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-thuan-ly-5-10-1984-mao-7217",
+    "input": {
+      "lunar": {
+        "year": 1984,
+        "month": 10,
+        "day": 5,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Nô Bộc",
+        "majorStars": []
+      },
+      {
+        "branch": 3,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Tật Ách",
+        "majorStars": []
+      },
+      {
+        "branch": 5,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Liêm Trinh",
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Đồng",
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Tướng",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thiên Lương",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 6,
+        "names": [
+          "Phong Cáo",
+          "Thiên Giải",
+          "Thiên Trù",
+          "Nguyệt Đức",
+          "Tam Thai",
+          "Hỏa Tinh",
+          "Kiếp Sát",
+          "Phá Toái",
+          "Tử Phù",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Hình",
+          "Thiên Khốc",
+          "Thiên Hư",
+          "Tuế Phá",
+          "Tướng Quân",
+          "Đẩu Quân"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Văn Khúc",
+          "Văn Xương",
+          "Thiên Việt",
+          "Thiên Quan",
+          "Đường Phù",
+          "Long Đức",
+          "Tấu Thư",
+          "Linh Tinh"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Thiên Tài",
+          "Địa Không",
+          "Bạch Hổ",
+          "Phi Liêm",
+          "Hóa Khoa"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Địa Giải",
+          "Long Trì",
+          "Hoa Cái",
+          "Thanh Long",
+          "Thiên Quý",
+          "Hóa Lộc",
+          "Quan Phù",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Thai Phụ",
+          "Thiên Phúc",
+          "Đào Hoa",
+          "Thiên Hỷ",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Bát Tọa",
+          "Lưu Hà",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Hồng Loan",
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Kình Dương",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Thiên Y",
+          "Quốc Ấn",
+          "Giải Thần",
+          "Phượng Các",
+          "Ân Quang",
+          "Thiên Riêu",
+          "Quả Tú",
+          "Điếu Khách",
+          "Bệnh Phù",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Lộc Tồn",
+          "Thiên Mã",
+          "Bác Sĩ",
+          "Thiên Thọ",
+          "Hóa Quyền",
+          "Địa Kiếp",
+          "Cô Thần",
+          "Tang Môn"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hữu Bật",
+          "Tả Phù",
+          "Thiên Khôi",
+          "Thiếu Dương",
+          "Đà La",
+          "Thiên Không",
+          "Quan Phủ",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 1,
+        "names": [
+          "Thái Tuế",
+          "Phục Binh"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "56441",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-1-10-1991-mao-56441",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 10,
+        "day": 1,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thất Sát",
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Thiên Di",
+        "majorStars": []
+      },
+      {
+        "branch": 4,
+        "name": "Tật Ách",
+        "majorStars": []
+      },
+      {
+        "branch": 5,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thiên Đồng"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Phá Quân",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thái Âm",
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Tử Vi",
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Hỏa Tinh",
+          "Tử Phù",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hữu Bật",
+          "Tả Phù",
+          "Tam Thai",
+          "Bát Tọa",
+          "Thiên Hư",
+          "Phá Toái",
+          "Tuế Phá",
+          "Tướng Quân",
+          "Đẩu Quân",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Thiên Việt",
+          "Đường Phù",
+          "Thiên Hỷ",
+          "Long Đức",
+          "Tấu Thư",
+          "Địa Kiếp"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Giải Thần",
+          "Phượng Các",
+          "Thiên Tài",
+          "Lưu Hà",
+          "Bạch Hổ",
+          "Phi Liêm",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Địa Giải",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Quả Tú",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Phong Cáo",
+          "Thiên Giải",
+          "Thiên Phúc",
+          "Quốc Ấn",
+          "Thiên Mã",
+          "Điếu Khách",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Khôi",
+          "Thiên Trù",
+          "Ân Quang",
+          "Thiên Hình",
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Văn Khúc",
+          "Văn Xương",
+          "Hoa Cái",
+          "Linh Tinh",
+          "Thái Tuế",
+          "Phục Binh"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Hồng Loan",
+          "Thiếu Dương",
+          "Thiên Quý",
+          "Địa Không",
+          "Đà La",
+          "Cô Thần",
+          "Kiếp Sát",
+          "Thiên Không",
+          "Quan Phủ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Thai Phụ",
+          "Lộc Tồn",
+          "Thiên Quan",
+          "Thiên Thọ",
+          "Tang Môn"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Thiên Y",
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Kình Dương",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Long Trì",
+          "Thanh Long",
+          "Thiên Khốc",
+          "Quan Phù"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "7310",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-8-6-1991-mao-7310",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 6,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 4,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thái Âm",
+          "Thiên Đồng"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Tham Lang",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Cự Môn",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Lương",
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Tử Vi",
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Phúc Đức",
+        "majorStars": []
+      },
+      {
+        "branch": 8,
+        "name": "Điền Trạch",
+        "majorStars": []
+      },
+      {
+        "branch": 9,
+        "name": "Quan Lộc",
+        "majorStars": []
+      },
+      {
+        "branch": 10,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Phá Quân",
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Thiên Di",
+        "majorStars": []
+      },
+      {
+        "branch": 12,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Địa Giải",
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Hỏa Tinh",
+          "Tử Phù",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Thiên Giải",
+          "Ân Quang",
+          "Thiên Quý",
+          "Thiên Hư",
+          "Phá Toái",
+          "Tuế Phá",
+          "Tướng Quân"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Thiên Việt",
+          "Đường Phù",
+          "Thiên Hỷ",
+          "Long Đức",
+          "Tấu Thư",
+          "Địa Kiếp",
+          "Thiên Hình"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Giải Thần",
+          "Phượng Các",
+          "Lưu Hà",
+          "Bạch Hổ",
+          "Phi Liêm"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Tam Thai",
+          "Quả Tú",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Phong Cáo",
+          "Hữu Bật",
+          "Thiên Phúc",
+          "Quốc Ấn",
+          "Thiên Mã",
+          "Thiên Thọ",
+          "Điếu Khách",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Y",
+          "Thiên Khôi",
+          "Thiên Trù",
+          "Thiên Riêu",
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Văn Khúc",
+          "Văn Xương",
+          "Hoa Cái",
+          "Linh Tinh",
+          "Thái Tuế",
+          "Phục Binh"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Hồng Loan",
+          "Thiếu Dương",
+          "Địa Không",
+          "Đà La",
+          "Cô Thần",
+          "Kiếp Sát",
+          "Thiên Không",
+          "Quan Phủ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Thai Phụ",
+          "Tả Phù",
+          "Lộc Tồn",
+          "Thiên Quan",
+          "Tang Môn",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Bát Tọa",
+          "Kình Dương",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Long Trì",
+          "Thanh Long",
+          "Thiên Tài",
+          "Thiên Khốc",
+          "Quan Phù",
+          "Thiên Sứ"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "34219",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-8-3-1991-tuat-34219",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 3,
+        "day": 8,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thái Âm",
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Tử Vi",
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thất Sát",
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Phúc Đức",
+        "majorStars": []
+      },
+      {
+        "branch": 10,
+        "name": "Điền Trạch",
+        "majorStars": []
+      },
+      {
+        "branch": 11,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Đồng"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Phá Quân",
+          "Vũ Khúc"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Văn Xương",
+          "Phong Cáo",
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Linh Tinh",
+          "Tử Phù",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Tam Thai",
+          "Bát Tọa",
+          "Thiên Tài",
+          "Địa Không",
+          "Thiên Hư",
+          "Phá Toái",
+          "Tuế Phá",
+          "Tướng Quân",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Văn Khúc",
+          "Thiên Việt",
+          "Đường Phù",
+          "Thiên Hỷ",
+          "Long Đức",
+          "Tấu Thư"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Thiên Y",
+          "Giải Thần",
+          "Phượng Các",
+          "Thiên Riêu",
+          "Lưu Hà",
+          "Bạch Hổ",
+          "Phi Liêm",
+          "Đẩu Quân"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Thai Phụ",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Quả Tú",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Phúc",
+          "Quốc Ấn",
+          "Thiên Mã",
+          "Điếu Khách",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Tả Phù",
+          "Thiên Khôi",
+          "Thiên Trù",
+          "Ân Quang",
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Hoa Cái",
+          "Hỏa Tinh",
+          "Thái Tuế",
+          "Phục Binh"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Hữu Bật",
+          "Hồng Loan",
+          "Thiếu Dương",
+          "Thiên Quý",
+          "Đà La",
+          "Cô Thần",
+          "Kiếp Sát",
+          "Thiên Không",
+          "Quan Phủ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Địa Giải",
+          "Lộc Tồn",
+          "Thiên Quan",
+          "Thiên Thọ",
+          "Địa Kiếp",
+          "Tang Môn"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Thiên Giải",
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Kình Dương",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Long Trì",
+          "Thanh Long",
+          "Thiên Khốc",
+          "Quan Phù",
+          "Thiên Thương"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "10240",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-18-6-1991-ty-10240",
+    "input": {
+      "lunar": {
+        "year": 1991,
+        "month": 6,
+        "day": 18,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 6,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Đồng",
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thất Sát",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Điền Trạch",
+        "majorStars": []
+      },
+      {
+        "branch": 7,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Phá Quân",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Thiên Di",
+        "majorStars": []
+      },
+      {
+        "branch": 10,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Tham Lang",
+          "Liêm Trinh"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Địa Giải",
+          "Đào Hoa",
+          "Nguyệt Đức",
+          "Bát Tọa",
+          "Tử Phù",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Thiên Giải",
+          "Thiên Hư",
+          "Phá Toái",
+          "Tuế Phá",
+          "Tướng Quân"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Thiên Việt",
+          "Đường Phù",
+          "Thiên Hỷ",
+          "Long Đức",
+          "Tấu Thư",
+          "Tam Thai",
+          "Hỏa Tinh",
+          "Thiên Hình"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Giải Thần",
+          "Phượng Các",
+          "Lưu Hà",
+          "Bạch Hổ",
+          "Phi Liêm"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Thiên Đức",
+          "Phúc Đức",
+          "Hỷ Thần",
+          "Địa Kiếp",
+          "Quả Tú",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Văn Xương",
+          "Hữu Bật",
+          "Thiên Phúc",
+          "Quốc Ấn",
+          "Thiên Mã",
+          "Thiên Quý",
+          "Linh Tinh",
+          "Điếu Khách",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Y",
+          "Thiên Khôi",
+          "Thiên Trù",
+          "Địa Không",
+          "Thiên Riêu",
+          "Trực Phù",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Phong Cáo",
+          "Hoa Cái",
+          "Thiên Thọ",
+          "Thái Tuế",
+          "Phục Binh",
+          "Đẩu Quân",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Hồng Loan",
+          "Thiếu Dương",
+          "Đà La",
+          "Cô Thần",
+          "Kiếp Sát",
+          "Thiên Không",
+          "Quan Phủ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Văn Khúc",
+          "Tả Phù",
+          "Lộc Tồn",
+          "Thiên Quan",
+          "Ân Quang",
+          "Thiên Tài",
+          "Tang Môn",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Thiếu Âm",
+          "Lực Sĩ",
+          "Kình Dương",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Thai Phụ",
+          "Long Trì",
+          "Thanh Long",
+          "Thiên Khốc",
+          "Quan Phù"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      5,
+      6
+    ]
+  },
+  {
+    "id": "120536",
+    "url": "https://tuvi.vn/la-so-am-nu-am-duong-nghich-ly-10-9-1987-ty-120536",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 9,
+        "day": 10,
+        "leap": false
+      },
+      "gender": "female",
+      "hourBranch": 1,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Thiên Đồng",
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Tướng",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Lương",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tài Bạch",
+        "majorStars": [
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Tử Tức",
+        "majorStars": []
+      },
+      {
+        "branch": 9,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Huynh Đệ",
+        "majorStars": []
+      },
+      {
+        "branch": 11,
+        "name": "Mệnh",
+        "majorStars": [
+          "Liêm Trinh",
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Tả Phù",
+          "Đào Hoa",
+          "Hồng Loan",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Phi Liêm"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hỷ Thần",
+          "Thiên Tài",
+          "Thiên Thọ",
+          "Quả Tú",
+          "Điếu Khách"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Phong Cáo",
+          "Hữu Bật",
+          "Thiên Quan",
+          "Quốc Ấn",
+          "Trực Phù",
+          "Bệnh Phù"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Địa Giải",
+          "Thiên Khốc",
+          "Thái Tuế",
+          "Đại Hao",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Văn Khúc",
+          "Thiên Giải",
+          "Thiếu Dương",
+          "Thiên Không",
+          "Phục Binh",
+          "Thiên La"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Trù",
+          "Thiên Mã",
+          "Bát Tọa",
+          "Thiên Hình",
+          "Đà La",
+          "Cô Thần",
+          "Phá Toái",
+          "Tang Môn",
+          "Quan Phủ",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thai Phụ",
+          "Lộc Tồn",
+          "Thiên Hỷ",
+          "Thiếu Âm",
+          "Ân Quang"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Long Trì",
+          "Hoa Cái",
+          "Giải Thần",
+          "Phượng Các",
+          "Lực Sĩ",
+          "Kình Dương",
+          "Quan Phù",
+          "Đẩu Quân"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Nguyệt Đức",
+          "Thanh Long",
+          "Thiên Quý",
+          "Kiếp Sát",
+          "Tử Phù"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Thiên Y",
+          "Thiên Việt",
+          "Tam Thai",
+          "Hỏa Tinh",
+          "Thiên Riêu",
+          "Thiên Hư",
+          "Tuế Phá",
+          "Tiểu Hao"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Văn Xương",
+          "Long Đức",
+          "Linh Tinh",
+          "Tướng Quân",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Thiên Khôi",
+          "Thiên Phúc",
+          "Đường Phù",
+          "Tấu Thư",
+          "Địa Không",
+          "Địa Kiếp",
+          "Bạch Hổ"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": "14997",
+    "url": "https://tuvi.vn/la-so-duong-nam-am-duong-nghich-ly-12-10-1990-than-14997",
+    "input": {
+      "lunar": {
+        "year": 1990,
+        "month": 10,
+        "day": 12,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 9,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Phu Thê",
+        "majorStars": [
+          "Phá Quân",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Huynh Đệ",
+        "majorStars": []
+      },
+      {
+        "branch": 4,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Phủ"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thái Âm"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Liêm Trinh",
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Cự Môn"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Thiên Tướng"
+        ]
+      },
+      {
+        "branch": 9,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Đồng",
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thất Sát",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 11,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Tài Bạch",
+        "majorStars": []
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Văn Khúc",
+          "Ân Quang",
+          "Tam Thai",
+          "Thiên Khốc"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Hữu Bật",
+          "Tả Phù",
+          "Long Đức"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Văn Xương",
+          "Thai Phụ",
+          "Thiên Việt",
+          "Bát Tọa"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Đào Hoa",
+          "Thiên Hỷ",
+          "Địa Không"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Địa Giải",
+          "Quốc Ấn",
+          "Phượng Các",
+          "Hóa Khoa",
+          "Quả Tú"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Thiên Giải",
+          "Phá Toái",
+          "Đại Hao"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Khôi",
+          "Thiên Phúc",
+          "Thiên Hình",
+          "Thái Tuế"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Linh Tinh",
+          "Địa Kiếp",
+          "Đà La",
+          "Thiên Không"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Lộc Tồn",
+          "Thiên Mã",
+          "Cô Thần",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Hồng Loan",
+          "Hỏa Tinh",
+          "Kình Dương",
+          "Hóa Quyền"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Long Trì",
+          "Hoa Cái",
+          "Hóa Lộc"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Thiên Quan",
+          "Nguyệt Đức",
+          "Kiếp Sát"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      7,
+      8
+    ],
+    "variantDifferences": [
+      {
+        "star": "Lưu Hà",
+        "sourceBranch": 5,
+        "profileBranch": 9,
+        "reason": "Nguồn công khai dùng dị bản Lưu Hà khác profile Tân Biên."
+      }
+    ]
+  },
+  {
+    "id": "40817",
+    "url": "https://tuvi.vn/la-so-am-nam-am-duong-thuan-ly-12-11-1987-suu-40817",
+    "input": {
+      "lunar": {
+        "year": 1987,
+        "month": 11,
+        "day": 12,
+        "leap": false
+      },
+      "gender": "male",
+      "hourBranch": 2,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    "palaces": [
+      {
+        "branch": 1,
+        "name": "Phụ Mẫu",
+        "majorStars": [
+          "Thiên Phủ",
+          "Vũ Khúc"
+        ]
+      },
+      {
+        "branch": 2,
+        "name": "Phúc Đức",
+        "majorStars": [
+          "Thái Âm",
+          "Thái Dương"
+        ]
+      },
+      {
+        "branch": 3,
+        "name": "Điền Trạch",
+        "majorStars": [
+          "Tham Lang"
+        ]
+      },
+      {
+        "branch": 4,
+        "name": "Quan Lộc",
+        "majorStars": [
+          "Cự Môn",
+          "Thiên Cơ"
+        ]
+      },
+      {
+        "branch": 5,
+        "name": "Nô Bộc",
+        "majorStars": [
+          "Thiên Tướng",
+          "Tử Vi"
+        ]
+      },
+      {
+        "branch": 6,
+        "name": "Thiên Di",
+        "majorStars": [
+          "Thiên Lương"
+        ]
+      },
+      {
+        "branch": 7,
+        "name": "Tật Ách",
+        "majorStars": [
+          "Thất Sát"
+        ]
+      },
+      {
+        "branch": 8,
+        "name": "Tài Bạch",
+        "majorStars": []
+      },
+      {
+        "branch": 9,
+        "name": "Tử Tức",
+        "majorStars": [
+          "Liêm Trinh"
+        ]
+      },
+      {
+        "branch": 10,
+        "name": "Phu Thê",
+        "majorStars": []
+      },
+      {
+        "branch": 11,
+        "name": "Huynh Đệ",
+        "majorStars": [
+          "Phá Quân"
+        ]
+      },
+      {
+        "branch": 12,
+        "name": "Mệnh",
+        "majorStars": [
+          "Thiên Đồng"
+        ]
+      }
+    ],
+    "selectedStars": [
+      {
+        "branch": 1,
+        "names": [
+          "Hữu Bật",
+          "Đào Hoa",
+          "Hồng Loan",
+          "Thiên Đức",
+          "Phúc Đức",
+          "Địa Kiếp"
+        ]
+      },
+      {
+        "branch": 2,
+        "names": [
+          "Tấu Thư",
+          "Tam Thai",
+          "Bát Tọa",
+          "Hóa Lộc",
+          "Quả Tú",
+          "Điếu Khách"
+        ]
+      },
+      {
+        "branch": 3,
+        "names": [
+          "Tả Phù",
+          "Thiên Quan",
+          "Quốc Ấn",
+          "Thiên Tài"
+        ]
+      },
+      {
+        "branch": 4,
+        "names": [
+          "Phong Cáo",
+          "Hóa Khoa",
+          "Thiên Khốc",
+          "Thái Tuế",
+          "Hóa Kỵ"
+        ]
+      },
+      {
+        "branch": 5,
+        "names": [
+          "Thiếu Dương",
+          "Thanh Long",
+          "Thiên Thọ",
+          "Thiên Không",
+          "Thiên La",
+          "Thiên Thương"
+        ]
+      },
+      {
+        "branch": 6,
+        "names": [
+          "Văn Khúc",
+          "Địa Giải",
+          "Thiên Trù",
+          "Thiên Mã",
+          "Đà La",
+          "Cô Thần",
+          "Phá Toái",
+          "Tang Môn"
+        ]
+      },
+      {
+        "branch": 7,
+        "names": [
+          "Thiên Giải",
+          "Lộc Tồn",
+          "Thiên Hỷ",
+          "Thiếu Âm",
+          "Thiên Sứ"
+        ]
+      },
+      {
+        "branch": 8,
+        "names": [
+          "Thai Phụ",
+          "Long Trì",
+          "Hoa Cái",
+          "Giải Thần",
+          "Phượng Các",
+          "Ân Quang",
+          "Thiên Quý",
+          "Thiên Hình",
+          "Kình Dương"
+        ]
+      },
+      {
+        "branch": 9,
+        "names": [
+          "Nguyệt Đức",
+          "Hỏa Tinh",
+          "Kiếp Sát",
+          "Tử Phù"
+        ]
+      },
+      {
+        "branch": 10,
+        "names": [
+          "Văn Xương",
+          "Thiên Việt",
+          "Lưu Niên Văn Tinh",
+          "Thiên Hư"
+        ]
+      },
+      {
+        "branch": 11,
+        "names": [
+          "Long Đức",
+          "Địa Không",
+          "Bệnh Phù",
+          "Địa Võng"
+        ]
+      },
+      {
+        "branch": 12,
+        "names": [
+          "Thiên Y",
+          "Thiên Khôi",
+          "Thiên Phúc",
+          "Đường Phù",
+          "Hỷ Thần",
+          "Hóa Quyền",
+          "Linh Tinh",
+          "Thiên Riêu",
+          "Bạch Hổ"
+        ]
+      }
+    ],
+    "tuan": [
+      11,
+      12
+    ],
+    "triet": [
+      3,
+      4
+    ],
+    "variantDifferences": [
+      {
+        "star": "Lưu Hà",
+        "sourceBranch": 9,
+        "profileBranch": 5,
+        "reason": "Nguồn công khai dùng dị bản Lưu Hà khác profile Tân Biên."
+      }
+    ]
+  }
+]

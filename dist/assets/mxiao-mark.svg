@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">MXiao Tử Vi</title>
+  <desc id="desc">Biểu tượng MX màu trắng trên nền đỏ.</desc>
+  <defs>
+    <linearGradient id="g" x1="18" y1="14" x2="110" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DB2433"/>
+      <stop offset="1" stop-color="#7A0912"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="34" fill="url(#g)"/>
+  <path fill="#fff" d="M25 88V39h12l15 23 15-23h12v49H67V58L52 80 37 58v30H25Zm59 0 14-25-13-24h14l7 14 7-14h14l-13 24 14 25h-14l-8-15-8 15H84Z"/>
+</svg>

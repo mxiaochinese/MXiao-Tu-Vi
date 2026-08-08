@@ -1,0 +1,9 @@
+IANA Time Zone Database notice
+
+The offline timezone selection catalog in assets/places.js is derived from the zone.tab and iso3166.tab files distributed with IANA tzdb 2025b.
+
+Source: Internet Assigned Numbers Authority (IANA) Time Zone Database.
+License: public domain.
+The upstream zone.tab and iso3166.tab files state that they are in the public domain.
+
+The catalog stores representative coordinates and timezone identifiers only. Runtime UTC offsets and daylight-saving behavior are evaluated by the browser Intl implementation. The catalog is not a complete gazetteer and does not assert territorial or political claims.

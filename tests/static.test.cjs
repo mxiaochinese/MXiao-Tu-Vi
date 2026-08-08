@@ -1,0 +1,61 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const root = path.resolve(__dirname, '..');
+const required = ['index.html', 'assets/styles.css', 'assets/app.js', 'assets/timezones.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/calendar.js', 'manifest.webmanifest'];
+for (const file of required) assert.ok(fs.existsSync(path.join(root, file)), `Missing ${file}`);
+const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+assert.match(html, /<html lang="vi">/);
+assert.match(html, /id="birth-form"/);
+assert.match(html, /id="timezoneSearch"/);
+assert.match(html, /id="pdf-options-panel"/);
+assert.match(html, /id="pdf-options-grid"/);
+assert.match(html, /id="viewDay"/);
+assert.match(html, /id="viewHourBranch"/);
+assert.match(html, /id="compare-hours-panel"/);
+assert.match(html, /data-pdf-preset="full"/);
+assert.match(html, /data-pdf-preset="fortune"/);
+assert.match(html, /assets\/timezones\.js/);
+assert.doesNotMatch(html, /location|địa điểm|tọa độ|longitude|latitude|true-solar|giờ mặt trời|json-button|copy-button|id="profile"/i);
+assert.doesNotMatch(html, /<script[^>]+src="https?:/i);
+assert.doesNotMatch(html, /<link[^>]+href="https?:/i);
+
+const context = { window: {} };
+vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/timezones.js'), 'utf8'), context);
+assert.ok(Array.isArray(context.window.MXiaoTimezones));
+assert.ok(context.window.MXiaoTimezones.length >= 400);
+for (const timezone of context.window.MXiaoTimezones) assert.doesNotThrow(() => new Intl.DateTimeFormat('en-US', { timeZone: timezone }).format(new Date(0)));
+
+const publicText = ['index.html', 'assets/app.js', 'src/pdf/client-pdf.cjs'].map((file) => fs.readFileSync(path.join(root, file), 'utf8')).join('\n');
+for (const phrase of ['sourceRuleId', 'sourceIds', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'JSON', 'engine xác định', 'phạm vi 1.0', 'ghi chú nội bộ']) assert.ok(!publicText.includes(phrase), `Public content contains ${phrase}`);
+for (const pattern of [/fetch\s*\(/, /XMLHttpRequest/, /WebSocket\s*\(/, /sendBeacon\s*\(/, /localStorage/, /sessionStorage/]) assert.doesNotMatch(publicText, pattern);
+assert.match(publicText, /MAX_PDF_PAGES = 30/);
+assert.match(publicText, /MAX_TEXT_PDF_PAGES = 48/);
+assert.match(publicText, /downloadSelectablePdf/);
+assert.doesNotMatch(publicText, /maxLines/);
+assert.match(publicText, /getPdfExportOptions/);
+assert.match(publicText, /interpretationParagraphs/);
+assert.doesNotMatch(publicText, /report-facts|Căn cứ lá số|<ul>\$\{item\.facts/);
+assert.match(publicText, /normalizeExportOptions/);
+const pdfModule = require(path.join(root, 'src/pdf/client-pdf.cjs'));
+const optionChart = { input: { viewYear: 2026, viewMonth: 4, viewDay: 15, viewHourBranch: 7 }, interpretations: [{ topic: 'Tổng quan' }, { topic: 'Đại vận' }, { topic: 'Tiểu vận' }, { topic: 'Vận hạn 2026' }, { topic: 'Lưu nguyệt tháng 4' }, { topic: 'Lưu nhật ngày 15' }, { topic: 'Lưu thời giờ 7' }, { topic: 'Tài chính' }] };
+const fortuneOptions = pdfModule.normalizeExportOptions(optionChart, { cover: true, overview: true, chart: false, topics: ['Đại vận', 'Tiểu vận', 'Vận hạn 2026', 'Lưu nguyệt tháng 4', 'Lưu nhật ngày 15', 'Lưu thời giờ 7'] });
+assert.equal(fortuneOptions.chart, false);
+assert.deepEqual(fortuneOptions.topics, ['Đại vận', 'Tiểu vận', 'Vận hạn 2026', 'Lưu nguyệt tháng 4', 'Lưu nhật ngày 15', 'Lưu thời giờ 7']);
+assert.throws(() => pdfModule.normalizeExportOptions(optionChart, { cover: false, overview: false, chart: false, topics: [] }), /ít nhất một phần/);
+
+for (const file of ['index.html', 'assets/styles.css', 'assets/app.js', 'assets/calendar.js', 'src/pdf/client-pdf.cjs']) {
+  const content = fs.readFileSync(path.join(root, file), 'utf8');
+  assert.ok(!content.includes(String.fromCodePoint(0x2013)) && !content.includes(String.fromCodePoint(0x2014)), `${file} contains Unicode dash`);
+}
+console.log('Static app validation passed.');
+
+assert.match(html, /id="calculationProfile"/);
+assert.match(html, /VN_TAN_BIEN_1956/);
+assert.match(html, /VN_AO_BI_1972/);
+const ciWorkflow = fs.readFileSync(path.join(root, '.github/workflows/ci.yml'), 'utf8');
+assert.match(ciWorkflow, /verapdf\/cli:v1\.30\.2/);
+assert.match(ciWorkflow, /-f ua1/);
+assert.ok(fs.existsSync(path.join(root, 'tests/verify_verapdf_report.py')));
+assert.ok(fs.existsSync(path.join(root, 'scripts/verapdf-check.sh')));
