@@ -7,28 +7,28 @@
   </buildInformation>
   <jobs>
     <job>
-      <item size="1032912">
+      <item size="1161816">
         <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
-        <details passedRules="106" failedRules="0" passedChecks="95603" failedChecks="0"></details>
+        <details passedRules="106" failedRules="0" passedChecks="95635" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786200141273" finish="1786200142571">00:00:01.298</duration>
+      <duration start="1786208988868" finish="1786208990153">00:00:01.285</duration>
     </job>
     <job>
-      <item size="814490">
+      <item size="924115">
         <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/MXiao-Ban-Do-Sao-final.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
-        <details passedRules="106" failedRules="0" passedChecks="18364" failedChecks="0"></details>
+        <details passedRules="106" failedRules="0" passedChecks="18619" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786200142585" finish="1786200142792">00:00:00.207</duration>
+      <duration start="1786208990169" finish="1786208990375">00:00:00.206</duration>
     </job>
   </jobs>
   <batchSummary totalJobs="2" failedToParse="0" encrypted="0" outOfMemory="0" veraExceptions="0">
     <validationReports compliant="2" nonCompliant="0" failedJobs="0">2</validationReports>
     <featureReports failedJobs="0">0</featureReports>
     <repairReports failedJobs="0">0</repairReports>
-    <duration start="1786200141238" finish="1786200142796">00:00:01.558</duration>
+    <duration start="1786208988829" finish="1786208990382">00:00:01.553</duration>
   </batchSummary>
 </report>

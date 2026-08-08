@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
-const required = ['index.html', 'assets/styles.css', 'assets/app.js', 'assets/astrology-app.js', 'assets/astrology-locations.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/timezones.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/calendar.js', 'manifest.webmanifest'];
+const required = ['index.html', 'assets/styles.css', 'assets/app.js', 'assets/astrology-app.js', 'assets/astrology-locations.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/timezones.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/calendar.js', 'assets/mxiao-logo-white.png', 'manifest.webmanifest'];
 for (const file of required) assert.ok(fs.existsSync(path.join(root, file)), `Missing ${file}`);
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert.match(html, /<html lang="vi">/);

@@ -45,7 +45,7 @@ fs.mkdirSync(path.join(dist, 'third_party'), { recursive: true });
 for (const file of ['astronomy-engine-LICENSE.txt', 'iztro-LICENSE.txt', 'life-chart-engine-LICENSE.txt']) {
   fs.copyFileSync(path.join(root, 'third_party', file), path.join(dist, 'third_party', file));
 }
-const publicAssets = ['app.js', 'astrology-app.js', 'astrology-locations.js', 'astronomy.browser.min.js', 'astrology-engine.bundle.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
+const publicAssets = ['app.js', 'astrology-app.js', 'astrology-locations.js', 'astronomy.browser.min.js', 'astrology-engine.bundle.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'mxiao-logo-white.png', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
 for (const file of publicAssets) {
   const target = path.join(dist, 'assets', file);
   fs.mkdirSync(path.dirname(target), { recursive: true });

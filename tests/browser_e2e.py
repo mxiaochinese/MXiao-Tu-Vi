@@ -270,7 +270,7 @@ try:
         assert 8 <= page_count <= 48
         assert b'/MediaBox [0 0 595.28 841.89]' in data
         assert b'/MediaBox [0 0 841.89 595.28]' in data
-        assert b'/Subtype /Image' not in data
+        assert data.count(b'/Subtype /Image') >= 1
         assert b'/StructTreeRoot' in data
         assert data.count(b'12.00 Tf') >= 20
         assert f'{page_count} trang A4' in desktop.locator('#toolbar-status').inner_text()
@@ -300,7 +300,7 @@ try:
         assert 'Đại hạn 24-33 tuổi' in regression_text
         assert 'cam kết, hợp tác lâu dài' in regression_text
         assert 'Tagged:' in regression_info_text and 'yes' in regression_info_text.lower()
-        assert b'/Subtype /Image' not in regression_data
+        assert regression_data.count(b'/Subtype /Image') >= 1
         assert b'/StructTreeRoot' in regression_data
         assert regression_data.count(b'12.00 Tf') >= 20
         for phrase in ['nền nâng đỡ rõ hơn phần gây sức ép', 'có nền thuận tương đối rõ', 'không được đọc như một ô độc lập', 'lớp vận này chỉ tăng', 'trục vận hành']:
@@ -351,6 +351,7 @@ try:
         assert 'Author:' in astrology_info and 'MXiao Huyền Học' in astrology_info
         assert 'Title:' in astrology_info and 'Bản đồ sao cá nhân' in astrology_info
         assert b'/StructTreeRoot' in astrology_pdf.read_bytes()
+        assert astrology_pdf.read_bytes().count(b'/Subtype /Image') >= 2
         assert pdf_page_dark_ratio(astrology_pdf, 3) < 0.2
         desktop.screenshot(path=ROOT / 'screenshots/astrology-desktop.png', full_page=True)
 

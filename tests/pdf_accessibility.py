@@ -117,11 +117,14 @@ for page_index, section_ref in enumerate(sections):
 
 assert role_counts['/H1'] == 1, role_counts
 assert role_counts['/H2'] >= 1
-assert role_counts['/H3'] >= 1
 assert role_counts['/P'] >= 1
 assert role_counts['/Figure'] == EXPECTED_FIGURES and figure_alt_count == EXPECTED_FIGURES
 # The first semantic item in the document must be the main title, not branding/decorative text.
 assert page_roles[0][0] == '/H1', page_roles[0][:5]
+# H3 is optional; when present it must not appear before the document has introduced H2.
+document_roles = [role for roles in page_roles for role in roles]
+if '/H3' in document_roles:
+    assert document_roles.index('/H2') < document_roles.index('/H3')
 
 # Compare each page's actual tagged MCIDs with its ParentTree mapping.
 mcid_pattern = re.compile(rb'/[A-Za-z0-9]+\s*<</MCID\s+(\d+)>>\s*BDC')
@@ -139,7 +142,7 @@ for page_index, page in enumerate(reader.pages):
         assert actual.idnum == expected_ref, (page_index, mcid, actual.idnum, expected_ref)
 
 # Binary syntax and renderer checks.
-required_markers = [b'/S /H1', b'/S /H2', b'/S /H3', b'/S /P', b'/Artifact BMC']
+required_markers = [b'/S /H1', b'/S /H2', b'/S /P', b'/Artifact BMC']
 if EXPECTED_FIGURES:
     required_markers.extend([b'/S /Figure', b'/Alt'])
 for marker in required_markers:

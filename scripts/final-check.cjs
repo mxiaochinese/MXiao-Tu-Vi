@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
-const required = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md', 'third_party/astronomy-engine-LICENSE.txt', 'third_party/iztro-LICENSE.txt', 'third_party/life-chart-engine-LICENSE.txt', 'assets/app.js', 'assets/astrology-app.js', 'assets/astrology-locations.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/styles.css', 'assets/timezones.js', 'assets/mxiao-mark.svg', 'assets/fonts/svn-gilroy-regular.otf', 'assets/fonts/svn-gilroy-semibold.otf'];
+const required = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md', 'third_party/astronomy-engine-LICENSE.txt', 'third_party/iztro-LICENSE.txt', 'third_party/life-chart-engine-LICENSE.txt', 'assets/app.js', 'assets/astrology-app.js', 'assets/astrology-locations.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/styles.css', 'assets/timezones.js', 'assets/mxiao-mark.svg', 'assets/mxiao-logo-white.png', 'assets/fonts/svn-gilroy-regular.otf', 'assets/fonts/svn-gilroy-semibold.otf'];
 for (const file of required) assert.ok(fs.existsSync(path.join(dist, file)), `Missing dist/${file}`);
 const allFiles = [];
 function walk(dir) {

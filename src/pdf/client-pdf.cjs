@@ -18,6 +18,8 @@ const CANVAS_CARD_TITLE_LINE_HEIGHT = 36;
 const PDF_BODY_FONT_SIZE = 12;
 const PDF_BODY_LINE_HEIGHT = 17.5;
 const FONT_FAMILY = '"MXiao Gilroy", Arial, "Segoe UI", sans-serif';
+const BRAND_LOGO_ASSET = "assets/mxiao-logo-white.png";
+const BRAND_LOGO_SOURCE = { x: 426, y: 1780, width: 3284, height: 811 };
 const TOPIC_ORDER = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
 
 function createCanvas(orientation) {
@@ -58,6 +60,22 @@ async function ensureFontsReady() {
     await document.fonts.ready;
 }
 
+let brandLogoImage = null;
+let brandLogoPromise = null;
+function ensureBrandLogoReady() {
+    if (brandLogoImage?.complete && brandLogoImage.naturalWidth) return Promise.resolve(brandLogoImage);
+    if (brandLogoPromise) return brandLogoPromise;
+    if (typeof document === "undefined") return Promise.reject(new Error("Logo MXiao chỉ được tải trong trình duyệt."));
+    brandLogoPromise = new Promise((resolve, reject) => {
+        const image = document.createElement("img");
+        image.decoding = "async";
+        image.onload = () => { brandLogoImage = image; resolve(image); };
+        image.onerror = () => reject(new Error("Không thể tải logo MXiao chính thức cho bìa PDF."));
+        image.src = new URL(BRAND_LOGO_ASSET, document.baseURI).href;
+    });
+    return brandLogoPromise;
+}
+
 function roundedRect(context, x, y, width, height, radius) {
     const r = Math.min(radius, width / 2, height / 2);
     context.beginPath();
@@ -67,6 +85,80 @@ function roundedRect(context, x, y, width, height, radius) {
     context.arcTo(x, y + height, x, y, r);
     context.arcTo(x, y, x + width, y, r);
     context.closePath();
+}
+
+function drawBrandLogo(context) {
+    if (!brandLogoImage?.naturalWidth) throw new Error("Logo MXiao chưa sẵn sàng để dựng bìa PDF.");
+    const source = BRAND_LOGO_SOURCE;
+    context.drawImage(brandLogoImage, source.x, source.y, source.width, source.height, 92, 82, 438, 108);
+}
+
+function drawTuviCoverPattern(context) {
+    context.save();
+    context.globalAlpha = 0.14;
+    context.strokeStyle = WHITE;
+    context.lineWidth = 2;
+    for (let index = 0; index < 9; index += 1) {
+        context.beginPath();
+        context.arc(1035, 245, 88 + index * 50, 0, Math.PI * 2);
+        context.stroke();
+    }
+    context.globalAlpha = 0.07;
+    context.lineWidth = 3;
+    for (let index = 0; index < 4; index += 1) {
+        context.beginPath();
+        context.arc(990, 1380, 310 + index * 70, Math.PI * 1.08, Math.PI * 1.78);
+        context.stroke();
+    }
+    context.restore();
+}
+
+function drawAstrologyCoverPattern(context) {
+    context.save();
+    context.translate(1010, 255);
+    context.rotate(-0.25);
+    context.globalAlpha = 0.14;
+    context.strokeStyle = WHITE;
+    context.lineWidth = 2;
+    for (let index = 0; index < 7; index += 1) {
+        context.beginPath();
+        context.ellipse(0, 0, 105 + index * 64, 64 + index * 38, 0, 0, Math.PI * 2);
+        context.stroke();
+    }
+    context.globalAlpha = 0.28;
+    [[-238,-28,7],[170,-92,5],[272,74,6],[-84,128,4],[50,-12,5]].forEach(([x, y, radius]) => {
+        context.beginPath();
+        context.fillStyle = WHITE;
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.fill();
+    });
+    context.restore();
+}
+
+function createBrandCoverBackground(kind) {
+    const canvas = createCanvas("portrait");
+    const context = getContext(canvas);
+    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, "#ef002d");
+    gradient.addColorStop(0.52, "#c20d27");
+    gradient.addColorStop(1, "#780b14");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    const glow = context.createRadialGradient(1020, 245, 40, 1020, 245, 620);
+    glow.addColorStop(0, "rgba(255,255,255,0.08)");
+    glow.addColorStop(1, "rgba(255,255,255,0)");
+    context.fillStyle = glow;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    if (kind === "astrology") drawAstrologyCoverPattern(context);
+    else drawTuviCoverPattern(context);
+    drawBrandLogo(context);
+    roundedRect(context, 112, 1282, 1016, 238, 28);
+    context.fillStyle = "rgba(255,255,255,0.10)";
+    context.fill();
+    context.strokeStyle = "rgba(255,255,255,0.28)";
+    context.lineWidth = 2;
+    context.stroke();
+    return canvas;
 }
 
 function wrapLines(context, text, maxWidth) {
@@ -169,29 +261,15 @@ function reportFileSuffix(chart) {
 }
 
 function drawCover(chart) {
-    const canvas = createCanvas("portrait");
+    const canvas = createBrandCoverBackground("tuvi");
     const context = getContext(canvas);
-    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, "#d52231");
-    gradient.addColorStop(1, RED_DARK);
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.globalAlpha = 0.13;
-    context.strokeStyle = WHITE;
-    context.lineWidth = 2;
-    for (let index = 0; index < 9; index += 1) {
-        context.beginPath();
-        context.arc(1030, 230, 85 + index * 46, 0, Math.PI * 2);
-        context.stroke();
-    }
-    context.globalAlpha = 1;
     context.fillStyle = WHITE;
-    setFont(context, 22, 800);
-    context.fillText("MXIAO TỬ VI", 92, 105);
+    setFont(context, 18, 800);
+    context.fillText("TỬ VI", 92, 260);
     setFont(context, 65, 900);
-    drawWrappedText(context, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 92, 350, 930, 82);
+    drawWrappedText(context, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 92, 355, 930, 82);
     setFont(context, 36, 750);
-    context.fillText(chart.input.fullName || "Người xem", 92, 665);
+    context.fillText(chart.input.fullName || "Người xem", 92, 705);
     context.globalAlpha = 0.9;
     setFont(context, 20, 500);
     const meta = [
@@ -204,19 +282,14 @@ function drawCover(chart) {
         `Phạm vi: ${viewScopeLabel(chart)}`,
         ...(chart.analysis.nominalAge ? [`Tuổi mụ: ${chart.analysis.nominalAge} | ${chart.analysis.viewYearCanChi}`] : [])
     ];
-    meta.forEach((line, index) => context.fillText(line, 92, 790 + index * 42));
+    meta.forEach((line, index) => context.fillText(line, 92, 850 + index * 42));
     context.globalAlpha = 1;
-    roundedRect(context, 92, 1225, 1056, 210, 28);
-    context.fillStyle = "rgba(255,255,255,0.11)";
-    context.fill();
-    context.strokeStyle = "rgba(255,255,255,0.25)";
-    context.stroke();
     context.fillStyle = WHITE;
     setFont(context, 18, 650);
-    drawWrappedText(context, "Lá số tổng hợp mệnh bàn, vận hạn và luận giải Tử Vi.", 126, 1280, 980, 30);
+    drawWrappedText(context, "Báo cáo trình bày theo những nội dung đã chọn trước khi xuất PDF.", 150, 1330, 930, 30);
     context.globalAlpha = 0.75;
     setFont(context, 14, 400);
-    drawWrappedText(context, "Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.", 126, 1380, 980, 24);
+    drawWrappedText(context, "Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.", 150, 1440, 930, 24);
     return canvas;
 }
 
@@ -677,7 +750,7 @@ function safeFileName(value) {
 }
 
 async function downloadChartPdf(chart, exportOptions) {
-    await ensureFontsReady();
+    await Promise.all([ensureFontsReady(), ensureBrandLogoReady()]);
     const pages = buildTuviSelectablePages(chart, exportOptions);
     const blob = await buildSelectablePdfBlob(pages, {
         title: "Lá số Tử Vi và luận giải chi tiết",
@@ -735,7 +808,7 @@ function wrapPdfText(text, maxWidth, size, weight = 400) {
 
 function newTextPage(orientation = "portrait") {
     const size = orientation === "landscape" ? PAGE_LANDSCAPE : PAGE_PORTRAIT;
-    return { orientation, widthPt: size.widthPt, heightPt: size.heightPt, elements: [], imageCanvas: null, bookmark: "", semanticCounter: 0 };
+    return { orientation, widthPt: size.widthPt, heightPt: size.heightPt, elements: [], imageCanvas: null, imageArtifact: false, imageAlt: "", bookmark: "", semanticCounter: 0 };
 }
 
 function inferSemanticRole(size, weight) {
@@ -925,8 +998,8 @@ function buildPageTagPlan(page) {
     const items = [];
     const groups = new Map();
     let mcid = 0;
-    if (page.imageCanvas) {
-        items.push({ type: "figure", role: "Figure", mcids: [mcid], alt: "Lá số Tử Vi gồm mười hai cung" });
+    if (page.imageCanvas && !page.imageArtifact) {
+        items.push({ type: "figure", role: "Figure", mcids: [mcid], alt: page.imageAlt || "Hình minh họa trong báo cáo" });
         mcid += 1;
     }
     page.elements.forEach((element, index) => {
@@ -943,7 +1016,7 @@ function buildPageTagPlan(page) {
         element.tagMcid = mcid;
         mcid += 1;
     });
-    return { items, mcidCount: mcid, figureMcid: page.imageCanvas ? 0 : null };
+    return { items, mcidCount: mcid, figureMcid: page.imageCanvas && !page.imageArtifact ? 0 : null };
 }
 
 function contentForTextPage(page, fonts, imageName = null, tagPlan = null) {
@@ -953,7 +1026,10 @@ function contentForTextPage(page, fonts, imageName = null, tagPlan = null) {
 ${page.widthPt.toFixed(2)} 0 0 ${page.heightPt.toFixed(2)} 0 0 cm
 /${imageName} Do
 Q`;
-        ops.push(tagPlan ? `/Figure <</MCID ${tagPlan.figureMcid}>> BDC
+        if (page.imageArtifact) ops.push(`/Artifact BMC
+${imageBody}
+EMC`);
+        else ops.push(tagPlan ? `/Figure <</MCID ${tagPlan.figureMcid}>> BDC
 ${imageBody}
 EMC` : imageBody);
     }
@@ -1120,10 +1196,11 @@ function tuviFooter(page, chart, number, total) {
 function buildTuviCoverPage(chart) {
     const page = newTextPage("portrait");
     page.bookmark = "Bìa báo cáo";
-    rectElement(page, 0, 0, page.widthPt, page.heightPt, RED_DARK);
-    textElement(page, "MXIAO TỬ VI", 54, 72, 14, 700, WHITE, "Artifact");
-    textBlock(page, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 54, 150, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
-    textElement(page, chart.input.fullName || "Người xem", 54, 318, 22, 700, WHITE, "H2");
+    page.imageCanvas = createBrandCoverBackground("tuvi");
+    page.imageArtifact = true;
+    textElement(page, "TỬ VI", 54, 125, 11.5, 700, WHITE, "Artifact");
+    textBlock(page, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 54, 170, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
+    textElement(page, chart.input.fullName || "Người xem", 54, 338, 22, 700, WHITE, "H2");
     const meta = [
         `Dương lịch: ${formatDate(chart.normalized.solar)}`,
         `Âm lịch: ${formatLunar(chart.normalized.lunar)}`,
@@ -1134,10 +1211,9 @@ function buildTuviCoverPage(chart) {
         `Phạm vi: ${viewScopeLabel(chart)}`,
         ...(chart.analysis.nominalAge ? [`Tuổi mụ: ${chart.analysis.nominalAge} | ${chart.analysis.viewYearCanChi}`] : [])
     ];
-    meta.forEach((line, index) => textElement(page, line, 54, 392 + index * 25, 11.5, 400, WHITE));
-    rectElement(page, 54, 615, page.widthPt - 108, 114, "#8d1019", "#d6747d", 0.8);
-    textBlock(page, "Lá số, vận hạn và luận giải Tử Vi", 72, 638, page.widthPt - 144, 12, 18, 700, WHITE, "H3");
-    textBlock(page, "Nội dung thuộc hệ thống Tử Vi truyền thống và dùng để tham khảo.", 72, 682, page.widthPt - 144, 10, 15, 400, WHITE);
+    meta.forEach((line, index) => textElement(page, line, 54, 408 + index * 25, 11.5, 400, WHITE));
+    textBlock(page, "Báo cáo trình bày theo những nội dung đã chọn trước khi xuất PDF.", 72, 638, page.widthPt - 144, 12, 18, 700, WHITE, "P");
+    textBlock(page, "Nội dung thuộc hệ thống Tử Vi truyền thống và dùng để tham khảo.", 72, 692, page.widthPt - 144, 10, 15, 400, WHITE, "P");
     return page;
 }
 
@@ -1408,21 +1484,23 @@ function astrologyFooter(page, chart, number, total) {
 function buildAstrologyCover(chart) {
     const page = newTextPage("portrait");
     page.bookmark = "Bìa báo cáo";
-    rectElement(page, 0, 0, page.widthPt, page.heightPt, RED_DARK);
-    textElement(page, "MXIAO HUYỀN HỌC", 54, 72, 14, 700, WHITE, "Artifact");
-    textBlock(page, "BẢN ĐỒ SAO CÁ NHÂN", 54, 155, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
-    textElement(page, chart.profile.name || "Người xem", 54, 320, 22, 700, WHITE, "H2");
+    page.imageCanvas = createBrandCoverBackground("astrology");
+    page.imageArtifact = true;
+    textElement(page, "BẢN ĐỒ SAO", 54, 125, 11.5, 700, WHITE, "Artifact");
+    textBlock(page, "BẢN ĐỒ SAO CÁ NHÂN", 54, 175, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
+    textElement(page, chart.profile.name || "Người xem", 54, 338, 22, 700, WHITE, "H2");
     const meta = [
         `Ngày sinh: ${chart.profile.birthDate}`,
         `Giờ sinh: ${chart.profile.birthTimeLocal || "Không biết giờ sinh"}`,
+        `Múi giờ: ${chart.profile.timezoneId}`,
         `Nơi sinh: ${chart.profile.birthPlaceLabel}`,
         `Hoàng đạo: Tropical`,
-        `Hệ thống Nhà: ${chart.settings.houseSystem ? chart.settings.houseSystem.replace("whole_sign", "Whole Sign").replace("equal", "Equal House").replace("placidus", "Placidus") : "Không áp dụng"}`
+        `Hệ thống Nhà: ${chart.settings.houseSystem ? chart.settings.houseSystem.replace("whole_sign", "Whole Sign").replace("equal", "Equal House").replace("placidus", "Placidus") : "Không áp dụng"}`,
+        `Phạm vi: Luận giải Bản đồ sao`
     ];
-    meta.forEach((line, index) => textElement(page, line, 54, 400 + index * 27, 11, 400, WHITE));
-    rectElement(page, 54, 600, page.widthPt - 108, 118, "#8d1019", "#d6747d", 0.8);
-    textBlock(page, "Chiêm tinh Tây phương", 72, 622, page.widthPt - 144, 11, 17, 700, WHITE);
-    textBlock(page, "Nội dung tham khảo và tự chiêm nghiệm.", 72, 674, page.widthPt - 144, 9, 14, 400, WHITE);
+    meta.forEach((line, index) => textElement(page, line, 54, 408 + index * 25, 11.5, 400, WHITE));
+    textBlock(page, "Báo cáo trình bày Bản đồ sao và phần luận giải đã chọn.", 72, 638, page.widthPt - 144, 12, 18, 700, WHITE, "P");
+    textBlock(page, "Nội dung tham khảo và tự chiêm nghiệm.", 72, 692, page.widthPt - 144, 10, 15, 400, WHITE, "P");
     return page;
 }
 
@@ -1544,6 +1622,7 @@ function buildAstrologySelectablePages(chart, chartCanvas, options = {}) {
         const page = newTextPage("landscape");
         page.bookmark = "Vòng Bản đồ sao";
         page.imageCanvas = chartCanvas;
+        page.imageAlt = "Vòng Bản đồ sao với các hành tinh, Nhà và góc hợp";
         pages.push(page);
     }
     for (const kind of ["planets", "aspects", "houses", "balance"]) {
@@ -1555,7 +1634,7 @@ function buildAstrologySelectablePages(chart, chartCanvas, options = {}) {
 }
 
 async function downloadAstrologyPdf(chart, chartCanvas, options = {}) {
-    await ensureFontsReady();
+    await Promise.all([ensureFontsReady(), ensureBrandLogoReady()]);
     const pages = buildAstrologySelectablePages(chart, chartCanvas, options);
     const blob = await buildSelectablePdfBlob(pages, { title: "Bản đồ sao cá nhân", author: "MXiao Huyền Học", subject: "Báo cáo Bản đồ sao cá nhân", keywords: "Bản đồ sao, Natal Chart, Chiêm tinh Tây phương" });
     const url = URL.createObjectURL(blob);
