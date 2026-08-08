@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 import socket
 import subprocess
+import tempfile
 import time
 from urllib.request import urlopen
 from playwright.sync_api import Error as PlaywrightError
@@ -23,7 +24,7 @@ def free_port():
 def hydrate(page):
     page.set_content(HYDRATED_HTML, wait_until='domcontentloaded')
     page.add_style_tag(content=(ROOT / 'assets/styles.css').read_text(encoding='utf-8'))
-    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/timezones.js', 'assets/app.js']:
+    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/timezones.js', 'assets/app.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/astrology-locations.js', 'assets/astrology-app.js']:
         page.add_script_tag(content=(ROOT / file).read_text(encoding='utf-8'))
     page.wait_for_timeout(500)
 
@@ -47,6 +48,35 @@ def open_app(page, url, mode):
         page.wait_for_timeout(500)
     else:
         hydrate(page)
+
+
+def pdf_page_dark_ratio(pdf_path, page_number):
+    with tempfile.TemporaryDirectory() as directory:
+        prefix = Path(directory) / 'page'
+        subprocess.run([
+            'pdftoppm', '-f', str(page_number), '-l', str(page_number), '-singlefile',
+            '-r', '24', str(pdf_path), str(prefix)
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        data = prefix.with_suffix('.ppm').read_bytes()
+    index = 0
+    tokens = []
+    while len(tokens) < 4:
+        while index < len(data) and data[index] in b' \t\r\n':
+            index += 1
+        if index < len(data) and data[index] == 35:
+            while index < len(data) and data[index] not in b'\r\n':
+                index += 1
+            continue
+        start = index
+        while index < len(data) and data[index] not in b' \t\r\n':
+            index += 1
+        tokens.append(data[start:index])
+    assert tokens[0] == b'P6' and tokens[3] == b'255'
+    while index < len(data) and data[index] in b' \t\r\n':
+        index += 1
+    pixels = data[index:]
+    dark = sum(1 for offset in range(0, len(pixels) - 2, 3) if sum(pixels[offset:offset + 3]) < 96)
+    return dark / (len(pixels) // 3)
 
 
 port = free_port()
@@ -286,6 +316,63 @@ try:
         assert b'/S /P' in text_raw
         assert b'/S /Figure' in text_raw
         assert b'/Artifact BMC' in text_raw
+        desktop.locator('#tool-astrology').click()
+        assert desktop.locator('#astrology-tool').is_visible()
+        assert desktop.locator('#tuvi-tool').is_hidden()
+        assert 'tool=ban-do-sao' in desktop.url
+        assert desktop.locator('#astro-location-results option').count() >= 12
+        desktop.locator('#astrology-form button[type="submit"]').click()
+        desktop.wait_for_timeout(500)
+        assert desktop.locator('#astro-form-error').is_hidden()
+        assert desktop.locator('.natal-wheel').count() == 1
+        assert desktop.locator('.astro-quick-card').count() == 4
+        assert desktop.locator('#astro-planets tbody tr').count() == 12
+        assert desktop.locator('#astro-houses tbody tr').count() == 12
+        assert desktop.locator('#astro-aspects tbody tr').count() >= 1
+        assert 'TP. Hồ Chí Minh' in desktop.locator('#astro-result-meta').inner_text()
+        desktop.locator('#astro-pdf-options-button').click()
+        assert desktop.locator('#astro-pdf-options').is_visible()
+        assert desktop.locator('[data-astro-pdf]').count() == 6
+        assert desktop.locator('[data-astro-pdf]:checked').count() == 6
+        astrology_pdf = ROOT / 'sample/MXiao-Ban-Do-Sao-final.pdf'
+        with desktop.expect_download(timeout=90000) as astrology_pdf_info:
+            desktop.locator('#astro-pdf-button').click()
+        astrology_pdf_info.value.save_as(astrology_pdf)
+        astrology_text = subprocess.check_output(['pdftotext', str(astrology_pdf), '-'], text=True)
+        astrology_info = subprocess.check_output(['pdfinfo', str(astrology_pdf)], text=True)
+        assert 'BẢN ĐỒ SAO CÁ NHÂN' in astrology_text
+        assert 'Nguyễn Minh An' in astrology_text
+        assert 'Vòng Bản đồ sao' in astrology_text or b'/Subtype /Image' in astrology_pdf.read_bytes()
+        assert 'Author:' in astrology_info and 'MXiao Huyền Học' in astrology_info
+        assert 'Title:' in astrology_info and 'Bản đồ sao cá nhân' in astrology_info
+        assert b'/StructTreeRoot' in astrology_pdf.read_bytes()
+        assert pdf_page_dark_ratio(astrology_pdf, 3) < 0.2
+        desktop.screenshot(path=ROOT / 'screenshots/astrology-desktop.png', full_page=True)
+
+        desktop.locator('#astro-time-unknown').click()
+        desktop.locator('#astrology-form button[type="submit"]').click()
+        desktop.wait_for_timeout(1000)
+        assert desktop.locator('#astro-limit-badge').is_visible()
+        assert desktop.locator('#astro-houses-section').is_hidden()
+        assert desktop.locator('.astro-quick-card').count() == 2
+
+        desktop.locator('#astro-time-exact').click()
+        desktop.locator('#astro-location-search').fill('Tromsø')
+        desktop.locator('#astro-location-results').select_option('no-tromso')
+        desktop.locator('#astro-date').fill('2004-02-29')
+        desktop.locator('#astro-time').fill('23:45')
+        desktop.locator('.advanced-settings summary').click()
+        desktop.locator('#astro-house-system').select_option('placidus')
+        desktop.locator('#astrology-form button[type="submit"]').click()
+        assert 'Placidus không khả dụng' in desktop.locator('#astro-form-error').inner_text()
+        desktop.locator('#astro-house-system').select_option('whole_sign')
+        desktop.locator('#astrology-form button[type="submit"]').click()
+        assert desktop.locator('#astro-form-error').is_hidden()
+        assert desktop.locator('#astro-houses tbody tr').count() == 12
+
+        desktop.locator('#tool-tuvi').click()
+        assert desktop.locator('#tuvi-tool').is_visible()
+        assert desktop.locator('.palace').count() == 12
         visible_text = desktop.locator('body').inner_text().lower()
         for phrase in ['rule trace', 'source id', 'mã quy tắc', 'gợi ý thực hành', 'json', 'codex', 'dataset', 'tọa độ', 'địa điểm sinh', 'giờ mặt trời']:
             assert phrase not in visible_text
@@ -305,6 +392,12 @@ try:
         assert mobile.locator('[data-pdf-section]').count() == 14
         assert mobile.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
         mobile.screenshot(path=ROOT / 'screenshots/mobile-v2.png', full_page=True)
+        mobile.locator('#tool-astrology').click()
+        mobile.locator('#astrology-form button[type="submit"]').click()
+        mobile.wait_for_timeout(500)
+        assert mobile.locator('.natal-wheel').count() == 1
+        assert mobile.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
+        mobile.screenshot(path=ROOT / 'screenshots/astrology-mobile.png', full_page=True)
         assert not mobile_errors, mobile_errors
         browser.close()
 finally:

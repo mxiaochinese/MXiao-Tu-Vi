@@ -1,0 +1,25 @@
+{
+  "productionEngine": {
+    "name": "Astronomy Engine",
+    "version": "2.1.19",
+    "repository": "https://github.com/cosinekitty/astronomy",
+    "license": "MIT",
+    "licenseFile": "third_party/astronomy-engine-LICENSE.txt"
+  },
+  "houseReference": {
+    "name": "life-chart-engine",
+    "repository": "https://github.com/ZhenheAI/life-chart-engine",
+    "license": "MIT",
+    "licenseFile": "third_party/life-chart-engine-LICENSE.txt"
+  },
+  "timezoneRules": {
+    "name": "IANA Time Zone Database",
+    "runtime": "Intl.DateTimeFormat"
+  },
+  "fixturePolicy": "Independent reference values only; never regenerate expected values from the MXiao production engine.",
+  "excludedEngine": {
+    "name": "Swiss Ephemeris",
+    "usedInProduction": false,
+    "distributed": false
+  }
+}

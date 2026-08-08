@@ -1,6 +1,6 @@
 {
-  "name": "MXiao Tử Vi",
-  "short_name": "MXiao Tử Vi",
+  "name": "MXiao Huyền Học",
+  "short_name": "MXiao",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#fff8f9",
@@ -14,5 +14,5 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Lập lá số Tử Vi, xem tổng quan, đại vận, vận năm hoặc lưu nguyệt và xuất báo cáo PDF A4."
+  "description": "Lập lá số Tử Vi hoặc Bản đồ sao cá nhân ngay trên thiết bị và xuất báo cáo PDF A4."
 }

@@ -1,12 +1,17 @@
 from pathlib import Path
 import re
 import subprocess
+import sys
 from collections import Counter
 from pypdf import PdfReader
 from pypdf.generic import IndirectObject, ArrayObject, DictionaryObject
 
 ROOT = Path(__file__).resolve().parents[1]
-PDF = ROOT / 'sample' / 'MXiao-Tu-Vi-2026-text-final.pdf'
+PDF = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'sample' / 'MXiao-Tu-Vi-2026-text-final.pdf'
+EXPECTED_TITLE = sys.argv[2] if len(sys.argv) > 2 else 'Lá số Tử Vi và luận giải chi tiết'
+EXPECTED_AUTHOR = sys.argv[3] if len(sys.argv) > 3 else 'MXiao Tử Vi'
+EXPECTED_HEADING = sys.argv[4] if len(sys.argv) > 4 else 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT'
+MIN_TEXT_LENGTH = int(sys.argv[5]) if len(sys.argv) > 5 else 50000
 assert PDF.exists(), f'Missing {PDF}'
 data = PDF.read_bytes()
 assert data.startswith(b'%PDF-1.7')
@@ -25,13 +30,13 @@ assert '/OpenAction' not in root
 assert '/AA' not in root
 assert '/AcroForm' not in root
 info = reader.metadata
-assert info and info.title == 'Lá số Tử Vi và luận giải chi tiết'
-assert info.author == 'MXiao Tử Vi'
+assert info and info.title == EXPECTED_TITLE
+assert info.author == EXPECTED_AUTHOR
 
 metadata = root['/Metadata'].get_object().get_data()
 assert b'pdfuaid:part' in metadata and re.search(rb'<pdfuaid:part>\s*1\s*</pdfuaid:part>', metadata)
 assert b'<dc:language>' in metadata and b'vi-VN' in metadata
-assert 'Lá số Tử Vi và luận giải chi tiết'.encode('utf-8') in metadata
+assert EXPECTED_TITLE.encode('utf-8') in metadata
 
 # Page geometry, tab order, structural parent keys, and absence of untagged annotations.
 A4_P = (595.28, 841.89)
@@ -150,10 +155,10 @@ for line in font_lines:
     assert columns[-5] == 'yes', line
     assert columns[-3] == 'yes', line
 text = subprocess.check_output(['pdftotext', str(PDF), '-'], text=True)
-assert len(text) > 50000
+assert len(text) > MIN_TEXT_LENGTH
 assert '\ufffd' not in text
 normalized_text = re.sub(r'\s+', ' ', text)
-assert 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT' in normalized_text
+assert EXPECTED_HEADING in normalized_text
 
 print(
     'PDF accessibility integrity preflight passed: '

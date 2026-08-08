@@ -1,5 +1,15 @@
 # Changelog
 
+## MXiao Huyền Học - Bản đồ sao
+
+- Mở rộng ứng dụng thành hai công cụ độc lập: Tử Vi và Bản đồ sao; giữ nguyên công thức và dữ liệu Tử Vi hiện có.
+- Thêm Bản đồ sao tropical với 10 hành tinh, True North Node, Placidus, Whole Sign, Equal House, năm góc hợp chính và các mô hình cốt lõi.
+- Giữ repository độc quyền nhưng dùng Astronomy Engine 2.1.19 và thuật toán Nhà tham chiếu theo giấy phép MIT; không dùng Swiss Ephemeris.
+- Xử lý ngày giờ, IANA timezone và DST tại trình duyệt; không gửi dữ liệu sinh hoặc địa điểm ra mạng.
+- Thêm chế độ giờ chính xác, khoảng giờ và không biết giờ; ẩn góc/Nhà và chỉ công bố kết quả ổn định khi giờ chưa chắc chắn.
+- Thêm giao diện Gilroy responsive, vòng tròn Bản đồ sao, các bảng phân tích và PDF/UA riêng cho Bản đồ sao.
+- Bổ sung fixture độc lập, kiểm thử hành tinh/cusp, DST, vĩ độ cao, bất định giờ, trình duyệt và PDF/UA.
+
 ## Patch phạm vi xem vận sau V4
 
 - Thêm bốn phạm vi độc lập: lá số tổng quan, vận năm, một tháng cụ thể và toàn bộ các tháng trong năm.

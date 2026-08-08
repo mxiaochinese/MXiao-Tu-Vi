@@ -1,8 +1,10 @@
-# MXiao Tử Vi
+# MXiao Huyền Học
 
-Web app tĩnh để lập lá số Tử Vi từ ngày sinh, giờ sinh, giới tính và múi giờ. Ứng dụng không có tài khoản, không tự động lưu và không gửi dữ liệu sinh ra ngoài.
+Web app tĩnh gồm hai công cụ độc lập: Tử Vi và Bản đồ sao Tây phương. Ứng dụng không có tài khoản, không tự động lưu và không gửi dữ liệu sinh ra ngoài.
 
 ## Chức năng
+
+### Tử Vi
 
 - Nhập ngày dương lịch hoặc âm lịch, gồm tháng nhuận.
 - Chọn giờ và phút chính xác hoặc chọn một trong 12 khung giờ Địa Chi.
@@ -22,6 +24,17 @@ Web app tĩnh để lập lá số Tử Vi từ ngày sinh, giờ sinh, giới t
 - Tải một chạm PDF A4 dạng hình ảnh giữ bố cục ổn định.
 - Giới hạn tối đa 48 trang cho cả PDF văn bản và PDF hình ảnh; nội dung dài được ngắt trang thay vì thu nhỏ chữ.
 - Chạy hoàn toàn trên trình duyệt, không yêu cầu backend.
+
+### Bản đồ sao
+
+- Nhập ngày dương lịch, giờ chính xác, khoảng giờ hoặc chọn không biết giờ.
+- Chọn địa điểm từ danh mục đi kèm ứng dụng; IANA timezone và chuyển đổi DST được xử lý trên thiết bị.
+- Tính hoàng đạo tropical, 10 hành tinh chính, True North Node, năm góc hợp chính và các mô hình góc hợp cốt lõi.
+- Chọn riêng Placidus, Whole Sign hoặc Equal House. Placidus không khả dụng ở vĩ độ cao sẽ báo rõ, không tự đổi hệ thống.
+- Khi giờ sinh chưa chắc chắn, ẩn ASC, MC và Nhà; chỉ hiển thị kết quả ổn định qua toàn khoảng giờ lấy mẫu mỗi 5 phút.
+- Hiển thị vòng tròn Bản đồ sao, bảng hành tinh, góc hợp, 12 Nhà và cân bằng nguyên tố - tính chất.
+- Xuất PDF riêng cho Bản đồ sao với từng phần nội dung có thể chọn.
+- Dùng Astronomy Engine 2.1.19 (MIT); không dùng Swiss Ephemeris. Chi tiết kỹ thuật và nguồn kiểm chứng nằm tại `docs/ASTROLOGY_ENGINE.md`.
 
 ## Chạy tại máy
 
@@ -51,7 +64,7 @@ Báo cáo chi tiết nằm tại `docs/PUBLIC_VALIDATION_REPORT.md`.
 npm run test:pdf
 ```
 
-Bài kiểm tra cục bộ xác nhận PDF 1.7, XMP, định danh PDF/UA-1, ngôn ngữ, cây cấu trúc, thứ tự tab, alt text, font Unicode nhúng, toàn vẹn MCID - ParentTree, thứ tự heading và khả năng trích xuất tiếng Việt. Quy trình CI dùng veraPDF 1.30.2 với profile `ua1` được mô tả tại `docs/PDF_ACCESSIBILITY.md`. Chạy cục bộ bằng `npm run test:pdfua` khi máy có Docker.
+Bài kiểm tra cục bộ xác nhận cả PDF Tử Vi và PDF Bản đồ sao dùng PDF 1.7, XMP, định danh PDF/UA-1, ngôn ngữ, cây cấu trúc, thứ tự tab, alt text, font Unicode nhúng, toàn vẹn MCID - ParentTree, thứ tự heading và khả năng trích xuất tiếng Việt. Quy trình CI dùng veraPDF 1.30.2 với profile `ua1` được mô tả tại `docs/PDF_ACCESSIBILITY.md`. Chạy cục bộ bằng `npm run test:pdfua` khi máy có Docker.
 
 ## Kiểm thử trình duyệt
 
@@ -59,7 +72,7 @@ Bài kiểm tra cục bộ xác nhận PDF 1.7, XMP, định danh PDF/UA-1, ngô
 npm run test:e2e
 ```
 
-Bài kiểm thử bao gồm hai phương pháp lập lá số, tháng nhuận, lựa chọn nội dung báo cáo, hai loại PDF, metadata, bookmark và cấu trúc PDF.
+Bài kiểm thử bao gồm hai phương pháp lập lá số Tử Vi, tháng nhuận, Bản đồ sao chính xác/không biết giờ/vĩ độ cao, lựa chọn nội dung báo cáo, PDF, metadata, bookmark và cấu trúc PDF.
 
 ## Triển khai GitHub Pages
 

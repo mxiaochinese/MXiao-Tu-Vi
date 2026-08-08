@@ -1,0 +1,21 @@
+{
+  "configVersion": "mxiao_astrology_config_1.0.0",
+  "engine": {
+    "name": "Astronomy Engine",
+    "version": "2.1.19",
+    "license": "MIT",
+    "networkAccess": false
+  },
+  "zodiac": "tropical",
+  "referenceFrame": "geocentric_apparent",
+  "nodeType": "true_node",
+  "houseSystems": ["placidus", "whole_sign", "equal"],
+  "uncertainTimeSampleStepMinutes": 5,
+  "aspects": [
+    { "id": "conjunction", "angle": 0, "baseOrb": 6, "luminaryOrb": 8 },
+    { "id": "sextile", "angle": 60, "baseOrb": 4, "luminaryOrb": 5 },
+    { "id": "square", "angle": 90, "baseOrb": 5, "luminaryOrb": 7 },
+    { "id": "trine", "angle": 120, "baseOrb": 5, "luminaryOrb": 7 },
+    { "id": "opposition", "angle": 180, "baseOrb": 6, "luminaryOrb": 8 }
+  ]
+}

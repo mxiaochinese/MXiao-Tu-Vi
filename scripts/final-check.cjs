@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
-const required = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md', 'assets/app.js', 'assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/styles.css', 'assets/timezones.js', 'assets/mxiao-mark.svg', 'assets/fonts/svn-gilroy-regular.otf', 'assets/fonts/svn-gilroy-semibold.otf'];
+const required = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md', 'third_party/astronomy-engine-LICENSE.txt', 'third_party/iztro-LICENSE.txt', 'third_party/life-chart-engine-LICENSE.txt', 'assets/app.js', 'assets/astrology-app.js', 'assets/astrology-locations.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/styles.css', 'assets/timezones.js', 'assets/mxiao-mark.svg', 'assets/fonts/svn-gilroy-regular.otf', 'assets/fonts/svn-gilroy-semibold.otf'];
 for (const file of required) assert.ok(fs.existsSync(path.join(dist, file)), `Missing dist/${file}`);
 const allFiles = [];
 function walk(dir) {
@@ -16,7 +16,7 @@ function walk(dir) {
 walk(dist);
 const relative = allFiles.map((file) => path.relative(dist, file));
 for (const forbidden of ['src', 'tests', 'scripts', 'docs', 'knowledge', 'sample', 'screenshots', 'PROMPT_FOR_CODEX.md']) assert.ok(!relative.some((file) => file === forbidden || file.startsWith(`${forbidden}/`)), `Public package contains ${forbidden}`);
-const visible = ['index.html', 'assets/app.js', 'assets/styles.css', 'assets/pdf.bundle.js'].map((file) => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
+const visible = ['index.html', 'assets/app.js', 'assets/astrology-app.js', 'assets/styles.css', 'assets/pdf.bundle.js'].map((file) => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 for (const phrase of ['sourceRuleId', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'engine xác định', 'phạm vi 1.0', 'địa điểm sinh', 'tọa độ', 'giờ mặt trời', 'json-button', 'copy-button']) assert.ok(!visible.includes(phrase), `Public package contains ${phrase}`);
 for (const marker of ['/*', '*/', String.fromCodePoint(0x2013), String.fromCodePoint(0x2014)]) assert.ok(!visible.includes(marker), `Public package contains forbidden marker ${marker}`);
 assert.match(visible, /MAX_PDF_PAGES = 48/);
@@ -36,6 +36,8 @@ assert.match(visible, /Tân Biên/);
 assert.match(visible, /Áo Bí/);
 assert.match(visible, /pdfuaid:part/);
 assert.match(visible, /downloadSelectablePdf/);
+assert.match(visible, /downloadAstrologyPdf/);
+assert.match(visible, /Bản đồ sao cá nhân/);
 const engineBundle = fs.readFileSync(path.join(dist, 'assets/engine.bundle.js'), 'utf8');
 assert.match(engineBundle, /Tử Phủ Vũ Tướng/);
 assert.match(engineBundle, /Sát Phá Tham/);

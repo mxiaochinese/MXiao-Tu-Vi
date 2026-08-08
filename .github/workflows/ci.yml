@@ -21,7 +21,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: generated-text-pdf
-          path: sample/MXiao-Tu-Vi-2026-text-final.pdf
+          path: |
+            sample/MXiao-Tu-Vi-2026-text-final.pdf
+            sample/MXiao-Ban-Do-Sao-final.pdf
 
   pdfua:
     needs: test
@@ -33,12 +35,11 @@ jobs:
           name: generated-text-pdf
           path: sample
       - name: Validate PDF/UA-1 with veraPDF 1.30.2
-        run: |
-          docker run --rm -v "$PWD:/data" verapdf/cli:v1.30.2 \
-            -f ua1 /data/sample/MXiao-Tu-Vi-2026-text-final.pdf > verapdf-report.xml
-          python3 tests/verify_verapdf_report.py verapdf-report.xml
+        run: bash scripts/verapdf-check.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: verapdf-report
-          path: verapdf-report.xml
+          path: |
+            verapdf-report.xml
+            verapdf-astrology-report.xml

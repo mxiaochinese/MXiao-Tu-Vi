@@ -22,6 +22,11 @@ fs.writeFileSync(path.join(root, 'assets/engine.bundle.js'), output);
 const pdfSource = clean(fs.readFileSync(path.join(root, 'src/pdf/client-pdf.cjs'), 'utf8'));
 const pdfOutput = `(function(global){\n"use strict";\nconst module={exports:{}}; const exports=module.exports;\n${pdfSource}\nglobal.MXiaoPdf=Object.freeze(module.exports);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
 fs.writeFileSync(path.join(root, 'assets/pdf.bundle.js'), pdfOutput);
+
+const astrologySource = clean(fs.readFileSync(path.join(root, 'src/astrology/engine.js'), 'utf8'));
+const astrologyOutput = `(function(global){\n"use strict";\nconst module={exports:{}}; const exports=module.exports;\n${astrologySource}\nglobal.MXiaoAstrologyEngine=module.exports.createAstrologyEngine(global.Astronomy);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
+fs.writeFileSync(path.join(root, 'assets/astrology-engine.bundle.js'), astrologyOutput);
+fs.copyFileSync(path.join(root, 'node_modules/astronomy-engine/astronomy.browser.min.js'), path.join(root, 'assets/astronomy.browser.min.js'));
 console.log('Browser bundles built.');
 
 const dist = path.join(root, 'dist');
@@ -29,7 +34,11 @@ fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(path.join(dist, 'assets'), { recursive: true });
 const publicFiles = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md'];
 for (const file of publicFiles) fs.copyFileSync(path.join(root, file), path.join(dist, file));
-const publicAssets = ['app.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
+fs.mkdirSync(path.join(dist, 'third_party'), { recursive: true });
+for (const file of ['astronomy-engine-LICENSE.txt', 'iztro-LICENSE.txt', 'life-chart-engine-LICENSE.txt']) {
+  fs.copyFileSync(path.join(root, 'third_party', file), path.join(dist, 'third_party', file));
+}
+const publicAssets = ['app.js', 'astrology-app.js', 'astrology-locations.js', 'astronomy.browser.min.js', 'astrology-engine.bundle.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
 for (const file of publicAssets) {
   const target = path.join(dist, 'assets', file);
   fs.mkdirSync(path.dirname(target), { recursive: true });

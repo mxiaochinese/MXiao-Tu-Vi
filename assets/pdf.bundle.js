@@ -1198,13 +1198,15 @@ function xmlEscape(value) {
     return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
-function buildPdfUaXmpMetadata() {
+function buildPdfUaXmpMetadata(metadata = {}) {
     const now = new Date().toISOString();
+    const title = metadata.title || "Lá số Tử Vi và luận giải chi tiết";
+    const author = metadata.author || "MXiao Tử Vi";
     return `<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="MXiao Tử Vi">
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="${xmlEscape(author)}">
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:pdf="http://ns.adobe.com/pdf/1.3/" xmlns:pdfuaid="http://www.aiim.org/pdfua/ns/id/">
-<dc:format>application/pdf</dc:format><dc:title><rdf:Alt><rdf:li xml:lang="x-default">${xmlEscape("Lá số Tử Vi và luận giải chi tiết")}</rdf:li><rdf:li xml:lang="vi-VN">${xmlEscape("Lá số Tử Vi và luận giải chi tiết")}</rdf:li></rdf:Alt></dc:title><dc:creator><rdf:Seq><rdf:li>MXiao Tử Vi</rdf:li></rdf:Seq></dc:creator><dc:language><rdf:Bag><rdf:li>vi-VN</rdf:li></rdf:Bag></dc:language><xmp:CreatorTool>MXiao Tử Vi</xmp:CreatorTool><xmp:CreateDate>${now}</xmp:CreateDate><xmp:ModifyDate>${now}</xmp:ModifyDate><pdf:Producer>MXiao Tử Vi</pdf:Producer><pdfuaid:part>1</pdfuaid:part>
+<dc:format>application/pdf</dc:format><dc:title><rdf:Alt><rdf:li xml:lang="x-default">${xmlEscape(title)}</rdf:li><rdf:li xml:lang="vi-VN">${xmlEscape(title)}</rdf:li></rdf:Alt></dc:title><dc:creator><rdf:Seq><rdf:li>${xmlEscape(author)}</rdf:li></rdf:Seq></dc:creator><dc:language><rdf:Bag><rdf:li>vi-VN</rdf:li></rdf:Bag></dc:language><xmp:CreatorTool>${xmlEscape(author)}</xmp:CreatorTool><xmp:CreateDate>${now}</xmp:CreateDate><xmp:ModifyDate>${now}</xmp:ModifyDate><pdf:Producer>${xmlEscape(author)}</pdf:Producer><pdfuaid:part>1</pdfuaid:part>
 </rdf:Description></rdf:RDF></x:xmpmeta>
 <?xpacket end="w"?>`;
 }
@@ -1231,7 +1233,7 @@ function serializePdfStore(store, rootId, infoId = null) {
     return concatBytes(chunks);
 }
 
-async function buildSelectablePdfBlob(pages) {
+async function buildSelectablePdfBlob(pages, metadata = {}) {
     const normalChars = [];
     const boldChars = [];
     pages.forEach((page) => page.elements.filter((item) => item.type === "text").forEach((item) => {
@@ -1263,8 +1265,14 @@ async function buildSelectablePdfBlob(pages) {
     const structureId = buildTaggedStructure(store, pages, pageIds, tagPlans);
     const outlinesId = buildPdfOutlines(store, pages, pageIds);
     const now = pdfDateNow();
-    const infoId = store.add(`<< /Title ${pdfUtf16Hex("Lá số Tử Vi và luận giải chi tiết")} /Author ${pdfUtf16Hex("MXiao Tử Vi")} /Subject ${pdfUtf16Hex("Báo cáo lá số Tử Vi theo nội dung người dùng lựa chọn")} /Keywords ${pdfUtf16Hex("Tử Vi, lá số, luận giải, vận hạn")} /Creator ${pdfUtf16Hex("MXiao Tử Vi")} /Producer ${pdfUtf16Hex("MXiao Tử Vi")} /CreationDate (${now}) /ModDate (${now}) >>`);
-    const metadataId = store.stream(buildPdfUaXmpMetadata(), "/Type /Metadata /Subtype /XML");
+    const info = {
+        title: metadata.title || "Lá số Tử Vi và luận giải chi tiết",
+        author: metadata.author || "MXiao Tử Vi",
+        subject: metadata.subject || "Báo cáo lá số Tử Vi theo nội dung người dùng lựa chọn",
+        keywords: metadata.keywords || "Tử Vi, lá số, luận giải, vận hạn"
+    };
+    const infoId = store.add(`<< /Title ${pdfUtf16Hex(info.title)} /Author ${pdfUtf16Hex(info.author)} /Subject ${pdfUtf16Hex(info.subject)} /Keywords ${pdfUtf16Hex(info.keywords)} /Creator ${pdfUtf16Hex(info.author)} /Producer ${pdfUtf16Hex(info.author)} /CreationDate (${now}) /ModDate (${now}) >>`);
+    const metadataId = store.stream(buildPdfUaXmpMetadata(info), "/Type /Metadata /Subtype /XML");
     store.set(catalogId, `<< /Type /Catalog /Version /1.7 /Pages ${pagesId} 0 R /Lang ${pdfUtf16Hex("vi-VN")} /ViewerPreferences << /DisplayDocTitle true >> /StructTreeRoot ${structureId} 0 R /MarkInfo << /Marked true >> /Metadata ${metadataId} 0 R${outlinesId ? ` /Outlines ${outlinesId} 0 R /PageMode /UseOutlines` : ""} >>`);
     return new Blob([serializePdfStore(store, catalogId, infoId)], { type: "application/pdf" });
 }
@@ -1284,7 +1292,134 @@ async function downloadSelectablePdf(chart, exportOptions) {
     return pages.length;
 }
 
-module.exports = { MAX_PDF_PAGES, MAX_TEXT_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePages, buildSelectablePdfBlob, downloadSelectablePdf };
+function astrologyPlacementLabel(item) {
+    return `${item.sign.name} ${Math.floor(item.degree)}°${String(Math.round((item.degree - Math.floor(item.degree)) * 60)).padStart(2, "0")}′${item.retrograde ? " ℞" : ""}`;
+}
+
+function astrologyFooter(page, chart, number, total) {
+    const top = page.heightPt - 34;
+    lineElement(page, 48, top - 10, page.widthPt - 48, top - 10, LINE, 0.6);
+    textElement(page, `MXiao Huyền Học | ${chart.profile.name || "Người xem"}`, 48, top + 3, 8, 400, MUTED, "Artifact");
+    const label = `${number}/${total}`;
+    textElement(page, label, page.widthPt - 48 - measurePdfText(label, 8, 400), top + 3, 8, 400, MUTED, "Artifact");
+}
+
+function buildAstrologyCover(chart) {
+    const page = newTextPage("portrait");
+    page.bookmark = "Bìa báo cáo";
+    rectElement(page, 0, 0, page.widthPt, page.heightPt, RED_DARK);
+    textElement(page, "MXIAO HUYỀN HỌC", 54, 72, 14, 700, WHITE, "Artifact");
+    textBlock(page, "BẢN ĐỒ SAO CÁ NHÂN", 54, 155, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
+    textElement(page, chart.profile.name || "Người xem", 54, 320, 22, 700, WHITE, "H2");
+    const meta = [
+        `Ngày sinh: ${chart.profile.birthDate}`,
+        `Giờ sinh: ${chart.profile.birthTimeLocal || "Không biết giờ sinh"}`,
+        `Nơi sinh: ${chart.profile.birthPlaceLabel}`,
+        `Hoàng đạo: Tropical`,
+        `Hệ thống Nhà: ${chart.settings.houseSystem ? chart.settings.houseSystem.replace("whole_sign", "Whole Sign").replace("equal", "Equal House").replace("placidus", "Placidus") : "Không áp dụng"}`
+    ];
+    meta.forEach((line, index) => textElement(page, line, 54, 400 + index * 27, 11, 400, WHITE));
+    rectElement(page, 54, 600, page.widthPt - 108, 118, "#8d1019", "#d6747d", 0.8);
+    textBlock(page, chart.status === "exact" ? "Báo cáo được tính từ thời điểm sinh chính xác do người dùng cung cấp." : "Báo cáo giới hạn chỉ dùng các yếu tố ổn định trong khoảng giờ được khảo sát.", 72, 622, page.widthPt - 144, 11, 17, 700, WHITE);
+    textBlock(page, "Phần luận giải thuộc hệ thống Chiêm tinh Tây phương và chỉ dùng để tham khảo, tự chiêm nghiệm.", 72, 674, page.widthPt - 144, 9, 14, 400, WHITE);
+    return page;
+}
+
+function astrologyOverviewParagraphs(chart) {
+    const sun = chart.planets.find((item) => item.id === "sun");
+    const moon = chart.planets.find((item) => item.id === "moon");
+    const result = [];
+    if (sun && moon) result.push(`Mặt Trời ở ${sun.sign.name} và Mặt Trăng ở ${moon.sign.name}. Hai vị trí được đọc trong quan hệ với các góc hợp, Nhà và chủ tinh thay vì tách thành những mô tả rời rạc.`);
+    if (chart.angles) {
+        const asc = chart.planets.length && chart.angles.asc;
+        const ascPosition = asc == null ? null : { signIndex: Math.floor(((asc % 360) + 360) % 360 / 30) };
+        const signNames = ["Bạch Dương","Kim Ngưu","Song Tử","Cự Giải","Sư Tử","Xử Nữ","Thiên Bình","Bọ Cạp","Nhân Mã","Ma Kết","Bảo Bình","Song Ngư"];
+        result.push(`Cung Mọc nằm tại ${signNames[ascPosition.signIndex]}; Thiên Đỉnh và hệ thống 12 Nhà được tính từ cùng dữ liệu sinh và hệ thống Nhà đã chọn.`);
+    } else result.push("Do giờ sinh chưa đủ chắc chắn, báo cáo không tạo Cung Mọc, Thiên Đỉnh, 12 Nhà hoặc đường chủ tinh giả.");
+    if (chart.patterns.length) result.push(`Cấu trúc nổi bật được phát hiện theo topology và orb chặt: ${chart.patterns.map((item) => item.name).join(", ")}.`);
+    const tight = chart.aspects.slice(0, 5);
+    if (tight.length) result.push(`Các góc hợp chặt được ưu tiên khi tổng hợp gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}.`);
+    return result;
+}
+
+function buildAstrologyOverview(chart) {
+    const page = newTextPage("portrait");
+    let y = selectableHeader(page, "Tổng quan Bản đồ sao", chart.status === "exact" ? "Dữ liệu giờ sinh chính xác." : "Bản đồ giới hạn do giờ sinh chưa chắc chắn.");
+    const sun = chart.planets.find((item) => item.id === "sun");
+    const moon = chart.planets.find((item) => item.id === "moon");
+    if (sun) y = addSummaryLine(page, "Mặt Trời", astrologyPlacementLabel(sun), y, true);
+    if (moon) y = addSummaryLine(page, "Mặt Trăng", astrologyPlacementLabel(moon), y, true);
+    if (chart.angles) {
+        const signNames = ["Bạch Dương","Kim Ngưu","Song Tử","Cự Giải","Sư Tử","Xử Nữ","Thiên Bình","Bọ Cạp","Nhân Mã","Ma Kết","Bảo Bình","Song Ngư"];
+        const angleLabel = (value) => `${Math.floor(((value % 30) + 30) % 30)}° ${signNames[Math.floor((((value % 360) + 360) % 360) / 30)]}`;
+        y = addSummaryLine(page, "Cung Mọc", angleLabel(chart.angles.asc), y, false);
+        y = addSummaryLine(page, "Thiên Đỉnh", angleLabel(chart.angles.mc), y, false);
+    }
+    y += 8;
+    astrologyOverviewParagraphs(chart).forEach((paragraph) => { y = textBlock(page, paragraph, 48, y, page.widthPt - 96, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK) + 10; });
+    return page;
+}
+
+function buildAstrologyRowsPages(chart, kind) {
+    const titles = { planets: "Bảng vị trí hành tinh", aspects: "Bảng góc hợp chính", houses: "12 Nhà và đường chủ tinh", balance: "Nguyên tố và tính chất" };
+    let rows = [];
+    if (kind === "planets") rows = chart.planets.map((item) => `${item.name}: ${astrologyPlacementLabel(item)}${item.house ? `, Nhà ${item.house}` : ""}${item.stability && item.stability !== "stable" ? ` - chưa ổn định (${item.possibleSigns.join(" / ")})` : ""}`);
+    if (kind === "aspects") rows = chart.aspects.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} - orb ${item.orb.toFixed(2)}°${item.state === "applying" ? ", đang tiến tới" : item.state === "separating" ? ", đang tách ra" : ""}`);
+    if (kind === "houses") rows = chart.houses.map((house) => `Nhà ${house.number}: cusp ${house.sign.name}; chủ tinh ${house.rulerName}${house.rulerHouse ? ` ở Nhà ${house.rulerHouse}` : ""}; ${house.planets.length ? `${house.planets.length} thiên thể trong Nhà` : "không có hành tinh, vẫn đọc qua cusp và chủ tinh"}.`);
+    if (kind === "balance") rows = [...Object.entries(chart.balances.element).map(([key, value]) => `Nguyên tố ${key}: ${value} hành tinh`), ...Object.entries(chart.balances.modality).map(([key, value]) => `Tính chất ${key}: ${value} hành tinh`)];
+    const pages = [];
+    let page = newTextPage("portrait");
+    let y = selectableHeader(page, titles[kind]);
+    const bottom = page.heightPt - 62;
+    rows.forEach((row) => {
+        const height = 18 + wrapPdfText(row, page.widthPt - 124, 11, 400).length * 16;
+        if (y + height > bottom) {
+            pages.push(page);
+            page = newTextPage("portrait");
+            y = selectableHeader(page, titles[kind], "Tiếp theo");
+        }
+        rectElement(page, 48, y, page.widthPt - 96, height, "#ffffff", LINE, 0.7);
+        textBlock(page, row, 62, y + 9, page.widthPt - 124, 11, 16, 400, INK);
+        y += height + 7;
+    });
+    pages.push(page);
+    return pages;
+}
+
+function buildAstrologySelectablePages(chart, chartCanvas, options = {}) {
+    const selected = new Set(options.sections || ["overview", "wheel", "planets", "aspects", "houses", "balance"]);
+    const pages = [buildAstrologyCover(chart)];
+    if (selected.has("overview")) pages.push(buildAstrologyOverview(chart));
+    if (selected.has("wheel") && chartCanvas) {
+        const page = newTextPage("landscape");
+        page.bookmark = "Vòng Bản đồ sao";
+        page.imageCanvas = chartCanvas;
+        pages.push(page);
+    }
+    for (const kind of ["planets", "aspects", "houses", "balance"]) {
+        if (selected.has(kind) && (kind !== "houses" || chart.houses.length)) pages.push(...buildAstrologyRowsPages(chart, kind));
+    }
+    if (pages.length > MAX_TEXT_PDF_PAGES) throw new Error(`Báo cáo Bản đồ sao có ${pages.length} trang, vượt giới hạn ${MAX_TEXT_PDF_PAGES} trang A4.`);
+    pages.forEach((page, index) => { if (index && !page.imageCanvas) astrologyFooter(page, chart, index + 1, pages.length); });
+    return pages;
+}
+
+async function downloadAstrologyPdf(chart, chartCanvas, options = {}) {
+    await ensureFontsReady();
+    const pages = buildAstrologySelectablePages(chart, chartCanvas, options);
+    const blob = await buildSelectablePdfBlob(pages, { title: "Bản đồ sao cá nhân", author: "MXiao Huyền Học", subject: "Báo cáo Bản đồ sao cá nhân", keywords: "Bản đồ sao, Natal Chart, Chiêm tinh Tây phương" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `${safeFileName(chart.profile.name)}-ban-do-sao.pdf`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 3000);
+    return pages.length;
+}
+
+module.exports = { MAX_PDF_PAGES, MAX_TEXT_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePages, buildSelectablePdfBlob, downloadSelectablePdf, buildAstrologySelectablePages, downloadAstrologyPdf };
 
 global.MXiaoPdf=Object.freeze(module.exports);
 })(typeof globalThis!=='undefined'?globalThis:window);

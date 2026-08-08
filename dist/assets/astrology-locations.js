@@ -1,0 +1,35 @@
+(function (global) {
+  "use strict";
+  global.MXiaoAstrologyLocations = Object.freeze([
+    { id: "vn-hanoi", label: "Hà Nội, Việt Nam", country: "VN", latitude: 21.0278, longitude: 105.8342, timezone: "Asia/Bangkok" },
+    { id: "vn-hcm", label: "TP. Hồ Chí Minh, Việt Nam", country: "VN", latitude: 10.8231, longitude: 106.6297, timezone: "Asia/Ho_Chi_Minh" },
+    { id: "vn-danang", label: "Đà Nẵng, Việt Nam", country: "VN", latitude: 16.0544, longitude: 108.2022, timezone: "Asia/Ho_Chi_Minh" },
+    { id: "vn-haiphong", label: "Hải Phòng, Việt Nam", country: "VN", latitude: 20.8449, longitude: 106.6881, timezone: "Asia/Bangkok" },
+    { id: "vn-cantho", label: "Cần Thơ, Việt Nam", country: "VN", latitude: 10.0452, longitude: 105.7469, timezone: "Asia/Ho_Chi_Minh" },
+    { id: "vn-hue", label: "Huế, Việt Nam", country: "VN", latitude: 16.4637, longitude: 107.5909, timezone: "Asia/Ho_Chi_Minh" },
+    { id: "th-bangkok", label: "Bangkok, Thái Lan", country: "TH", latitude: 13.7563, longitude: 100.5018, timezone: "Asia/Bangkok" },
+    { id: "sg-singapore", label: "Singapore", country: "SG", latitude: 1.3521, longitude: 103.8198, timezone: "Asia/Singapore" },
+    { id: "hk-hongkong", label: "Hồng Kông", country: "HK", latitude: 22.3193, longitude: 114.1694, timezone: "Asia/Hong_Kong" },
+    { id: "tw-taipei", label: "Đài Bắc, Đài Loan", country: "TW", latitude: 25.033, longitude: 121.5654, timezone: "Asia/Taipei" },
+    { id: "jp-tokyo", label: "Tokyo, Nhật Bản", country: "JP", latitude: 35.6762, longitude: 139.6503, timezone: "Asia/Tokyo" },
+    { id: "kr-seoul", label: "Seoul, Hàn Quốc", country: "KR", latitude: 37.5665, longitude: 126.978, timezone: "Asia/Seoul" },
+    { id: "cn-beijing", label: "Bắc Kinh, Trung Quốc", country: "CN", latitude: 39.9042, longitude: 116.4074, timezone: "Asia/Shanghai" },
+    { id: "in-delhi", label: "New Delhi, Ấn Độ", country: "IN", latitude: 28.6139, longitude: 77.209, timezone: "Asia/Kolkata" },
+    { id: "ae-dubai", label: "Dubai, UAE", country: "AE", latitude: 25.2048, longitude: 55.2708, timezone: "Asia/Dubai" },
+    { id: "gb-london", label: "London, Vương quốc Anh", country: "GB", latitude: 51.5074, longitude: -0.1278, timezone: "Europe/London" },
+    { id: "fr-paris", label: "Paris, Pháp", country: "FR", latitude: 48.8566, longitude: 2.3522, timezone: "Europe/Paris" },
+    { id: "de-berlin", label: "Berlin, Đức", country: "DE", latitude: 52.52, longitude: 13.405, timezone: "Europe/Berlin" },
+    { id: "ru-moscow", label: "Moscow, Nga", country: "RU", latitude: 55.7558, longitude: 37.6173, timezone: "Europe/Moscow" },
+    { id: "is-reykjavik", label: "Reykjavík, Iceland", country: "IS", latitude: 64.1466, longitude: -21.9426, timezone: "Atlantic/Reykjavik" },
+    { id: "no-tromso", label: "Tromsø, Na Uy", country: "NO", latitude: 69.6492, longitude: 18.9553, timezone: "Europe/Oslo" },
+    { id: "us-newyork", label: "New York, Hoa Kỳ", country: "US", latitude: 40.7128, longitude: -74.006, timezone: "America/New_York" },
+    { id: "us-losangeles", label: "Los Angeles, Hoa Kỳ", country: "US", latitude: 34.0522, longitude: -118.2437, timezone: "America/Los_Angeles" },
+    { id: "us-chicago", label: "Chicago, Hoa Kỳ", country: "US", latitude: 41.8781, longitude: -87.6298, timezone: "America/Chicago" },
+    { id: "ca-toronto", label: "Toronto, Canada", country: "CA", latitude: 43.6532, longitude: -79.3832, timezone: "America/Toronto" },
+    { id: "br-saopaulo", label: "São Paulo, Brazil", country: "BR", latitude: -23.5505, longitude: -46.6333, timezone: "America/Sao_Paulo" },
+    { id: "au-sydney", label: "Sydney, Australia", country: "AU", latitude: -33.8688, longitude: 151.2093, timezone: "Australia/Sydney" },
+    { id: "nz-auckland", label: "Auckland, New Zealand", country: "NZ", latitude: -36.8509, longitude: 174.7645, timezone: "Pacific/Auckland" },
+    { id: "za-johannesburg", label: "Johannesburg, Nam Phi", country: "ZA", latitude: -26.2041, longitude: 28.0473, timezone: "Africa/Johannesburg" },
+    { id: "eg-cairo", label: "Cairo, Ai Cập", country: "EG", latitude: 30.0444, longitude: 31.2357, timezone: "Africa/Cairo" }
+  ]);
+})(typeof globalThis !== "undefined" ? globalThis : window);
