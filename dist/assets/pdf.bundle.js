@@ -195,11 +195,11 @@ function drawSummaryBox(context, x, y, width, height, label, value, accent = fal
     context.strokeStyle = accent ? "#e3aab0" : LINE;
     context.stroke();
     context.fillStyle = MUTED;
-    setFont(context, 14, 700);
+    setFont(context, 16, 700);
     context.fillText(label.toUpperCase(), x + 20, y + 18);
     context.fillStyle = accent ? RED_DARK : INK;
-    setFont(context, 20, 750);
-    drawWrappedText(context, value, x + 20, y + 50, width - 40, 27);
+    setFont(context, 23, 750);
+    drawWrappedText(context, value, x + 20, y + 48, width - 40, 30);
 }
 
 function drawOverviewPage(chart) {
@@ -208,6 +208,8 @@ function drawOverviewPage(chart) {
     let y = drawPageHeader(context, "Tổng quan lá số", `Các lớp vận hạn được tính cho năm ${chart.input.viewYear}.`);
     const gap = 16;
     const width = (canvas.width - 144 - gap) / 2;
+    const summaryHeight = 112;
+    const summaryStride = 126;
     const boxes = [
         ["Dương lịch", formatDate(chart.normalized.solar)],
         ["Âm lịch", formatLunar(chart.normalized.lunar)],
@@ -220,13 +222,13 @@ function drawOverviewPage(chart) {
     boxes.forEach(([label, value], index) => {
         const column = index % 2;
         const row = Math.floor(index / 2);
-        drawSummaryBox(context, 72 + column * (width + gap), y + row * 118, width, 102, label, value, index === 4 || index === 5);
+        drawSummaryBox(context, 72 + column * (width + gap), y + row * summaryStride, width, summaryHeight, label, value, index === 4 || index === 5);
     });
-    y += 3 * 118 + 30;
+    y += Math.ceil(boxes.length / 2) * summaryStride + 24;
     context.fillStyle = RED;
-    setFont(context, 26, 800);
+    setFont(context, 30, 800);
     context.fillText(`Vận hạn năm ${chart.input.viewYear}`, 72, y);
-    y += 48;
+    y += 52;
     const fortuneBoxes = [
         ["Đại vận 10 năm", chart.analysis.activeDecadeLabel],
         ["Lưu đại hạn", chart.analysis.annualDecadeLabel],
@@ -237,7 +239,7 @@ function drawOverviewPage(chart) {
         ["Lưu thời", chart.analysis.hourlyLabel]
     ];
     fortuneBoxes.forEach(([label, value], index) => {
-        drawSummaryBox(context, 72, y + index * 126, canvas.width - 144, 108, label, value, true);
+        drawSummaryBox(context, 72, y + index * 124, canvas.width - 144, 114, label, value, true);
     });
     return canvas;
 }
