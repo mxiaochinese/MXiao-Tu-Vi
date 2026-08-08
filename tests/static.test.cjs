@@ -71,6 +71,8 @@ assert.match(html, /VN_AO_BI_1972/);
 const ciWorkflow = fs.readFileSync(path.join(root, '.github/workflows/ci.yml'), 'utf8');
 const veraScript = fs.readFileSync(path.join(root, 'scripts/verapdf-check.sh'), 'utf8');
 assert.match(ciWorkflow, /scripts\/verapdf-check\.sh/);
+assert.match(ciWorkflow, /npm ci/);
+assert.match(fs.readFileSync(path.join(root, '.github/workflows/pages.yml'), 'utf8'), /npm ci/);
 assert.match(veraScript, /verapdf\/cli:v1\.30\.2/);
 assert.match(veraScript, /-f ua1/);
 assert.match(veraScript, /MXiao-Ban-Do-Sao-final\.pdf/);

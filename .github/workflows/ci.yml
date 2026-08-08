@@ -12,6 +12,7 @@ jobs:
           node-version: 22
       - name: Install PDF and browser test dependencies
         run: |
+          npm ci
           sudo apt-get update
           sudo apt-get install -y ghostscript poppler-utils
           python3 -m pip install --upgrade pypdf playwright
