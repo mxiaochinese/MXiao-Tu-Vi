@@ -320,6 +320,16 @@ try:
         assert desktop.locator('#astro-aspects tbody tr').count() >= 1
         assert desktop.locator('.astro-narrative-section').count() == 9
         assert desktop.locator('.astro-narrative-section p').count() >= 12
+        astrology_font_sizes = desktop.locator(
+            '.astro-quick-card span, .astro-table, .astro-disclaimer, .wheel-note'
+        ).evaluate_all(
+            '(elements) => elements.map((element) => parseFloat(getComputedStyle(element).fontSize))'
+        )
+        assert min(astrology_font_sizes) >= 12
+        astrology_body_sizes = desktop.locator('.astro-narrative-section p').evaluate_all(
+            '(elements) => elements.map((element) => parseFloat(getComputedStyle(element).fontSize))'
+        )
+        assert min(astrology_body_sizes) >= 16
         assert 'TP. Hồ Chí Minh' in desktop.locator('#astro-result-meta').inner_text()
         desktop.locator('#astro-pdf-options-button').click()
         assert desktop.locator('#astro-pdf-options').is_visible()
