@@ -12,6 +12,7 @@ const PAGE_PORTRAIT = { width: 1240, height: 1754, widthPt: 595.28, heightPt: 84
 const PAGE_LANDSCAPE = { width: 1754, height: 1240, widthPt: 841.89, heightPt: 595.28 };
 const MAX_PDF_PAGES = 30;
 const MAX_TEXT_PDF_PAGES = 48;
+const FONT_FAMILY = '"MXiao Gilroy", Arial, "Segoe UI", sans-serif';
 const TOPIC_ORDER = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
 
 function createCanvas(orientation) {
@@ -35,8 +36,21 @@ function getContext(canvas) {
     return context;
 }
 
+function fontSpec(size, weight = 400) {
+    return `${weight} ${size}px ${FONT_FAMILY}`;
+}
+
 function setFont(context, size, weight = 400) {
-    context.font = `${weight} ${size}px Arial, "Segoe UI", sans-serif`;
+    context.font = fontSpec(size, weight);
+}
+
+async function ensureFontsReady() {
+    if (!document.fonts) return;
+    await Promise.all([
+        document.fonts.load('400 16px "MXiao Gilroy"'),
+        document.fonts.load('700 16px "MXiao Gilroy"')
+    ]);
+    await document.fonts.ready;
 }
 
 function roundedRect(context, x, y, width, height, radius) {
@@ -659,7 +673,7 @@ function safeFileName(value) {
 }
 
 async function downloadChartPdf(chart, exportOptions) {
-    if (document.fonts?.ready) await document.fonts.ready;
+    await ensureFontsReady();
     const pages = createReportPages(chart, exportOptions);
     const blob = await buildPdfBlob(pages);
     const url = URL.createObjectURL(blob);
@@ -684,7 +698,7 @@ let textMeasureContext = null;
 function measurePdfText(text, size, weight = 400) {
     if (typeof document === "undefined") return String(text).length * size * 0.52;
     if (!textMeasureContext) textMeasureContext = document.createElement("canvas").getContext("2d");
-    textMeasureContext.font = `${weight} ${size}px Arial, "Segoe UI", sans-serif`;
+    textMeasureContext.font = fontSpec(size, weight);
     return textMeasureContext.measureText(String(text)).width;
 }
 
@@ -949,7 +963,7 @@ function rasterizeType3Glyph(character, weight) {
     const height = 150;
     const measureCanvas = document.createElement("canvas");
     const measureContext = measureCanvas.getContext("2d");
-    measureContext.font = `${weight} ${designSize}px Arial, "Segoe UI", sans-serif`;
+    measureContext.font = fontSpec(designSize, weight);
     const measured = Math.max(character === " " ? designSize * 0.32 : measureContext.measureText(character).width, 1);
     const width = Math.max(8, Math.ceil(measured + 20));
     if (character === " ") return { advance: Math.round(measured / designSize * 1000), width, height, xOffset: 0, yOffset: 0, glyphWidth: 0, glyphHeight: 0, hex: "" };
@@ -959,7 +973,7 @@ function rasterizeType3Glyph(character, weight) {
     const context = canvas.getContext("2d", { willReadFrequently: true });
     context.clearRect(0, 0, width, height);
     context.fillStyle = "#000000";
-    context.font = `${weight} ${designSize}px Arial, "Segoe UI", sans-serif`;
+    context.font = fontSpec(designSize, weight);
     context.textBaseline = "alphabetic";
     context.fillText(character, 10, baseline);
     const data = context.getImageData(0, 0, width, height).data;
@@ -1254,7 +1268,7 @@ async function buildSelectablePdfBlob(pages) {
 }
 
 async function downloadSelectablePdf(chart, exportOptions) {
-    if (document.fonts?.ready) await document.fonts.ready;
+    await ensureFontsReady();
     const pages = buildSelectablePages(chart, exportOptions);
     const blob = await buildSelectablePdfBlob(pages);
     const url = URL.createObjectURL(blob);

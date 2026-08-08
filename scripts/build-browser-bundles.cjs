@@ -29,6 +29,10 @@ fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(path.join(dist, 'assets'), { recursive: true });
 const publicFiles = ['index.html', 'manifest.webmanifest', '.nojekyll', 'LICENSE.md', 'NOTICE.md'];
 for (const file of publicFiles) fs.copyFileSync(path.join(root, file), path.join(dist, file));
-const publicAssets = ['app.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg'];
-for (const file of publicAssets) fs.copyFileSync(path.join(root, 'assets', file), path.join(dist, 'assets', file));
+const publicAssets = ['app.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
+for (const file of publicAssets) {
+  const target = path.join(dist, 'assets', file);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.copyFileSync(path.join(root, 'assets', file), target);
+}
 console.log('Public dist built.');
