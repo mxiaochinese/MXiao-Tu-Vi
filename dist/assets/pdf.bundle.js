@@ -12,12 +12,12 @@ const GOLD_SOFT = "#fff6dc";
 const PAGE_PORTRAIT = { width: 1240, height: 1754, widthPt: 595.28, heightPt: 841.89 };
 const PAGE_LANDSCAPE = { width: 1754, height: 1240, widthPt: 841.89, heightPt: 595.28 };
 const MAX_PDF_PAGES = 48;
-const CANVAS_BODY_FONT_SIZE = 23;
-const CANVAS_BODY_LINE_HEIGHT = 32;
+const CANVAS_BODY_FONT_SIZE = 25;
+const CANVAS_BODY_LINE_HEIGHT = 36;
 const CANVAS_CARD_TITLE_SIZE = 28;
 const CANVAS_CARD_TITLE_LINE_HEIGHT = 36;
-const PDF_BODY_FONT_SIZE = 11;
-const PDF_BODY_LINE_HEIGHT = 15;
+const PDF_BODY_FONT_SIZE = 12;
+const PDF_BODY_LINE_HEIGHT = 17.5;
 const FONT_FAMILY = '"MXiao Gilroy", Arial, "Segoe UI", sans-serif';
 const TOPIC_ORDER = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
 
@@ -679,8 +679,13 @@ function safeFileName(value) {
 
 async function downloadChartPdf(chart, exportOptions) {
     await ensureFontsReady();
-    const pages = createReportPages(chart, exportOptions);
-    const blob = await buildPdfBlob(pages);
+    const pages = buildTuviSelectablePages(chart, exportOptions);
+    const blob = await buildSelectablePdfBlob(pages, {
+        title: "Lá số Tử Vi và luận giải chi tiết",
+        author: "MXiao Tử Vi",
+        subject: "Lá số Tử Vi, vận hạn và luận giải",
+        keywords: "Tử Vi, lá số, luận giải, vận hạn"
+    });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -1105,6 +1110,290 @@ async function buildSelectablePdfBlob(pages, metadata = {}) {
     return new Blob([serializePdfStore(store, catalogId, infoId)], { type: "application/pdf" });
 }
 
+function tuviFooter(page, chart, number, total) {
+    const top = page.heightPt - 34;
+    lineElement(page, 48, top - 10, page.widthPt - 48, top - 10, LINE, 0.6);
+    textElement(page, `MXiao Tử Vi | ${chart.input.fullName || "Người xem"}`, 48, top + 3, 8.5, 400, MUTED, "Artifact");
+    const label = `${number}/${total}`;
+    textElement(page, label, page.widthPt - 48 - measurePdfText(label, 8.5, 400), top + 3, 8.5, 400, MUTED, "Artifact");
+}
+
+function buildTuviCoverPage(chart) {
+    const page = newTextPage("portrait");
+    page.bookmark = "Bìa báo cáo";
+    rectElement(page, 0, 0, page.widthPt, page.heightPt, RED_DARK);
+    textElement(page, "MXIAO TỬ VI", 54, 72, 14, 700, WHITE, "Artifact");
+    textBlock(page, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 54, 150, page.widthPt - 108, 34, 43, 700, WHITE, "H1");
+    textElement(page, chart.input.fullName || "Người xem", 54, 318, 22, 700, WHITE, "H2");
+    const meta = [
+        `Dương lịch: ${formatDate(chart.normalized.solar)}`,
+        `Âm lịch: ${formatLunar(chart.normalized.lunar)}`,
+        `Giờ sinh: ${chart.normalized.timeDisplay || chart.normalized.adjustedTime}`,
+        `Múi giờ: ${chart.input.timezone}`,
+        `Năm sinh: ${chart.normalized.yearCanChi}`,
+        `Mệnh: ${chart.birthElement} | ${chart.bureau.label}`,
+        `Phạm vi: ${viewScopeLabel(chart)}`,
+        ...(chart.analysis.nominalAge ? [`Tuổi mụ: ${chart.analysis.nominalAge} | ${chart.analysis.viewYearCanChi}`] : [])
+    ];
+    meta.forEach((line, index) => textElement(page, line, 54, 392 + index * 25, 11.5, 400, WHITE));
+    rectElement(page, 54, 615, page.widthPt - 108, 114, "#8d1019", "#d6747d", 0.8);
+    textBlock(page, "Lá số, vận hạn và luận giải Tử Vi", 72, 638, page.widthPt - 144, 12, 18, 700, WHITE, "H3");
+    textBlock(page, "Nội dung thuộc hệ thống Tử Vi truyền thống và dùng để tham khảo.", 72, 682, page.widthPt - 144, 10, 15, 400, WHITE);
+    return page;
+}
+
+function addTuviSummaryCell(page, x, top, width, label, value, accent = false) {
+    rectElement(page, x, top, width, 48, accent ? RED_SOFT : "#ffffff", accent ? "#e3aab0" : LINE, 0.8);
+    textElement(page, label.toUpperCase(), x + 12, top + 17, 8.5, 700, MUTED);
+    textBlock(page, value, x + 112, top + 9, width - 124, 11.5, 15, 700, accent ? RED_DARK : INK);
+}
+
+function buildTuviOverviewPage(chart) {
+    const page = newTextPage("portrait");
+    let y = selectableHeader(page, "Tổng quan lá số", viewScopeLabel(chart));
+    const gap = 10;
+    const width = (page.widthPt - 96 - gap) / 2;
+    const life = chart.palaces.find((item) => item.id === chart.lifePalace);
+    const body = chart.palaces.find((item) => item.id === chart.bodyPalace);
+    const rows = [
+        ["Dương lịch", formatDate(chart.normalized.solar)],
+        ["Âm lịch", formatLunar(chart.normalized.lunar)],
+        ["Giờ sinh", chart.normalized.timeDisplay || chart.normalized.adjustedTime],
+        ["Phương pháp", chart.input.calculationMethod],
+        ["Mệnh và Cục", `${chart.birthElement} - ${chart.bureau.label}`],
+        ["Cung Mệnh", `${life.name} tại ${life.branch}`],
+        ["Cung Thân", `${body.name} tại ${body.branch}`],
+        ["Phạm vi", viewScopeLabel(chart)]
+    ];
+    rows.forEach(([label, value], index) => {
+        const column = index % 2;
+        const row = Math.floor(index / 2);
+        addTuviSummaryCell(page, 48 + column * (width + gap), y + row * 58, width, label, value, index >= 4 && index <= 6);
+    });
+    y += 4 * 58 + 18;
+    textElement(page, "Vận hạn đang xem", 48, y + 17, 17, 700, RED, "H2");
+    y += 36;
+    const fortunes = fortuneRows(chart);
+    if (!fortunes.length) {
+        textBlock(page, "Báo cáo tổng quan trình bày lá số gốc và chuỗi Đại hạn.", 48, y, page.widthPt - 96, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK);
+    } else {
+        fortunes.forEach(([label, value], index) => {
+            addTuviSummaryCell(page, 48, y + index * 58, page.widthPt - 96, label, value, true);
+        });
+    }
+    return page;
+}
+
+function fitTextBlock(page, text, x, top, maxWidth, maxHeight, preferredSize, minimumSize, weight = 400, color = INK) {
+    let size = preferredSize;
+    let lineHeight = size * 1.2;
+    let lines = wrapPdfText(text, maxWidth, size, weight);
+    while (size > minimumSize && lines.length * lineHeight > maxHeight) {
+        size = Math.max(minimumSize, size - 0.2);
+        lineHeight = size * 1.2;
+        lines = wrapPdfText(text, maxWidth, size, weight);
+    }
+    const group = nextSemanticGroup(page);
+    lines.forEach((line, index) => textElement(page, line, x, top + size + index * lineHeight, size, weight, color, "P", group));
+    return top + lines.length * lineHeight;
+}
+
+function buildTuviChartPage(chart) {
+    const page = newTextPage("landscape");
+    page.bookmark = "Lá số Tử Vi";
+    textElement(page, "Lá số Tử Vi", 28, 38, 20, 700, RED, "H2");
+    textElement(page, viewScopeLabel(chart), 28, 57, 10, 400, MUTED);
+    lineElement(page, 28, 68, page.widthPt - 28, 68, LINE, 0.8);
+    const marginX = 24;
+    const gap = 5;
+    const gridTop = 76;
+    const gridBottom = page.heightPt - 26;
+    const cellWidth = (page.widthPt - marginX * 2 - gap * 3) / 4;
+    const cellHeight = (gridBottom - gridTop - gap * 3) / 4;
+    chart.palaces.forEach((palace) => {
+        const position = GRID_POSITION[palace.id];
+        const x = marginX + position.column * (cellWidth + gap);
+        const top = gridTop + position.row * (cellHeight + gap);
+        const markers = palaceMarkers(chart, palace);
+        const accent = markers.length > 0;
+        rectElement(page, x, top, cellWidth, cellHeight, accent ? RED_SOFT : "#ffffff", accent ? RED : LINE, accent ? 1.2 : 0.7);
+        textElement(page, `${palace.name}${palace.isBody ? " - Thân" : ""}`, x + 8, top + 18, 10.8, 700, RED_DARK, "P");
+        const branchWidth = measurePdfText(palace.branch, 10.8, 700);
+        textElement(page, palace.branch, x + cellWidth - 8 - branchWidth, top + 18, 10.8, 700, RED_DARK, "P");
+        textElement(page, `${palace.element} | ${palace.decadeStart}-${palace.decadeEnd} tuổi`, x + 8, top + 34, 8, 400, MUTED, "P");
+        let y = top + 41;
+        const major = palace.stars.filter((item) => item.group === "major").map((item) => `${item.name}${item.brightness ? ` (${item.brightness})` : ""}`).join(" · ") || "Vô chính diệu";
+        y = fitTextBlock(page, major, x + 8, y, cellWidth - 16, 23, 9.2, 8.2, 700, RED_DARK) + 2;
+        const transforms = palace.stars.filter((item) => item.group === "transform").map((item) => item.name).join(" · ");
+        const natal = palace.stars.filter((item) => !["major", "transform"].includes(item.group)).slice(0, 9).map((item) => item.name).join(" · ");
+        const moving = [...palace.annualStars, ...palace.monthlyStars].slice(0, 4).map((item) => item.name).join(" · ");
+        const footer = [...markers, palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""].filter(Boolean).join(" · ");
+        const detailParts = [
+            transforms ? `Tứ hóa: ${transforms}` : "",
+            natal ? `Phụ tinh: ${natal}` : "",
+            moving ? `Sao lưu: ${moving}` : ""
+        ].filter(Boolean);
+        if (detailParts.length) {
+            const detailBottom = top + cellHeight - (footer ? 18 : 8);
+            fitTextBlock(page, detailParts.join("  |  "), x + 8, y, cellWidth - 16, Math.max(12, detailBottom - y), 7.8, 7.5, 400, INK);
+        }
+        if (footer) textElement(page, footer, x + 8, top + cellHeight - 8, 7.5, 700, RED_DARK, "P");
+    });
+    const centerX = marginX + cellWidth + gap;
+    const centerTop = gridTop + cellHeight + gap;
+    const centerWidth = cellWidth * 2 + gap;
+    const centerHeight = cellHeight * 2 + gap;
+    rectElement(page, centerX, centerTop, centerWidth, centerHeight, RED_DARK, RED_DARK, 1);
+    textElement(page, chart.normalized.yearCanChi, centerX + 22, centerTop + 34, 11, 700, WHITE, "P");
+    textBlock(page, chart.input.fullName || "Người xem", centerX + 22, centerTop + 46, centerWidth - 44, 22, 27, 700, WHITE, "H3");
+    let centerY = centerTop + 88;
+    const centerLines = [`Mệnh ${chart.birthElement} - ${chart.bureau.label}`, `Phạm vi: ${viewScopeLabel(chart)}`, ...fortuneRows(chart).map(([label, value]) => `${label}: ${value}`)];
+    centerLines.forEach((line) => { centerY = textBlock(page, line, centerX + 22, centerY, centerWidth - 44, 10.5, 14, 400, WHITE) + 5; });
+    return page;
+}
+
+function buildTuviChartDetailPages(chart) {
+    const pages = [];
+    const bottom = PAGE_PORTRAIT.heightPt - 52;
+    let page;
+    let y;
+    function startPage() {
+        page = newTextPage("portrait");
+        page.bookmark = pages.length ? "Chi tiết sao - tiếp theo" : "Chi tiết sao trên lá số";
+        y = selectableHeader(page, "Chi tiết sao trên lá số", pages.length ? "Tiếp theo" : "Đối chiếu với sơ đồ 12 cung");
+        pages.push(page);
+    }
+    startPage();
+    for (const palace of chart.palaces) {
+        const major = palace.stars.filter((item) => item.group === "major").map((item) => `${item.name}${item.brightness ? ` (${item.brightness})` : ""}`).join(" · ") || "Vô chính diệu";
+        const transforms = palace.stars.filter((item) => item.group === "transform").map((item) => item.name).join(" · ");
+        const natal = palace.stars.filter((item) => !["major", "transform"].includes(item.group)).map((item) => item.name).join(" · ");
+        const moving = [...palace.annualStars, ...palace.monthlyStars].map((item) => item.name).join(" · ");
+        const detailLines = [
+            `Chính tinh: ${major}`,
+            transforms ? `Tứ hóa: ${transforms}` : "",
+            natal ? `Phụ tinh: ${natal}` : "",
+            moving ? `Sao lưu: ${moving}` : ""
+        ].filter(Boolean);
+        const height = 34 + detailLines.reduce((sum, line) => sum + wrapPdfText(line, page.widthPt - 124, 11.5, 400).length * 16, 0) + 14;
+        if (y + height > bottom) startPage();
+        rectElement(page, 48, y, page.widthPt - 96, height, "#ffffff", LINE, 0.7);
+        textElement(page, `${palace.name}${palace.isBody ? " - Thân" : ""} tại ${palace.branch}`, 62, y + 22, 14, 700, RED_DARK, "H3");
+        let detailY = y + 35;
+        detailLines.forEach((line) => {
+            detailY = textBlock(page, line, 62, detailY, page.widthPt - 124, 11.5, 16, 400, INK) + 3;
+        });
+        y += height + 8;
+    }
+    return pages;
+}
+
+function buildTuviInterpretationPages(chart, selectedTopics) {
+    const pages = [];
+    const order = topicOrder(chart).filter((topic) => selectedTopics.includes(topic));
+    const bottom = PAGE_PORTRAIT.heightPt - 52;
+    let page = null;
+    let y = 0;
+    let currentTopic = "";
+    function startPage(topic, subtitle = "") {
+        page = newTextPage("portrait");
+        page.bookmark = subtitle || topic || "Luận giải chi tiết";
+        y = selectableHeader(page, "Luận giải chi tiết", subtitle || viewScopeLabel(chart));
+        if (topic) {
+            textElement(page, topic, 48, y + 17, 17, 700, RED, "H2");
+            lineElement(page, 48, y + 27, page.widthPt - 48, y + 27, LINE, 0.7);
+            y += 45;
+        }
+        pages.push(page);
+    }
+    function ensureSpace(required, topic, itemTitle = "") {
+        if (!page || y + required > bottom) startPage(topic, itemTitle ? `${topic} - ${itemTitle}` : topic);
+    }
+    function drawItemTitle(title, topic, continued = false) {
+        ensureSpace(45, topic, title);
+        const label = continued ? `${title} - tiếp theo` : title;
+        textBlock(page, label, 48, y, page.widthPt - 96, 14, 18, 700, RED_DARK, "H3");
+        y += wrapPdfText(label, page.widthPt - 96, 14, 700).length * 18 + 8;
+    }
+    function drawParagraph(paragraph, topic, itemTitle) {
+        let lines = wrapPdfText(paragraph, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400);
+        let continuation = false;
+        while (lines.length) {
+            let available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
+            if (available < 2) {
+                startPage(topic, `${topic} - ${itemTitle}`);
+                drawItemTitle(itemTitle, topic, true);
+                continuation = true;
+                available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
+            }
+            const take = Math.min(lines.length, available);
+            const part = lines.splice(0, take);
+            const group = nextSemanticGroup(page);
+            part.forEach((line, index) => textElement(page, line, 48, y + PDF_BODY_FONT_SIZE + index * PDF_BODY_LINE_HEIGHT, PDF_BODY_FONT_SIZE, 400, INK, "P", group));
+            y += part.length * PDF_BODY_LINE_HEIGHT + 10;
+            if (lines.length && !continuation) continuation = true;
+        }
+    }
+    for (const topic of order) {
+        const items = chart.interpretations.filter((item) => item.topic === topic);
+        if (!items.length) continue;
+        if (!page) {
+            startPage(topic);
+            currentTopic = topic;
+        } else if (currentTopic !== topic) {
+            if (y + 70 > bottom) startPage(topic);
+            else {
+                textElement(page, topic, 48, y + 17, 17, 700, RED, "H2");
+                lineElement(page, 48, y + 27, page.widthPt - 48, y + 27, LINE, 0.7);
+                y += 45;
+            }
+            currentTopic = topic;
+        }
+        for (const item of items) {
+            drawItemTitle(item.title, topic, false);
+            for (const paragraph of itemParagraphs(item)) drawParagraph(paragraph, topic, item.title);
+            y += 8;
+        }
+    }
+    return pages;
+}
+
+function buildTuviComparisonPages(comparison) {
+    const pages = [];
+    let page = newTextPage("portrait");
+    let y = selectableHeader(page, "So sánh hai khung giờ sinh", `${comparison.labelA} và ${comparison.labelB}`);
+    pages.push(page);
+    const bottom = page.heightPt - 52;
+    for (const row of comparison.rows) {
+        const text = `${row.label}: ${comparison.labelA} - ${row.valueA}; ${comparison.labelB} - ${row.valueB}.`;
+        const lines = wrapPdfText(text, page.widthPt - 124, 11.5, row.changed ? 700 : 400);
+        const height = 18 + lines.length * 16;
+        if (y + height > bottom) {
+            page = newTextPage("portrait");
+            y = selectableHeader(page, "So sánh hai khung giờ sinh", "Tiếp theo");
+            pages.push(page);
+        }
+        rectElement(page, 48, y, page.widthPt - 96, height, row.changed ? RED_SOFT : "#ffffff", row.changed ? "#e3aab0" : LINE, 0.7);
+        textBlock(page, text, 62, y + 9, page.widthPt - 124, 11.5, 16, row.changed ? 700 : 400, row.changed ? RED_DARK : INK);
+        y += height + 7;
+    }
+    return pages;
+}
+
+function buildTuviSelectablePages(chart, exportOptions) {
+    const options = normalizeExportOptions(chart, exportOptions);
+    const pages = [];
+    if (options.cover) pages.push(buildTuviCoverPage(chart));
+    if (options.overview) pages.push(buildTuviOverviewPage(chart));
+    if (options.chart) pages.push(buildTuviChartPage(chart), ...buildTuviChartDetailPages(chart));
+    const detailedTopics = options.overview ? ["Tổng quan", ...options.topics] : options.topics;
+    pages.push(...buildTuviInterpretationPages(chart, detailedTopics));
+    if (options.comparison) pages.push(...buildTuviComparisonPages(options.comparison));
+    if (pages.length > MAX_PDF_PAGES) throw new Error(`Báo cáo có ${pages.length} trang, vượt giới hạn ${MAX_PDF_PAGES} trang A4.`);
+    pages.forEach((page, index) => { if (!(options.cover && index === 0)) tuviFooter(page, chart, index + 1, pages.length); });
+    return pages;
+}
+
 function astrologyPositionLabel(item) {
     return `${item.sign.name} ${Math.floor(item.degree)}°${String(Math.round((item.degree - Math.floor(item.degree)) * 60)).padStart(2, "0")}′${item.retrograde ? " ℞" : ""}`;
 }
@@ -1232,7 +1521,7 @@ async function downloadAstrologyPdf(chart, chartCanvas, options = {}) {
     return pages.length;
 }
 
-module.exports = { MAX_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePdfBlob, buildAstrologySelectablePages, downloadAstrologyPdf };
+module.exports = { MAX_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, buildTuviSelectablePages, downloadChartPdf, buildSelectablePdfBlob, buildAstrologySelectablePages, downloadAstrologyPdf };
 
 global.MXiaoPdf=Object.freeze(module.exports);
 })(typeof globalThis!=='undefined'?globalThis:window);

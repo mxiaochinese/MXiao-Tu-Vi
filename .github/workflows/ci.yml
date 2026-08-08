@@ -22,7 +22,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: generated-pdf
-          path: sample/MXiao-Ban-Do-Sao-final.pdf
+          path: |
+            sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf
+            sample/MXiao-Ban-Do-Sao-final.pdf
 
   pdfua:
     needs: test

@@ -270,8 +270,41 @@ try:
         assert 8 <= page_count <= 48
         assert b'/MediaBox [0 0 595.28 841.89]' in data
         assert b'/MediaBox [0 0 841.89 595.28]' in data
+        assert b'/Subtype /Image' not in data
+        assert b'/StructTreeRoot' in data
+        assert data.count(b'12.00 Tf') >= 20
         assert f'{page_count} trang A4' in desktop.locator('#toolbar-status').inner_text()
         assert 10 <= page_count <= 48
+
+        desktop.locator('#demo-button').click()
+        desktop.locator('#fullName').fill('Vũ Minh Hiếu')
+        desktop.locator('#solarDate').fill('2001-10-20')
+        desktop.locator('#time-branch').click()
+        desktop.locator('#birthHourBranch').select_option('4')
+        desktop.locator('#timezoneSearch').fill('Ho Chi Minh')
+        desktop.locator('#timezone').select_option('Asia/Ho_Chi_Minh')
+        desktop.locator('#viewScope').select_option('natal_overview')
+        desktop.locator('#birth-form button[type="submit"]').click()
+        assert 'Vũ Minh Hiếu' in desktop.locator('#result-title').inner_text()
+        assert 'Giờ Mão' in desktop.locator('#result-meta').inner_text()
+        desktop.locator('[data-pdf-preset="full"]').click()
+        regression_pdf = ROOT / 'sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf'
+        with desktop.expect_download(timeout=90000) as regression_info:
+            desktop.locator('#pdf-button').click()
+        regression_info.value.save_as(regression_pdf)
+        regression_data = regression_pdf.read_bytes()
+        regression_text = subprocess.check_output(['pdftotext', str(regression_pdf), '-'], text=True)
+        regression_info_text = subprocess.check_output(['pdfinfo', str(regression_pdf)], text=True)
+        assert 'Vũ Minh Hiếu' in regression_text
+        assert '20/10/2001' in regression_text
+        assert 'Đại hạn 24-33 tuổi' in regression_text
+        assert 'cam kết, hợp tác lâu dài' in regression_text
+        assert 'Tagged:' in regression_info_text and 'yes' in regression_info_text.lower()
+        assert b'/Subtype /Image' not in regression_data
+        assert b'/StructTreeRoot' in regression_data
+        assert regression_data.count(b'12.00 Tf') >= 20
+        for phrase in ['nền nâng đỡ rõ hơn phần gây sức ép', 'có nền thuận tương đối rõ', 'không được đọc như một ô độc lập', 'lớp vận này chỉ tăng', 'trục vận hành']:
+            assert phrase not in regression_text.lower()
         desktop.locator('#tool-astrology').click()
         assert desktop.locator('#astrology-tool').is_visible()
         assert desktop.locator('#tuvi-tool').is_hidden()

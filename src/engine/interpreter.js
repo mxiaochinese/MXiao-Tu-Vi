@@ -6,29 +6,29 @@ const patterns_1 = require("./patterns");
 const content_pipeline_1 = require("./content-pipeline");
 
 const MAJOR_PROFILES = {
-    "tu-vi": { core: "khả năng quy tụ, tổ chức và giữ vai trò trung tâm", tension: "xu hướng muốn tự mình kiểm soát trục quyết định" },
+    "tu-vi": { core: "khả năng quy tụ, tổ chức và giữ vai trò trung tâm", tension: "xu hướng muốn tự mình nắm toàn bộ quyền quyết định" },
     "liem-trinh": { core: "ý thức nguyên tắc, danh dự và ranh giới", tension: "sự cứng rắn hoặc nhạy cảm trước chuyện đúng sai" },
     "thien-dong": { core: "khả năng thích nghi, kết nối và thay đổi theo môi trường", tension: "tâm thế dễ dao động khi điều kiện bên ngoài biến chuyển" },
     "vu-khuc": { core: "năng lực quản lý nguồn lực, tính toán và theo đuổi kết quả", tension: "cách xử lý thiên về hiệu quả nên đôi lúc trở nên khô cứng" },
     "thai-duong": { core: "tính chủ động, tinh thần trách nhiệm và nhu cầu tạo ảnh hưởng công khai", tension: "áp lực phải thể hiện vai trò hoặc gánh trách nhiệm quá sớm" },
     "thien-co": { core: "khả năng quan sát biến động, suy tính và tìm phương án", tension: "tư duy liên tục khiến quyết định dễ bị kéo dài" },
-    "thien-phu": { core: "năng lực quản trị, tích lũy và duy trì nền tảng", tension: "tâm lý ưu tiên an toàn có thể làm chậm thay đổi cần thiết" },
+    "thien-phu": { core: "năng lực quản trị, tích lũy và duy trì sự ổn định", tension: "tâm lý ưu tiên an toàn có thể làm chậm thay đổi cần thiết" },
     "thai-am": { core: "sự tinh tế, khả năng tích lũy và quan sát chiều sâu", tension: "cảm xúc kín và xu hướng suy nghĩ nhiều trước khi bộc lộ" },
     "tham-lang": { core: "khả năng kết nối, trải nghiệm và nhận diện cơ hội", tension: "sự phân tán khi có quá nhiều lựa chọn cùng xuất hiện" },
     "cu-mon": { core: "năng lực phân tích, phản biện và diễn đạt", tension: "tranh luận, hiểu lầm hoặc áp lực từ lời nói" },
     "thien-tuong": { core: "khả năng phối hợp, giữ tiêu chuẩn và bảo vệ quan hệ", tension: "tâm thế phải cân bằng quá nhiều phía" },
-    "thien-luong": { core: "ý thức nguyên tắc, hướng dẫn và bảo hộ", tension: "khuynh hướng tự đặt mình vào vai người chịu trách nhiệm" },
+    "thien-luong": { core: "sự coi trọng nguyên tắc, lý lẽ và chất lượng quyết định", tension: "khuynh hướng tự nhận quá nhiều trách nhiệm" },
     "that-sat": { core: "khả năng quyết định, chịu áp lực và xử lý tình huống khó", tension: "nhịp hành động mạnh, dễ tạo va chạm khi thiếu khoảng lùi" },
-    "pha-quan": { core: "năng lực cải tổ, kết thúc chu kỳ cũ và mở chu kỳ mới", tension: "biến động lớn khi quá trình thay đổi thiếu nền tảng ổn định" }
+    "pha-quan": { core: "năng lực cải tổ, kết thúc chu kỳ cũ và mở chu kỳ mới", tension: "biến động lớn khi quá trình thay đổi thiếu sự chuẩn bị" }
 };
 
 const PALACE_THEMES = {
-    "Mệnh": "khí chất nền, cách tiếp nhận hoàn cảnh và phương thức tự định vị",
-    "Phụ Mẫu": "quan hệ với cha mẹ, người nâng đỡ và các khuôn mẫu hình thành từ gia đình",
-    "Phúc Đức": "nền tảng tinh thần, ảnh hưởng dòng họ và sức bền nội tâm",
+    "Mệnh": "khí chất, cách tiếp nhận hoàn cảnh và cách đưa ra lựa chọn",
+    "Phụ Mẫu": "quan hệ với cha mẹ, người hỗ trợ và các khuôn mẫu hình thành từ gia đình",
+    "Phúc Đức": "đời sống tinh thần, ảnh hưởng dòng họ và sức bền nội tâm",
     "Điền Trạch": "nhà ở, tài sản cố định và cảm giác ổn định trong môi trường cư trú",
     "Quan Lộc": "nghề nghiệp, vị trí xã hội và phương thức tạo ra thành tựu",
-    "Nô Bộc": "bạn bè, đồng nghiệp, cộng sự và chất lượng mạng lưới xã hội",
+    "Nô Bộc": "bạn bè, đồng nghiệp, cộng sự và chất lượng các mối quan hệ xã hội",
     "Thiên Di": "hoạt động bên ngoài, dịch chuyển và cách cá nhân được nhìn nhận trong xã hội",
     "Tật Ách": "thể trạng, nhịp năng lượng và phản ứng khi áp lực tích tụ",
     "Tài Bạch": "khả năng tạo lập, quản lý và luân chuyển nguồn lực tài chính",
@@ -53,9 +53,9 @@ const PALACE_MANIFESTATIONS = {
 };
 
 const PALACE_LEADS = {
-    "Mệnh": "Cách phản ứng và tự định vị",
+    "Mệnh": "Cách suy nghĩ, phản ứng và đưa ra lựa chọn",
     "Phụ Mẫu": "Quan hệ với cha mẹ, người nâng đỡ và các khuôn mẫu gia đình",
-    "Phúc Đức": "Sức bền tinh thần và khả năng hồi phục sau biến động",
+    "Phúc Đức": "Đời sống tinh thần và khả năng hồi phục sau biến động",
     "Điền Trạch": "Nhu cầu ổn định về nhà ở và tài sản tích lũy",
     "Quan Lộc": "Con đường nghề nghiệp và cách đảm nhận trách nhiệm",
     "Nô Bộc": "Cách chọn cộng sự và duy trì độ tin cậy trong quan hệ xã hội",
@@ -67,13 +67,28 @@ const PALACE_LEADS = {
     "Huynh Đệ": "Cách chia sẻ trách nhiệm và giữ ranh giới với người ngang hàng"
 };
 
+const DECADE_MANIFESTATIONS = {
+    "Mệnh": "cách tự quyết định, xây năng lực và xác lập vị trí cá nhân",
+    "Phụ Mẫu": "quan hệ với gia đình, người hướng dẫn và những tiêu chuẩn được kế thừa",
+    "Phúc Đức": "đời sống tinh thần, khả năng hồi phục và trách nhiệm với gia đình gốc",
+    "Điền Trạch": "nơi ở, tài sản dài hạn và việc tạo một môi trường sống ổn định",
+    "Quan Lộc": "vai trò nghề nghiệp, trách nhiệm xã hội và hướng phát triển công việc",
+    "Nô Bộc": "cộng sự, mạng lưới nghề nghiệp và cách phân chia lợi ích",
+    "Thiên Di": "thay đổi môi trường, mở rộng phạm vi hoạt động và hình ảnh xã hội",
+    "Tật Ách": "sức bền, nhịp sinh hoạt và cách quản lý áp lực kéo dài",
+    "Tài Bạch": "thu nhập, cách giữ tiền và những quyết định liên quan tới tài sản",
+    "Tử Tức": "con cái, sản phẩm sáng tạo hoặc dự án cần nhiều năm để hoàn thành",
+    "Phu Thê": "cam kết, hợp tác lâu dài và cách phân chia vai trò trong quan hệ hoặc công việc chung",
+    "Huynh Đệ": "người ngang hàng, quan hệ hợp tác và việc chia sẻ trách nhiệm"
+};
+
 const SUPPORT_ROLES = {
     "Lộc Tồn": "khả năng tích lũy và duy trì nguồn lực",
     "Tả Phù": "sự hỗ trợ từ cộng sự và năng lực tổ chức theo nhóm",
     "Hữu Bật": "khả năng nhận trợ giúp linh hoạt từ người xung quanh",
     "Văn Xương": "tư duy hệ thống, học tập và diễn đạt rõ ràng",
     "Văn Khúc": "khả năng cảm thụ, biểu đạt và xử lý thông tin mềm",
-    "Thiên Khôi": "cơ hội được nhìn nhận hoặc gặp người dẫn dắt",
+    "Thiên Khôi": "khả năng được nhìn nhận hoặc gặp người dẫn dắt",
     "Thiên Việt": "sự hỗ trợ đúng lúc và khả năng tiếp cận nguồn lực tốt",
     "Thiên Mã": "dịch chuyển, thay đổi môi trường và mở rộng phạm vi hoạt động",
     "Quốc Ấn": "uy tín, trách nhiệm và dấu hiệu của vị trí chính thức",
@@ -84,17 +99,17 @@ const SUPPORT_ROLES = {
     "Địa Giải": "khả năng giảm nhẹ áp lực thực tế",
     "Giải Thần": "cơ chế điều hòa khi mâu thuẫn phát sinh",
     "Ân Quang": "sự hỗ trợ về tinh thần, học hỏi và thiện ý",
-    "Thiên Quý": "quý nhân, sự nâng đỡ và cơ hội được bảo hộ",
+    "Thiên Quý": "sự trợ giúp từ quý nhân và điều kiện thuận để tiến hành công việc",
     "Thiên Thọ": "sức bền và khả năng duy trì nhịp ổn định",
     "Thiên Phúc": "phúc khí, sự dung hòa và khả năng gặp điều kiện thuận",
-    "Thiên Quan": "sự nâng đỡ từ hệ thống, người có thẩm quyền hoặc chuẩn mực chung",
+    "Thiên Quan": "sự hỗ trợ từ người có thẩm quyền hoặc từ quy chuẩn chung",
     "Thiên Đức": "khả năng giảm xung đột và giữ giới hạn đạo lý",
     "Nguyệt Đức": "tính mềm hóa, thiện chí và khả năng hòa giải",
     "Bát Tọa": "nền tảng, sự sắp xếp và khả năng giữ vị trí",
-    "Tam Thai": "quá trình tiến từng bậc và sự hỗ trợ theo lớp",
-    "Thai Phụ": "khả năng chuẩn bị, nâng đỡ và hoàn thiện thủ tục",
+    "Tam Thai": "quá trình tiến từng bậc và sự hỗ trợ theo từng giai đoạn",
+    "Thai Phụ": "khả năng chuẩn bị, hỗ trợ và hoàn thiện thủ tục",
     "Phong Cáo": "sự ghi nhận, danh vị hoặc kết quả được xác lập công khai",
-    "Long Trì": "môi trường nâng đỡ, tính trang trọng và khả năng được bảo vệ",
+    "Long Trì": "môi trường thuận lợi, tính trang trọng và khả năng được bảo vệ",
     "Phượng Các": "khả năng biểu đạt, thẩm mỹ và sự ghi nhận từ cộng đồng",
     "Hoa Cái": "chiều sâu chuyên môn, thẩm mỹ và xu hướng làm việc độc lập",
     "Đường Phù": "tính quy củ, hồ sơ, giấy tờ và quy trình",
@@ -168,6 +183,14 @@ function getMovingStars(palace, layers) {
     return layers.flatMap((layer) => palace[layer] || []);
 }
 
+function supportingStars(palace) {
+    return [...getStars(palace, ["support"]), ...getStars(palace, ["transform"]).filter((star) => star.name !== "Hóa Kỵ")];
+}
+
+function challengeStars(palace) {
+    return [...getStars(palace, ["malefic"]), ...getStars(palace, ["transform"]).filter((star) => star.name === "Hóa Kỵ")];
+}
+
 function starDisplay(star) {
     return `${star.name}${star.brightness ? ` ở trạng thái ${star.brightness}` : ""}`;
 }
@@ -177,39 +200,19 @@ function majorDisplay(palace) {
     return major.length ? formatList(major.map(starDisplay)) : "vô chính diệu";
 }
 
-function brightnessSentence(star) {
-    const profile = MAJOR_PROFILES[star.id] || { core: "đặc tính chủ đạo của sao", tension: "mặt căng thẳng của sao" };
-    if (["Miếu", "Vượng", "Đắc", "Lợi"].includes(star.brightness)) {
-        return `Ở thế ${star.brightness}, mặt tích cực của ${star.name}, thể hiện qua ${profile.core}, có xu hướng bộc lộ trực tiếp và giữ vai trò dẫn dắt; mặt căng thẳng liên quan đến ${profile.tension} thường chỉ nổi rõ khi cung đồng thời chịu nhiều sát tinh hoặc gặp vận hạn gây sức ép`;
-    }
-    if (["Hãm", "Bất"].includes(star.brightness)) {
-        return `Ở thế ${star.brightness}, mặt tích cực của ${star.name}, gồm ${profile.core}, vẫn hiện diện nhưng thường biểu lộ sau va vấp hoặc qua một đường vòng; trong khi đó, mặt căng thẳng liên quan đến ${profile.tension} dễ xuất hiện sớm hơn khi hoàn cảnh thiếu ổn định`;
-    }
-    return `Ở trạng thái ${star.brightness || "trung bình"}, ${star.name} biểu hiện đồng thời mặt tích cực là ${profile.core} và mặt căng thẳng là ${profile.tension}; kết quả vì thế phụ thuộc nhiều vào phụ tinh, Tứ Hóa và các cung hội chiếu`;
-}
-
-function mappedRoleSentences(stars, roleMap, limit = 4) {
-    const selected = stars.filter((star) => roleMap[star.name]).slice(0, limit);
-    return selected.map((star) => `${star.name} làm rõ ${roleMap[star.name]}`);
-}
-
-function transformationSentences(palace) {
-    return getStars(palace, ["transform"]).map((star) => `${star.name} khiến cung nghiêng thêm về ${TRANSFORM_ROLES[star.name] || "một chiều biến đổi riêng"}`);
-}
-
 function balanceState(palace, movingLayers = []) {
-    const natalSupport = getStars(palace, ["support", "transform"]).length;
-    const natalChallenge = getStars(palace, ["malefic"]).length;
+    const natalSupport = supportingStars(palace).length;
+    const natalChallenge = challengeStars(palace).length;
     const moving = getMovingStars(palace, movingLayers);
     const movingSupport = moving.filter((item) => item.group.endsWith("support")).length;
     const movingChallenge = moving.filter((item) => item.group.endsWith("malefic")).length;
     const support = natalSupport + movingSupport;
     const challenge = natalChallenge + movingChallenge;
     if (support >= challenge + 3)
-        return { label: "thiên về nâng đỡ", support, challenge };
+        return { label: "thuận lợi nổi trội", support, challenge };
     if (challenge >= support + 3)
-        return { label: "thiên về thử thách", support, challenge };
-    return { label: "đan xen thuận lợi và trở lực", support, challenge };
+        return { label: "trở ngại nổi trội", support, challenge };
+    return { label: "thuận lợi và trở ngại đan xen", support, challenge };
 }
 
 function relationSet(palaces, palace) {
@@ -219,136 +222,54 @@ function relationSet(palaces, palace) {
     return { triadPalaces, opposite };
 }
 
-function relatedPalaceClause(palace) {
+function majorStateSummary(palace, context = "") {
+    const lead = context ? `Khi xét ${context}, ` : "";
     const major = getStars(palace, ["major"]);
     if (!major.length)
-        return `${palace.name} tại ${palace.branch} là cung vô chính diệu, vì vậy ${PALACE_THEMES[palace.name]} phụ thuộc mạnh vào hệ sao hội chiếu`;
-    const roles = major.map((star) => MAJOR_PROFILES[star.id]?.core || "đặc tính chủ đạo của sao");
-    return `${palace.name} tại ${palace.branch} có ${majorDisplay(palace)}, đưa ${formatList(roles)} vào ${PALACE_THEMES[palace.name]}`;
+        return `${lead}cung này vô chính diệu, nên các phụ tinh và các cung hội chiếu có ảnh hưởng lớn hơn bình thường tới ${PALACE_MANIFESTATIONS[palace.name]}`;
+    const strengths = major.filter((star) => ["Miếu", "Vượng", "Đắc", "Lợi"].includes(star.brightness));
+    const strains = major.filter((star) => ["Hãm", "Bất"].includes(star.brightness));
+    const abilities = formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 3));
+    const tensions = formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.tension)).slice(0, 2));
+    if (strengths.length && !strains.length)
+        return `${lead}${formatList(strengths.map((star) => `${star.name} ở thế ${star.brightness}`))} giúp điểm mạnh này biểu hiện rõ, nhưng vẫn cần giữ cân bằng ${tensions}`;
+    if (strains.length && !strengths.length)
+        return `${lead}${formatList(strains.map((star) => `${star.name} ở thế ${star.brightness}`))} không làm mất điểm mạnh, nhưng khả năng đó thường rõ hơn sau trải nghiệm; lúc thiếu ổn định, ${tensions} dễ xuất hiện trước`;
+    if (strengths.length && strains.length)
+        return `${lead}${formatList(strengths.map((star) => `${star.name} ở thế ${star.brightness}`))} tạo điểm mạnh về ${abilities}, còn ${formatList(strains.map((star) => `${star.name} ở thế ${star.brightness}`))} khiến ${tensions} trở thành phần phải xử lý`;
+    return `${lead}${formatList(major.map((star) => star.name))} kết hợp ${abilities} với ${tensions}; phụ tinh đi cùng quyết định mặt nào xuất hiện rõ hơn`;
 }
 
-function relationParagraph(palaces, palace) {
-    const { triadPalaces, opposite } = relationSet(palaces, palace);
-    const related = [...triadPalaces, opposite];
-    const clauses = related.map(relatedPalaceClause);
-    const supportive = related.reduce((sum, item) => sum + balanceState(item).support, 0);
-    const challenging = related.reduce((sum, item) => sum + balanceState(item).challenge, 0);
-    let closing = `Các chiều hỗ trợ và gây sức ép khá cân bằng, nên biểu hiện của cung ${palace.name} thay đổi rõ theo hoàn cảnh và lớp vận hạn đang kích hoạt`;
-    if (supportive >= challenging + 5)
-        closing = `Cụm cung liên hệ có nhiều yếu tố nâng đỡ hơn, giúp chủ đề của cung ${palace.name} có đường triển khai tương đối liền mạch khi các lĩnh vực liên quan cùng vận động`;
-    if (challenging >= supportive + 5)
-        closing = `Cụm cung liên hệ chứa nhiều yếu tố gây sức ép hơn, khiến chủ đề của cung ${palace.name} thường phải đi qua điều chỉnh, va chạm hoặc thay đổi cách xử lý trước khi ổn định`;
-    return `Tam phương tứ chính đặt cung ${palace.name} trong một chuỗi liên hệ rõ: ${clauses.join("; ")}. Do đó, ${PALACE_THEMES[palace.name]} được hình thành đồng thời qua ${formatList(related.map((item) => PALACE_THEMES[item.name]))}. ${closing}.`;
-}
-
-function corePalaceParagraph(palace) {
-    const major = getStars(palace, ["major"]);
-    const theme = PALACE_THEMES[palace.name];
-    const manifestation = PALACE_MANIFESTATIONS[palace.name];
-    if (!major.length) {
-        return `Cung ${palace.name} an tại ${palace.branch} là cung vô chính diệu. Vì thiếu một chính tinh tọa thủ làm trục cố định, ${theme} thường phản ứng mạnh hơn với phụ tinh, Tứ Hóa, tam phương và cung xung chiếu. Biểu hiện thực tế vì thế có độ biến thiên cao, đặc biệt ở ${manifestation}, và cần được đọc cùng vận hạn thay vì quy về một nét tính duy nhất.`;
-    }
-    const opening = major.length === 1
-        ? `${major[0].name} giữ vai trò trung tâm, nhấn mạnh ${MAJOR_PROFILES[major[0].id]?.core || "đặc tính chủ đạo của sao"}`
-        : `${major[0].name} tạo trục ${MAJOR_PROFILES[major[0].id]?.core || "chủ đạo"}, còn ${major.slice(1).map((star) => `${star.name} bổ sung ${MAJOR_PROFILES[star.id]?.core || "một chiều vận hành khác"}`).join("; ")}`;
-    const brightness = major.map(brightnessSentence).join(". ");
-    const tensions = unique(major.map((star) => MAJOR_PROFILES[star.id]?.tension));
-    const tensionText = tensions.length
-        ? `Điểm dễ mất cân bằng của bộ sao là ${formatList(tensions)}; xu hướng này chủ yếu bộc lộ khi môi trường đòi hỏi phản ứng nhanh hoặc khi cung bị nhiều sao gây trở lực kích hoạt`
-        : `Mặt căng thẳng của bộ sao phụ thuộc chủ yếu vào các phụ tinh đi kèm`;
-    return `Cung ${palace.name} an tại ${palace.branch} có ${majorDisplay(palace)}. ${opening}. ${brightness}. Trong phạm vi ${theme}, bộ sao này thường biểu hiện qua ${manifestation}. ${tensionText}.`;
-}
-
-function auxiliaryParagraph(palace, movingLayers = []) {
-    const support = getStars(palace, ["support"]);
-    const challenges = getStars(palace, ["malefic"]);
-    const supportSentences = mappedRoleSentences(support, SUPPORT_ROLES);
-    const challengeSentences = mappedRoleSentences(challenges, CHALLENGE_ROLES);
-    const transformSentences = transformationSentences(palace);
-    const balance = balanceState(palace, movingLayers);
+function modifierSummary(palace) {
+    const support = supportingStars(palace);
+    const challenges = challengeStars(palace);
     const parts = [];
-    if (supportSentences.length)
-        parts.push(`Ở chiều nâng đỡ, ${supportSentences.join("; ")}`);
-    else if (support.length)
-        parts.push(`Các trợ tinh ${formatList(support.slice(0, 6).map((star) => star.name))} tạo thêm lớp hỗ trợ cho chính tinh tọa thủ`);
-    if (challengeSentences.length)
-        parts.push(`Ở chiều gây sức ép, ${challengeSentences.join("; ")}`);
-    else if (challenges.length)
-        parts.push(`Các sao ${formatList(challenges.slice(0, 6).map((star) => star.name))} làm tăng độ phức tạp và biến động của cung`);
-    if (transformSentences.length)
-        parts.push(transformSentences.join("; "));
-    if (palace.hasTuan || palace.hasTriet) {
-        const blockers = formatList([palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""]);
-        parts.push(`${blockers} án trực tiếp làm nhịp biểu hiện bị ngắt, chậm hoặc đổi hướng, vì vậy năng lực của chính tinh thường chỉ ổn định sau một giai đoạn điều chỉnh`);
+    if (support.length) {
+        const clauses = support.slice(0, 3).map((star) => TRANSFORM_ROLES[star.name] ? `${star.name} ${TRANSFORM_ROLES[star.name]}` : `${star.name} hỗ trợ ${SUPPORT_ROLES[star.name] || "khả năng xử lý công việc"}`);
+        parts.push(clauses.join("; "));
     }
-    if (!parts.length)
-        parts.push(`Cung ít phụ tinh nổi bật, khiến chính tinh tọa thủ và tam phương tứ chính giữ vai trò chi phối rõ hơn`);
-    let conclusion = `Hai chiều thuận và nghịch cùng tồn tại, nên ${PALACE_MANIFESTATIONS[palace.name]} có thể chuyển trạng thái khá nhanh khi bối cảnh thay đổi`;
-    if (balance.label === "thiên về nâng đỡ")
-        conclusion = `Thế cung thiên về nâng đỡ, vì vậy mặt tích cực của chính tinh có điều kiện duy trì đều hơn trong ${PALACE_MANIFESTATIONS[palace.name]}`;
-    if (balance.label === "thiên về thử thách")
-        conclusion = `Thế cung thiên về thử thách, vì vậy mặt mạnh của chính tinh thường xuất hiện sau khi cá nhân đã xử lý sức cản, độ trễ hoặc mâu thuẫn liên quan tới ${PALACE_MANIFESTATIONS[palace.name]}`;
-    return `${parts.join(". ")}. ${conclusion}.`;
-}
-
-function compactPalaceSynthesis(palace, contextLabel) {
-    const major = getStars(palace, ["major"]);
-    const balance = balanceState(palace);
-    if (!major.length) {
-        return `Khi đặt cung ${palace.name} vào ${contextLabel}, đặc điểm nổi bật là trạng thái vô chính diệu tại ${palace.branch}. Cung này tiếp nhận ảnh hưởng từ hệ sao hội chiếu nhiều hơn từ một trục cố định, nên ${PALACE_MANIFESTATIONS[palace.name]} có xu hướng thay đổi theo môi trường và thời kỳ. Tổng thể phụ tinh hiện tại cho thấy thế cung ${balance.label}.`;
+    if (challenges.length) {
+        const clauses = challenges.slice(0, 3).map((star) => TRANSFORM_ROLES[star.name] ? `${star.name} ${TRANSFORM_ROLES[star.name]}` : `${star.name} làm tăng ${CHALLENGE_ROLES[star.name] || "độ trễ và vướng mắc"}`);
+        parts.push(`Ngược lại, ${clauses.join("; ")}`);
     }
-    const roleText = formatList(major.map((star) => `${star.name} gắn với ${MAJOR_PROFILES[star.id]?.core || "đặc tính chủ đạo"}`));
-    const strong = major.filter((star) => ["Miếu", "Vượng", "Đắc", "Lợi"].includes(star.brightness));
-    const weak = major.filter((star) => ["Hãm", "Bất"].includes(star.brightness));
-    let stateText = `Các chính tinh ở trạng thái trung gian, nên cách biểu hiện phụ thuộc nhiều vào phụ tinh và vận hạn`;
-    if (strong.length && !weak.length)
-        stateText = `${formatList(strong.map((star) => `${star.name} ở thế ${star.brightness}`))} giúp mặt tích cực của bộ sao hiện ra tương đối rõ`;
-    if (weak.length && !strong.length)
-        stateText = `${formatList(weak.map((star) => `${star.name} ở thế ${star.brightness}`))} làm mặt căng thẳng của bộ sao xuất hiện sớm hơn mặt thuận`;
-    if (strong.length && weak.length)
-        stateText = `${formatList(strong.map((star) => `${star.name} ở thế ${star.brightness}`))} tạo lực đẩy, trong khi ${formatList(weak.map((star) => `${star.name} ở thế ${star.brightness}`))} tạo phần cần điều chỉnh`;
-    return `Trong ${contextLabel}, cung ${palace.name} tại ${palace.branch} được định hình bởi ${roleText}. ${stateText}. Vì thế, ${PALACE_MANIFESTATIONS[palace.name]} vừa mang dấu ấn của chính tinh, vừa chuyển động theo thế phụ tinh ${balance.label}.`;
-}
-
-function compactModifierSynthesis(palace, contextLabel) {
-    const support = getStars(palace, ["support"]);
-    const challenges = getStars(palace, ["malefic"]);
-    const transforms = getStars(palace, ["transform"]);
-    const supportRoles = mappedRoleSentences(support, SUPPORT_ROLES, 3);
-    const challengeRoles = mappedRoleSentences(challenges, CHALLENGE_ROLES, 3);
-    const clauses = [];
-    if (supportRoles.length)
-        clauses.push(`phần nâng đỡ đến từ ${supportRoles.join("; ")}`);
-    else if (support.length)
-        clauses.push(`${formatList(support.slice(0, 4).map((star) => star.name))} tạo nền hỗ trợ cho cung`);
-    if (challengeRoles.length)
-        clauses.push(`phần gây sức ép đến từ ${challengeRoles.join("; ")}`);
-    else if (challenges.length)
-        clauses.push(`${formatList(challenges.slice(0, 4).map((star) => star.name))} làm tăng độ phức tạp của cung`);
-    if (transforms.length)
-        clauses.push(`${formatList(transforms.map((star) => star.name))} làm thay đổi hướng biểu hiện của nguồn lực, trách nhiệm, sự ghi nhận hoặc điểm nghẽn`);
-    if (palace.hasTuan || palace.hasTriet)
-        clauses.push(`${formatList([palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""])} tạo độ trễ và buộc quá trình phát triển phải đổi nhịp`);
-    if (!clauses.length)
-        clauses.push(`cung ít phụ tinh nổi bật, nên chính tinh và hệ hội chiếu giữ vai trò lớn hơn`);
-    return `Xét riêng ${contextLabel}, ${clauses.join("; ")}. Những yếu tố này tác động đồng thời lên ${PALACE_MANIFESTATIONS[palace.name]}, tạo ra cách biểu hiện cụ thể của cung thay vì tồn tại như các dấu hiệu tách rời.`;
+    const blockers = formatList([palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""]);
+    if (blockers)
+        parts.push(`${blockers} tại ${palace.name} khiến kết quả thường đến sau một lần đổi cách làm hoặc điều chỉnh kỳ vọng`);
+    return parts.join(". ");
 }
 
 function lifeBodyInteractionParagraph(life, body) {
     if (life.id === body.id)
-        return `Mệnh và Thân đồng cung tại ${life.branch}, khiến động lực bên trong và cách hành động khi trưởng thành cùng đi qua một hệ sao. Sự thống nhất này làm đặc tính của ${majorDisplay(life)} xuất hiện khá nhất quán giữa cảm nhận cá nhân, lựa chọn thực tế và trách nhiệm lâu dài.`;
-    return `Cung Mệnh tại ${life.branch} mở đầu phản ứng bằng ${formatList(getStars(life, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core || star.name))}, còn cung Thân tại ${body.branch} chuyển phản ứng ấy sang ${PALACE_THEMES[body.name]} qua ${formatList(getStars(body, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core || star.name))}. Sự khác biệt giữa hai cung cho thấy cá nhân có thể cảm nhận vấn đề theo một cách nhưng chỉ thực sự bộc lộ năng lực khi bước vào chủ đề của cung ${body.name}.`;
+        return `Mệnh và Thân đồng cung tại ${life.branch}, nên điều người này coi trọng thường đi khá sát với cách họ hành động. ${majorDisplay(life)} khiến ưu điểm và áp lực của cùng một bộ sao cùng tác động lên suy nghĩ, lựa chọn và trách nhiệm lâu dài.`;
+    return `Mệnh tại ${life.branch} cho thấy phản ứng ban đầu thiên về ${formatList(getStars(life, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core || star.name)) || "sự linh hoạt"}. Thân cư ${body.name} tại ${body.branch} khiến năng lực đó thể hiện rõ nhất qua ${PALACE_THEMES[body.name]}, với ảnh hưởng của ${majorDisplay(body)}. Vì vậy, điều người này hiểu về bản thân và nơi họ thực sự dồn công sức có thể không hoàn toàn trùng nhau ngay từ đầu.`;
 }
 
 function periodNatalContext(palace, label) {
+    const focus = /^Đại hạn/u.test(label) ? DECADE_MANIFESTATIONS[palace.name] : PALACE_MANIFESTATIONS[palace.name];
     const major = getStars(palace, ["major"]);
     if (!major.length)
-        return `Nền sao gốc của cung ${palace.name} là vô chính diệu, nên ${label.toLowerCase()} phản ứng mạnh với các sao lưu và cung xung chiếu. Diễn biến của giai đoạn dễ đổi nhịp khi môi trường hoặc quan hệ liên quan thay đổi.`;
-    const stars = major.map((star) => {
-        const profile = MAJOR_PROFILES[star.id] || { core: "đặc tính chủ đạo", tension: "mặt căng thẳng" };
-        return `${star.name} ở thế ${star.brightness || "trung bình"} đưa ${profile.core} vào giai đoạn, đồng thời giữ khả năng phát sinh ${profile.tension}`;
-    });
-    return `Nền sao gốc tại cung ${palace.name} gồm ${stars.join("; ")}. Trong ${label.toLowerCase()}, bộ sao này không tạo một tính cách mới, mà làm rõ cách ${PALACE_MANIFESTATIONS[palace.name]} được biểu hiện khi chủ đề của cung trở thành trọng tâm thời gian.`;
+        return `${label} đi qua cung ${palace.name} vô chính diệu. Giai đoạn này nhạy với thay đổi của môi trường và những cung hội chiếu, nên hướng phát triển có thể cần điều chỉnh nhiều hơn một lần.`;
+    return `${label} đi qua cung ${palace.name} tại ${palace.branch}, nơi có ${majorDisplay(palace)}. Giai đoạn này tác động trực tiếp tới ${focus}.`;
 }
 
 function movingBaseName(name) {
@@ -374,21 +295,21 @@ function movingRoleClause(star) {
 function movingParagraph(palace, layerLabel, starArrayName, contextText) {
     const stars = palace[starArrayName] || [];
     if (!stars.length) {
-        return `Trong ${layerLabel}, cung ${palace.name} không có điểm nhấn sao lưu trực tiếp. Vì vậy, ${PALACE_MANIFESTATIONS[palace.name]} chủ yếu tiếp tục theo nền sao gốc và chỉ đổi mức biểu hiện khi ${contextText} cùng tác động; đây là nhịp tương đối nền của lĩnh vực, không phải dấu hiệu cho một sự kiện riêng.`;
+        return `Trong ${layerLabel}, cung ${palace.name} không có sao lưu nổi bật. ${PALACE_MANIFESTATIONS[palace.name]} vì thế chủ yếu theo đặc điểm gốc và chịu ảnh hưởng từ ${contextText}.`;
     }
     const support = stars.filter((item) => item.group.endsWith("support"));
     const challenge = stars.filter((item) => item.group.endsWith("malefic"));
     const cycle = stars.filter((item) => item.group.endsWith("cycle"));
     const movingRoles = (group, roleMap, fallback) => roleSummary(group.map((star) => ({ ...star, name: movingBaseName(star.name) })), roleMap, fallback);
-    let conclusion = `${layerLabel} tạo cả phần thuận lẫn phần cần điều chỉnh tại cung ${palace.name}`;
+    let conclusion = `${layerLabel} đem lại cả cơ hội lẫn trở ngại tại cung ${palace.name}`;
     if ((support.length > 0 && challenge.length === 0) || support.length >= challenge.length + 2)
         conclusion = `${layerLabel} tạo điều kiện thuận hơn bình thường cho ${PALACE_MANIFESTATIONS[palace.name]}`;
     if ((challenge.length > 0 && support.length === 0) || challenge.length >= support.length + 2)
-        conclusion = `${layerLabel} dễ làm ${PALACE_MANIFESTATIONS[palace.name]} xuất hiện thêm độ trễ, va chạm hoặc nhu cầu điều chỉnh`;
+        conclusion = `${layerLabel} dễ làm ${PALACE_MANIFESTATIONS[palace.name]} gặp độ trễ, va chạm hoặc phải đổi cách xử lý`;
     const technical = formatList([...cycle, ...support, ...challenge].slice(0, 5).map((star) => star.name));
-    const supportText = support.length ? `Điểm thuận liên quan đến ${movingRoles(support, SUPPORT_ROLES, "khả năng nhận hỗ trợ và chủ động xử lý")}` : "Chiều nâng đỡ không tạo điểm nhấn riêng tại bản cung";
-    const challengeText = challenge.length ? `phần cần thận trọng liên quan đến ${movingRoles(challenge, CHALLENGE_ROLES, "sức cản hoặc thay đổi ngoài dự tính")}` : "phần gây sức ép không nổi trội tại bản cung";
-    return `${conclusion}. Trong cách đọc kỹ thuật, ${technical} cùng hội tại cung ${palace.name}; khi tổng hợp theo nhóm chức năng, ${supportText.charAt(0).toLowerCase()}${supportText.slice(1)}, còn ${challengeText}. Tác động này chỉ thu hẹp thời điểm biểu hiện của ${PALACE_THEMES[palace.name]} và vẫn phải đặt dưới ${contextText}, thay vì được dùng như một kết luận độc lập.`;
+    const supportText = support.length ? `điểm thuận liên quan đến ${movingRoles(support, SUPPORT_ROLES, "khả năng nhận hỗ trợ và chủ động xử lý")}` : "không có trợ tinh nổi bật tại cung";
+    const challengeText = challenge.length ? `điểm khó liên quan đến ${movingRoles(challenge, CHALLENGE_ROLES, "sức cản hoặc thay đổi ngoài dự tính")}` : "không có sát tinh lưu nổi bật tại cung";
+    return `${conclusion}. ${technical} cho thấy ${supportText}, còn ${challengeText}. Kết quả thực tế cần đặt cùng ${contextText}.`;
 }
 
 function palaceEvidence(palace, groups = ["major", "support", "malefic", "transform"]) {
@@ -413,109 +334,82 @@ function selectedStarEvidence(palace, stars) {
 }
 
 function roleSummary(stars, roleMap, fallback) {
-    const roles = unique(stars.map((star) => roleMap[star.name])).slice(0, 3);
+    const roles = unique(stars.map((star) => roleMap[star.name])).slice(0, 2);
     return roles.length ? formatList(roles) : fallback;
+}
+
+function periodEvidenceSummary(palace) {
+    const support = supportingStars(palace).slice(0, 3);
+    const challenges = challengeStars(palace).slice(0, 2);
+    const clauses = [];
+    if (support.length)
+        clauses.push(`Nhận định về cơ hội dựa chủ yếu vào ${formatList(support.map((star) => star.name))}`);
+    if (challenges.length)
+        clauses.push(`phía trở ngại thể hiện qua ${formatList(challenges.map((star) => star.name))}`);
+    const blockers = formatList([palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""]);
+    if (blockers)
+        clauses.push(`${blockers} tại ${palace.name} báo hiệu kết quả có thể đến sau khi phải điều chỉnh cách làm hoặc kỳ vọng`);
+    return clauses.length ? `${clauses.join("; ")}.` : "";
 }
 
 function palaceMainClaim(palace) {
     const major = getStars(palace, ["major"]);
-    const balance = balanceState(palace);
-    const lead = PALACE_LEADS[palace.name];
-    if (!major.length)
-        return palace.id % 2
-            ? `${lead} có xu hướng linh hoạt và đổi theo hoàn cảnh nhiều hơn là đi theo một khuôn cố định`
-            : `Không có một chính tinh làm trục cố định, ${lead.toLowerCase()} thường thích nghi theo môi trường và các cung liên hệ`;
-    const cores = formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 3));
-    const ending = balance.label === "thiên về nâng đỡ"
-        ? "được duy trì tương đối liền mạch"
-        : balance.label === "thiên về thử thách"
-            ? "thường chỉ hình thành sau một vài lần điều chỉnh"
-            : "thay đổi khá rõ theo môi trường và cách xử lý áp lực";
-    if (palace.id % 3 === 0)
-        return `Nổi bật trong ${lead.toLowerCase()} là ${cores}; nhịp phát triển ${ending}`;
-    if (palace.id % 3 === 1)
-        return `${lead} lấy ${cores} làm nền và ${ending}`;
-    return `${cores.charAt(0).toUpperCase()}${cores.slice(1)} định hình ${lead.toLowerCase()}, trong khi độ ổn định ${ending}`;
+    const stars = major.length ? majorDisplay(palace) : "vô chính diệu";
+    const abilities = formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 3)) || "khả năng thích ứng theo hoàn cảnh";
+    const openings = {
+        "Mệnh": `Mệnh có ${stars}. Nét nổi bật là ${abilities}, thể hiện trực tiếp trong cách suy nghĩ, phản ứng và nhận trách nhiệm`,
+        "Phụ Mẫu": `Phụ Mẫu có ${stars}. Quan hệ với gia đình và người đi trước chịu ảnh hưởng rõ của ${abilities}`,
+        "Phúc Đức": `Phúc Đức có ${stars}. Khả năng giữ cân bằng tinh thần và hồi phục sau áp lực gắn với ${abilities}`,
+        "Điền Trạch": `Điền Trạch có ${stars}. Cách tạo nơi ở ổn định và tích lũy tài sản thiên về ${abilities}`,
+        "Quan Lộc": `Quan Lộc có ${stars}. Con đường nghề nghiệp được định hình bởi ${abilities}`,
+        "Nô Bộc": `Nô Bộc có ${stars}. Việc chọn cộng sự và duy trì quan hệ xã hội phụ thuộc nhiều vào ${abilities}`,
+        "Thiên Di": `Thiên Di có ${stars}. Khi bước ra môi trường bên ngoài, người này thường dùng ${abilities}`,
+        "Tật Ách": `Tật Ách có ${stars}. Sức bền và phản ứng khi căng thẳng chịu ảnh hưởng của ${abilities}`,
+        "Tài Bạch": `Tài Bạch có ${stars}. Cách tạo thu nhập và giữ tiền gắn chặt với ${abilities}`,
+        "Tử Tức": `Tử Tức có ${stars}. Con cái hoặc các dự án dài hạn đòi hỏi ${abilities}`,
+        "Phu Thê": `Phu Thê có ${stars}. Trong quan hệ gắn bó, nhu cầu cam kết và phối hợp mang dấu ấn của ${abilities}`,
+        "Huynh Đệ": `Huynh Đệ có ${stars}. Quan hệ với anh chị em và người ngang hàng thể hiện rõ ${abilities}`
+    };
+    return openings[palace.name] || `${PALACE_LEADS[palace.name]} chịu ảnh hưởng của ${stars} và ${abilities}`;
 }
 
-function palaceParagraphs(palaces, palace, movingLayers = []) {
-    const major = getStars(palace, ["major"]);
-    const support = [...getStars(palace, ["support"]), ...getStars(palace, ["transform"]).filter((star) => star.name !== "Hóa Kỵ")];
-    const challenges = [...getStars(palace, ["malefic"]), ...getStars(palace, ["transform"]).filter((star) => star.name === "Hóa Kỵ")];
-    const { triadPalaces, opposite } = relationSet(palaces, palace);
-    const related = [...triadPalaces, opposite];
-    const insights = [];
-    insights.push((0, content_pipeline_1.createAtomicInsight)({
-        ruleId: `palace-${palace.id}-natal-core`,
-        topic: palace.name,
-        polarity: "neutral",
-        strength: 8,
-        evidence: palaceEvidence(palace, ["major"]),
-        claim: palaceMainClaim(palace),
-        explanation: major.length
-            ? `Trong cách đọc Tử Vi, căn cứ chính là ${majorDisplay(palace)} tại ${palace.name}; trạng thái của bộ chính tinh cho biết mặt thuận dễ phát huy trực tiếp hay cần đi qua va vấp trước khi ổn định`
-            : `Cung ${palace.name} tại ${palace.branch} là cung vô chính diệu, nên kết luận phải dựa nhiều hơn vào phụ tinh, tam phương tứ chính và đối cung thay vì gán một nét cố định`,
-        manifestations: [`Trong đời sống, xu hướng này thường đi vào ${PALACE_MANIFESTATIONS[palace.name]}`],
-        conditions: [palace.id % 3 === 0
-            ? `khi hoàn cảnh cho phép phát huy ${formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 2)) || "ảnh hưởng của các cung hội chiếu"}, mặt thuận dễ rõ hơn; khi áp lực kéo dài, phần gây cản trở dễ nổi lên`
-            : palace.id % 3 === 1
-                ? `mặt tích cực rõ hơn khi hoàn cảnh cho phép phát huy ${formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 2)) || "ảnh hưởng của các cung hội chiếu"}; mặt khó nổi lên khi áp lực kéo dài hoặc các yếu tố gây cản trở cùng được kích hoạt`
-                : `khả năng phát huy phụ thuộc việc môi trường có nâng đỡ ${formatList(unique(major.map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 2)) || "ảnh hưởng của các cung hội chiếu"} hay đồng thời tạo thêm sức ép`],
-        advice: `Điểm cần lưu ý là đây là đặc điểm nền của cung ${palace.name}, không phải một sự kiện chắc chắn hay kết luận cho mọi giai đoạn`,
-        primaryPalace: palace.id
-    }));
-    if (support.length) {
-        insights.push((0, content_pipeline_1.createAtomicInsight)({
-            ruleId: `palace-${palace.id}-support`,
-            topic: palace.name,
-            polarity: "supportive",
-            strength: 4 + Math.min(2, support.length / 4),
-            evidence: selectedStarEvidence(palace, support),
-            claim: `Điểm thuận của cung nằm ở ${roleSummary(support, { ...SUPPORT_ROLES, ...TRANSFORM_ROLES }, "khả năng nhận hỗ trợ và điều phối nguồn lực")}`,
-            explanation: `Các yếu tố ${formatList(support.slice(0, 5).map((star) => star.name))} cùng củng cố chiều này, nhưng được đọc như một nhóm chức năng thay vì các lời giải rời cho từng sao`,
-            manifestations: [`Nhờ đó, ${PALACE_MANIFESTATIONS[palace.name]} có thể giữ nhịp tốt hơn khi nguồn lực và quan hệ hỗ trợ hiện diện đúng lúc`],
-            conditions: [`khả năng này phát huy rõ hơn khi các cung tam hợp cùng có nền hỗ trợ hoặc khi vận đang xét kích hoạt đúng trục`],
-            primaryPalace: palace.id
-        }));
-    }
-    if (challenges.length || palace.hasTuan || palace.hasTriet) {
-        const blockers = formatList([palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""]);
-        insights.push((0, content_pipeline_1.createAtomicInsight)({
-            ruleId: `palace-${palace.id}-challenge`,
-            topic: palace.name,
-            polarity: "challenging",
-            strength: 4 + Math.min(2, (challenges.length + Number(Boolean(blockers))) / 4),
-            evidence: selectedStarEvidence(palace, challenges),
-            claim: `độ ổn định có thể giảm khi ${roleSummary(challenges, CHALLENGE_ROLES, "sức cản hoặc độ trễ")} xuất hiện cùng lúc`,
-            explanation: `${formatList(challenges.slice(0, 5).map((star) => star.name)) || "Các yếu tố gây cản trở"}${blockers ? ` cùng ${blockers}` : ""} làm nhịp biểu hiện dễ ngắt, chậm hoặc phải đổi cách xử lý`,
-            manifestations: [`Mặt khó thường thể hiện ở ${PALACE_MANIFESTATIONS[palace.name]}, nhất là khi cá nhân phải phản ứng nhanh trong một hoàn cảnh thiếu ổn định`],
-            conditions: [`đây là phần điều chỉnh của cung; nó rõ hơn khi vận cùng gây sức ép và nhẹ hơn khi tam phương có đủ yếu tố nâng đỡ`],
-            primaryPalace: palace.id
-        }));
-    }
-    const relatedSupport = related.reduce((sum, item) => sum + balanceState(item).support, 0);
-    const relatedChallenge = related.reduce((sum, item) => sum + balanceState(item).challenge, 0);
-    let relationClaim = `Xu hướng của ${palace.name} thay đổi theo cách các lĩnh vực liên quan phối hợp với nhau`;
-    if (relatedSupport >= relatedChallenge + 5)
-        relationClaim = `Các cung liên hệ tạo thêm nền nâng đỡ, giúp chủ đề ${palace.name} có đường triển khai liền mạch hơn`;
-    if (relatedChallenge >= relatedSupport + 5)
-        relationClaim = `Các cung liên hệ tạo áp lực đáng kể, nên điểm mạnh của ${palace.name} thường được dùng để thích nghi và điều chỉnh hơn là giữ nguyên một hoàn cảnh`;
-    insights.push((0, content_pipeline_1.createAtomicInsight)({
-        ruleId: `palace-${palace.id}-relations`,
-        topic: palace.name,
-        polarity: relatedSupport >= relatedChallenge + 5 ? "supportive" : relatedChallenge >= relatedSupport + 5 ? "challenging" : "neutral",
-        strength: 3.5,
-        evidence: related.flatMap((item) => palaceEvidence(item, ["major", "support", "malefic", "transform"])),
-        claim: relationClaim,
-        explanation: `Tam phương tứ chính nối ${palace.name} với ${formatList(triadPalaces.map((item) => item.name))} và đối cung ${opposite.name}; vì vậy ${PALACE_THEMES[palace.name]} không được đọc như một ô độc lập`,
-        manifestations: [`Sự liên hệ này giải thích vì sao thay đổi ở ${formatList(related.map((item) => PALACE_THEMES[item.name]))} có thể làm cách biểu hiện của ${palace.name} đổi theo`],
-        conditions: [`ảnh hưởng liên cung rõ nhất khi nhiều cung trong cùng trục được một lớp vận kích hoạt, còn ở lá số gốc đây vẫn là khuynh hướng nền`],
-        primaryPalace: palace.id,
-        relatedPalaces: related.map((item) => item.id),
-        relationType: "tam_hop_doi_cung"
-    }));
-    const detail = palace.stars.length + (palace.hasTuan ? 2 : 0) + (palace.hasTriet ? 2 : 0);
-    return (0, content_pipeline_1.synthesizeInsights)(insights, { maxParagraphs: detail >= 12 ? 4 : detail >= 7 ? 3 : 2 });
+function relationTone(palace) {
+    const balance = balanceState(palace);
+    if (balance.support >= balance.challenge + 3) return "có nhiều điều kiện thuận lợi";
+    if (balance.challenge >= balance.support + 3) return "có những vướng mắc cần tính trước";
+    return "vừa có điểm mạnh vừa có điểm khó";
+}
+
+function relationSynthesis(palaces, palace) {
+    const pairs = {
+        "Mệnh": ["Quan Lộc", "Tài Bạch", "Năng lực cá nhân phát huy tốt nhất khi công việc cho đủ quyền chủ động và thu nhập không bị kéo theo mỗi lần đổi hướng"],
+        "Phụ Mẫu": ["Phúc Đức", "Huynh Đệ", "Kỳ vọng từ gia đình tác động lâu dài tới cách chia sẻ trách nhiệm; ranh giới rõ sẽ giảm cảm giác phải gánh thay người khác"],
+        "Phúc Đức": ["Mệnh", "Tật Ách", "Khả năng hồi phục tinh thần liên hệ trực tiếp với cách tự xử lý áp lực; càng ôm việc một mình, sức bền càng dễ giảm"],
+        "Điền Trạch": ["Tài Bạch", "Phúc Đức", "Quyết định về nơi ở hoặc tài sản chỉ bền khi vừa phù hợp dòng tiền vừa tạo được cảm giác an tâm lâu dài"],
+        "Quan Lộc": ["Mệnh", "Tài Bạch", "Vấn đề chính không chỉ là có năng lực làm việc, mà là biến năng lực đó thành một vai trò đủ bền để thu nhập không dao động theo từng thay đổi nghề nghiệp"],
+        "Nô Bộc": ["Thiên Di", "Huynh Đệ", "Quan hệ xã hội tốt lên khi người này chọn đúng nhóm và phân chia trách nhiệm rõ, thay vì duy trì kết nối chỉ vì nể nang"],
+        "Thiên Di": ["Mệnh", "Quan Lộc", "Môi trường bên ngoài có thể mở cơ hội nghề nghiệp, nhưng hiệu quả phụ thuộc việc người này giữ được cách làm riêng hay phải liên tục thích ứng với yêu cầu mới"],
+        "Tật Ách": ["Mệnh", "Phúc Đức", "Áp lực tinh thần và nhịp sinh hoạt có quan hệ gần; thời gian nghỉ và khả năng chia sẻ trách nhiệm ảnh hưởng rõ tới sức bền"],
+        "Tài Bạch": ["Quan Lộc", "Điền Trạch", "Thu nhập chịu ảnh hưởng từ lựa chọn nghề nghiệp, còn khả năng giữ tiền liên hệ với kế hoạch nhà cửa và tài sản; hai việc này không nên được quyết định tách rời"],
+        "Tử Tức": ["Phu Thê", "Điền Trạch", "Dự án dài hạn hoặc trách nhiệm với con cái cần sự thống nhất về cam kết và môi trường sống; thiếu một trong hai sẽ làm quá trình kéo dài hơn dự tính"],
+        "Phu Thê": ["Mệnh", "Phúc Đức", "Quan hệ bền hơn khi nhu cầu cá nhân được nói rõ và cả hai có cách hồi phục sau mâu thuẫn, thay vì để trách nhiệm tích tụ thành khoảng cách"],
+        "Huynh Đệ": ["Nô Bộc", "Phụ Mẫu", "Cách chia sẻ trách nhiệm trong gia đình dễ lặp lại trong quan hệ với bạn bè và đồng nghiệp; ranh giới nhất quán giúp giảm xung đột" ]
+    };
+    const [firstName, secondName, conclusion] = pairs[palace.name] || [relationSet(palaces, palace).triadPalaces[0].name, relationSet(palaces, palace).opposite.name, `${PALACE_THEMES[palace.name]} chịu ảnh hưởng rõ từ các lĩnh vực liên quan`];
+    const first = palaces.find((item) => item.name === firstName);
+    const second = palaces.find((item) => item.name === secondName);
+    return `${first.name} có ${majorDisplay(first)} và ${relationTone(first)}, trong khi ${second.name} có ${majorDisplay(second)} và ${relationTone(second)}. ${conclusion}.`;
+}
+
+function palaceParagraphs(palaces, palace) {
+    const first = `${palaceMainClaim(palace)}. ${majorStateSummary(palace)}.`;
+    const modifiers = modifierSummary(palace);
+    const second = modifiers
+        ? `${modifiers}. Những yếu tố này thể hiện rõ nhất qua ${PALACE_MANIFESTATIONS[palace.name]}.`
+        : `Cung không có nhiều phụ tinh nổi bật, nên ${PALACE_MANIFESTATIONS[palace.name]} chủ yếu theo đặc tính của chính tinh và hoàn cảnh thực tế.`;
+    const relation = relationSynthesis(palaces, palace);
+    const detail = palace.stars.length + Number(palace.hasTuan) * 2 + Number(palace.hasTriet) * 2;
+    return detail < 7 ? [first, `${second} ${relation}`] : [first, second, relation];
 }
 
 function makeItem(id, topic, title, paragraphs) {
@@ -529,168 +423,141 @@ function repeatedFocusParagraph(palaces, focusIds, label) {
     const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([id, count]) => ({ palace: getPalace(palaces, id), count }));
     const repeated = ranked.filter((item) => item.count > 1);
     if (repeated.length) {
-        return `${label} có sự chồng lớp tại ${formatList(repeated.map((item) => `${item.palace.name} ở ${item.palace.branch}`))}. Khi một cung đồng thời xuất hiện ở nhiều tầng vận, chủ đề của cung đó thường trở thành trục chính và các sự kiện liên quan có xu hướng biểu hiện rõ hơn so với những cung chỉ xuất hiện một lần.`;
+        return `${label} cùng hướng về ${formatList(repeated.map((item) => `${item.palace.name} ở ${item.palace.branch}`))}. Vì nhiều mốc thời gian gặp nhau tại đây, ${formatList(repeated.map((item) => PALACE_MANIFESTATIONS[item.palace.name]))} đáng chú ý hơn các lĩnh vực chỉ xuất hiện một lần.`;
     }
-    return `${label} phân bố trên nhiều cung khác nhau. Điều này cho thấy diễn biến không tập trung hoàn toàn vào một lĩnh vực, thay vào đó được chia thành nhiều đầu mối và cần đọc theo thứ tự từ đại vận đến lớp thời gian hẹp hơn.`;
+    return `${label} phân bố trên nhiều cung khác nhau. Diễn biến vì thế không tập trung hoàn toàn vào một lĩnh vực mà có thể xuất hiện qua nhiều đầu mối, từ bối cảnh mười năm đến những thay đổi riêng của năm.`;
 }
 
 function thematicSynthesis(palaces, title, primaryName, relatedNames) {
     const primary = palaces.find((item) => item.name === primaryName);
     const related = relatedNames.map((name) => palaces.find((item) => item.name === name)).filter(Boolean);
-    const all = [primary, ...related];
-    const supportScore = all.reduce((sum, item) => sum + balanceState(item).support, 0);
-    const challengeScore = all.reduce((sum, item) => sum + balanceState(item).challenge, 0);
-    const topicManifestations = {
-        "Sự nghiệp": "kiểu môi trường phù hợp, mức chủ động, cách nhận trách nhiệm và khả năng phối hợp với người khác",
-        "Tài chính": "khả năng tạo thu nhập, cách tích lũy, độ biến động của dòng tiền và phản ứng trước cơ hội",
-        "Tình cảm": "cách hình thành cam kết, nhu cầu về khoảng riêng và phương thức xử lý khác biệt",
-        "Gia đình và quan hệ": "mức gần gũi, cách chia sẻ trách nhiệm và ranh giới giữa các thế hệ hoặc nhóm quan hệ",
-        "Sức khỏe và nhịp sống": "sức bền, mức tiêu hao khi căng thẳng và khả năng duy trì nhịp sinh hoạt ổn định"
-    };
-    const mainPolarity = supportScore >= challengeScore + 5 ? "supportive" : challengeScore >= supportScore + 5 ? "challenging" : "mixed";
-    const mainClaim = mainPolarity === "supportive"
-        ? `${title} có nền thuận tương đối rõ, nhưng kết quả vẫn phụ thuộc cách nguồn lực được duy trì trong thực tế`
-        : mainPolarity === "challenging"
-            ? `${title} thường phát triển qua điều chỉnh và thay đổi nhịp hơn là theo một đường hoàn toàn ổn định`
-            : `${title} có cả khả năng phát triển lẫn điểm dễ gây gián đoạn, nên điều quan trọng nằm ở cách hai chiều này được cân bằng`;
-    const insights = [(0, content_pipeline_1.createAtomicInsight)({
-        ruleId: `theme-${primary.id}-main`,
-        topic: title,
-        polarity: mainPolarity,
-        strength: 5,
-        evidence: all.flatMap((item) => palaceEvidence(item)),
-        claim: mainClaim,
-        explanation: `Căn cứ chính nằm ở cung ${primary.name} tại ${primary.branch}, sau đó được đối chiếu với ${formatList(related.map((item) => `${item.name} tại ${item.branch}`))}; bộ chính tinh ${majorDisplay(primary)} tạo trục, còn các cung liên hệ cho biết trục ấy được hỗ trợ hay bị điều chỉnh ra sao`,
-        manifestations: [`Trong đời sống, cấu trúc này thường thể hiện qua ${topicManifestations[title] || PALACE_MANIFESTATIONS[primary.name]}`],
-        conditions: [`mặt thuận rõ hơn khi các cung liên hệ cùng nâng đỡ; nếu một cung trọng yếu chịu nhiều sức ép, kết quả dễ đổi nhịp dù bản cung vẫn có năng lực`],
-        advice: title === "Sức khỏe và nhịp sống"
-            ? "Nội dung chỉ mô tả khuynh hướng về nhịp sinh hoạt và sức bền, không thay thế đánh giá hoặc chẩn đoán y khoa"
-            : `Phần này mô tả khuynh hướng của ${title.toLowerCase()}, không khẳng định một kết quả cố định hay thay thế quyết định thực tế`,
-        primaryPalace: primary.id,
-        relatedPalaces: related.map((item) => item.id),
-        relationType: "functional"
-    })];
-    const transforms = all.flatMap((item) => getStars(item, ["transform"]));
-    if (transforms.length) {
-        insights.push((0, content_pipeline_1.createAtomicInsight)({
-            ruleId: `theme-${primary.id}-transforms`,
-            topic: title,
-            polarity: transforms.some((star) => star.name === "Hóa Kỵ") ? "mixed" : "supportive",
-            strength: 4,
-            evidence: all.flatMap((item) => palaceEvidence(item, ["transform"])),
-            claim: `Khả năng tiếp nhận nguồn lực, nắm quyền chủ động, được ghi nhận hoặc gặp điểm nghẽn là lớp điều chỉnh đáng chú ý của chủ đề này`,
-            explanation: `Trong cách đọc Tử Vi, nhóm Tứ Hóa ${formatList(transforms.map((star) => star.name))} xuất hiện trong cụm cung liên quan, nên tác động được tổng hợp theo toàn trục thay vì gán mỗi sao cho một kết luận riêng`,
-            manifestations: [`Sự điều chỉnh thường đi vào ${topicManifestations[title] || PALACE_MANIFESTATIONS[primary.name]} và có thể làm cùng một năng lực biểu hiện khác nhau theo từng giai đoạn`],
-            conditions: [`Tứ Hóa chỉ làm rõ hướng vận hành đã có sẵn; mức biểu hiện còn phụ thuộc chính tinh, phụ tinh và lớp vận đang kích hoạt`],
-            primaryPalace: primary.id,
-            relatedPalaces: related.map((item) => item.id),
-            relationType: "functional"
-        }));
+    const byName = (name) => palaces.find((item) => item.name === name);
+    const starNames = (palace, groups) => formatList(getStars(palace, groups).slice(0, 5).map((star) => star.name));
+    const challenges = (palace) => roleSummary(challengeStars(palace), { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "áp lực khi hoàn cảnh thay đổi");
+    if (title === "Sự nghiệp") {
+        const life = byName("Mệnh");
+        const travel = byName("Thiên Di");
+        const finance = byName("Tài Bạch");
+        const mobile = [...getStars(primary, ["support", "malefic"]), ...getStars(travel, ["support", "malefic"])].some((star) => star.name === "Thiên Mã");
+        return [
+            `${palaceMainClaim(primary)}. ${majorStateSummary(primary, "sự nghiệp")}. Công việc phù hợp hơn với môi trường ${mobile ? "cho phép thay đổi vai trò, mở rộng phạm vi hoặc di chuyển" : "có trách nhiệm rõ và đủ khoảng chủ động để sắp xếp cách làm"}.`,
+            `Mệnh có ${majorDisplay(life)}, còn Thiên Di có ${majorDisplay(travel)}. Sự kết hợp này cho thấy người này nhận việc tốt nhất khi hiểu mục tiêu và có quyền xử lý, nhưng ${challenges(primary)} có thể tạo khoảng cách giữa năng lực thực tế với vị trí hoặc sự ghi nhận trong một số giai đoạn.`,
+            `Tài Bạch có ${majorDisplay(finance)} và ${relationTone(finance)}. Vì vậy, mỗi thay đổi nghề nghiệp cần được tính cùng ảnh hưởng tới thu nhập; khả năng làm việc chỉ chuyển thành kết quả bền khi vai trò, quyền quyết định và dòng tiền cùng ổn định.`
+        ];
     }
-    return (0, content_pipeline_1.synthesizeInsights)(insights, { maxParagraphs: 3 });
+    if (title === "Tài chính") {
+        const career = byName("Quan Lộc");
+        const property = byName("Điền Trạch");
+        const transforms = starNames(primary, ["transform"]);
+        return [
+            `${palaceMainClaim(primary)}. ${majorStateSummary(primary, "tài chính")}. Khả năng kiếm tiền và khả năng giữ tiền ${balanceState(primary).challenge > balanceState(primary).support ? "không hoàn toàn đồng đều, nên kế hoạch dự phòng quan trọng hơn việc trông chờ dòng tiền đều sẵn có" : "có thể hỗ trợ nhau nếu mục tiêu chi tiêu và tích lũy được xác định rõ"}.`,
+            `Quan Lộc có ${majorDisplay(career)}, còn Điền Trạch có ${majorDisplay(property)}. Thu nhập vì thế chịu ảnh hưởng từ lựa chọn nghề nghiệp, trong khi phần tích lũy dài hạn liên hệ với nhà ở và tài sản; thay đổi ở công việc có thể kéo theo một thời gian phải sắp xếp lại kế hoạch tài chính.`,
+            `${transforms ? `Tứ Hóa tại nhóm cung này gồm ${transforms}, làm rõ khả năng tăng nguồn lực, nắm quyền quyết định hoặc gặp điểm nghẽn.` : "Nhóm cung tài chính không có Tứ Hóa nổi bật tại bản cung."} Rủi ro hành vi đáng lưu ý là ${challenges(primary)}, nhất là khi quyết định được đưa ra dưới áp lực thời gian.`
+        ];
+    }
+    if (title === "Tình cảm") {
+        const life = byName("Mệnh");
+        const spirit = byName("Phúc Đức");
+        return [
+            `${palaceMainClaim(primary)}. ${majorStateSummary(primary, "tình cảm")}. Người này cần một quan hệ có cam kết rõ nhưng vẫn tôn trọng cách mỗi bên tự xử lý công việc và cảm xúc.`,
+            `Mệnh có ${majorDisplay(life)}, trong khi Phúc Đức có ${majorDisplay(spirit)}. Nhu cầu cá nhân và cách hồi phục sau mâu thuẫn vì thế ảnh hưởng trực tiếp tới độ gần gũi; nếu khác biệt không được nói rõ, ${challenges(primary)} dễ tạo khoảng cách dù hai bên vẫn có thiện chí.`,
+            `${modifierSummary(primary) || "Phụ tinh tại Phu Thê không tạo điểm nhấn riêng."} Quan hệ thuận hơn khi vai trò và kỳ vọng được thống nhất sớm; ngược lại, việc giữ im lặng quá lâu có thể khiến một vấn đề nhỏ tích tụ thành cảm giác thiếu đồng hành.`
+        ];
+    }
+    if (title === "Gia đình và quan hệ") {
+        const parents = byName("Phụ Mẫu");
+        const siblings = byName("Huynh Đệ");
+        const network = byName("Nô Bộc");
+        return [
+            `${palaceMainClaim(primary)}. ${majorStateSummary(primary, "gia đình và quan hệ")}. Gia đình gốc có ảnh hưởng rõ tới cách người này hiểu về trách nhiệm, sự hỗ trợ và cảm giác thuộc về.`,
+            `Phụ Mẫu có ${majorDisplay(parents)}, còn Huynh Đệ có ${majorDisplay(siblings)}. Điều này cho thấy trách nhiệm giữa các thế hệ và người ngang hàng cần được phân chia rõ; nếu không, ${challenges(parents)} có thể chuyển thành cảm giác phải gánh phần việc của người khác.`,
+            `Nô Bộc có ${majorDisplay(network)} và ${relationTone(network)}. Mạng lưới quan hệ có thể là nguồn hỗ trợ thực tế, nhưng chất lượng quan trọng hơn số lượng; ranh giới nhất quán giúp tránh lặp lại áp lực gia đình trong quan hệ bạn bè hoặc đồng nghiệp.`
+        ];
+    }
+    if (title === "Sức khỏe và nhịp sống") {
+        const life = byName("Mệnh");
+        const spirit = byName("Phúc Đức");
+        return [
+            `${palaceMainClaim(primary)}. ${majorStateSummary(primary, "sức khỏe và nhịp sống")}. Sức bền chịu ảnh hưởng rõ từ nhịp sinh hoạt và cách phản ứng khi nhiều trách nhiệm đến cùng lúc.`,
+            `Mệnh có ${majorDisplay(life)}, còn Phúc Đức có ${majorDisplay(spirit)}. Khi suy nghĩ kéo dài hoặc khó chia sẻ việc đang gánh, mức tiêu hao dễ tăng; ngược lại, thời gian nghỉ đều và khả năng tách việc quan trọng khỏi việc vụn giúp hồi phục tốt hơn.`,
+            `${modifierSummary(primary) || "Cung Tật Ách không có nhiều phụ tinh nổi bật."} Điểm cần quan sát là phản ứng với căng thẳng, chất lượng giấc nghỉ và khả năng trở lại nhịp bình thường sau giai đoạn bận rộn.`
+        ];
+    }
+    return [`${palaceMainClaim(primary)}. ${majorStateSummary(primary)}.`, ...related.slice(0, 2).map((item) => relationSynthesis(palaces, item))];
 }
 
 function periodParagraphs(palaces, palace, label, contextIds, movingConfig) {
     const balance = balanceState(palace, movingConfig ? [movingConfig.arrayName] : []);
     const contextPalaces = contextIds.filter(Boolean).map((id) => getPalace(palaces, id));
-    const main = (0, content_pipeline_1.createAtomicInsight)({
-        ruleId: `period-${label}-${palace.id}-main`,
-        topic: label,
-        polarity: balance.label === "thiên về nâng đỡ" ? "supportive" : balance.label === "thiên về thử thách" ? "challenging" : "mixed",
-        strength: 5,
-        evidence: palaceEvidence(palace),
-        claim: `${label} làm ${PALACE_LEADS[palace.name].toLowerCase()} trở thành trọng tâm rõ hơn bình thường`,
-        explanation: `Lớp vận này đi vào cung ${palace.name} tại ${palace.branch}, nơi có ${majorDisplay(palace)} làm nền; vì vậy vận chỉ tăng hoặc điều chỉnh mức biểu hiện của một xu hướng sẵn có, không tạo thành đặc điểm cả đời mới`,
-        manifestations: [`Trong giai đoạn này, trọng tâm thường đi vào ${PALACE_MANIFESTATIONS[palace.name]}`],
-        conditions: [`mặt thuận dễ phát huy khi nền sao gốc và các lớp vận lớn hơn cùng hướng; nếu hai lớp trái chiều, diễn biến thường xuất hiện theo từng đợt và cần đọc theo lớp thời gian dài trước`],
-        primaryPalace: palace.id,
-        relatedPalaces: contextPalaces.map((item) => item.id),
-        relationType: "fortune_activation"
-    });
-    const network = (0, content_pipeline_1.createAtomicInsight)({
-        ruleId: `period-${label}-${palace.id}-network`,
-        topic: label,
-        polarity: "neutral",
-        strength: 4,
-        evidence: [palace, ...contextPalaces].flatMap((item) => palaceEvidence(item)),
-        claim: `Ý nghĩa của giai đoạn hình thành từ sự liên kết giữa ${palace.name} và ${formatList(contextPalaces.map((item) => item.name)) || "nền lá số"}, không phải từ một cung riêng lẻ`,
-        explanation: (0, patterns_1.buildActivationParagraph)(palaces, [palace.id, ...contextIds], `Xét toàn bộ chuỗi thời gian`),
-        manifestations: [`Một thay đổi ở cung trọng tâm có thể lan sang ${formatList(contextPalaces.map((item) => PALACE_THEMES[item.name])) || "những lĩnh vực liên hệ"}, nhưng mức độ phụ thuộc thứ tự Đại hạn, Tiểu hạn, vận năm và lớp thời gian hẹp hơn`],
-        conditions: [`sự chồng lớp tại cùng một cung làm chủ đề rõ hơn; khi các lớp phân tán, diễn biến có xu hướng chia thành nhiều đầu mối`],
-        primaryPalace: palace.id,
-        relatedPalaces: contextPalaces.map((item) => item.id),
-        relationType: "fortune_activation"
-    });
-    const insights = [main, network];
+    const life = palaces.find((item) => item.name === "Mệnh");
+    const body = palaces.find((item) => item.isBody) || life;
+    const periodFocus = /^Đại hạn/u.test(label) ? DECADE_MANIFESTATIONS[palace.name] : PALACE_MANIFESTATIONS[palace.name];
+    const first = `${periodNatalContext(palace, label)} ${majorStateSummary(palace, label.toLowerCase())}.`;
+    const opportunity = balance.support > balance.challenge
+        ? `Cơ hội đáng chú ý nằm ở ${roleSummary(supportingStars(palace), { ...SUPPORT_ROLES, ...TRANSFORM_ROLES }, periodFocus)}`
+        : `Cơ hội vẫn đến từ việc chủ động cải thiện ${periodFocus}`;
+    const difficulty = balance.challenge > 0
+        ? `Khó khăn chính liên quan đến ${roleSummary([...getStars(palace, ["malefic"]), ...getStars(palace, ["transform"]).filter((star) => star.name === "Hóa Kỵ")], { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "độ trễ và thay đổi ngoài dự tính")}`
+        : `Trở ngại không tập trung ở một nhóm sao riêng, nên chất lượng quyết định thực tế giữ vai trò lớn hơn`;
+    const evidence = periodEvidenceSummary(palace);
+    const second = `Riêng ${label.toLowerCase()}, ${opportunity.charAt(0).toLowerCase()}${opportunity.slice(1)}. ${difficulty}. ${evidence || `Chính tinh ${majorDisplay(palace)} giữ vai trò quyết định trong giai đoạn này.`}`;
+    const context = contextPalaces.length
+        ? `Trong ${label.toLowerCase()}, cung này đồng thời liên hệ với ${formatList(contextPalaces.map((item) => `${item.name} có ${majorDisplay(item)}`))}. Vì vậy, thay đổi ở ${periodFocus} có thể kéo theo ${formatList(contextPalaces.map((item) => PALACE_THEMES[item.name]))}.`
+        : `Với ${label.toLowerCase()}, khi trọng tâm đi qua ${palace.name}, Mệnh có ${majorDisplay(life)} và Thân cư ${body.name} có ${majorDisplay(body)}. Cách giai đoạn này biểu hiện riêng ở người này phụ thuộc việc ${periodFocus} có phù hợp với cách họ suy nghĩ và nơi họ dồn trách nhiệm hay không.`;
+    const paragraphs = [first, second, context];
     if (movingConfig) {
-        const moving = palace[movingConfig.arrayName] || [];
-        const movingSupport = moving.filter((star) => star.group.endsWith("support"));
-        const movingChallenge = moving.filter((star) => star.group.endsWith("malefic"));
-        const movingRoleText = [
-            movingSupport.length ? `phần thuận liên quan đến ${roleSummary(movingSupport.map((star) => ({ ...star, name: movingBaseName(star.name) })), SUPPORT_ROLES, "khả năng nhận hỗ trợ")}` : "",
-            movingChallenge.length ? `phần cần thận trọng liên quan đến ${roleSummary(movingChallenge.map((star) => ({ ...star, name: movingBaseName(star.name) })), CHALLENGE_ROLES, "sức cản hoặc thay đổi ngoài dự tính")}` : ""
-        ].filter(Boolean);
-        insights.push((0, content_pipeline_1.createAtomicInsight)({
-            ruleId: `period-${label}-${palace.id}-${movingConfig.arrayName}`,
-            topic: label,
-            polarity: balance.label === "thiên về nâng đỡ" ? "supportive" : balance.label === "thiên về thử thách" ? "challenging" : "mixed",
-            strength: 4.5,
-            evidence: [{ palaceId: palace.id, layer: movingConfig.arrayName, starIds: moving.map((star) => star.id) }],
-            claim: moving.length
-                ? `Trong lớp thời gian hẹp hơn, nhịp của cung ${palace.name} ${balance.label === "thiên về nâng đỡ" ? "được hỗ trợ rõ hơn" : balance.label === "thiên về thử thách" ? "dễ có thêm độ trễ hoặc áp lực" : "đan xen cơ hội với phần cần điều chỉnh"}`
-                : `Lớp thời gian hẹp hơn không tạo thêm một điểm nhấn sao lưu trực tiếp tại cung ${palace.name}`,
-            explanation: moving.length
-                ? `Nhóm sao lưu tại cung gồm ${formatList(moving.slice(0, 5).map((star) => star.name))}; khi tổng hợp theo chức năng, ${formatList(movingRoleText) || "trọng tâm thời gian được xác định rõ hơn"}, thay vì tách thành các lời phán riêng`
-                : `Trọng tâm vẫn do nền sao gốc và quan hệ với ${movingConfig.context} quyết định`,
-            manifestations: [`Biểu hiện thường thu hẹp vào ${PALACE_MANIFESTATIONS[palace.name]} trong ${movingConfig.label}`],
-            conditions: [`lớp thời gian này chỉ cho biết thời điểm một xu hướng dễ nổi lên, không đủ để kết luận sự kiện dài hạn nếu đứng một mình`],
-            primaryPalace: palace.id,
-            relationType: "fortune_activation"
-        }));
+        paragraphs.push(movingParagraph(palace, movingConfig.label, movingConfig.arrayName, movingConfig.context));
     }
-    return (0, content_pipeline_1.synthesizeInsights)(insights, { maxParagraphs: movingConfig ? 3 : 2 });
+    return paragraphs;
 }
 
 function timelineParagraphs(palaces, activeDecadePalaceId) {
     const ordered = [...palaces].sort((a, b) => a.decadeStart - b.decadeStart);
-    const activeIndex = Math.max(0, ordered.findIndex((palace) => palace.id === activeDecadePalaceId));
-    const start = Math.max(0, Math.min(ordered.length - 4, activeIndex - 1));
-    const selected = ordered.slice(start, start + 4);
-    return selected.map((palace, index) => {
-        const previous = index ? selected[index - 1] : ordered[start - 1];
+    const activeIndex = ordered.findIndex((palace) => palace.id === activeDecadePalaceId);
+    const selectedIds = new Set();
+    if (activeIndex >= 0) [activeIndex - 1, activeIndex, activeIndex + 1, activeIndex + 2].filter((index) => ordered[index]).forEach((index) => selectedIds.add(ordered[index].id));
+    const candidates = activeIndex >= 0 ? ordered.slice(0, Math.min(ordered.length, activeIndex + 4)) : ordered.slice(0, 6);
+    [...candidates]
+        .sort((a, b) => {
+            const score = (item) => Math.abs(balanceState(item).support - balanceState(item).challenge) * 2 + item.stars.length + Number(item.hasTuan || item.hasTriet) * 3;
+            return score(b) - score(a);
+        })
+        .forEach((palace) => { if (selectedIds.size < 5) selectedIds.add(palace.id); });
+    const selected = ordered.filter((palace) => selectedIds.has(palace.id));
+    return selected.map((palace) => {
+        const index = ordered.findIndex((item) => item.id === palace.id);
+        const previous = ordered[index - 1];
         const balance = balanceState(palace);
-        const transition = previous
-            ? `So với giai đoạn ${previous.decadeStart}-${previous.decadeEnd} tuổi, trọng tâm chuyển từ ${PALACE_THEMES[previous.name]} sang ${PALACE_THEMES[palace.name]}`
-            : `Đây là một trong những giai đoạn đầu của chuỗi Đại hạn được hiển thị trong báo cáo`;
-        let tone = `thế cung đan xen yếu tố nâng đỡ và gây sức ép, nên quá trình thường có cả phần phát triển lẫn phần phải điều chỉnh`;
-        if (balance.label === "thiên về nâng đỡ")
-            tone = `thế cung có nhiều yếu tố nâng đỡ hơn, tạo điều kiện để chủ đề này được duy trì tương đối liền mạch`;
-        if (balance.label === "thiên về thử thách")
-            tone = `thế cung có nhiều yếu tố gây sức ép hơn, nên điểm mạnh thường được hình thành qua thay đổi nhịp hoặc xử lý trở lực`;
-        const current = palace.id === activeDecadePalaceId ? " Đây là Đại hạn hiện tại theo tuổi mụ đang dùng trong lá số." : "";
-        return `${palace.decadeStart}-${palace.decadeEnd} tuổi là giai đoạn ${PALACE_LEADS[palace.name].toLowerCase()} nổi lên rõ hơn. ${transition}; ${tone}.${current}`;
+        const transition = previous ? `So với ${previous.decadeStart}-${previous.decadeEnd} tuổi ở cung ${previous.name}, điểm khác là ${DECADE_MANIFESTATIONS[palace.name]} được đặt ra rõ hơn` : "Đây là giai đoạn mở đầu của chuỗi Đại hạn";
+        const tone = balance.support > balance.challenge
+            ? `cơ hội nằm ở ${roleSummary(supportingStars(palace), { ...SUPPORT_ROLES, ...TRANSFORM_ROLES }, DECADE_MANIFESTATIONS[palace.name])}`
+            : `khó khăn nằm ở ${roleSummary(challengeStars(palace), { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "việc thích nghi với thay đổi")}`;
+        const current = palace.id === activeDecadePalaceId ? " Đây là Đại hạn hiện tại theo tuổi mụ." : "";
+        return `${palace.decadeStart}-${palace.decadeEnd} tuổi đi qua ${palace.name} có ${majorDisplay(palace)}. ${transition}; ${tone}.${current}`;
     });
 }
 
 function overviewTopicParagraph(palaces, title, primaryName, relatedNames) {
     const primary = palaces.find((palace) => palace.name === primaryName);
     const related = relatedNames.map((name) => palaces.find((palace) => palace.name === name)).filter(Boolean);
-    const cluster = [primary, ...related];
-    const support = cluster.reduce((sum, palace) => sum + balanceState(palace).support, 0);
-    const challenge = cluster.reduce((sum, palace) => sum + balanceState(palace).challenge, 0);
-    const tone = support >= challenge + 5
-        ? "có nền nâng đỡ rõ hơn phần gây sức ép"
-        : challenge >= support + 5
-            ? "thường phát triển qua nhiều lần điều chỉnh hơn là theo một nhịp cố định"
-            : "đan xen khả năng phát triển với phần cần điều chỉnh theo hoàn cảnh";
+    const strongest = [...related].sort((a, b) => Math.abs(balanceState(b).support - balanceState(b).challenge) - Math.abs(balanceState(a).support - balanceState(a).challenge))[0];
     const focus = {
-        "Sự nghiệp": "Trọng tâm nằm ở cách nhận trách nhiệm, mức chủ động và sự thích nghi với môi trường làm việc",
-        "Tài chính": "Điểm đáng chú ý là mối liên hệ giữa khả năng tạo thu nhập, nhịp nghề nghiệp và cách giữ nguồn lực",
-        "Tình cảm": "Trục quan hệ tập trung vào cách hình thành cam kết, nhu cầu phối hợp và khoảng riêng của mỗi bên",
-        "Gia đình và quan hệ": "Nền gia đình được nhìn qua cách chia sẻ trách nhiệm, giữ ranh giới và duy trì sự nâng đỡ",
-        "Sức khỏe và nhịp sống": "Phần thể trạng chỉ tập trung vào sức bền, áp lực và nhịp sinh hoạt"
-    }[title] || `Trọng tâm nằm ở ${PALACE_MANIFESTATIONS[primary.name]}`;
-    return `${title} ${tone}. ${focus}. Kết luận này được tổng hợp từ cung ${primary.name} cùng ${formatList(related.map((palace) => palace.name))}, nên thay đổi ở một trục có thể làm cách biểu hiện của toàn chủ đề đổi theo.`;
+        "Sự nghiệp": `Sự nghiệp chịu ảnh hưởng của ${majorDisplay(primary)} tại Quan Lộc; môi trường phù hợp cần cân bằng trách nhiệm với quyền chủ động`,
+        "Tài chính": `Tài chính cho thấy cách kiếm tiền và giữ tiền ${balanceState(primary).challenge > balanceState(primary).support ? "không hoàn toàn đồng đều" : "có khả năng hỗ trợ nhau nếu kế hoạch đủ rõ"}`,
+        "Tình cảm": `Tình cảm đặt trọng tâm vào cách hình thành cam kết và xử lý khác biệt, dưới ảnh hưởng của ${majorDisplay(primary)}`,
+        "Gia đình và quan hệ": `Gia đình và quan hệ nhấn mạnh việc chia sẻ trách nhiệm, giữ ranh giới và chọn đúng nguồn hỗ trợ`
+    }[title] || `${title} tập trung vào ${PALACE_MANIFESTATIONS[primary.name]}`;
+    return `${focus}. ${strongest.name} có ${majorDisplay(strongest)} và ${relationTone(strongest)}, vì vậy đây là lĩnh vực liên quan có khả năng làm kết luận thay đổi rõ nhất.`;
+}
+
+function compactDecadeParagraph(palace) {
+    const balance = balanceState(palace);
+    const opportunity = roleSummary(supportingStars(palace), { ...SUPPORT_ROLES, ...TRANSFORM_ROLES }, PALACE_MANIFESTATIONS[palace.name]);
+    const obstacleStars = [...getStars(palace, ["malefic"]), ...getStars(palace, ["transform"]).filter((star) => star.name === "Hóa Kỵ")];
+    const obstacle = roleSummary(obstacleStars, { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "việc thích nghi khi hoàn cảnh đổi khác");
+    if (balance.support > balance.challenge)
+        return `${palace.decadeStart}-${palace.decadeEnd} tuổi đi qua ${palace.name} có ${majorDisplay(palace)}. ${DECADE_MANIFESTATIONS[palace.name]} có điều kiện phát triển qua ${opportunity}; phần cần lưu ý là ${obstacle}.`;
+    return `${palaceMainClaim(palace)} trong khoảng ${palace.decadeStart}-${palace.decadeEnd} tuổi. Giai đoạn này đòi hỏi xử lý ${obstacle}, còn cơ hội nằm ở ${opportunity}.`;
 }
 
 function buildInterpretations(params) {
@@ -738,21 +605,15 @@ function buildInterpretations(params) {
     const hasAnnualScope = Number.isInteger(viewYear) && Boolean(minorFortune) && Boolean(yearBranchPalace);
     const bureauRelation = (0, fortune_1.getElementRelation)(birthElement, bureauElement);
 
-    const configurationParagraphs = (0, patterns_1.buildConfigurationParagraphs)(palaces, life.id);
-    const adjacentParagraphs = (0, patterns_1.buildAdjacentParagraphs)(palaces, life.id);
-    const lifeBalance = balanceState(life);
-    const bodyAxis = body.id === life.id
-        ? `Mệnh và Thân đồng cung tại ${life.branch}, nên cách cảm nhận và cách hành động lâu dài có xu hướng nhất quán hơn`
-        : `Mệnh tại ${life.branch} tạo phản ứng ban đầu, còn Thân cư ${body.name} tại ${body.branch} chuyển phản ứng ấy vào ${PALACE_THEMES[body.name]}`;
-    items.push(makeItem("overview-structure", "Tổng quan", "Khí chất và trục phát triển", [
-        `${palaceMainClaim(life)}. ${bodyAxis}. Vì vậy, điểm đáng chú ý không chỉ là khí chất bên trong mà còn là cách khí chất ấy được đưa vào lựa chọn và trách nhiệm thực tế theo thời gian.`,
-        `Căn cứ chuyên môn nằm ở cung Mệnh có ${majorDisplay(life)}, cung Thân có ${majorDisplay(body)} và quan hệ Mệnh - Cục ${bureauRelation.description}. ${configurationParagraphs[0] || adjacentParagraphs[0] || `Tam phương tứ chính của Mệnh cho thấy thế cung ${lifeBalance.label}, nên các mặt thuận và phần gây sức ép phải được đọc cùng nhau.`}`,
-        `Trục chi phối nhiều phần của lá số là sự chuyển tiếp từ ${PALACE_THEMES[life.name]} sang ${PALACE_THEMES[body.name]}. Đây là sợi nối giữa khí chất, công việc, nguồn lực và quan hệ; các phần sau mở rộng từng mặt của cùng một cấu trúc thay vì đưa ra những kết luận rời nhau.`
+    items.push(makeItem("overview-structure", "Tổng quan", "Khí chất và cách hành động", [
+        `Nét dễ nhận thấy ở người này là ${formatList(unique(getStars(life, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core)).slice(0, 3)) || "khả năng thích ứng theo hoàn cảnh"}. Cung Mệnh có ${majorDisplay(life)}; ${majorStateSummary(life, "bức tranh tổng quan").charAt(0).toLowerCase()}${majorStateSummary(life, "bức tranh tổng quan").slice(1)}.`,
+        `${lifeBodyInteractionParagraph(life, body)} Quan hệ Mệnh - Cục ${bureauRelation.description}, cho thấy cách cá nhân dùng năng lực của mình có thể thuận theo hoàn cảnh hoặc cần thêm thời gian điều chỉnh.`,
+        `Quan Lộc có ${majorDisplay(palaces.find((palace) => palace.name === "Quan Lộc"))}, còn Tài Bạch có ${majorDisplay(palaces.find((palace) => palace.name === "Tài Bạch"))}. Vì vậy, năng lực cá nhân chỉ chuyển thành kết quả bền khi vai trò nghề nghiệp và dòng tiền không liên tục bị xáo trộn cùng lúc.`
     ]));
 
-    items.push(makeItem("overview-capacity", "Tổng quan", "Năng lực và điểm tạo áp lực", [
-        `${palaceMainClaim(life)}. Điểm thuận nằm ở ${roleSummary(getStars(life, ["support"]), SUPPORT_ROLES, "khả năng duy trì và điều phối nguồn lực")}; phần dễ tạo áp lực liên quan đến ${roleSummary(getStars(life, ["malefic"]), CHALLENGE_ROLES, "độ trễ hoặc mâu thuẫn khi hoàn cảnh thay đổi")}. Hai mặt cùng tồn tại nên năng lực thường rõ nhất trong cách xử lý tình huống thực tế, không phải ở một nhãn tính cách cố định.`,
-        `Căn cứ tại cung Mệnh gồm phụ tinh và Tứ Hóa ${formatList(getStars(life, ["support", "transform"]).slice(0, 5).map((star) => star.name)) || "không có điểm nhấn riêng"}, đồng thời có nhóm gây sức ép ${formatList(getStars(life, ["malefic"]).slice(0, 5).map((star) => star.name)) || "không nổi trội"}. Tam phương tứ chính nối Mệnh với ${formatList(relationSet(palaces, life).triadPalaces.map((palace) => palace.name))} và ${relationSet(palaces, life).opposite.name}, vì vậy mặt mạnh hay mặt khó chỉ nổi rõ khi các lĩnh vực này cùng tạo điều kiện tương ứng.`
+    items.push(makeItem("overview-capacity", "Tổng quan", "Điểm mạnh và mâu thuẫn chính", [
+        `Điểm mạnh dễ nhận thấy là ${roleSummary([...getStars(life, ["support"]), ...getStars(life, ["transform"]).filter((star) => star.name !== "Hóa Kỵ")], { ...SUPPORT_ROLES, ...TRANSFORM_ROLES }, "khả năng tự sắp xếp và chịu trách nhiệm")}. ${formatList(getStars(life, ["support", "transform"]).slice(0, 5).map((star) => star.name)) || majorDisplay(life)} là các yếu tố giải thích nhận định này.`,
+        `Mâu thuẫn quan trọng nằm ở ${roleSummary([...getStars(life, ["malefic"]), ...getStars(life, ["transform"]).filter((star) => star.name === "Hóa Kỵ")], { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "việc suy nghĩ nhiều hoặc tự tạo áp lực khi kết quả chưa đạt kỳ vọng")}. Vì vậy, cùng một khả năng phân tích và chịu trách nhiệm có thể trở thành lợi thế khi mục tiêu rõ, nhưng dễ gây mệt khi người này cố kiểm soát quá nhiều đầu việc.`
     ]));
 
     items.push(makeItem("overview-work", "Tổng quan", "Công việc và nguồn lực", [
@@ -760,33 +621,28 @@ function buildInterpretations(params) {
         overviewTopicParagraph(palaces, "Tài chính", "Tài Bạch", ["Quan Lộc", "Điền Trạch", "Phúc Đức"])
     ]));
 
-    items.push(makeItem("overview-relations", "Tổng quan", "Quan hệ và nền tinh thần", [
+    items.push(makeItem("overview-relations", "Tổng quan", "Quan hệ và đời sống tinh thần", [
         overviewTopicParagraph(palaces, "Tình cảm", "Phu Thê", ["Mệnh", "Phúc Đức", "Thiên Di"]),
         overviewTopicParagraph(palaces, "Gia đình và quan hệ", "Phúc Đức", ["Phụ Mẫu", "Huynh Đệ", "Nô Bộc"])
     ]));
 
-    items.push(makeItem("overview-timeline", "Tổng quan", "Dòng thời gian nổi bật", [
-        `Các mốc dưới đây là Đại hạn 10 năm và đều dùng tuổi mụ theo cùng quy ước với tuổi đang hiển thị trên lá số. Mỗi giai đoạn cho biết chủ đề nào dễ nổi lên hơn, không phải danh sách tuổi tốt, tuổi xấu hay sự kiện chắc chắn.`,
+    items.push(makeItem("overview-timeline", "Tổng quan", "Dòng thời gian đáng chú ý", [
+        `Các mốc dưới đây dùng tuổi mụ và chỉ chọn những Đại hạn có khác biệt đáng kể về bộ sao, mức thuận lợi hoặc trở ngại. Đây không phải danh sách tuổi tốt hay tuổi xấu.`,
         ...timelineParagraphs(palaces, activeDecadePalaceId)
     ]));
 
     if (hasAnnualScope) {
-        items.push(makeItem("overview-period", "Tổng quan", `Trục vận hạn năm ${viewYearCanChi}`, [
-            `Điểm khác của năm ${viewYearCanChi} so với nền lá số là trọng tâm tạm thời chuyển sang ${formatList(unique([activeDecade, annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}. Ở tuổi mụ ${nominalAge}, ${activeDecade ? `năm này nằm trong Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "lá số chưa bước vào Đại hạn 10 năm đầu tiên"}; các lớp ngắn hơn chỉ điều chỉnh mức độ và thời điểm biểu hiện của bối cảnh đó.`,
-            repeatedFocusParagraph(palaces, [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId, monthlyPalaceId], `Các lớp vận trong năm ${viewYear}`),
-            `Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn ở ${minorFortune.name}, còn Lưu Thái Tuế tại ${yearBranchPalace.name}. Chuỗi này cho biết năm dễ nhấn mạnh ${formatList(unique([annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}, nhưng không đủ để khẳng định một sự kiện cụ thể.`
+        items.push(makeItem("overview-period", "Tổng quan", `Điểm đáng chú ý trong năm ${viewYearCanChi}`, [
+            `Ở tuổi mụ ${nominalAge}, ${activeDecade ? `năm ${viewYearCanChi} nằm trong Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại ${activeDecade.name}` : "năm này nằm trước Đại hạn mười năm đầu tiên"}. Những lĩnh vực dễ được chú ý hơn là ${formatList(unique([activeDecade, annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}.`,
+            repeatedFocusParagraph(palaces, [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId, monthlyPalaceId], `Các mốc vận hạn trong năm ${viewYear}`),
+            `Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn ở ${minorFortune.name}, còn Lưu Thái Tuế tại ${yearBranchPalace.name}. Khi các vị trí này cùng liên quan tới một quyết định, ảnh hưởng thường thể hiện qua nhiều lĩnh vực thay vì một sự kiện đơn lẻ.`
         ]));
     }
 
-    items.push(makeItem("life-detail", "Mệnh - Thân", `Mối liên hệ giữa Mệnh và Thân`, [
-        `${palaceMainClaim(life)}. Đây là “con người nền”: cách tiếp nhận hoàn cảnh và phản ứng trước khi trách nhiệm thực tế buộc phải lựa chọn. Cung Mệnh tại ${life.branch} có ${majorDisplay(life)}, còn phụ tinh và tam phương quyết định mặt nào của bộ sao dễ biểu hiện rõ hơn.`,
-        body.id === life.id
-            ? `Mệnh và Thân đồng cung nên phần cảm nhận bên trong và cách đi vào đời sống thực tế cùng dùng một hệ sao. ${lifeBodyInteractionParagraph(life, body)} Điểm mạnh là tính nhất quán; mặt cần điều chỉnh là một áp lực tại cung này có thể đồng thời ảnh hưởng tới cả cách nghĩ lẫn cách hành động.`
-            : `Thân cư ${body.name} cho thấy khí chất của Mệnh chỉ bộc lộ đầy đủ khi đi vào ${PALACE_THEMES[body.name]}. Cung Thân có ${majorDisplay(body)}, vì vậy ${formatList(getStars(body, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core)) || "ảnh hưởng của hệ hội chiếu"} là cách nền tính khí được chuyển thành lựa chọn, trách nhiệm và kết quả cụ thể.`,
-        body.id === life.id
-            ? `Tam phương tứ chính của cung đồng Mệnh - Thân nối trục này với ${formatList(relationSet(palaces, life).triadPalaces.map((item) => PALACE_THEMES[item.name]))} và ${PALACE_THEMES[relationSet(palaces, life).opposite.name]}. Bối cảnh liên cung quyết định đặc tính nhất quán ấy trở thành thế mạnh hay áp lực trong từng giai đoạn.`
-            : `Hai cung tạo hai lớp khác nhau: Mệnh thiên về ${formatList(getStars(life, ["major"]).map((star) => MAJOR_PROFILES[star.id]?.core)) || "phản ứng theo môi trường"}, còn Thân đưa trọng tâm sang ${PALACE_THEMES[body.name]}. Khi hai lớp cùng chiều, hành động dễ nhất quán với suy nghĩ; khi trái chiều, cá nhân có thể cần thời gian để biến điều mình nhận thấy thành lựa chọn phù hợp.`,
-        `Khái quát lại, Mệnh giải thích khuynh hướng tương đối ổn định, còn Thân cho biết khuynh hướng đó tập trung vào đâu khi trưởng thành. Các vận hạn chỉ kích hoạt hoặc điều chỉnh mức biểu hiện của hai nền này, không tạo ra một “con người mới” tách khỏi lá số gốc.`
+    items.push(makeItem("life-detail", "Mệnh - Thân", `Chân dung Mệnh và Thân`, [
+        `Với ${majorDisplay(life)} tại Mệnh, người này thường muốn hiểu rõ vấn đề trước khi quyết định và có xu hướng tự chịu trách nhiệm cho lựa chọn của mình. ${majorStateSummary(life, "chân dung Mệnh và Thân")}.`,
+        `${lifeBodyInteractionParagraph(life, body)} ${modifierSummary(body) || `Cung Thân chịu ảnh hưởng chính của ${majorDisplay(body)}`}.`,
+        `Công việc và tài chính là hai nơi thử thách rõ khả năng biến tiêu chuẩn cá nhân thành kết quả thực tế. Người này phát huy tốt hơn khi có quyền chủ động, nhưng cần tránh tự nhận phần việc vượt quá sức mình.`
     ]));
 
     palaces.forEach((palace) => {
@@ -796,18 +652,27 @@ function buildInterpretations(params) {
     items.push(makeItem("career-synthesis", "Sự nghiệp", "Cấu trúc nghề nghiệp và vị trí xã hội", thematicSynthesis(palaces, "Sự nghiệp", "Quan Lộc", ["Mệnh", "Thiên Di", "Tài Bạch"])));
     items.push(makeItem("finance-synthesis", "Tài chính", "Khả năng tạo lập và giữ nguồn lực", thematicSynthesis(palaces, "Tài chính", "Tài Bạch", ["Quan Lộc", "Điền Trạch", "Phúc Đức"])));
     items.push(makeItem("relationship-synthesis", "Tình cảm", "Mẫu hình quan hệ gắn bó", thematicSynthesis(palaces, "Tình cảm", "Phu Thê", ["Mệnh", "Phúc Đức", "Thiên Di"])));
-    items.push(makeItem("family-synthesis", "Gia đình - Quan hệ", "Nền tảng gia đình và mạng lưới quan hệ", thematicSynthesis(palaces, "Gia đình và quan hệ", "Phúc Đức", ["Phụ Mẫu", "Huynh Đệ", "Tử Tức", "Nô Bộc"])));
+    items.push(makeItem("family-synthesis", "Gia đình - Quan hệ", "Gia đình và mạng lưới quan hệ", thematicSynthesis(palaces, "Gia đình và quan hệ", "Phúc Đức", ["Phụ Mẫu", "Huynh Đệ", "Tử Tức", "Nô Bộc"])));
     items.push(makeItem("health-synthesis", "Sức khỏe - Nhịp sống", "Thể trạng và phản ứng trước áp lực", [
         ...thematicSynthesis(palaces, "Sức khỏe và nhịp sống", "Tật Ách", ["Mệnh", "Phúc Đức"]),
         "Phần này chỉ mô tả khuynh hướng nhịp năng lượng và phản ứng trước áp lực theo hệ thống Tử Vi truyền thống. Nội dung không thay thế đánh giá y khoa hoặc chẩn đoán sức khỏe."
     ]));
 
     if (viewScope === "natal_overview") {
-        [...palaces].sort((a, b) => a.decadeStart - b.decadeStart).forEach((decade, index, ordered) => {
+        const ordered = [...palaces].sort((a, b) => a.decadeStart - b.decadeStart);
+        const activeIndex = ordered.findIndex((item) => item.id === activeDecadePalaceId);
+        ordered.forEach((decade, index) => {
             const previous = ordered[index - 1];
             const next = ordered[index + 1];
-            const paragraphs = periodParagraphs(palaces, decade, `Đại hạn ${decade.decadeStart}-${decade.decadeEnd} tuổi`, [], null);
-            paragraphs.push(`${previous ? `Giai đoạn trước nhấn mạnh ${PALACE_THEMES[previous.name]}` : "Đây là Đại hạn đầu tiên trong chuỗi"}; giai đoạn này chuyển trọng tâm sang ${PALACE_THEMES[decade.name]}${next ? `, trước khi giai đoạn kế tiếp hướng sang ${PALACE_THEMES[next.name]}` : " và khép lại dải Đại hạn đang trình bày"}. Chuỗi tuổi mô tả sự đổi trọng tâm theo thời gian, không khẳng định sự kiện chắc chắn.`);
+            const nearby = activeIndex >= 0 && index >= activeIndex - 1 && index <= activeIndex + 2;
+            const paragraphs = nearby
+                ? periodParagraphs(palaces, decade, `Đại hạn ${decade.decadeStart}-${decade.decadeEnd} tuổi`, [], null)
+                : [compactDecadeParagraph(decade)];
+            if (nearby) {
+                paragraphs.push(`${previous ? `So với Đại hạn ${previous.decadeStart}-${previous.decadeEnd} tuổi ở ${previous.name}` : "So với thời kỳ trước Đại hạn đầu tiên"}, thay đổi rõ nhất nằm ở ${PALACE_MANIFESTATIONS[decade.name]}.${next ? ` Trước khi sang ${next.decadeStart}-${next.decadeEnd} tuổi ở ${next.name}, giai đoạn này cần giải quyết tốt ${roleSummary(challengeStars(decade), { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES }, "những việc còn thiếu ổn định")}.` : ""}`);
+            }
+            if (decade.id === activeDecadePalaceId)
+                paragraphs.push(`Đây là Đại hạn hiện tại ở tuổi mụ ${nominalAge}. Vì nằm gần thời điểm đang sống, phần này được luận chi tiết hơn các giai đoạn xa.`);
             items.push(makeItem(`decade-${decade.decadeStart}`, "Đại vận", `Đại hạn ${decade.decadeStart}-${decade.decadeEnd} tuổi`, paragraphs));
         });
     }
@@ -823,7 +688,7 @@ function buildInterpretations(params) {
             [annualDecadePalaceId, minorFortunePalaceId],
             null
         );
-        decadeCopy.push(`${previous ? `Giai đoạn trước đặt trọng tâm ở ${PALACE_THEMES[previous.name]}` : "Đây là Đại hạn đầu trong chuỗi hiện có"}, còn Đại hạn hiện tại chuyển sang ${PALACE_THEMES[activeDecade.name]}.${next ? ` Giai đoạn kế tiếp sẽ chuyển trọng tâm sang ${PALACE_THEMES[next.name]}, vì vậy thời kỳ này đóng vai trò ${activeDecade.name === next.name ? "củng cố" : "chuyển tiếp"} giữa hai hướng phát triển.` : " Đây là giai đoạn cuối trong dải Đại hạn được tính."} So sánh này mô tả sự thay đổi trọng tâm, không khẳng định một sự kiện sẽ xảy ra ở tuổi cụ thể.`);
+        decadeCopy.push(`${previous ? `So với ${previous.decadeStart}-${previous.decadeEnd} tuổi ở ${previous.name}` : "So với thời kỳ trước Đại hạn đầu tiên"}, Đại hạn hiện tại khác rõ ở ${PALACE_MANIFESTATIONS[activeDecade.name]}.${next ? ` Trước khi sang ${next.decadeStart}-${next.decadeEnd} tuổi ở ${next.name}, đây là thời gian cần hoàn thiện những việc còn thiếu ổn định trong ${PALACE_THEMES[activeDecade.name]}.` : ""}`);
         items.push(makeItem("decade-main", "Đại vận", `Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi`, decadeCopy));
     }
     else if (hasAnnualScope) {
@@ -852,14 +717,14 @@ function buildInterpretations(params) {
             { label: `năm ${viewYear}`, arrayName: "annualStars", context: "đại vận, lưu đại hạn và Lưu Thái Tuế" }
         )));
         items.push(makeItem("annual-moving-stars", "Tiểu vận", "Cấu trúc sao lưu của năm", [
-            `Sao lưu của năm phân bố trên ${palaces.filter((palace) => palace.annualStars.length).length} cung, vì vậy nhịp năm không quy về một lĩnh vực duy nhất. Các điểm nhấn chính liên quan đến ${formatList(palaces.filter((palace) => palace.annualStars.length).slice(0, 5).map((palace) => PALACE_THEMES[palace.name]))}; mức biểu hiện phải đặt dưới Đại hạn và Tiểu hạn đang có.`,
-            `Trong cách đọc kỹ thuật, nhóm sao lưu tạo các chiều về nguồn lực, quyền chủ động, sự ghi nhận, dịch chuyển và sức ép. Báo cáo chỉ tổng hợp tác động chung tại cung chúng đi tới, vì một sao lưu đơn lẻ không đủ để biến thành kết luận về cả năm.`
+            `Sao lưu của năm phân bố trên ${palaces.filter((palace) => palace.annualStars.length).length} cung. Những thay đổi đáng chú ý liên quan đến ${formatList(palaces.filter((palace) => palace.annualStars.length).slice(0, 5).map((palace) => PALACE_THEMES[palace.name]))}.`,
+            `Nhóm sao này cho biết thời điểm dễ xuất hiện cơ hội, trách nhiệm, sự ghi nhận, dịch chuyển hoặc trở ngại. Kết luận của năm vẫn cần đặt trong Đại hạn và Tiểu hạn đang có.`
         ]));
 
         const annualTopic = `Vận hạn ${viewYear}`;
         const focusIds = [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId];
         items.push(makeItem("year-synthesis", annualTopic, `Tổng hợp vận hạn năm ${viewYearCanChi}`, [
-            `Năm ${viewYearCanChi} được đặt trong đại vận ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "chưa xác định"}. Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, tiểu hạn nằm tại ${minorFortune.name} ở ${minorFortune.branch}, còn Lưu Thái Tuế đi tới ${yearBranchPalace.name} ở ${yearBranchPalace.branch}. Bốn lớp này cho biết bối cảnh dài hạn, trọng tâm của riêng năm và khu vực dễ xuất hiện sự kiện.`,
+            `Năm ${viewYearCanChi} nằm trong Đại hạn ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "chưa xác định"}. Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn nằm tại ${minorFortune.name} ở ${minorFortune.branch}, còn Lưu Thái Tuế đi tới ${yearBranchPalace.name} ở ${yearBranchPalace.branch}. Các vị trí này cho biết bối cảnh dài hạn và những việc dễ cần xử lý trong riêng năm.`,
             (0, patterns_1.buildActivationParagraph)(palaces, focusIds, `Cấu trúc năm ${viewYear}`),
             `Xét các cung trọng tâm, năm chạm tới ${formatList(unique(focusIds.filter(Boolean).map((id) => PALACE_THEMES[getPalace(palaces, id).name])))}. Những lĩnh vực này có xu hướng liên hệ với nhau, vì quyết định ở một cung có thể tạo phản ứng dây chuyền sang các cung còn lại. Báo cáo năm vì vậy ưu tiên mối liên hệ giữa các cung hơn việc diễn giải từng sao lưu đơn lẻ.`
         ]));
@@ -876,8 +741,8 @@ function buildInterpretations(params) {
             const natalCopy = thematicSynthesis(palaces, title.startsWith("Công việc") ? "Sự nghiệp" : title.startsWith("Tài chính") ? "Tài chính" : title.startsWith("Tình cảm") ? "Tình cảm" : "Sức khỏe và nhịp sống", primaryName, relatedNames);
             const annualAtPrimary = primary.annualStars || [];
             items.push(makeItem(id, annualTopic, `${title} năm ${viewYear}`, [
-                `So với nền lá số, ${title.toLowerCase()} trong năm ${viewYear} ${annualAtPrimary.length ? `được kích hoạt trực tiếp tại cung ${primary.name}, nên ${PALACE_MANIFESTATIONS[primary.name]} dễ nổi lên rõ hơn` : `không nhận điểm nhấn sao lưu trực tiếp tại cung ${primary.name}, nên thay đổi chủ yếu đến từ Đại hạn, Tiểu hạn và các cung liên hệ`}. Đây là khác biệt về mức độ và thời điểm biểu hiện, không phải một đặc điểm lâu dài mới.`,
-                natalCopy[0],
+                `So với đặc điểm gốc, ${title.toLowerCase()} trong năm ${viewYear} ${annualAtPrimary.length ? `có sao lưu trực tiếp tại cung ${primary.name}, nên ${PALACE_MANIFESTATIONS[primary.name]} đáng chú ý hơn` : `không có sao lưu nổi bật tại cung ${primary.name}; thay đổi chủ yếu đến từ Đại hạn, Tiểu hạn và các cung liên quan`}.`,
+                `Đặc điểm gốc cần đối chiếu: ${natalCopy[0]}`,
                 movingParagraph(primary, `năm ${viewYear}`, "annualStars", `${formatList(related.map((item) => item.name))}, đại vận và tiểu hạn`),
                 `Kết luận của năm còn phụ thuộc ${formatList(related.map((item) => PALACE_THEMES[item.name]))}. Khi các cung này cùng hướng với ${primary.name}, xu hướng dễ liền mạch hơn; nếu trái chiều, cơ hội ở một mặt có thể đi kèm áp lực điều chỉnh ở mặt khác, vì vậy không nên gắn toàn bộ năm với nhãn tốt hoặc xấu.`
             ]));

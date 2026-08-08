@@ -1,4 +1,4 @@
-# Kiểm tra accessibility của PDF Bản đồ sao
+# Kiểm tra accessibility của PDF Tử Vi và Bản đồ sao
 
 ## Kiểm tra cục bộ
 
@@ -19,8 +19,8 @@ Bộ preflight kiểm tra:
 - Tính toàn vẹn `StructTreeRoot`, `ParentTree`, MCR và toàn bộ MCID trên từng trang.
 - Mọi MCID phải ánh xạ đúng về phần tử cấu trúc tương ứng trong ParentTree.
 - Chỉ có một H1 và heading semantic đầu tiên của tài liệu phải là H1.
-- Tag H1, H2, H3, P và Figure.
-- Alt text cho hình lá số.
+- Tag H1, H2, H3 và P; PDF Bản đồ sao có thêm Figure.
+- Alt text cho vòng Bản đồ sao.
 - Artifact cho nền, đường kẻ và footer.
 - Font nhúng có ToUnicode.
 - Trích xuất tiếng Việt không có ký tự thay thế lỗi.
@@ -33,7 +33,9 @@ Workflow `.github/workflows/ci.yml` chạy image chính thức đã ghim phiên 
 
 ```bash
 docker run --rm -v "$PWD:/data" verapdf/cli:v1.30.2 \
-  -f ua1 /data/sample/MXiao-Ban-Do-Sao-final.pdf > verapdf-report.xml
+  -f ua1 \
+  /data/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf \
+  /data/sample/MXiao-Ban-Do-Sao-final.pdf > verapdf-report.xml
 python3 tests/verify_verapdf_report.py verapdf-report.xml
 ```
 

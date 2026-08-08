@@ -198,6 +198,9 @@ function buildTuviChart(input, normalized) {
     const palaces = buildPalaces({ normalized, input, lifePalace, bodyPalace, bureauNumber: bureau.number, stars, annualStars, monthlyStars, dailyStars, hourlyStars });
     const nominalAge = hasYear ? input.viewYear - normalized.lunar.year + 1 : null;
     const activeDecade = palaces.find((palace) => nominalAge >= palace.decadeStart && nominalAge <= palace.decadeEnd) || null;
+    const interpretationYear = hasYear ? input.viewYear : new Date().getFullYear();
+    const interpretationAge = interpretationYear - normalized.lunar.year + 1;
+    const interpretationActiveDecade = activeDecade || palaces.find((palace) => interpretationAge >= palace.decadeStart && interpretationAge <= palace.decadeEnd) || null;
     const fortuneDirection = (0, fortune_1.getFortuneDirection)(normalized.yearStem, input.gender);
     const annualDecadePalaceId = activeDecade
         ? (0, fortune_1.getAnnualDecadePalace)(activeDecade.id, activeDecade.decadeStart, nominalAge, fortuneDirection)
@@ -304,11 +307,11 @@ function buildTuviChart(input, normalized) {
             monthlyFortunes,
             lifePalace,
             bodyPalace,
-            nominalAge,
+            nominalAge: interpretationAge,
             birthElement,
             bureauElement: bureau.element,
             bureauLabel: bureau.label,
-            activeDecadePalaceId: activeDecade?.id || null,
+            activeDecadePalaceId: interpretationActiveDecade?.id || null,
             annualDecadePalaceId,
             minorFortunePalaceId,
             yearBranchPalaceId: viewYearBranch,

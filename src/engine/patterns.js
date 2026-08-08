@@ -172,20 +172,20 @@ function pairLabels(pairs, limit = 3) {
 function buildActivationParagraph(palaces, focusIds, label) {
     const network = analyzeActivationNetwork(palaces, focusIds);
     if (!network.uniqueIds.length)
-        return `${label} chưa hình thành đủ dữ liệu để xác định một mạng kích hoạt rõ. Vì vậy, phần vận hạn cần được đọc chủ yếu từ nền sao gốc và từng lớp thời gian riêng lẻ.`;
+        return `${label} chưa có đủ vị trí để xác định lĩnh vực nào đáng chú ý hơn. Phần vận hạn vì thế chủ yếu dựa vào đặc điểm gốc của lá số.`;
     const clauses = [];
     if (network.exact.length)
-        clauses.push(`có sự chồng lớp trực tiếp tại ${formatList(network.exact.map((item) => `${item.palace.name} ở ${item.palace.branch}`))}`);
+        clauses.push(`có nhiều mốc cùng đi vào ${formatList(network.exact.map((item) => `${item.palace.name} ở ${item.palace.branch}`))}`);
     if (network.relations.triad.length)
-        clauses.push(`các trục tam hợp nổi bật gồm ${formatList(pairLabels(network.relations.triad))}`);
+        clauses.push(`các cặp tam hợp đáng chú ý gồm ${formatList(pairLabels(network.relations.triad))}`);
     if (network.relations.opposite.length)
-        clauses.push(`các trục xung chiếu gồm ${formatList(pairLabels(network.relations.opposite))}`);
+        clauses.push(`các cặp xung chiếu gồm ${formatList(pairLabels(network.relations.opposite))}`);
     if (network.relations.adjacent.length)
         clauses.push(`các cung kề nhau gồm ${formatList(pairLabels(network.relations.adjacent))}`);
-    let conclusion = `Các lớp thời gian phân bố tương đối rời, nên diễn biến có xu hướng xuất hiện ở nhiều lĩnh vực và cần được đọc tuần tự từ đại vận đến lưu thời.`;
+    let conclusion = `Các mốc phân bố tương đối rời, nên diễn biến có thể xuất hiện ở nhiều lĩnh vực thay vì tập trung vào một việc duy nhất.`;
     if (network.structure === "linked")
-        conclusion = `Mạng vận hạn có liên kết nhưng chưa quy tụ hoàn toàn vào một cung. Một thay đổi ở cung khởi phát có thể lan sang cung tam hợp, xung chiếu hoặc cung kề, song mức độ vẫn phụ thuộc thứ tự của từng lớp thời gian.`;
+        conclusion = `Các cung có liên hệ nhưng chưa cùng quy tụ vào một vị trí. Một thay đổi có thể kéo theo cung tam hợp, xung chiếu hoặc cung kề, song mức độ còn tùy thời điểm.`;
     if (network.structure === "concentrated")
-        conclusion = `Mạng vận hạn có độ tập trung cao. Khi nhiều lớp cùng chồng lên một cung hoặc nối với nhau bằng tam hợp và xung chiếu, chủ đề của các cung đó thường biểu hiện rõ hơn, liên tục hơn và dễ tạo phản ứng dây chuyền sang các lĩnh vực liên quan.`;
+        conclusion = `Nhiều mốc cùng tập trung vào một số cung. Chủ đề của các cung đó dễ xuất hiện rõ và có thể kéo theo những lĩnh vực liên quan qua tam hợp hoặc xung chiếu.`;
     return `${label} ${clauses.length ? clauses.join("; ") : "phân bố trên các cung chưa tạo thành quan hệ trực tiếp"}. ${conclusion}`;
 }

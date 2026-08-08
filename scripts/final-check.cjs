@@ -20,8 +20,9 @@ const visible = ['index.html', 'assets/app.js', 'assets/astrology-app.js', 'asse
 for (const phrase of ['sourceRuleId', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'engine xác định', 'phạm vi 1.0', 'địa điểm sinh', 'tọa độ', 'giờ mặt trời', 'json-button', 'copy-button']) assert.ok(!visible.includes(phrase), `Public package contains ${phrase}`);
 for (const marker of ['/*', '*/', String.fromCodePoint(0x2013), String.fromCodePoint(0x2014)]) assert.ok(!visible.includes(marker), `Public package contains forbidden marker ${marker}`);
 assert.match(visible, /MAX_PDF_PAGES = 48/);
-assert.match(visible, /PDF_BODY_FONT_SIZE = 11/);
-assert.match(visible, /CANVAS_BODY_FONT_SIZE = 23/);
+assert.match(visible, /PDF_BODY_FONT_SIZE = 12/);
+assert.match(visible, /CANVAS_BODY_FONT_SIZE = 25/);
+assert.match(visible, /buildTuviSelectablePages/);
 assert.doesNotMatch(visible, /MAX_TEXT_PDF_PAGES|downloadSelectablePdf|PDF văn bản|Xử lý riêng tư trên thiết bị|đã lựa chọn trước khi xuất PDF/i);
 assert.match(visible, /Lưu đại hạn/);
 assert.match(visible, /Tiểu hạn/);
@@ -41,5 +42,5 @@ const engineBundle = fs.readFileSync(path.join(dist, 'assets/engine.bundle.js'),
 assert.match(engineBundle, /Tử Phủ Vũ Tướng/);
 assert.match(engineBundle, /Sát Phá Tham/);
 assert.match(engineBundle, /giáp cung/);
-assert.match(engineBundle, /Mạng vận hạn/);
+assert.match(engineBundle, /Dòng thời gian đáng chú ý/);
 console.log(`Final public package validation passed: ${relative.length} files`);

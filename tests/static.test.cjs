@@ -53,8 +53,9 @@ assert.match(publicText, /interpretationParagraphs/);
 assert.doesNotMatch(publicText, /report-facts|Căn cứ lá số|<ul>\$\{item\.facts/);
 assert.match(publicText, /normalizeExportOptions/);
 const pdfModule = require(path.join(root, 'src/pdf/client-pdf.cjs'));
-assert.equal(pdfModule.PDF_BODY_FONT_SIZE, 11);
-assert.ok(pdfModule.CANVAS_BODY_FONT_SIZE * 595.28 / 1240 >= 10.5);
+assert.equal(pdfModule.PDF_BODY_FONT_SIZE, 12);
+assert.ok(pdfModule.CANVAS_BODY_FONT_SIZE * 595.28 / 1240 >= 12);
+assert.equal(typeof pdfModule.buildTuviSelectablePages, 'function');
 const optionChart = { input: { viewScope: 'single_month', viewYear: 2026, viewMonth: 4, viewLeap: false }, interpretations: [{ topic: 'Tổng quan' }, { topic: 'Đại vận' }, { topic: 'Tiểu vận' }, { topic: 'Vận hạn 2026' }, { topic: 'Lưu nguyệt tháng 4' }, { topic: 'Tài chính' }] };
 const fortuneOptions = pdfModule.normalizeExportOptions(optionChart, { cover: true, overview: true, chart: false, topics: ['Đại vận', 'Tiểu vận', 'Vận hạn 2026', 'Lưu nguyệt tháng 4'] });
 assert.equal(fortuneOptions.chart, false);
@@ -78,5 +79,6 @@ assert.match(fs.readFileSync(path.join(root, '.github/workflows/pages.yml'), 'ut
 assert.match(veraScript, /verapdf\/cli:v1\.30\.2/);
 assert.match(veraScript, /-f ua1/);
 assert.match(veraScript, /MXiao-Ban-Do-Sao-final\.pdf/);
+assert.match(veraScript, /vu-minh-hieu-la-so-tu-vi-tong-quan\.pdf/);
 assert.ok(fs.existsSync(path.join(root, 'tests/verify_verapdf_report.py')));
 assert.ok(fs.existsSync(path.join(root, 'scripts/verapdf-check.sh')));

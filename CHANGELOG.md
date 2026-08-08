@@ -1,5 +1,14 @@
 # Changelog
 
+## Chất lượng luận giải và khả năng đọc PDF
+
+- Viết lại phần tổng hợp 12 cung, Mệnh - Thân, chuyên đề và Đại hạn để loại câu khung lặp, giảm thuật ngữ cơ học và tạo kết luận liên cung cụ thể.
+- Ưu tiên luận sâu Đại hạn hiện tại, giai đoạn liền trước và 1-2 giai đoạn tiếp theo; các Đại hạn xa được cô đọng.
+- Thêm kiểm tra chống văn mẫu trên lá số Vũ Minh Hiếu, bao gồm câu lặp, cách mở đoạn, từ vựng cơ học, độ sâu Đại hạn và cấu trúc riêng của năm chuyên đề.
+- Chuyển PDF Tử Vi từ trang raster sang text/vector có thể chọn, dùng Gilroy, body 12 pt và line-height 17,5 pt.
+- Phân trang luận giải theo nội dung; giữ trang lá số A4 ngang và thêm trang chi tiết sao để phụ tinh không bị ép xuống cỡ khó đọc.
+- Kiểm định PDF/UA-1 bằng veraPDF cho cả PDF Tử Vi và Bản đồ sao trong cùng job CI.
+
 ## Giao diện báo cáo trực tiếp
 
 - Gỡ PDF văn bản khỏi giao diện Tử Vi; mỗi công cụ chỉ còn một nút tải PDF trực tiếp.

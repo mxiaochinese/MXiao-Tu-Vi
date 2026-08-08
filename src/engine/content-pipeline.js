@@ -158,22 +158,7 @@ function splitSentences(paragraph) {
     return String(paragraph || "").match(/[^.!?]+[.!?]+|[^.!?]+$/gu) || [];
 }
 
-function variedOpening(paragraph, index) {
-    const replacements = [
-        ["Cung ", "Xét về "],
-        ["Trong ", "Ở lớp "],
-        ["Điều này ", "Từ đó, "],
-        ["Vì vậy, ", "Theo cấu trúc này, "]
-    ];
-    if (index % 3 === 0)
-        return paragraph;
-    const [from, to] = replacements[index % replacements.length];
-    return paragraph.startsWith(from) ? `${to}${paragraph.slice(from.length)}` : paragraph;
-}
-
 function finalizeInterpretations(items) {
-    const seenParagraphs = [];
-    let paragraphIndex = 0;
     return items.map((item) => {
         const paragraphs = [];
         (item.paragraphs || []).forEach((paragraph) => {
@@ -190,20 +175,14 @@ function finalizeInterpretations(items) {
                     localSentences.push(clean);
                 }
             });
-            const combined = variedOpening(kept.join(" "), paragraphIndex++).trim();
-            const repeatedParagraph = !/\d+\s*[-–]\s*\d+\s+tuổi/u.test(combined) && seenParagraphs.some((existing) => {
-                const ratio = Math.min(existing.length, combined.length) / Math.max(existing.length, combined.length);
-                return ratio >= 0.85 && textSimilarity(existing, combined) >= 0.96;
-            });
-            if (combined.length >= 70 && !repeatedParagraph) {
+            const combined = kept.join(" ").trim();
+            if (combined.length >= 70) {
                 paragraphs.push(combined);
-                seenParagraphs.push(combined);
             }
         });
         if (!paragraphs.length && item.paragraphs?.length) {
             const fallback = cleanSentence(`${item.title} được đặt trong chủ đề ${item.topic}. ${item.paragraphs[0]}`);
             paragraphs.push(fallback);
-            seenParagraphs.push(fallback);
         }
         return { id: item.id, topic: item.topic, title: item.title, paragraphs, body: paragraphs.join("\n\n") };
     });

@@ -12,6 +12,7 @@ EXPECTED_TITLE = sys.argv[2] if len(sys.argv) > 2 else 'Bản đồ sao cá nhâ
 EXPECTED_AUTHOR = sys.argv[3] if len(sys.argv) > 3 else 'MXiao Huyền Học'
 EXPECTED_HEADING = sys.argv[4] if len(sys.argv) > 4 else 'BẢN ĐỒ SAO CÁ NHÂN'
 MIN_TEXT_LENGTH = int(sys.argv[5]) if len(sys.argv) > 5 else 1500
+EXPECTED_FIGURES = int(sys.argv[6]) if len(sys.argv) > 6 else 1
 assert PDF.exists(), f'Missing {PDF}'
 data = PDF.read_bytes()
 assert data.startswith(b'%PDF-1.7')
@@ -118,7 +119,7 @@ assert role_counts['/H1'] == 1, role_counts
 assert role_counts['/H2'] >= 1
 assert role_counts['/H3'] >= 1
 assert role_counts['/P'] >= 1
-assert role_counts['/Figure'] == 1 and figure_alt_count == 1
+assert role_counts['/Figure'] == EXPECTED_FIGURES and figure_alt_count == EXPECTED_FIGURES
 # The first semantic item in the document must be the main title, not branding/decorative text.
 assert page_roles[0][0] == '/H1', page_roles[0][:5]
 
@@ -138,7 +139,10 @@ for page_index, page in enumerate(reader.pages):
         assert actual.idnum == expected_ref, (page_index, mcid, actual.idnum, expected_ref)
 
 # Binary syntax and renderer checks.
-for marker in [b'/S /H1', b'/S /H2', b'/S /H3', b'/S /P', b'/S /Figure', b'/Alt', b'/Artifact BMC']:
+required_markers = [b'/S /H1', b'/S /H2', b'/S /H3', b'/S /P', b'/Artifact BMC']
+if EXPECTED_FIGURES:
+    required_markers.extend([b'/S /Figure', b'/Alt'])
+for marker in required_markers:
     assert marker in data, marker
 subprocess.run(['gs', '-q', '-dNOPAUSE', '-dBATCH', '-dPDFSTOPONERROR', '-sDEVICE=nullpage', str(PDF)], check=True)
 info_text = subprocess.check_output(['pdfinfo', str(PDF)], text=True)
