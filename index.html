@@ -104,16 +104,15 @@
         <section class="hero astrology-hero">
           <div>
             <span class="eyebrow">BẢN ĐỒ SAO CÁ NHÂN · NATAL CHART</span>
-            <h1>Đọc cấu trúc toàn chart, <em>không ghép các placement rời rạc.</em></h1>
+            <h1>Khám phá <em>Bản đồ sao cá nhân</em> của bạn.</h1>
             <p>Vị trí hành tinh được tính ngay trên thiết bị từ ngày, giờ và nơi sinh. Công cụ không gửi dữ liệu sinh ra ngoài và xử lý rõ trường hợp không biết giờ sinh.</p>
-            <div class="hero-points"><span class="hero-point">Tropical Zodiac</span><span class="hero-point">Placidus, Whole Sign, Equal</span><span class="hero-point">Major aspects</span><span class="hero-point">True Node</span><span class="hero-point">Không cần tài khoản</span></div>
           </div>
           <div class="astrology-orbit" aria-hidden="true"><span>☉</span><span>☾</span><span>ASC</span><span>MC</span><strong>MXiao</strong></div>
         </section>
 
         <section class="workspace astrology-workspace" aria-label="Công cụ lập Bản đồ sao">
           <form id="astrology-form" class="panel form-panel" novalidate>
-            <div class="panel-heading-row"><div><h2 class="panel-title">Thông tin sinh</h2><p class="panel-note">Dùng ngày Dương lịch và chọn nơi sinh từ danh mục tích hợp sẵn.</p></div></div>
+            <div class="panel-heading-row"><div><h2 class="panel-title">Thông tin sinh</h2><p class="panel-note">Nhập ngày Dương lịch và chọn nơi sinh.</p></div></div>
             <div class="field-grid">
               <div class="field full"><label for="astro-name">Họ và tên</label><input id="astro-name" maxlength="80" autocomplete="name" value="Nguyễn Minh An"></div>
               <div class="field full"><label for="astro-date">Ngày sinh Dương lịch</label><input id="astro-date" type="date" min="1800-01-01" max="2199-12-31" value="1998-05-14" required></div>
@@ -121,7 +120,7 @@
               <div class="field full" id="astro-exact-field"><label for="astro-time">Giờ sinh</label><input id="astro-time" type="time" value="09:30"></div>
               <div class="field full" id="astro-range-field" hidden><label>Khoảng giờ sinh</label><div class="time-range-grid"><input id="astro-time-from" aria-label="Từ giờ" type="time" value="08:00"><span>đến</span><input id="astro-time-to" aria-label="Đến giờ" type="time" value="10:00"></div></div>
               <div class="field full"><label for="astro-location-search">Nơi sinh</label><input id="astro-location-search" type="search" autocomplete="off" placeholder="Tìm thành phố hoặc địa danh..."><select id="astro-location-results" size="6" aria-label="Kết quả nơi sinh"></select><span id="astro-location-summary" class="field-help"></span></div>
-              <details class="advanced-settings full"><summary>Tùy chọn nâng cao</summary><div class="field"><label for="astro-house-system">Hệ thống Nhà</label><select id="astro-house-system"><option value="placidus" selected>Placidus</option><option value="whole_sign">Whole Sign</option><option value="equal">Equal House</option></select></div><p>Tropical Zodiac và True Node được khóa cho phiên bản hiện tại. Placidus sẽ báo rõ nếu không khả dụng ở vĩ độ cao.</p></details>
+              <details class="advanced-settings full"><summary>Tùy chọn nâng cao</summary><div class="field"><label for="astro-house-system">Hệ thống Nhà</label><select id="astro-house-system"><option value="placidus" selected>Placidus</option><option value="whole_sign">Whole Sign</option><option value="equal">Equal House</option></select></div><p>Nếu Placidus không phù hợp với vĩ độ nơi sinh, bạn có thể chọn Whole Sign hoặc Equal House.</p></details>
             </div>
             <div id="astro-form-error" class="form-error" role="alert" hidden></div>
             <div class="form-actions"><button class="primary-button" type="submit">Lập Bản đồ sao</button><button class="secondary-button" id="astro-reset" type="button">Xóa dữ liệu vừa nhập</button></div>
@@ -130,19 +129,19 @@
 
           <div id="astro-result" class="result-stack astrology-results" hidden>
             <section class="panel result-toolbar"><div><span id="astro-limit-badge" class="limited-badge" hidden>Bản đồ giới hạn do thiếu giờ sinh</span><h2 id="astro-result-title">Bản đồ sao</h2><p id="astro-result-meta"></p></div><div class="toolbar-cluster"><div class="toolbar-actions"><button id="astro-pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="astro-pdf-options">Chọn nội dung PDF</button><button id="astro-pdf-button" class="toolbar-button danger" type="button">Tải PDF Bản đồ sao</button></div><span id="astro-toolbar-status" class="toolbar-status" aria-live="polite"></span></div></section>
-            <section id="astro-pdf-options" class="panel pdf-options-panel" hidden aria-label="Chọn nội dung PDF Bản đồ sao"><div class="pdf-options-head"><div><h2>Nội dung PDF Bản đồ sao</h2><p>PDF này hoàn toàn độc lập với báo cáo Tử Vi.</p></div><button id="astro-pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div><div class="pdf-options-grid"><label class="pdf-option"><input type="checkbox" data-astro-pdf="overview" checked><span>Tổng quan</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="wheel" checked><span>Vòng Bản đồ sao</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="planets" checked><span>Vị trí hành tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="aspects" checked><span>Góc hợp chính</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="houses" checked><span>12 Nhà và chủ tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="balance" checked><span>Nguyên tố và tính chất</span></label></div></section>
+            <section id="astro-pdf-options" class="panel pdf-options-panel" hidden aria-label="Chọn nội dung PDF Bản đồ sao"><div class="pdf-options-head"><div><h2>Nội dung PDF Bản đồ sao</h2><p>Chọn các phần bạn muốn đưa vào báo cáo.</p></div><button id="astro-pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div><div class="pdf-options-grid"><label class="pdf-option"><input type="checkbox" data-astro-pdf="overview" checked><span>Tổng quan</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="wheel" checked><span>Vòng Bản đồ sao</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="planets" checked><span>Vị trí hành tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="aspects" checked><span>Góc hợp chính</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="houses" checked><span>12 Nhà và chủ tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="balance" checked><span>Nguyên tố và tính chất</span></label></div></section>
             <section class="panel astro-quick-panel"><div id="astro-quick-grid" class="astro-quick-grid"></div></section>
             <section class="panel astrology-wheel-panel"><div id="astro-wheel-root"></div></section>
             <section class="panel astrology-reading"><h2>Tổng hợp cấu trúc chính</h2><div id="astro-overview" class="prose"></div><div id="astro-balance" class="astro-balance"></div></section>
             <details class="panel astrology-data" open><summary>Vị trí hành tinh</summary><div id="astro-planets"></div></details>
             <details class="panel astrology-data"><summary>Góc hợp chính</summary><div id="astro-aspects"></div></details>
             <details id="astro-houses-section" class="panel astrology-data"><summary>12 Nhà và đường chủ tinh</summary><div id="astro-houses"></div></details>
-            <section class="panel astrology-disclaimer"><p>Các vị trí thiên thể được tính ngay trên thiết bị bằng một thư viện thiên văn giấy phép permissive. Phần luận giải là hệ quy ước Chiêm tinh Tây phương, không thay thế tư vấn y tế, pháp lý, tài chính hoặc quyết định chuyên môn.</p></section>
+            <section class="panel astrology-disclaimer"><p>Phần luận giải thuộc hệ quy ước Chiêm tinh Tây phương và chỉ dùng để tham khảo, tự chiêm nghiệm; không thay thế tư vấn y tế, pháp lý, tài chính hoặc quyết định chuyên môn.</p></section>
           </div>
         </section>
       </div>
     </main>
-    <footer class="footer">MXiao Huyền Học - Tử Vi và Bản đồ sao hoạt động độc lập trong cùng một website.</footer>
+    <footer class="footer">MXiao Huyền Học - Nội dung tham khảo và tự chiêm nghiệm.</footer>
   </div>
   <section id="print-report" class="print-report" aria-hidden="true"></section>
 

@@ -7,19 +7,19 @@
   </buildInformation>
   <jobs>
     <job>
-      <item size="772674">
+      <item size="772342">
         <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/MXiao-Ban-Do-Sao-final.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
-        <details passedRules="106" failedRules="0" passedChecks="11014" failedChecks="0"></details>
+        <details passedRules="106" failedRules="0" passedChecks="11284" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786176485008" finish="1786176485422">00:00:00.414</duration>
+      <duration start="1786177222984" finish="1786177223438">00:00:00.454</duration>
     </job>
   </jobs>
   <batchSummary totalJobs="1" failedToParse="0" encrypted="0" outOfMemory="0" veraExceptions="0">
     <validationReports compliant="1" nonCompliant="0" failedJobs="0">1</validationReports>
     <featureReports failedJobs="0">0</featureReports>
     <repairReports failedJobs="0">0</repairReports>
-    <duration start="1786176484985" finish="1786176485434">00:00:00.449</duration>
+    <duration start="1786177222958" finish="1786177223451">00:00:00.493</duration>
   </batchSummary>
 </report>

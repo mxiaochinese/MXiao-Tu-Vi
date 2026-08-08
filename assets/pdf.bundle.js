@@ -1292,7 +1292,7 @@ async function downloadSelectablePdf(chart, exportOptions) {
     return pages.length;
 }
 
-function astrologyPlacementLabel(item) {
+function astrologyPositionLabel(item) {
     return `${item.sign.name} ${Math.floor(item.degree)}°${String(Math.round((item.degree - Math.floor(item.degree)) * 60)).padStart(2, "0")}′${item.retrograde ? " ℞" : ""}`;
 }
 
@@ -1329,16 +1329,16 @@ function astrologyOverviewParagraphs(chart) {
     const sun = chart.planets.find((item) => item.id === "sun");
     const moon = chart.planets.find((item) => item.id === "moon");
     const result = [];
-    if (sun && moon) result.push(`Mặt Trời ở ${sun.sign.name} và Mặt Trăng ở ${moon.sign.name}. Hai vị trí được đọc trong quan hệ với các góc hợp, Nhà và chủ tinh thay vì tách thành những mô tả rời rạc.`);
+    if (sun && moon) result.push(`Mặt Trời ở ${sun.sign.name} và Mặt Trăng ở ${moon.sign.name} tạo nên sự kết hợp giữa ý thức bản thân và nhu cầu cảm xúc.`);
     if (chart.angles) {
         const asc = chart.planets.length && chart.angles.asc;
         const ascPosition = asc == null ? null : { signIndex: Math.floor(((asc % 360) + 360) % 360 / 30) };
         const signNames = ["Bạch Dương","Kim Ngưu","Song Tử","Cự Giải","Sư Tử","Xử Nữ","Thiên Bình","Bọ Cạp","Nhân Mã","Ma Kết","Bảo Bình","Song Ngư"];
-        result.push(`Cung Mọc nằm tại ${signNames[ascPosition.signIndex]}; Thiên Đỉnh và hệ thống 12 Nhà được tính từ cùng dữ liệu sinh và hệ thống Nhà đã chọn.`);
-    } else result.push("Do giờ sinh chưa đủ chắc chắn, báo cáo không tạo Cung Mọc, Thiên Đỉnh, 12 Nhà hoặc đường chủ tinh giả.");
-    if (chart.patterns.length) result.push(`Cấu trúc nổi bật được phát hiện theo topology và orb chặt: ${chart.patterns.map((item) => item.name).join(", ")}.`);
+        result.push(`Cung Mọc nằm tại ${signNames[ascPosition.signIndex]}, thể hiện cách bạn tiếp cận trải nghiệm mới; Thiên Đỉnh và 12 Nhà bổ sung các lĩnh vực đời sống được nhấn mạnh.`);
+    } else result.push("Do giờ sinh chưa đủ chắc chắn, phần luận giải tập trung vào các vị trí hành tinh ổn định trong khoảng giờ đã nhập.");
+    if (chart.patterns.length) result.push(`Các hành tinh tạo thành cấu trúc nổi bật: ${chart.patterns.map((item) => item.name).join(", ")}.`);
     const tight = chart.aspects.slice(0, 5);
-    if (tight.length) result.push(`Các góc hợp chặt được ưu tiên khi tổng hợp gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}.`);
+    if (tight.length) result.push(`Các góc hợp gần nhất gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}.`);
     return result;
 }
 
@@ -1347,8 +1347,8 @@ function buildAstrologyOverview(chart) {
     let y = selectableHeader(page, "Tổng quan Bản đồ sao", chart.status === "exact" ? "Dữ liệu giờ sinh chính xác." : "Bản đồ giới hạn do giờ sinh chưa chắc chắn.");
     const sun = chart.planets.find((item) => item.id === "sun");
     const moon = chart.planets.find((item) => item.id === "moon");
-    if (sun) y = addSummaryLine(page, "Mặt Trời", astrologyPlacementLabel(sun), y, true);
-    if (moon) y = addSummaryLine(page, "Mặt Trăng", astrologyPlacementLabel(moon), y, true);
+    if (sun) y = addSummaryLine(page, "Mặt Trời", astrologyPositionLabel(sun), y, true);
+    if (moon) y = addSummaryLine(page, "Mặt Trăng", astrologyPositionLabel(moon), y, true);
     if (chart.angles) {
         const signNames = ["Bạch Dương","Kim Ngưu","Song Tử","Cự Giải","Sư Tử","Xử Nữ","Thiên Bình","Bọ Cạp","Nhân Mã","Ma Kết","Bảo Bình","Song Ngư"];
         const angleLabel = (value) => `${Math.floor(((value % 30) + 30) % 30)}° ${signNames[Math.floor((((value % 360) + 360) % 360) / 30)]}`;
@@ -1363,9 +1363,9 @@ function buildAstrologyOverview(chart) {
 function buildAstrologyRowsPages(chart, kind) {
     const titles = { planets: "Bảng vị trí hành tinh", aspects: "Bảng góc hợp chính", houses: "12 Nhà và đường chủ tinh", balance: "Nguyên tố và tính chất" };
     let rows = [];
-    if (kind === "planets") rows = chart.planets.map((item) => `${item.name}: ${astrologyPlacementLabel(item)}${item.house ? `, Nhà ${item.house}` : ""}${item.stability && item.stability !== "stable" ? ` - chưa ổn định (${item.possibleSigns.join(" / ")})` : ""}`);
-    if (kind === "aspects") rows = chart.aspects.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} - orb ${item.orb.toFixed(2)}°${item.state === "applying" ? ", đang tiến tới" : item.state === "separating" ? ", đang tách ra" : ""}`);
-    if (kind === "houses") rows = chart.houses.map((house) => `Nhà ${house.number}: cusp ${house.sign.name}; chủ tinh ${house.rulerName}${house.rulerHouse ? ` ở Nhà ${house.rulerHouse}` : ""}; ${house.planets.length ? `${house.planets.length} thiên thể trong Nhà` : "không có hành tinh, vẫn đọc qua cusp và chủ tinh"}.`);
+    if (kind === "planets") rows = chart.planets.map((item) => `${item.name}: ${astrologyPositionLabel(item)}${item.house ? `, Nhà ${item.house}` : ""}${item.stability && item.stability !== "stable" ? ` - chưa ổn định (${item.possibleSigns.join(" / ")})` : ""}`);
+    if (kind === "aspects") rows = chart.aspects.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} - độ lệch ${item.orb.toFixed(2)}°${item.state === "applying" ? ", đang tiến tới" : item.state === "separating" ? ", đang tách ra" : ""}`);
+    if (kind === "houses") rows = chart.houses.map((house) => `Nhà ${house.number}: bắt đầu tại ${house.sign.name}; chủ tinh ${house.rulerName}${house.rulerHouse ? ` ở Nhà ${house.rulerHouse}` : ""}; ${house.planets.length ? `${house.planets.length} thiên thể trong Nhà` : "không có hành tinh, chủ đề của Nhà thể hiện qua cung và chủ tinh"}.`);
     if (kind === "balance") rows = [...Object.entries(chart.balances.element).map(([key, value]) => `Nguyên tố ${key}: ${value} hành tinh`), ...Object.entries(chart.balances.modality).map(([key, value]) => `Tính chất ${key}: ${value} hành tinh`)];
     const pages = [];
     let page = newTextPage("portrait");

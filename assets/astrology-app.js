@@ -60,7 +60,7 @@
     $("astro-location-search").value = location.label;
     $("astro-location-results").value = location.id;
     $("astro-location-results").hidden = true;
-    $("astro-location-summary").textContent = `${location.label}. Múi giờ được xác định từ danh mục địa điểm tích hợp sẵn; dữ liệu sinh không được gửi ra ngoài.`;
+    $("astro-location-summary").textContent = `Đã chọn ${location.label}. Dữ liệu sinh được xử lý riêng tư trên thiết bị.`;
   }
 
   function getInput() {
@@ -170,17 +170,17 @@
     const paragraphs = [];
     if (sun && moon) {
       const relation = chart.aspects.find((item) => [item.a, item.b].includes("sun") && [item.a, item.b].includes("moon"));
-      paragraphs.push(`Mặt Trời ở ${sun.sign.name} đặt trọng tâm bản sắc vào cách biểu hiện mang tính ${sun.sign.modality.toLowerCase()} và thiên về nguyên tố ${sun.sign.element}. Mặt Trăng ở ${moon.sign.name}${moon.stability && moon.stability !== "stable" ? " chưa ổn định trong khoảng giờ được xét" : ""} cho thấy lớp phản ứng cảm xúc vận hành theo một nhịp khác. ${relation ? `Hai chức năng này tạo góc ${relation.name.toLowerCase()} với độ lệch ${relation.orb.toFixed(2)}°, vì vậy cần được đọc như một mối liên hệ thay vì hai mô tả tách rời.` : "Không có major aspect trực tiếp giữa hai điểm trong orb profile hiện tại, nên phần tổng hợp ưu tiên các liên hệ khác của toàn chart."}`);
+      paragraphs.push(`Mặt Trời ở ${sun.sign.name} đặt trọng tâm bản sắc vào cách biểu hiện mang tính ${sun.sign.modality.toLowerCase()} và thiên về nguyên tố ${sun.sign.element}. Mặt Trăng ở ${moon.sign.name}${moon.stability && moon.stability !== "stable" ? " chưa ổn định trong khoảng giờ được xét" : ""} cho thấy lớp phản ứng cảm xúc vận hành theo một nhịp khác. ${relation ? `Hai chức năng này tạo góc ${relation.name.toLowerCase()} với độ lệch ${relation.orb.toFixed(2)}°, làm nổi bật mối liên hệ giữa ý thức bản thân và nhu cầu cảm xúc.` : "Mặt Trời và Mặt Trăng không tạo góc hợp chính đủ gần; ý thức bản thân và phản ứng cảm xúc vì thế thể hiện qua những mối liên hệ khác trong lá số."}`);
     }
     if (asc) {
       const ruler = chart.planets.find((item) => item.id === asc.sign.ruler);
-      paragraphs.push(`Cung Mọc ở ${asc.sign.name} đặt ${ruler?.name || asc.sign.ruler} làm chủ tinh lá số theo hệ chủ tinh truyền thống. ${ruler ? `${ruler.name} nằm ở ${ruler.sign.name}, Nhà ${ruler.house}; đây là đường nối chính giữa cách bạn bước vào trải nghiệm và lĩnh vực được nhấn mạnh trong chart.` : ""}`);
+      paragraphs.push(`Cung Mọc ở ${asc.sign.name} đặt ${ruler?.name || asc.sign.ruler} làm chủ tinh lá số theo hệ chủ tinh truyền thống. ${ruler ? `${ruler.name} nằm ở ${ruler.sign.name}, Nhà ${ruler.house}; vị trí này kết nối cách bạn bước vào trải nghiệm với lĩnh vực được nhấn mạnh trong lá số.` : ""}`);
     } else {
       paragraphs.push("Do giờ sinh chưa đủ chắc chắn, kết quả không tạo Cung Mọc, Thiên Đỉnh hoặc 12 Nhà. Chỉ những vị trí hành tinh ổn định xuyên suốt khoảng khảo sát mới được dùng trong phần đọc chính.");
     }
-    if (chart.patterns.length) paragraphs.push(`Cấu trúc hình học nổi bật được phát hiện là ${chart.patterns.map((item) => item.name).join(", ")}. Cấu trúc này được xác định từ topology và các cạnh có orb không quá 3°, không phải từ việc đếm các góc hợp rời rạc.`);
+    if (chart.patterns.length) paragraphs.push(`Các hành tinh tạo thành cấu trúc nổi bật: ${chart.patterns.map((item) => item.name).join(", ")}.`);
     const tight = chart.aspects.slice(0, 3);
-    if (tight.length) paragraphs.push(`Các liên hệ chặt nhất hiện tại gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}. Chúng là dữ liệu ưu tiên cho bước tổng hợp, nhưng không được dùng để dự đoán sự kiện chắc chắn.`);
+    if (tight.length) paragraphs.push(`Các liên hệ gần nhất gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}. Những mối liên hệ này cho thấy các chủ đề nổi bật, nhưng không khẳng định chắc chắn một sự kiện.`);
     return paragraphs;
   }
 
@@ -189,12 +189,12 @@
   }
 
   function aspectTable(chart) {
-    return `<div class="astro-table-wrap"><table><thead><tr><th>A</th><th>Góc hợp</th><th>B</th><th>Orb</th><th>Trạng thái</th></tr></thead><tbody>${chart.aspects.map((item) => `<tr><td>${esc(item.aName)}</td><td>${esc(item.name)}</td><td>${esc(item.bName)}</td><td>${item.orb.toFixed(2)}°</td><td>${item.state === "applying" ? "Đang tiến tới" : item.state === "separating" ? "Đang tách ra" : "Không áp dụng"}</td></tr>`).join("")}</tbody></table></div>`;
+    return `<div class="astro-table-wrap"><table><thead><tr><th>A</th><th>Góc hợp</th><th>B</th><th>Độ lệch</th><th>Trạng thái</th></tr></thead><tbody>${chart.aspects.map((item) => `<tr><td>${esc(item.aName)}</td><td>${esc(item.name)}</td><td>${esc(item.bName)}</td><td>${item.orb.toFixed(2)}°</td><td>${item.state === "applying" ? "Đang tiến tới" : item.state === "separating" ? "Đang tách ra" : "Không áp dụng"}</td></tr>`).join("")}</tbody></table></div>`;
   }
 
   function houseTable(chart) {
     if (!chart.houses.length) return "";
-    return `<div class="astro-table-wrap"><table><thead><tr><th>Nhà</th><th>Cusp</th><th>Chủ tinh</th><th>Chủ tinh ở Nhà</th><th>Hành tinh trong Nhà</th></tr></thead><tbody>${chart.houses.map((house) => `<tr><th>${house.number}</th><td>${esc(E.formatDegree(E.signPosition(house.cusp).degree))} ${esc(house.sign.name)}</td><td>${esc(house.rulerName)}</td><td>${house.rulerHouse || "Không áp dụng"}</td><td>${house.planets.map((id) => chart.planets.find((item) => item.id === id)?.name).filter(Boolean).map(esc).join(", ") || "Không có hành tinh"}</td></tr>`).join("")}</tbody></table></div>`;
+    return `<div class="astro-table-wrap"><table><thead><tr><th>Nhà</th><th>Điểm đầu Nhà</th><th>Chủ tinh</th><th>Chủ tinh ở Nhà</th><th>Hành tinh trong Nhà</th></tr></thead><tbody>${chart.houses.map((house) => `<tr><th>${house.number}</th><td>${esc(E.formatDegree(E.signPosition(house.cusp).degree))} ${esc(house.sign.name)}</td><td>${esc(house.rulerName)}</td><td>${house.rulerHouse || "Không áp dụng"}</td><td>${house.planets.map((id) => chart.planets.find((item) => item.id === id)?.name).filter(Boolean).map(esc).join(", ") || "Không có hành tinh"}</td></tr>`).join("")}</tbody></table></div>`;
   }
 
   function renderChart(chart) {
