@@ -20,11 +20,11 @@
     cycle: "Vòng sao"
   };
   const BRANCH_LABELS = ["", "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
-  const EXPORT_SECTION_IDS = ["cover", "overview", "chart", "menh_than", "cung_12", "dai_van", "tieu_van", "van_han", "luu_nguyet", "luu_nhat", "luu_thoi", "su_nghiep", "tai_chinh", "tinh_cam", "gia_dinh", "suc_khoe"];
+  const EXPORT_SECTION_IDS = ["cover", "overview", "chart", "menh_than", "cung_12", "dai_van", "tieu_van", "van_han", "luu_nguyet", "su_nghiep", "tai_chinh", "tinh_cam", "gia_dinh", "suc_khoe"];
   const EXPORT_PRESETS = {
     full: EXPORT_SECTION_IDS,
     summary: ["cover", "overview", "chart", "menh_than", "van_han"],
-    fortune: ["cover", "overview", "chart", "dai_van", "tieu_van", "van_han", "luu_nguyet", "luu_nhat", "luu_thoi"],
+    fortune: ["cover", "overview", "chart", "dai_van", "tieu_van", "van_han", "luu_nguyet"],
     palaces: ["cover", "overview", "chart", "menh_than", "cung_12"]
   };
   const state = { calendarType: "solar", gender: "male", timeMode: "exact", chart: null, lastInput: null, lastNormalized: null, comparison: null, selectedPalaceId: 1, topic: "Tổng quan", pdfSections: new Set(EXPORT_SECTION_IDS), pdfPreset: "full" };
@@ -152,49 +152,73 @@
     };
   }
 
-  function resolveViewMoment(timezone, viewYear, viewMonth, viewDay, viewHourBranch, viewLeap) {
-    let offset = offsetHours({ year: viewYear, month: 6, day: 15, hour: 12, minute: 0 }, timezone);
-    let solar = C.lunarToSolar(viewDay, viewMonth, viewYear, viewLeap, offset);
-    offset = offsetHours({ ...solar, hour: 12, minute: 0 }, timezone);
-    solar = C.lunarToSolar(viewDay, viewMonth, viewYear, viewLeap, offset);
-    const roundtrip = C.solarToLunar(solar.day, solar.month, solar.year, offset);
-    if (roundtrip.year !== viewYear || roundtrip.month !== viewMonth || roundtrip.day !== viewDay || roundtrip.leap !== viewLeap) throw new Error("Ngày âm lịch muốn xem hoặc lựa chọn tháng nhuận không tồn tại.");
-    const day = E.getDayStemBranch(solar.day, solar.month, solar.year);
-    return {
-      viewSolarDate: solar,
-      viewDayStem: day.stem,
-      viewDayBranch: day.branch,
-      viewDayCanChi: day.label,
-      viewHourBranch
-    };
+  function findLeapMonth(viewYear, timezone) {
+    if (!Number.isInteger(viewYear) || viewYear < 1900 || viewYear > 2199 || !timezone) return null;
+    const offset = offsetHours({ year: viewYear, month: 6, day: 15, hour: 12, minute: 0 }, timezone);
+    for (let month = 1; month <= 12; month += 1) {
+      try {
+        C.lunarToSolar(1, month, viewYear, true, offset);
+        return month;
+      } catch {
+        // Tháng này không phải tháng nhuận của năm đang chọn.
+      }
+    }
+    return null;
+  }
+
+  function refreshViewMonthOptions() {
+    const select = $("viewMonth");
+    const previous = select.value || "4";
+    const viewYear = Number($("viewYear").value);
+    const timezone = $("timezone").value;
+    const leapMonth = findLeapMonth(viewYear, timezone);
+    const options = [];
+    for (let month = 1; month <= 12; month += 1) {
+      options.push(`<option value="${month}">Tháng ${month}</option>`);
+      if (leapMonth === month) options.push(`<option value="${month}-leap">Tháng ${month} nhuận</option>`);
+    }
+    select.innerHTML = options.join("");
+    select.value = Array.from(select.options).some((option) => option.value === previous) ? previous : "4";
+    $("view-month-help").textContent = leapMonth
+      ? `Năm ${viewYear} có tháng ${leapMonth} nhuận; lựa chọn này chỉ xuất hiện ngay sau tháng ${leapMonth}.`
+      : `Năm ${viewYear} không có tháng nhuận.`;
+    return leapMonth;
+  }
+
+  function updateViewScopeFields() {
+    const scope = $("viewScope").value;
+    $("view-year-field").hidden = scope === "natal_overview";
+    $("view-month-field").hidden = scope !== "single_month";
+    if (scope === "single_month" || scope === "all_months") refreshViewMonthOptions();
+  }
+
+  function parseViewMonth() {
+    const match = /^(\d{1,2})(-leap)?$/.exec($("viewMonth").value);
+    if (!match) throw new Error("Tháng muốn xem không hợp lệ.");
+    const month = Number(match[1]);
+    if (!Number.isInteger(month) || month < 1 || month > 12) throw new Error("Tháng muốn xem phải từ 1 đến 12.");
+    return { month, leap: Boolean(match[2]) };
   }
 
   function getInput() {
-    const viewYear = Number($("viewYear").value);
-    const viewMonth = Number($("viewMonth").value);
-    const viewDay = Number($("viewDay").value);
-    const viewHourBranch = Number($("viewHourBranch").value);
-    const viewLeap = $("viewLeap").checked;
-    const leapFortuneMode = $("leapFortuneMode").value;
-    if (!Number.isInteger(viewYear) || viewYear < 1900 || viewYear > 2199) throw new Error("Năm muốn xem phải nằm trong khoảng 1900 đến 2199.");
-    if (!Number.isInteger(viewMonth) || viewMonth < 1 || viewMonth > 12) throw new Error("Tháng muốn xem phải từ 1 đến 12.");
-    if (!Number.isInteger(viewDay) || viewDay < 1 || viewDay > 30) throw new Error("Ngày âm lịch muốn xem phải từ 1 đến 30.");
-    if (!Number.isInteger(viewHourBranch) || viewHourBranch < 1 || viewHourBranch > 12) throw new Error("Khung giờ muốn xem không hợp lệ.");
+    const viewScope = $("viewScope").value;
+    if (!["natal_overview", "yearly", "single_month", "all_months"].includes(viewScope)) throw new Error("Phạm vi luận giải không hợp lệ.");
     const timezone = selectedTimezone();
-    const viewMoment = resolveViewMoment(timezone, viewYear, viewMonth, viewDay, viewHourBranch, viewLeap);
+    const needsYear = viewScope !== "natal_overview";
+    const viewYear = needsYear ? Number($("viewYear").value) : null;
+    if (needsYear && (!Number.isInteger(viewYear) || viewYear < 1900 || viewYear > 2199)) throw new Error("Năm muốn xem phải nằm trong khoảng 1900 đến 2199.");
+    const viewLeapMonth = needsYear ? findLeapMonth(viewYear, timezone) : null;
+    const monthSelection = viewScope === "single_month" ? parseViewMonth() : null;
+    if (monthSelection?.leap && monthSelection.month !== viewLeapMonth) throw new Error("Tháng được chọn không phải tháng nhuận của năm âm lịch này.");
     return {
       fullName: $("fullName").value.trim() || "Người xem",
       gender: state.gender,
       calendarType: state.calendarType,
       lunarLeap: $("lunarLeap").checked,
       timezone,
-      viewYear,
-      viewMonth,
-      viewLeap,
-      leapFortuneMode,
-      viewDay,
-      viewHourBranch,
-      ...viewMoment,
+      viewScope,
+      ...(needsYear ? { viewYear, viewLeapMonth } : {}),
+      ...(monthSelection ? { viewMonth: monthSelection.month, viewLeap: monthSelection.leap } : {}),
       timePrecision: state.timeMode,
       calculationProfileId: $("calculationProfile").value
     };
@@ -239,6 +263,26 @@
     $("timezone-help").textContent = timezone ? `Đang dùng ${timezoneLabel(timezone)} cho thời điểm sinh.` : "Hãy chọn múi giờ.";
   }
 
+  function viewScopeLabel(chart) {
+    const labels = {
+      natal_overview: "Lá số tổng quan",
+      yearly: `Vận năm ${chart.input.viewYear}`,
+      single_month: `Tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""} năm ${chart.input.viewYear}`,
+      all_months: `Toàn bộ các tháng năm ${chart.input.viewYear}`
+    };
+    return labels[chart.input.viewScope] || "Lá số tổng quan";
+  }
+
+  function fortuneSummary(chart) {
+    const rows = [];
+    if (chart.analysis.activeDecadeLabel) rows.push(["Đại vận", chart.analysis.activeDecadeLabel]);
+    if (chart.analysis.annualDecadeLabel) rows.push([`Lưu đại hạn ${chart.input.viewYear}`, chart.analysis.annualDecadeLabel]);
+    if (chart.analysis.minorFortuneLabel) rows.push([`Tiểu hạn ${chart.input.viewYear}`, chart.analysis.minorFortuneLabel]);
+    if (chart.analysis.monthlyLabel) rows.push([`Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}`, chart.analysis.monthlyLabel]);
+    if (chart.input.viewScope === "all_months") rows.push(["Lưu nguyệt", `${chart.analysis.monthlyFortunes.length} tháng âm lịch đã được tính`]);
+    return rows;
+  }
+
   function palaceFlags(palace) {
     const chart = state.chart;
     const flags = [];
@@ -249,8 +293,6 @@
     if (palace.id === chart.analysis.minorFortunePalaceId) flags.push("Tiểu hạn");
     if (palace.id === chart.analysis.yearBranchPalaceId) flags.push("Lưu Thái Tuế");
     if (palace.id === chart.analysis.monthlyPalaceId) flags.push(`Lưu nguyệt T${chart.input.viewMonth}${chart.input.viewLeap ? "N" : ""}`);
-    if (palace.id === chart.analysis.dailyPalaceId) flags.push(`Lưu nhật N${chart.input.viewDay}`);
-    if (palace.id === chart.analysis.hourlyPalaceId) flags.push(`Lưu thời ${BRANCH_LABELS[chart.input.viewHourBranch]}`);
     return flags;
   }
 
@@ -264,9 +306,7 @@
       palace.id === chart.analysis.annualDecadePalaceId ? "annual-decade" : "",
       palace.id === chart.analysis.minorFortunePalaceId ? "minor-fortune" : "",
       palace.id === chart.analysis.yearBranchPalaceId ? "year-branch" : "",
-      palace.id === chart.analysis.monthlyPalaceId ? "monthly-fortune" : "",
-      palace.id === chart.analysis.dailyPalaceId ? "daily-fortune" : "",
-      palace.id === chart.analysis.hourlyPalaceId ? "hourly-fortune" : ""
+      palace.id === chart.analysis.monthlyPalaceId ? "monthly-fortune" : ""
     ].filter(Boolean).join(" ");
   }
 
@@ -281,15 +321,14 @@
       <div class="minor-stars">${minor.map((star) => esc(star.name)).join(" · ")}</div>
       ${palace.annualStars.length ? `<div class="annual-stars">${palace.annualStars.map((star) => `<span>${esc(star.name)}</span>`).join("")}</div>` : ""}
       ${palace.monthlyStars.length ? `<div class="monthly-stars">${palace.monthlyStars.map((star) => `<span>${esc(star.name)}</span>`).join("")}</div>` : ""}
-      ${palace.dailyStars.length ? `<div class="daily-stars">${palace.dailyStars.map((star) => `<span>${esc(star.name)}</span>`).join("")}</div>` : ""}
-      ${palace.hourlyStars.length ? `<div class="hourly-stars">${palace.hourlyStars.map((star) => `<span>${esc(star.name)}</span>`).join("")}</div>` : ""}
       <div class="palace-foot"><span>${flags.map((flag) => esc(flag)).join(" · ")}</span><span class="tuan-triet">${[palace.hasTuan ? "Tuần" : "", palace.hasTriet ? "Triệt" : ""].filter(Boolean).join(" · ")}</span></div>
     </article>`;
   }
 
   function renderChart() {
     const chart = state.chart;
-    const center = `<section class="chart-center"><span class="center-kicker">${esc(chart.normalized.yearCanChi)} - ${chart.input.gender === "male" ? "Nam" : "Nữ"}</span><h3>${esc(chart.input.fullName)}</h3><p>Mệnh ${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</p><div class="center-fortunes"><span><b>Đại vận</b>${esc(chart.analysis.activeDecadeLabel)}</span><span><b>Lưu đại hạn ${chart.input.viewYear}</b>${esc(chart.analysis.annualDecadeLabel)}</span><span><b>Tiểu hạn ${chart.input.viewYear}</b>${esc(chart.analysis.minorFortuneLabel)}</span><span><b>Lưu nguyệt tháng ${chart.input.viewMonth}</b>${esc(chart.analysis.monthlyLabel)}</span><span><b>Lưu nhật ngày ${chart.input.viewDay}</b>${esc(chart.analysis.dailyLabel)}</span><span><b>Lưu thời ${esc(BRANCH_LABELS[chart.input.viewHourBranch])}</b>${esc(chart.analysis.hourlyLabel)}</span></div></section>`;
+    const summary = fortuneSummary(chart);
+    const center = `<section class="chart-center"><span class="center-kicker">${esc(chart.normalized.yearCanChi)} - ${chart.input.gender === "male" ? "Nam" : "Nữ"}</span><h3>${esc(chart.input.fullName)}</h3><p>Mệnh ${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</p><div class="center-fortunes"><span><b>Phạm vi</b>${esc(viewScopeLabel(chart))}</span>${summary.map(([label, value]) => `<span><b>${esc(label)}</b>${esc(value)}</span>`).join("")}</div></section>`;
     $("chart-root").innerHTML = `<div class="chart-grid">${chart.palaces.map(renderPalace).join("")}${center}</div><div id="palace-detail-root"></div>`;
     $("chart-root").querySelectorAll("[data-palace]").forEach((node) => {
       const activate = () => { state.selectedPalaceId = Number(node.dataset.palace); renderChart(); };
@@ -303,16 +342,21 @@
     const palace = state.chart.palaces.find((item) => item.id === state.selectedPalaceId) || state.chart.palaces[0];
     const groups = Object.keys(GROUP_LABELS).map((group) => ({ group, stars: palace.stars.filter((star) => star.group === group) })).filter((item) => item.stars.length);
     const flags = palaceFlags(palace);
-    $("palace-detail-root").innerHTML = `<section class="palace-detail"><div class="palace-detail-head"><div><span class="detail-kicker">Cung đang chọn</span><h3>${esc(palace.name)} tại ${esc(palace.branch)}${palace.isBody ? " - Thân cư" : ""}</h3><p>${esc(palace.element)} - Đại vận ${palace.decadeStart}-${palace.decadeEnd} tuổi</p></div><div class="detail-flags">${flags.map((flag) => `<span>${esc(flag)}</span>`).join("")}${palace.hasTuan ? "<span>Tuần</span>" : ""}${palace.hasTriet ? "<span>Triệt</span>" : ""}</div></div><div class="star-groups">${groups.map(({ group, stars }) => `<div class="star-group group-${group}"><h4>${GROUP_LABELS[group]}</h4><div class="star-list">${stars.map((star) => `<span class="star-chip">${esc(star.name)}${star.brightness ? `<b>${esc(star.brightness)}</b>` : ""}</span>`).join("")}</div></div>`).join("")}${palace.annualStars.length ? `<div class="star-group group-annual"><h4>Sao lưu năm ${state.chart.input.viewYear}</h4><div class="star-list">${palace.annualStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}${palace.monthlyStars.length ? `<div class="star-group group-monthly"><h4>Sao lưu tháng ${state.chart.input.viewMonth}</h4><div class="star-list">${palace.monthlyStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}${palace.dailyStars.length ? `<div class="star-group group-daily"><h4>Sao lưu ngày ${state.chart.input.viewDay}</h4><div class="star-list">${palace.dailyStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}${palace.hourlyStars.length ? `<div class="star-group group-hourly"><h4>Sao lưu giờ ${esc(BRANCH_LABELS[state.chart.input.viewHourBranch])}</h4><div class="star-list">${palace.hourlyStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}</div></section>`;
+    $("palace-detail-root").innerHTML = `<section class="palace-detail"><div class="palace-detail-head"><div><span class="detail-kicker">Cung đang chọn</span><h3>${esc(palace.name)} tại ${esc(palace.branch)}${palace.isBody ? " - Thân cư" : ""}</h3><p>${esc(palace.element)} - Đại vận ${palace.decadeStart}-${palace.decadeEnd} tuổi</p></div><div class="detail-flags">${flags.map((flag) => `<span>${esc(flag)}</span>`).join("")}${palace.hasTuan ? "<span>Tuần</span>" : ""}${palace.hasTriet ? "<span>Triệt</span>" : ""}</div></div><div class="star-groups">${groups.map(({ group, stars }) => `<div class="star-group group-${group}"><h4>${GROUP_LABELS[group]}</h4><div class="star-list">${stars.map((star) => `<span class="star-chip">${esc(star.name)}${star.brightness ? `<b>${esc(star.brightness)}</b>` : ""}</span>`).join("")}</div></div>`).join("")}${palace.annualStars.length ? `<div class="star-group group-annual"><h4>Sao lưu năm ${state.chart.input.viewYear}</h4><div class="star-list">${palace.annualStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}${palace.monthlyStars.length ? `<div class="star-group group-monthly"><h4>Sao lưu tháng ${state.chart.input.viewMonth}</h4><div class="star-list">${palace.monthlyStars.map((star) => `<span class="star-chip">${esc(star.name)}</span>`).join("")}</div></div>` : ""}</div></section>`;
   }
 
   function orderedTopics(chart) {
-    const desired = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", `Vận hạn ${chart.input.viewYear}`, `Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}`, `Lưu nhật ngày ${chart.input.viewDay}`, `Lưu thời giờ ${chart.input.viewHourBranch}`, "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
     const existing = new Set(chart.interpretations.map((item) => item.topic));
+    const periodTopics = Array.from(existing).filter((topic) => topic.startsWith("Vận hạn ") || topic.startsWith("Lưu nguyệt "));
+    const desired = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", ...periodTopics, "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
     return desired.filter((topic) => existing.has(topic));
   }
 
   function exportSectionDefinitions(chart) {
+    const topics = new Set(chart.interpretations.map((item) => item.topic));
+    const monthTopic = chart.input.viewScope === "all_months"
+      ? `Lưu nguyệt năm ${chart.input.viewYear}`
+      : `Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}`;
     return [
       { id: "cover", label: "Trang bìa" },
       { id: "overview", label: "Tổng quan lá số" },
@@ -322,15 +366,13 @@
       { id: "dai_van", label: "Đại vận", topic: "Đại vận" },
       { id: "tieu_van", label: "Tiểu vận", topic: "Tiểu vận" },
       { id: "van_han", label: `Vận hạn ${chart.input.viewYear}`, topic: `Vận hạn ${chart.input.viewYear}` },
-      { id: "luu_nguyet", label: `Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}`, topic: `Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}` },
-      { id: "luu_nhat", label: `Lưu nhật ngày ${chart.input.viewDay}`, topic: `Lưu nhật ngày ${chart.input.viewDay}` },
-      { id: "luu_thoi", label: `Lưu thời giờ ${BRANCH_LABELS[chart.input.viewHourBranch]}`, topic: `Lưu thời giờ ${chart.input.viewHourBranch}` },
+      { id: "luu_nguyet", label: chart.input.viewScope === "all_months" ? `Lưu nguyệt cả năm ${chart.input.viewYear}` : `Lưu nguyệt tháng ${chart.input.viewMonth || ""}${chart.input.viewLeap ? " nhuận" : ""}`.trim(), topic: monthTopic },
       { id: "su_nghiep", label: "Sự nghiệp", topic: "Sự nghiệp" },
       { id: "tai_chinh", label: "Tài chính", topic: "Tài chính" },
       { id: "tinh_cam", label: "Tình cảm", topic: "Tình cảm" },
       { id: "gia_dinh", label: "Gia đình - Quan hệ", topic: "Gia đình - Quan hệ" },
       { id: "suc_khoe", label: "Sức khỏe - Nhịp sống", topic: "Sức khỏe - Nhịp sống" }
-    ].concat(state.comparison ? [{ id: "so_sanh_gio", label: "So sánh hai khung giờ sinh" }] : []);
+    ].map((item) => ({ ...item, available: !item.topic || topics.has(item.topic) })).concat(state.comparison ? [{ id: "so_sanh_gio", label: "So sánh hai khung giờ sinh", available: true }] : []);
   }
 
   function getPdfExportOptions() {
@@ -340,20 +382,20 @@
       cover: state.pdfSections.has("cover"),
       overview: state.pdfSections.has("overview"),
       chart: state.pdfSections.has("chart"),
-      topics: definitions.filter((item) => item.topic && state.pdfSections.has(item.id)).map((item) => item.topic),
+      topics: definitions.filter((item) => item.available && item.topic && state.pdfSections.has(item.id)).map((item) => item.topic),
       comparison: state.comparison && state.pdfSections.has("so_sanh_gio") ? state.comparison : null
     };
   }
 
   function selectedPdfCount() {
     if (!state.chart) return 0;
-    return exportSectionDefinitions(state.chart).filter((item) => state.pdfSections.has(item.id)).length;
+    return exportSectionDefinitions(state.chart).filter((item) => item.available && state.pdfSections.has(item.id)).length;
   }
 
   function renderPdfOptions() {
     if (!state.chart) return;
     const definitions = exportSectionDefinitions(state.chart);
-    $("pdf-options-grid").innerHTML = definitions.map((item) => `<label class="pdf-option"><input type="checkbox" data-pdf-section="${item.id}" ${state.pdfSections.has(item.id) ? "checked" : ""}><span>${esc(item.label)}</span></label>`).join("");
+    $("pdf-options-grid").innerHTML = definitions.map((item) => `<label class="pdf-option${item.available ? "" : " unavailable"}"><input type="checkbox" data-pdf-section="${item.id}" ${item.available && state.pdfSections.has(item.id) ? "checked" : ""} ${item.available ? "" : "disabled"}><span>${esc(item.label)}${item.available ? "" : " - ngoài phạm vi đang xem"}</span></label>`).join("");
     $("pdf-options-grid").querySelectorAll("[data-pdf-section]").forEach((input) => input.addEventListener("change", () => {
       if (input.checked) state.pdfSections.add(input.dataset.pdfSection);
       else state.pdfSections.delete(input.dataset.pdfSection);
@@ -363,7 +405,8 @@
     }));
     document.querySelectorAll("[data-pdf-preset]").forEach((button) => button.classList.toggle("active", button.dataset.pdfPreset === state.pdfPreset));
     const count = selectedPdfCount();
-    $("pdf-options-summary").textContent = count ? `Đã chọn ${count}/${definitions.length} phần cho báo cáo.` : "Hãy chọn ít nhất một phần để xuất PDF.";
+    const availableCount = definitions.filter((item) => item.available).length;
+    $("pdf-options-summary").textContent = count ? `Đã chọn ${count}/${availableCount} phần khả dụng cho báo cáo.` : "Hãy chọn ít nhất một phần để xuất PDF.";
     $("pdf-button").disabled = count === 0;
     $("print-button").disabled = count === 0;
   }
@@ -419,20 +462,19 @@
       ["Mệnh và Cục", `${chartA.birthElement} - ${chartA.bureau.label}`, `${chartB.birthElement} - ${chartB.bureau.label}`],
       ["Chính tinh tại Mệnh", majorAt(chartA, chartA.lifePalace), majorAt(chartB, chartB.lifePalace)],
       ["Chính tinh tại Thân", majorAt(chartA, chartA.bodyPalace), majorAt(chartB, chartB.bodyPalace)],
-      [`Đại vận năm ${chartA.input.viewYear}`, chartA.analysis.activeDecadeLabel, chartB.analysis.activeDecadeLabel],
-      ["Tiểu hạn", chartA.analysis.minorFortuneLabel, chartB.analysis.minorFortuneLabel],
-      ["Lưu nguyệt", chartA.analysis.monthlyLabel, chartB.analysis.monthlyLabel],
-      ["Lưu nhật", chartA.analysis.dailyLabel, chartB.analysis.dailyLabel],
-      ["Lưu thời", chartA.analysis.hourlyLabel, chartB.analysis.hourlyLabel],
       ["Vị trí 14 chính tinh", `${movedMajor}/14 sao đổi cung`, `${movedMajor}/14 sao đổi cung`]
-    ].map(([label, valueA, valueB]) => ({ label, valueA, valueB, changed: valueA !== valueB || label === "Vị trí 14 chính tinh" }));
+    ];
+    if (chartA.analysis.activeDecadeLabel) rows.splice(rows.length - 1, 0, [`Đại vận năm ${chartA.input.viewYear}`, chartA.analysis.activeDecadeLabel, chartB.analysis.activeDecadeLabel]);
+    if (chartA.analysis.minorFortuneLabel) rows.splice(rows.length - 1, 0, ["Tiểu hạn", chartA.analysis.minorFortuneLabel, chartB.analysis.minorFortuneLabel]);
+    if (chartA.analysis.monthlyLabel) rows.splice(rows.length - 1, 0, ["Lưu nguyệt", chartA.analysis.monthlyLabel, chartB.analysis.monthlyLabel]);
+    const normalizedRows = rows.map(([label, valueA, valueB]) => ({ label, valueA, valueB, changed: valueA !== valueB || label === "Vị trí 14 chính tinh" }));
     return {
       labelA: `Giờ ${BRANCH_LABELS[branchA]} (${branchRange(branchA)})`,
       labelB: `Giờ ${BRANCH_LABELS[branchB]} (${branchRange(branchB)})`,
       branchA,
       branchB,
-      changedCount: rows.filter((row) => row.changed).length,
-      rows
+      changedCount: normalizedRows.filter((row) => row.changed).length,
+      rows: normalizedRows
     };
   }
 
@@ -493,14 +535,16 @@
     const topics = orderedTopics(chart);
     if (!topics.includes(state.topic)) state.topic = topics[0];
     const items = chart.interpretations.filter((item) => item.topic === state.topic);
-    $("report-root").innerHTML = `<div class="report-summary-bar"><div><strong>${chart.analysis.nominalAge}</strong><span>tuổi mụ năm ${chart.input.viewYear}</span></div><div><strong>${esc(chart.analysis.activeDecadeLabel)}</strong><span>đại vận</span></div><div><strong>${esc(chart.analysis.annualDecadeLabel)}</strong><span>lưu đại hạn</span></div><div><strong>${esc(chart.analysis.minorFortuneLabel)}</strong><span>tiểu hạn</span></div><div><strong>${esc(chart.analysis.monthlyLabel)}</strong><span>lưu nguyệt</span></div><div><strong>${esc(chart.analysis.dailyLabel)}</strong><span>lưu nhật</span></div><div><strong>${esc(chart.analysis.hourlyLabel)}</strong><span>lưu thời</span></div></div><div class="tabs" role="tablist" aria-label="Nhóm luận giải">${topics.map((topic) => `<button class="tab-button ${topic === state.topic ? "active" : ""}" type="button" role="tab" aria-selected="${topic === state.topic}" data-topic="${esc(topic)}">${esc(topic)}</button>`).join("")}</div><div class="report-section">${items.map(renderReportCard).join("")}</div>`;
+    const summary = [["Phạm vi", viewScopeLabel(chart)], ...fortuneSummary(chart)];
+    if (chart.analysis.nominalAge) summary.splice(1, 0, ["Tuổi mụ", `${chart.analysis.nominalAge} tuổi trong năm ${chart.input.viewYear}`]);
+    $("report-root").innerHTML = `<div class="report-summary-bar">${summary.map(([label, value]) => `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`).join("")}</div><div class="tabs" role="tablist" aria-label="Nhóm luận giải">${topics.map((topic) => `<button class="tab-button ${topic === state.topic ? "active" : ""}" type="button" role="tab" aria-selected="${topic === state.topic}" data-topic="${esc(topic)}">${esc(topic)}</button>`).join("")}</div><div class="report-section">${items.map(renderReportCard).join("")}</div>`;
     $("report-root").querySelectorAll("[data-topic]").forEach((button) => button.addEventListener("click", () => { state.topic = button.dataset.topic; renderReport(); }));
   }
 
   function renderPrintPalace(palace) {
     const major = palace.stars.filter((star) => star.group === "major").map((star) => `${star.name}${star.brightness ? ` (${star.brightness})` : ""}`).join(", ") || "Vô chính diệu";
     const other = palace.stars.filter((star) => !["major", "cycle"].includes(star.group)).slice(0, 12).map((star) => star.name).join(" · ");
-    const moving = [...palace.annualStars, ...palace.monthlyStars, ...palace.dailyStars, ...palace.hourlyStars].map((star) => star.name).join(" · ");
+    const moving = [...palace.annualStars, ...palace.monthlyStars].map((star) => star.name).join(" · ");
     return `<article class="print-palace" style="grid-column:${GRID_POSITION[palace.id][0]};grid-row:${GRID_POSITION[palace.id][1]}"><header><strong>${esc(palace.name)}${palace.isBody ? " - Thân" : ""}</strong><span>${esc(palace.branch)}</span></header><small>${esc(palace.element)} | ${palace.decadeStart}-${palace.decadeEnd} tuổi</small><b>${esc(major)}</b><p>${esc(other)}</p>${moving ? `<em>${esc(moving)}</em>` : ""}<footer>${esc(palaceFlags(palace).join(" · "))}</footer></article>`;
   }
 
@@ -511,9 +555,13 @@
     const life = chart.palaces.find((item) => item.id === chart.lifePalace);
     const body = chart.palaces.find((item) => item.id === chart.bodyPalace);
     const sections = [];
-    if (options.cover) sections.push(`<article class="print-page print-cover"><div class="print-brand">MXIAO TỬ VI</div><h1>LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT</h1><h2>${esc(chart.input.fullName)}</h2><dl><div><dt>Dương lịch</dt><dd>${chart.normalized.solar.day}/${chart.normalized.solar.month}/${chart.normalized.solar.year}</dd></div><div><dt>Âm lịch</dt><dd>${chart.normalized.lunar.day}/${chart.normalized.lunar.month}/${chart.normalized.lunar.year}${chart.normalized.lunar.leap ? " nhuận" : ""}</dd></div><div><dt>Giờ sinh</dt><dd>${esc(chart.normalized.timeDisplay || chart.normalized.adjustedTime)}</dd></div><div><dt>Múi giờ</dt><dd>${esc(chart.input.timezone)}</dd></div><div><dt>Phương pháp</dt><dd>${esc(chart.input.calculationMethod)}</dd></div><div><dt>Thời điểm xem</dt><dd>Năm ${chart.input.viewYear}, tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch, giờ ${esc(BRANCH_LABELS[chart.input.viewHourBranch])}</dd></div></dl><p>Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.</p></article>`);
-    if (options.overview) sections.push(`<article class="print-page"><header class="print-page-header"><span>MXiao Tử Vi</span><h2>Tổng quan lá số</h2></header><div class="print-summary-grid"><div><span>Mệnh và Cục</span><b>${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</b></div><div><span>Cung Mệnh</span><b>${esc(life.name)} tại ${esc(life.branch)}</b></div><div><span>Cung Thân</span><b>${esc(body.name)} tại ${esc(body.branch)}</b></div><div><span>Tuổi mụ</span><b>${chart.analysis.nominalAge}</b></div><div><span>Phương pháp</span><b>${esc(chart.input.calculationMethod)}</b></div><div><span>Đại vận</span><b>${esc(chart.analysis.activeDecadeLabel)}</b></div><div><span>Lưu đại hạn</span><b>${esc(chart.analysis.annualDecadeLabel)}</b></div><div><span>Tiểu hạn</span><b>${esc(chart.analysis.minorFortuneLabel)}</b></div><div><span>Lưu nguyệt</span><b>${esc(chart.analysis.monthlyLabel)}</b></div><div><span>Lưu nhật</span><b>${esc(chart.analysis.dailyLabel)}</b></div><div><span>Lưu thời</span><b>${esc(chart.analysis.hourlyLabel)}</b></div></div>${chart.interpretations.filter((item) => item.topic === "Tổng quan").map(renderReportCard).join("")}</article>`);
-    if (options.chart) sections.push(`<article class="print-page print-chart-page"><header class="print-page-header"><span>Năm ${chart.input.viewYear}, tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch, giờ ${esc(BRANCH_LABELS[chart.input.viewHourBranch])}</span><h2>Lá số Tử Vi</h2></header><div class="print-chart-grid">${chart.palaces.map(renderPrintPalace).join("")}<section class="print-chart-center"><h3>${esc(chart.input.fullName)}</h3><p>Mệnh ${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</p><p>${esc(chart.analysis.activeDecadeLabel)}</p><p>${esc(chart.analysis.minorFortuneLabel)}</p><p>${esc(chart.analysis.monthlyLabel)}</p><p>${esc(chart.analysis.dailyLabel)}</p><p>${esc(chart.analysis.hourlyLabel)}</p></section></div></article>`);
+    const printScope = viewScopeLabel(chart);
+    if (options.cover) sections.push(`<article class="print-page print-cover"><div class="print-brand">MXIAO TỬ VI</div><h1>LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT</h1><h2>${esc(chart.input.fullName)}</h2><dl><div><dt>Dương lịch</dt><dd>${chart.normalized.solar.day}/${chart.normalized.solar.month}/${chart.normalized.solar.year}</dd></div><div><dt>Âm lịch</dt><dd>${chart.normalized.lunar.day}/${chart.normalized.lunar.month}/${chart.normalized.lunar.year}${chart.normalized.lunar.leap ? " nhuận" : ""}</dd></div><div><dt>Giờ sinh</dt><dd>${esc(chart.normalized.timeDisplay || chart.normalized.adjustedTime)}</dd></div><div><dt>Múi giờ</dt><dd>${esc(chart.input.timezone)}</dd></div><div><dt>Phương pháp</dt><dd>${esc(chart.input.calculationMethod)}</dd></div><div><dt>Phạm vi</dt><dd>${esc(printScope)}</dd></div></dl><p>Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.</p></article>`);
+    if (options.overview) {
+      const overviewRows = [["Mệnh và Cục", `${chart.birthElement} - ${chart.bureau.label}`], ["Cung Mệnh", `${life.name} tại ${life.branch}`], ["Cung Thân", `${body.name} tại ${body.branch}`], ["Phương pháp", chart.input.calculationMethod], ["Phạm vi", printScope], ...fortuneSummary(chart)];
+      sections.push(`<article class="print-page"><header class="print-page-header"><span>MXiao Tử Vi</span><h2>Tổng quan lá số</h2></header><div class="print-summary-grid">${overviewRows.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</div>${chart.interpretations.filter((item) => item.topic === "Tổng quan").map(renderReportCard).join("")}</article>`);
+    }
+    if (options.chart) sections.push(`<article class="print-page print-chart-page"><header class="print-page-header"><span>${esc(printScope)}</span><h2>Lá số Tử Vi</h2></header><div class="print-chart-grid">${chart.palaces.map(renderPrintPalace).join("")}<section class="print-chart-center"><h3>${esc(chart.input.fullName)}</h3><p>Mệnh ${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</p><p>${esc(printScope)}</p>${fortuneSummary(chart).map(([, value]) => `<p>${esc(value)}</p>`).join("")}</section></div></article>`);
     for (const topic of options.topics) {
       const items = chart.interpretations.filter((item) => item.topic === topic);
       if (!items.length) continue;
@@ -549,7 +597,7 @@
       state.selectedPalaceId = state.chart.lifePalace;
       state.topic = "Tổng quan";
       $("result-title").textContent = `Lá số của ${input.fullName}`;
-      $("result-meta").textContent = `${normalized.solar.day}/${normalized.solar.month}/${normalized.solar.year} - ${normalized.timeDisplay} - ${input.timezone} - ${state.chart.input.calculationMethod} - Xem năm ${input.viewYear}, tháng ${input.viewMonth}${input.viewLeap ? " nhuận" : ""}, ngày ${input.viewDay} âm lịch, giờ ${BRANCH_LABELS[input.viewHourBranch]}`;
+      $("result-meta").textContent = `${normalized.solar.day}/${normalized.solar.month}/${normalized.solar.year} - ${normalized.timeDisplay} - ${input.timezone} - ${state.chart.input.calculationMethod} - ${viewScopeLabel(state.chart)}`;
       renderHourComparison();
       renderAll();
     } catch (error) {
@@ -602,12 +650,8 @@
     $("solarDate").value = "1998-05-14";
     $("birthTime").value = "09:30";
     $("birthHourBranch").value = "6";
+    $("viewScope").value = "natal_overview";
     $("viewYear").value = "2026";
-    $("viewMonth").value = "4";
-    $("viewLeap").checked = false;
-    $("leapFortuneMode").value = "split-half-next";
-    $("viewDay").value = "15";
-    $("viewHourBranch").value = "7";
     $("calculationProfile").value = "VN_TAN_BIEN_1956";
     $("timezoneSearch").value = "";
     state.calendarType = "solar";
@@ -621,6 +665,8 @@
     $("birth-time-field").hidden = false;
     $("birth-branch-field").hidden = true;
     renderTimezoneOptions("", "Asia/Ho_Chi_Minh");
+    updateViewScopeFields();
+    $("viewMonth").value = "4";
     generate();
   }
 
@@ -628,7 +674,9 @@
     renderTimezoneOptions("", "Asia/Ho_Chi_Minh");
     $("timezoneSearch").addEventListener("input", () => renderTimezoneOptions($("timezoneSearch").value, $("timezone").value));
     $("timezoneSearch").addEventListener("keydown", (event) => { if (event.key === "Enter") event.preventDefault(); });
-    $("timezone").addEventListener("change", updateTimezoneHelp);
+    $("timezone").addEventListener("change", () => { updateTimezoneHelp(); updateViewScopeFields(); });
+    $("viewScope").addEventListener("change", updateViewScopeFields);
+    $("viewYear").addEventListener("input", updateViewScopeFields);
     $("calendar-solar").addEventListener("click", () => { state.calendarType = "solar"; setSegment(["calendar-solar", "calendar-lunar"], "calendar-solar"); $("solar-date-field").hidden = false; $("lunar-date-field").hidden = true; updateTimezoneHelp(); });
     $("calendar-lunar").addEventListener("click", () => { state.calendarType = "lunar"; setSegment(["calendar-solar", "calendar-lunar"], "calendar-lunar"); $("solar-date-field").hidden = true; $("lunar-date-field").hidden = false; updateTimezoneHelp(); });
     $("time-exact").addEventListener("click", () => { state.timeMode = "exact"; setSegment(["time-exact", "time-branch"], "time-exact"); $("birth-time-field").hidden = false; $("birth-branch-field").hidden = true; updateTimezoneHelp(); });

@@ -700,6 +700,8 @@ function buildInterpretations(params) {
         monthlyStars,
         dailyStars,
         hourlyStars,
+        viewScope = "legacy",
+        monthlyFortunes = [],
         lifePalace,
         bodyPalace,
         nominalAge,
@@ -728,11 +730,12 @@ function buildInterpretations(params) {
     const body = getPalace(palaces, bodyPalace);
     const activeDecade = activeDecadePalaceId ? getPalace(palaces, activeDecadePalaceId) : null;
     const annualDecade = annualDecadePalaceId ? getPalace(palaces, annualDecadePalaceId) : null;
-    const minorFortune = getPalace(palaces, minorFortunePalaceId);
-    const yearBranchPalace = getPalace(palaces, yearBranchPalaceId);
-    const monthlyPalace = getPalace(palaces, monthlyPalaceId);
-    const dailyPalace = getPalace(palaces, dailyPalaceId);
-    const hourlyPalace = getPalace(palaces, hourlyPalaceId);
+    const minorFortune = minorFortunePalaceId ? getPalace(palaces, minorFortunePalaceId) : null;
+    const yearBranchPalace = yearBranchPalaceId ? getPalace(palaces, yearBranchPalaceId) : null;
+    const monthlyPalace = monthlyPalaceId ? getPalace(palaces, monthlyPalaceId) : null;
+    const dailyPalace = dailyPalaceId ? getPalace(palaces, dailyPalaceId) : null;
+    const hourlyPalace = hourlyPalaceId ? getPalace(palaces, hourlyPalaceId) : null;
+    const hasAnnualScope = Number.isInteger(viewYear) && Boolean(minorFortune) && Boolean(yearBranchPalace);
     const bureauRelation = (0, fortune_1.getElementRelation)(birthElement, bureauElement);
 
     const configurationParagraphs = (0, patterns_1.buildConfigurationParagraphs)(palaces, life.id);
@@ -767,11 +770,13 @@ function buildInterpretations(params) {
         ...timelineParagraphs(palaces, activeDecadePalaceId)
     ]));
 
-    items.push(makeItem("overview-period", "Tổng quan", `Trục vận hạn năm ${viewYearCanChi}`, [
-        `Điểm khác của năm ${viewYearCanChi} so với nền lá số là trọng tâm tạm thời chuyển sang ${formatList(unique([activeDecade, annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}. Ở tuổi mụ ${nominalAge}, ${activeDecade ? `năm này nằm trong Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "lá số chưa bước vào Đại hạn 10 năm đầu tiên"}; các lớp ngắn hơn chỉ điều chỉnh mức độ và thời điểm biểu hiện của bối cảnh đó.`,
-        repeatedFocusParagraph(palaces, [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId, monthlyPalaceId, dailyPalaceId, hourlyPalaceId], `Các lớp vận trong năm ${viewYear}`),
-        `Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn ở ${minorFortune.name}, còn Lưu Thái Tuế tại ${yearBranchPalace.name}. Chuỗi này cho biết năm dễ nhấn mạnh ${formatList(unique([annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}, nhưng không đủ để khẳng định một sự kiện cụ thể.`
-    ]));
+    if (hasAnnualScope) {
+        items.push(makeItem("overview-period", "Tổng quan", `Trục vận hạn năm ${viewYearCanChi}`, [
+            `Điểm khác của năm ${viewYearCanChi} so với nền lá số là trọng tâm tạm thời chuyển sang ${formatList(unique([activeDecade, annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}. Ở tuổi mụ ${nominalAge}, ${activeDecade ? `năm này nằm trong Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "lá số chưa bước vào Đại hạn 10 năm đầu tiên"}; các lớp ngắn hơn chỉ điều chỉnh mức độ và thời điểm biểu hiện của bối cảnh đó.`,
+            repeatedFocusParagraph(palaces, [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId, monthlyPalaceId], `Các lớp vận trong năm ${viewYear}`),
+            `Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn ở ${minorFortune.name}, còn Lưu Thái Tuế tại ${yearBranchPalace.name}. Chuỗi này cho biết năm dễ nhấn mạnh ${formatList(unique([annualDecade, minorFortune, yearBranchPalace].filter(Boolean).map((palace) => PALACE_THEMES[palace.name])))}, nhưng không đủ để khẳng định một sự kiện cụ thể.`
+        ]));
+    }
 
     items.push(makeItem("life-detail", "Mệnh - Thân", `Mối liên hệ giữa Mệnh và Thân`, [
         `${palaceMainClaim(life)}. Đây là “con người nền”: cách tiếp nhận hoàn cảnh và phản ứng trước khi trách nhiệm thực tế buộc phải lựa chọn. Cung Mệnh tại ${life.branch} có ${majorDisplay(life)}, còn phụ tinh và tam phương quyết định mặt nào của bộ sao dễ biểu hiện rõ hơn.`,
@@ -797,7 +802,16 @@ function buildInterpretations(params) {
         "Phần này chỉ mô tả khuynh hướng nhịp năng lượng và phản ứng trước áp lực theo hệ thống Tử Vi truyền thống. Nội dung không thay thế đánh giá y khoa hoặc chẩn đoán sức khỏe."
     ]));
 
-    if (activeDecade) {
+    if (viewScope === "natal_overview") {
+        [...palaces].sort((a, b) => a.decadeStart - b.decadeStart).forEach((decade, index, ordered) => {
+            const previous = ordered[index - 1];
+            const next = ordered[index + 1];
+            const paragraphs = periodParagraphs(palaces, decade, `Đại hạn ${decade.decadeStart}-${decade.decadeEnd} tuổi`, [], null);
+            paragraphs.push(`${previous ? `Giai đoạn trước nhấn mạnh ${PALACE_THEMES[previous.name]}` : "Đây là Đại hạn đầu tiên trong chuỗi"}; giai đoạn này chuyển trọng tâm sang ${PALACE_THEMES[decade.name]}${next ? `, trước khi giai đoạn kế tiếp hướng sang ${PALACE_THEMES[next.name]}` : " và khép lại dải Đại hạn đang trình bày"}. Chuỗi tuổi mô tả sự đổi trọng tâm theo thời gian, không khẳng định sự kiện chắc chắn.`);
+            items.push(makeItem(`decade-${decade.decadeStart}`, "Đại vận", `Đại hạn ${decade.decadeStart}-${decade.decadeEnd} tuổi`, paragraphs));
+        });
+    }
+    else if (activeDecade) {
         const orderedDecades = [...palaces].sort((a, b) => a.decadeStart - b.decadeStart);
         const activeIndex = orderedDecades.findIndex((palace) => palace.id === activeDecade.id);
         const previous = orderedDecades[activeIndex - 1];
@@ -812,14 +826,14 @@ function buildInterpretations(params) {
         decadeCopy.push(`${previous ? `Giai đoạn trước đặt trọng tâm ở ${PALACE_THEMES[previous.name]}` : "Đây là Đại hạn đầu trong chuỗi hiện có"}, còn Đại hạn hiện tại chuyển sang ${PALACE_THEMES[activeDecade.name]}.${next ? ` Giai đoạn kế tiếp sẽ chuyển trọng tâm sang ${PALACE_THEMES[next.name]}, vì vậy thời kỳ này đóng vai trò ${activeDecade.name === next.name ? "củng cố" : "chuyển tiếp"} giữa hai hướng phát triển.` : " Đây là giai đoạn cuối trong dải Đại hạn được tính."} So sánh này mô tả sự thay đổi trọng tâm, không khẳng định một sự kiện sẽ xảy ra ở tuổi cụ thể.`);
         items.push(makeItem("decade-main", "Đại vận", `Đại hạn ${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi`, decadeCopy));
     }
-    else {
+    else if (hasAnnualScope) {
         const firstDecade = [...palaces].sort((a, b) => a.decadeStart - b.decadeStart)[0];
         items.push(makeItem("decade-before-start", "Đại vận", "Giai đoạn trước đại vận đầu tiên", [
             `Tuổi mụ ${nominalAge} chưa bước vào đại vận mười năm đầu. Đại vận đầu bắt đầu từ ${firstDecade.decadeStart} tuổi tại cung ${firstDecade.name} ở ${firstDecade.branch}. Giai đoạn hiện tại vì thế được đọc chủ yếu từ cung Mệnh, cung Thân và các lớp lưu niên.`,
             `${periodNatalContext(firstDecade, "Đại vận đầu tiên")} Đây là cấu trúc sẽ giữ vai trò nền khi đại vận đầu chính thức bắt đầu.`
         ]));
     }
-    if (annualDecade) {
+    if (hasAnnualScope && annualDecade) {
         items.push(makeItem("annual-decade", "Đại vận", `Lưu đại hạn năm ${viewYear}`, periodParagraphs(
             palaces,
             annualDecade,
@@ -829,70 +843,96 @@ function buildInterpretations(params) {
         )));
     }
 
-    items.push(makeItem("minor-fortune", "Tiểu vận", `Lưu niên tiểu hạn năm ${viewYear}`, periodParagraphs(
-        palaces,
-        minorFortune,
-        `Tiểu hạn năm ${viewYearCanChi}`,
-        [activeDecadePalaceId, annualDecadePalaceId, yearBranchPalaceId],
-        { label: `năm ${viewYear}`, arrayName: "annualStars", context: "đại vận, lưu đại hạn và Lưu Thái Tuế" }
-    )));
-    items.push(makeItem("annual-moving-stars", "Tiểu vận", "Cấu trúc sao lưu của năm", [
-        `Sao lưu của năm phân bố trên ${palaces.filter((palace) => palace.annualStars.length).length} cung, vì vậy nhịp năm không quy về một lĩnh vực duy nhất. Các điểm nhấn chính liên quan đến ${formatList(palaces.filter((palace) => palace.annualStars.length).slice(0, 5).map((palace) => PALACE_THEMES[palace.name]))}; mức biểu hiện phải đặt dưới Đại hạn và Tiểu hạn đang có.`,
-        `Trong cách đọc kỹ thuật, nhóm sao lưu tạo các chiều về nguồn lực, quyền chủ động, sự ghi nhận, dịch chuyển và sức ép. Báo cáo chỉ tổng hợp tác động chung tại cung chúng đi tới, vì một sao lưu đơn lẻ không đủ để biến thành kết luận về cả năm.`
-    ]));
-
-    const annualTopic = `Vận hạn ${viewYear}`;
-    const focusIds = [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId];
-    items.push(makeItem("year-synthesis", annualTopic, `Tổng hợp vận hạn năm ${viewYearCanChi}`, [
-        `Năm ${viewYearCanChi} được đặt trong đại vận ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "chưa xác định"}. Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, tiểu hạn nằm tại ${minorFortune.name} ở ${minorFortune.branch}, còn Lưu Thái Tuế đi tới ${yearBranchPalace.name} ở ${yearBranchPalace.branch}. Bốn lớp này cho biết bối cảnh dài hạn, trọng tâm của riêng năm và khu vực dễ xuất hiện sự kiện.`,
-        (0, patterns_1.buildActivationParagraph)(palaces, focusIds, `Cấu trúc năm ${viewYear}`),
-        `Xét các cung trọng tâm, năm chạm tới ${formatList(unique(focusIds.filter(Boolean).map((id) => PALACE_THEMES[getPalace(palaces, id).name])))}. Những lĩnh vực này có xu hướng liên hệ với nhau, vì quyết định ở một cung có thể tạo phản ứng dây chuyền sang các cung còn lại. Báo cáo năm vì vậy ưu tiên mối liên hệ giữa các cung hơn việc diễn giải từng sao lưu đơn lẻ.`
-    ]));
-
-    const annualSubjects = [
-        ["year-career", "Công việc và vị trí xã hội", "Quan Lộc", ["Thiên Di", "Mệnh"]],
-        ["year-finance", "Tài chính và nguồn lực", "Tài Bạch", ["Quan Lộc", "Điền Trạch"]],
-        ["year-relationship", "Tình cảm và quan hệ gắn bó", "Phu Thê", ["Mệnh", "Phúc Đức"]],
-        ["year-health", "Thể trạng và nhịp sống", "Tật Ách", ["Mệnh", "Phúc Đức"]]
-    ];
-    annualSubjects.forEach(([id, title, primaryName, relatedNames]) => {
-        const primary = palaces.find((item) => item.name === primaryName);
-        const related = relatedNames.map((name) => palaces.find((item) => item.name === name));
-        const natalCopy = thematicSynthesis(palaces, title.startsWith("Công việc") ? "Sự nghiệp" : title.startsWith("Tài chính") ? "Tài chính" : title.startsWith("Tình cảm") ? "Tình cảm" : "Sức khỏe và nhịp sống", primaryName, relatedNames);
-        const annualAtPrimary = primary.annualStars || [];
-        items.push(makeItem(id, annualTopic, `${title} năm ${viewYear}`, [
-            `So với nền lá số, ${title.toLowerCase()} trong năm ${viewYear} ${annualAtPrimary.length ? `được kích hoạt trực tiếp tại cung ${primary.name}, nên ${PALACE_MANIFESTATIONS[primary.name]} dễ nổi lên rõ hơn` : `không nhận điểm nhấn sao lưu trực tiếp tại cung ${primary.name}, nên thay đổi chủ yếu đến từ Đại hạn, Tiểu hạn và các cung liên hệ`}. Đây là khác biệt về mức độ và thời điểm biểu hiện, không phải một đặc điểm lâu dài mới.`,
-            natalCopy[0],
-            movingParagraph(primary, `năm ${viewYear}`, "annualStars", `${formatList(related.map((item) => item.name))}, đại vận và tiểu hạn`),
-            `Kết luận của năm còn phụ thuộc ${formatList(related.map((item) => PALACE_THEMES[item.name]))}. Khi các cung này cùng hướng với ${primary.name}, xu hướng dễ liền mạch hơn; nếu trái chiều, cơ hội ở một mặt có thể đi kèm áp lực điều chỉnh ở mặt khác, vì vậy không nên gắn toàn bộ năm với nhãn tốt hoặc xấu.`
+    if (hasAnnualScope) {
+        items.push(makeItem("minor-fortune", "Tiểu vận", `Lưu niên tiểu hạn năm ${viewYear}`, periodParagraphs(
+            palaces,
+            minorFortune,
+            `Tiểu hạn năm ${viewYearCanChi}`,
+            [activeDecadePalaceId, annualDecadePalaceId, yearBranchPalaceId],
+            { label: `năm ${viewYear}`, arrayName: "annualStars", context: "đại vận, lưu đại hạn và Lưu Thái Tuế" }
+        )));
+        items.push(makeItem("annual-moving-stars", "Tiểu vận", "Cấu trúc sao lưu của năm", [
+            `Sao lưu của năm phân bố trên ${palaces.filter((palace) => palace.annualStars.length).length} cung, vì vậy nhịp năm không quy về một lĩnh vực duy nhất. Các điểm nhấn chính liên quan đến ${formatList(palaces.filter((palace) => palace.annualStars.length).slice(0, 5).map((palace) => PALACE_THEMES[palace.name]))}; mức biểu hiện phải đặt dưới Đại hạn và Tiểu hạn đang có.`,
+            `Trong cách đọc kỹ thuật, nhóm sao lưu tạo các chiều về nguồn lực, quyền chủ động, sự ghi nhận, dịch chuyển và sức ép. Báo cáo chỉ tổng hợp tác động chung tại cung chúng đi tới, vì một sao lưu đơn lẻ không đủ để biến thành kết luận về cả năm.`
         ]));
-    });
 
-    const monthTopic = `Lưu nguyệt tháng ${viewMonth}${viewLeap ? " nhuận" : ""}`;
-    items.push(makeItem("month-synthesis", monthTopic, `Tổng hợp tháng ${viewMonth} âm lịch - ${monthCanChi}`, periodParagraphs(
-        palaces,
-        monthlyPalace,
-        `Lưu nguyệt tháng ${viewMonth}${viewLeap ? " nhuận" : ""} âm lịch`,
-        [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId],
-        { label: `tháng ${viewMonth} âm lịch`, arrayName: "monthlyStars", context: "đại vận, lưu đại hạn và tiểu hạn của năm" }
-    )));
+        const annualTopic = `Vận hạn ${viewYear}`;
+        const focusIds = [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId];
+        items.push(makeItem("year-synthesis", annualTopic, `Tổng hợp vận hạn năm ${viewYearCanChi}`, [
+            `Năm ${viewYearCanChi} được đặt trong đại vận ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "chưa xác định"}. Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, tiểu hạn nằm tại ${minorFortune.name} ở ${minorFortune.branch}, còn Lưu Thái Tuế đi tới ${yearBranchPalace.name} ở ${yearBranchPalace.branch}. Bốn lớp này cho biết bối cảnh dài hạn, trọng tâm của riêng năm và khu vực dễ xuất hiện sự kiện.`,
+            (0, patterns_1.buildActivationParagraph)(palaces, focusIds, `Cấu trúc năm ${viewYear}`),
+            `Xét các cung trọng tâm, năm chạm tới ${formatList(unique(focusIds.filter(Boolean).map((id) => PALACE_THEMES[getPalace(palaces, id).name])))}. Những lĩnh vực này có xu hướng liên hệ với nhau, vì quyết định ở một cung có thể tạo phản ứng dây chuyền sang các cung còn lại. Báo cáo năm vì vậy ưu tiên mối liên hệ giữa các cung hơn việc diễn giải từng sao lưu đơn lẻ.`
+        ]));
 
-    const dayTopic = `Lưu nhật ngày ${viewDay}`;
-    items.push(makeItem("day-synthesis", dayTopic, `Tổng hợp ngày ${viewDay} âm lịch - ${viewDayCanChi}`, periodParagraphs(
-        palaces,
-        dailyPalace,
-        `Lưu nhật ngày ${viewDay} âm lịch`,
-        [monthlyPalaceId, minorFortunePalaceId, annualDecadePalaceId],
-        { label: `ngày ${viewDay} âm lịch`, arrayName: "dailyStars", context: "lưu nguyệt, tiểu hạn và vận năm" }
-    )));
+        const annualSubjects = [
+            ["year-career", "Công việc và vị trí xã hội", "Quan Lộc", ["Thiên Di", "Mệnh"]],
+            ["year-finance", "Tài chính và nguồn lực", "Tài Bạch", ["Quan Lộc", "Điền Trạch"]],
+            ["year-relationship", "Tình cảm và quan hệ gắn bó", "Phu Thê", ["Mệnh", "Phúc Đức"]],
+            ["year-health", "Thể trạng và nhịp sống", "Tật Ách", ["Mệnh", "Phúc Đức"]]
+        ];
+        annualSubjects.forEach(([id, title, primaryName, relatedNames]) => {
+            const primary = palaces.find((item) => item.name === primaryName);
+            const related = relatedNames.map((name) => palaces.find((item) => item.name === name));
+            const natalCopy = thematicSynthesis(palaces, title.startsWith("Công việc") ? "Sự nghiệp" : title.startsWith("Tài chính") ? "Tài chính" : title.startsWith("Tình cảm") ? "Tình cảm" : "Sức khỏe và nhịp sống", primaryName, relatedNames);
+            const annualAtPrimary = primary.annualStars || [];
+            items.push(makeItem(id, annualTopic, `${title} năm ${viewYear}`, [
+                `So với nền lá số, ${title.toLowerCase()} trong năm ${viewYear} ${annualAtPrimary.length ? `được kích hoạt trực tiếp tại cung ${primary.name}, nên ${PALACE_MANIFESTATIONS[primary.name]} dễ nổi lên rõ hơn` : `không nhận điểm nhấn sao lưu trực tiếp tại cung ${primary.name}, nên thay đổi chủ yếu đến từ Đại hạn, Tiểu hạn và các cung liên hệ`}. Đây là khác biệt về mức độ và thời điểm biểu hiện, không phải một đặc điểm lâu dài mới.`,
+                natalCopy[0],
+                movingParagraph(primary, `năm ${viewYear}`, "annualStars", `${formatList(related.map((item) => item.name))}, đại vận và tiểu hạn`),
+                `Kết luận của năm còn phụ thuộc ${formatList(related.map((item) => PALACE_THEMES[item.name]))}. Khi các cung này cùng hướng với ${primary.name}, xu hướng dễ liền mạch hơn; nếu trái chiều, cơ hội ở một mặt có thể đi kèm áp lực điều chỉnh ở mặt khác, vì vậy không nên gắn toàn bộ năm với nhãn tốt hoặc xấu.`
+            ]));
+        });
+    }
 
-    const hourTopic = `Lưu thời giờ ${viewHourBranch}`;
-    items.push(makeItem("hour-synthesis", hourTopic, `Tổng hợp giờ ${viewHourCanChi}`, periodParagraphs(
-        palaces,
-        hourlyPalace,
-        `Lưu thời giờ ${viewHourCanChi}`,
-        [dailyPalaceId, monthlyPalaceId, minorFortunePalaceId],
-        { label: `giờ ${viewHourCanChi}`, arrayName: "hourlyStars", context: "lưu nhật, lưu nguyệt và tiểu hạn" }
-    )));
+    if (viewScope !== "legacy" && monthlyFortunes.length) {
+        const monthTopic = viewScope === "all_months" ? `Lưu nguyệt năm ${viewYear}` : `Lưu nguyệt tháng ${viewMonth}${viewLeap ? " nhuận" : ""}`;
+        monthlyFortunes.forEach((fortune, fortuneIndex) => {
+            const paragraphs = [];
+            fortune.parts.forEach((part) => {
+                const scopedPalaces = palaces.map((palace) => ({
+                    ...palace,
+                    monthlyStars: part.stars.filter((star) => star.palace === palace.id)
+                }));
+                const focus = getPalace(scopedPalaces, part.palaceId);
+                const partParagraphs = periodParagraphs(
+                    scopedPalaces,
+                    focus,
+                    `Lưu nguyệt ${fortune.label.toLowerCase()}${fortune.parts.length > 1 ? ` - ${part.phase.toLowerCase()}` : ""}`,
+                    [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId],
+                    { label: `${fortune.label.toLowerCase()} âm lịch`, arrayName: "monthlyStars", context: "đại vận, lưu đại hạn và tiểu hạn của năm" }
+                );
+                if (fortune.parts.length > 1)
+                    partParagraphs[0] = `${part.phase}: ${partParagraphs[0]}`;
+                paragraphs.push(...partParagraphs.slice(0, 2));
+            });
+            items.push(makeItem(`month-synthesis-${fortuneIndex + 1}`, monthTopic, `${fortune.label} âm lịch - ${fortune.parts.map((part) => part.monthCanChi).filter((value, index, list) => list.indexOf(value) === index).join(" / ")}`, paragraphs));
+        });
+    }
+    else if (viewScope === "legacy") {
+        const monthTopic = `Lưu nguyệt tháng ${viewMonth}${viewLeap ? " nhuận" : ""}`;
+        items.push(makeItem("month-synthesis", monthTopic, `Tổng hợp tháng ${viewMonth} âm lịch - ${monthCanChi}`, periodParagraphs(
+            palaces,
+            monthlyPalace,
+            `Lưu nguyệt tháng ${viewMonth}${viewLeap ? " nhuận" : ""} âm lịch`,
+            [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId],
+            { label: `tháng ${viewMonth} âm lịch`, arrayName: "monthlyStars", context: "đại vận, lưu đại hạn và tiểu hạn của năm" }
+        )));
+        const dayTopic = `Lưu nhật ngày ${viewDay}`;
+        items.push(makeItem("day-synthesis", dayTopic, `Tổng hợp ngày ${viewDay} âm lịch - ${viewDayCanChi}`, periodParagraphs(
+            palaces,
+            dailyPalace,
+            `Lưu nhật ngày ${viewDay} âm lịch`,
+            [monthlyPalaceId, minorFortunePalaceId, annualDecadePalaceId],
+            { label: `ngày ${viewDay} âm lịch`, arrayName: "dailyStars", context: "lưu nguyệt, tiểu hạn và vận năm" }
+        )));
+        const hourTopic = `Lưu thời giờ ${viewHourBranch}`;
+        items.push(makeItem("hour-synthesis", hourTopic, `Tổng hợp giờ ${viewHourCanChi}`, periodParagraphs(
+            palaces,
+            hourlyPalace,
+            `Lưu thời giờ ${viewHourCanChi}`,
+            [dailyPalaceId, monthlyPalaceId, minorFortunePalaceId],
+            { label: `giờ ${viewHourCanChi}`, arrayName: "hourlyStars", context: "lưu nhật, lưu nguyệt và tiểu hạn" }
+        )));
+    }
     return (0, content_pipeline_1.finalizeInterpretations)(items);
 }

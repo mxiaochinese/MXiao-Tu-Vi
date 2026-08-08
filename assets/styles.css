@@ -146,6 +146,9 @@ a { color: inherit; }
 .panel-title { margin: 0 0 7px; font-size: 21px; letter-spacing: -0.025em; }
 .panel-note { margin: 0 0 22px; color: var(--ink-500); font-size: 13px; line-height: 1.55; }
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.form-section-heading { margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+.form-section-heading h3 { margin: 0 0 5px; color: var(--mx-red-800); font-size: 17px; line-height: 1.25; }
+.form-section-heading p { margin: 0; color: var(--ink-500); font-size: 12px; line-height: 1.5; }
 .field { display: grid; gap: 7px; }
 .field.full { grid-column: 1 / -1; }
 .field label { font-size: 12px; font-weight: 800; color: var(--ink-700); }
@@ -420,6 +423,7 @@ a { color: inherit; }
 .pdf-option input { flex: 0 0 auto; width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--mx-red-700); }
 .pdf-option span { min-width: 0; color: var(--ink-700); font-size: 12px; font-weight: 750; line-height: 1.35; }
 .pdf-option:has(input:checked) { border-color: rgba(189,21,35,.35); background: var(--mx-red-050); }
+.pdf-option.unavailable { opacity: .58; cursor: default; background: var(--surface-soft); }
 .pdf-options-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 .pdf-options-footer span { color: var(--ink-500); font-size: 11px; font-weight: 700; }
 .secondary-button.compact { padding: 8px 11px; font-size: 11px; }

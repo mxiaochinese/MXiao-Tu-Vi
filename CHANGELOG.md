@@ -1,5 +1,12 @@
 # Changelog
 
+## Patch phạm vi xem vận sau V4
+
+- Thêm bốn phạm vi độc lập: lá số tổng quan, vận năm, một tháng cụ thể và toàn bộ các tháng trong năm.
+- Chỉ hiển thị trường năm/tháng khi phạm vi cần dùng; tháng nhuận chỉ xuất hiện khi lịch âm xác nhận hợp lệ.
+- Loại Lưu nhật và Lưu thời khỏi form, báo cáo web và PDF công khai; giữ nguyên các hàm công thức cũ để tiếp tục kiểm thử hồi quy độc lập.
+- Giữ hệ thống lựa chọn PDF tách biệt với phạm vi dữ liệu được tính.
+
 ## 1.11.0 - 2026-08-08
 
 - Sửa thứ tự semantic trên bìa PDF: nhãn thương hiệu được đánh dấu Artifact thay vì H3 đứng trước H1.

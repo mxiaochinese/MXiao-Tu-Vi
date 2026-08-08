@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#bd1523">
-  <meta name="description" content="Lập lá số Tử Vi, xem đại vận, tiểu vận, lưu nguyệt, lưu nhật, lưu thời và tải báo cáo PDF A4.">
+  <meta name="description" content="Lập lá số Tử Vi, xem tổng quan, đại vận, vận năm hoặc lưu nguyệt và tải báo cáo PDF A4.">
   <title>MXiao Tử Vi</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/mxiao-mark.svg" type="image/svg+xml">
@@ -24,13 +24,13 @@
       <section class="hero">
         <div>
           <span class="eyebrow">LÁ SỐ TỬ VI VIỆT NAM</span>
-          <h1>Xem lá số và vận hạn từ <em>đại vận đến lưu thời.</em></h1>
+          <h1>Xem lá số và vận hạn theo <em>đúng phạm vi bạn cần.</em></h1>
           <p>Nhập ngày giờ sinh và múi giờ. Hệ thống tự quy đổi âm lịch, an cung sao, luận giải 12 cung và tạo báo cáo A4 theo nội dung bạn lựa chọn.</p>
           <div class="hero-points">
             <span class="hero-point">Luận giải tổng quan</span>
             <span class="hero-point">Đại vận 10 năm</span>
             <span class="hero-point">Tiểu vận từng năm</span>
-            <span class="hero-point">Lưu nguyệt, lưu nhật, lưu thời</span>
+            <span class="hero-point">Vận năm và lưu nguyệt</span>
             <span class="hero-point">Tùy chọn nội dung PDF</span>
           </div>
         </div>
@@ -59,12 +59,12 @@
             <div class="field full"><label for="calculationProfile">Phương pháp lập lá số</label><select id="calculationProfile"><option value="VN_TAN_BIEN_1956" selected>Tân Biên - giờ Tý bắt đầu lúc 23:00</option><option value="VN_AO_BI_1972">Áo Bí - giờ Tý bắt đầu lúc 00:00</option></select><span class="field-help">Hai phương pháp được tách riêng. Lựa chọn này có thể làm thay đổi giờ Tý và vòng Tràng Sinh.</span></div>
             <div class="field" id="birth-time-field"><label for="birthTime">Giờ sinh</label><input id="birthTime" type="time" value="09:30" required></div>
             <div class="field" id="birth-branch-field" hidden><label for="birthHourBranch">Khung giờ sinh</label><select id="birthHourBranch"><option value="1">Giờ Tý - 23:00 đến 00:59</option><option value="2">Giờ Sửu - 01:00 đến 02:59</option><option value="3">Giờ Dần - 03:00 đến 04:59</option><option value="4">Giờ Mão - 05:00 đến 06:59</option><option value="5">Giờ Thìn - 07:00 đến 08:59</option><option value="6" selected>Giờ Tỵ - 09:00 đến 10:59</option><option value="7">Giờ Ngọ - 11:00 đến 12:59</option><option value="8">Giờ Mùi - 13:00 đến 14:59</option><option value="9">Giờ Thân - 15:00 đến 16:59</option><option value="10">Giờ Dậu - 17:00 đến 18:59</option><option value="11">Giờ Tuất - 19:00 đến 20:59</option><option value="12">Giờ Hợi - 21:00 đến 22:59</option></select><span class="field-help">Hệ thống dùng thời điểm giữa khung giờ để lập lá số.</span></div>
-            <div class="field"><label for="viewYear">Năm muốn xem</label><input id="viewYear" type="number" min="1900" max="2199" value="2026" required></div>
-            <div class="field"><label for="viewMonth">Tháng âm lịch muốn xem</label><select id="viewMonth"><option value="1">Tháng 1</option><option value="2">Tháng 2</option><option value="3">Tháng 3</option><option value="4" selected>Tháng 4</option><option value="5">Tháng 5</option><option value="6">Tháng 6</option><option value="7">Tháng 7</option><option value="8">Tháng 8</option><option value="9">Tháng 9</option><option value="10">Tháng 10</option><option value="11">Tháng 11</option><option value="12">Tháng 12</option></select></div><div class="field"><label class="check-row"><input id="viewLeap" type="checkbox"> Xem tháng nhuận</label><select id="leapFortuneMode" aria-label="Cách tính tháng nhuận"><option value="split-half-next" selected>Nửa đầu theo tháng chính, nửa sau chuyển tháng kế</option><option value="repeat-current">Giữ nguyên như tháng chính</option></select></div>
-            <div class="field"><label for="viewDay">Ngày âm lịch muốn xem</label><input id="viewDay" type="number" min="1" max="30" value="15" required></div>
-            <div class="field"><label for="viewHourBranch">Khung giờ muốn xem</label><select id="viewHourBranch"><option value="1">Giờ Tý</option><option value="2">Giờ Sửu</option><option value="3">Giờ Dần</option><option value="4">Giờ Mão</option><option value="5">Giờ Thìn</option><option value="6">Giờ Tỵ</option><option value="7" selected>Giờ Ngọ</option><option value="8">Giờ Mùi</option><option value="9">Giờ Thân</option><option value="10">Giờ Dậu</option><option value="11">Giờ Tuất</option><option value="12">Giờ Hợi</option></select></div>
             <div class="field full"><label>Giới tính</label><div class="segmented" role="group" aria-label="Giới tính"><button type="button" id="gender-male" class="active">Nam</button><button type="button" id="gender-female">Nữ</button></div></div>
             <div class="field full"><label for="timezoneSearch">Múi giờ nơi sinh</label><input id="timezoneSearch" type="search" autocomplete="off" placeholder="Tìm múi giờ, ví dụ Ho Chi Minh, Tokyo, New York"><select id="timezone" aria-label="Chọn múi giờ"></select><span id="timezone-help" class="field-help">Mặc định: Asia/Ho_Chi_Minh, UTC+07:00.</span></div>
+            <div class="form-section-heading full"><h3>Phạm vi luận giải</h3><p>Chỉ nhập năm hoặc tháng khi phần bạn muốn xem thực sự cần tới.</p></div>
+            <div class="field full"><label for="viewScope">Bạn muốn xem phần nào?</label><select id="viewScope"><option value="natal_overview" selected>Lá số tổng quan</option><option value="yearly">Vận năm</option><option value="single_month">Một tháng cụ thể</option><option value="all_months">Toàn bộ các tháng trong năm</option></select></div>
+            <div class="field full" id="view-year-field" hidden><label for="viewYear">Năm muốn xem</label><input id="viewYear" type="number" min="1900" max="2199" value="2026"></div>
+            <div class="field full" id="view-month-field" hidden><label for="viewMonth">Tháng âm lịch muốn xem</label><select id="viewMonth"><option value="1">Tháng 1</option><option value="2">Tháng 2</option><option value="3">Tháng 3</option><option value="4" selected>Tháng 4</option><option value="5">Tháng 5</option><option value="6">Tháng 6</option><option value="7">Tháng 7</option><option value="8">Tháng 8</option><option value="9">Tháng 9</option><option value="10">Tháng 10</option><option value="11">Tháng 11</option><option value="12">Tháng 12</option></select><span id="view-month-help" class="field-help">Hệ thống chỉ thêm lựa chọn tháng nhuận khi năm đã chọn thực sự có tháng nhuận.</span></div>
           </div>
 
           <div id="form-error" class="form-error" role="alert" hidden></div>
@@ -93,7 +93,7 @@
         </div>
       </section>
     </main>
-    <footer class="footer">MXiao Tử Vi - Lá số và báo cáo luận giải từ đại vận đến lưu thời.</footer>
+    <footer class="footer">MXiao Tử Vi - Lá số tổng quan, đại vận, vận năm và lưu nguyệt.</footer>
   </div>
   <section id="print-report" class="print-report" aria-hidden="true"></section>
 

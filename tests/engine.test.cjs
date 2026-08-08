@@ -123,6 +123,44 @@ assert.equal(leapFirstHalf.analysis.effectiveViewMonth, 6);
 assert.equal(leapFirstHalf.analysis.effectiveViewDay, 15);
 assert.equal(leapSecondHalf.analysis.effectiveViewMonth, 7);
 assert.equal(leapSecondHalf.analysis.effectiveViewDay, 1);
+
+const scopedBase = {
+  fullName: 'Scoped view test', gender: 'female', calendarType: 'solar', lunarLeap: false, timezone: leapTimezone,
+  timePrecision: 'exact', calculationProfileId: 'VN_TAN_BIEN_1956'
+};
+const natalScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'natal_overview' }, leapBirth);
+assert.equal(natalScoped.input.viewScope, 'natal_overview');
+assert.equal('viewYear' in natalScoped.input, false);
+assert.equal('viewDay' in natalScoped.input, false);
+assert.equal('viewHourBranch' in natalScoped.input, false);
+assert.equal(natalScoped.annualStars.length, 0);
+assert.equal(natalScoped.monthlyStars.length, 0);
+assert.equal(natalScoped.dailyStars.length, 0);
+assert.equal(natalScoped.hourlyStars.length, 0);
+assert.equal(natalScoped.interpretations.filter((item) => item.topic === 'Đại vận').length, 12);
+assert.ok(!natalScoped.interpretations.some((item) => item.topic === 'Tiểu vận' || item.topic.startsWith('Vận hạn ') || item.topic.startsWith('Lưu nguyệt ')));
+
+const yearlyScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'yearly', viewYear: 2026 }, leapBirth);
+assert.equal(yearlyScoped.input.viewYear, 2026);
+assert.equal('viewMonth' in yearlyScoped.input, false);
+assert.ok(yearlyScoped.interpretations.some((item) => item.topic === 'Vận hạn 2026'));
+assert.ok(!yearlyScoped.interpretations.some((item) => item.topic.startsWith('Lưu nguyệt ')));
+
+const monthScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'single_month', viewYear: 2025, viewMonth: 6, viewLeap: true, viewLeapMonth: 6 }, leapBirth);
+assert.equal(monthScoped.monthlyFortunes.length, 1);
+assert.equal(monthScoped.monthlyFortunes[0].parts.length, 2);
+assert.equal(monthScoped.monthlyFortunes[0].parts[0].effectiveMonth, 6);
+assert.equal(monthScoped.monthlyFortunes[0].parts[1].effectiveMonth, 7);
+assert.equal(monthScoped.dailyStars.length, 0);
+assert.equal(monthScoped.hourlyStars.length, 0);
+assert.ok(monthScoped.interpretations.some((item) => item.topic === 'Lưu nguyệt tháng 6 nhuận'));
+
+const allMonthsScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'all_months', viewYear: 2025, viewLeapMonth: 6 }, leapBirth);
+assert.equal(allMonthsScoped.monthlyFortunes.length, 13);
+assert.deepEqual(allMonthsScoped.monthlyFortunes.slice(5, 7).map((item) => [item.month, item.isLeap]), [[6, false], [6, true]]);
+assert.equal(allMonthsScoped.interpretations.filter((item) => item.topic === 'Lưu nguyệt năm 2025').length, 13);
+assert.deepEqual(natalScoped.palaces.map((palace) => palace.stars.filter((star) => star.group === 'major').map((star) => star.id)), yearlyScoped.palaces.map((palace) => palace.stars.filter((star) => star.group === 'major').map((star) => star.id)));
+assert.throws(() => engine.buildTuviChart({ ...scopedBase, viewScope: 'single_month', viewYear: 2025, viewMonth: 5, viewLeap: true, viewLeapMonth: 6 }, leapBirth), /không phải tháng nhuận/);
 assert.equal(leapRepeated.analysis.effectiveViewMonth, 6);
 assert.equal(leapRepeated.analysis.effectiveViewDay, 16);
 assert.notEqual(leapFirstHalf.analysis.monthlyPalaceId, leapSecondHalf.analysis.monthlyPalaceId);

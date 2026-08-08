@@ -9,7 +9,8 @@ Web app tĩnh để lập lá số Tử Vi từ ngày sinh, giờ sinh, giới t
 - Chọn múi giờ cho thời điểm sinh.
 - Chọn riêng phương pháp Tân Biên hoặc Áo Bí. Hai phương pháp không trộn quy tắc giờ Tý và vòng Tràng Sinh.
 - Lập 12 cung, Mệnh, Thân, chính tinh, phụ tinh, Tứ Hóa, Tuần và Triệt.
-- Hiển thị đại vận 10 năm, lưu đại hạn, tiểu hạn, sao lưu theo năm, lưu nguyệt, lưu nhật và lưu thời.
+- Chọn riêng phạm vi lá số tổng quan, vận năm, một tháng hoặc toàn bộ các tháng; form chỉ hỏi dữ liệu cần thiết cho phạm vi đã chọn.
+- Hiển thị đại vận 10 năm, lưu đại hạn, tiểu hạn, sao lưu theo năm và lưu nguyệt; Lưu nhật/Lưu thời chưa nằm trong flow công khai hiện tại.
 - Chọn năm, tháng âm lịch, ngày âm lịch và khung giờ cần xem.
 - Cho phép đánh dấu tháng xem là tháng nhuận và chọn một trong hai quy ước vận hạn tháng nhuận.
 - Luận giải tổng quan, Mệnh - Thân, 12 cung và từng lớp vận hạn bằng các đoạn văn phân tích liên kết chính tinh, phụ tinh, Tứ Hóa, tam phương và cung xung chiếu.

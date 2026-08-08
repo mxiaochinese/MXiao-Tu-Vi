@@ -67,8 +67,79 @@ function countGroups(stars, prefix) {
     };
 }
 
+const VIEW_SCOPES = new Set(["natal_overview", "yearly", "single_month", "all_months"]);
+
+function monthlyPart(params) {
+    const { month, isLeap, sampleDay, viewYear, viewYearStem, viewYearBranch, normalized, profile, stars } = params;
+    const leapFortune = (0, fortune_1.resolveLeapFortuneMoment)(month, sampleDay, isLeap, profile.leapFortuneMode);
+    const effectiveYearStem = isLeap && leapFortune.shifted && month === 12
+        ? (0, core_1.getYearStem)(viewYear + 1)
+        : viewYearStem;
+    const palaceId = (0, fortune_1.getMonthlyFortunePalace)(viewYearBranch, normalized.lunar.month, normalized.hourBranch, leapFortune.month);
+    const monthStem = (0, fortune_1.getMonthStem)(effectiveYearStem, leapFortune.month);
+    return {
+        phase: isLeap && profile.leapFortuneMode === "split-half-next"
+            ? (sampleDay <= 15 ? "Nửa đầu tháng" : "Nửa sau tháng")
+            : "Cả tháng",
+        effectiveMonth: leapFortune.month,
+        palaceId,
+        monthStem,
+        monthBranch: (0, fortune_1.getMonthBranch)(leapFortune.month),
+        monthCanChi: (0, fortune_1.getMonthCanChi)(effectiveYearStem, leapFortune.month),
+        stars: (0, fortune_1.placeMonthlyMovingStars)(monthStem, palaceId, stars)
+    };
+}
+
+function buildMonthlyFortunes(params) {
+    const { input, viewScope, viewYearStem, viewYearBranch, normalized, profile, stars } = params;
+    if (!viewYearStem || !["single_month", "all_months"].includes(viewScope))
+        return [];
+    const selections = [];
+    if (viewScope === "single_month") {
+        selections.push({ month: input.viewMonth, isLeap: Boolean(input.viewLeap) });
+    }
+    else {
+        for (let month = 1; month <= 12; month += 1) {
+            selections.push({ month, isLeap: false });
+            if (input.viewLeapMonth === month)
+                selections.push({ month, isLeap: true });
+        }
+    }
+    return selections.map(({ month, isLeap }) => {
+        const sampleDays = isLeap && profile.leapFortuneMode === "split-half-next" ? [1, 16] : [1];
+        return {
+            month,
+            isLeap,
+            label: `Tháng ${month}${isLeap ? " nhuận" : ""}`,
+            parts: sampleDays.map((sampleDay) => monthlyPart({
+                month,
+                isLeap,
+                sampleDay,
+                viewYear: input.viewYear,
+                viewYearStem,
+                viewYearBranch,
+                normalized,
+                profile,
+                stars
+            }))
+        };
+    });
+}
+
 function buildTuviChart(input, normalized) {
     const profile = (0, profiles_1.getCalculationProfile)(input.calculationProfileId);
+    const explicitScope = input.viewScope !== undefined && input.viewScope !== null;
+    const viewScope = explicitScope ? input.viewScope : "legacy";
+    if (explicitScope && !VIEW_SCOPES.has(viewScope))
+        throw new Error("Phạm vi luận giải không hợp lệ.");
+    const hasYear = !explicitScope || viewScope !== "natal_overview";
+    const hasSingleMonth = !explicitScope || viewScope === "single_month";
+    if (hasYear && (!Number.isInteger(input.viewYear) || input.viewYear < 1900 || input.viewYear > 2199))
+        throw new Error("Năm muốn xem phải nằm trong khoảng 1900 đến 2199.");
+    if (explicitScope && hasSingleMonth && (!Number.isInteger(input.viewMonth) || input.viewMonth < 1 || input.viewMonth > 12))
+        throw new Error("Tháng muốn xem phải từ 1 đến 12.");
+    if (explicitScope && input.viewLeap && input.viewLeapMonth !== input.viewMonth)
+        throw new Error("Tháng được chọn không phải tháng nhuận của năm âm lịch này.");
     const lifePalace = (0, core_1.getLifePalace)(normalized.lunar.month, normalized.hourBranch);
     const bodyPalace = (0, core_1.getBodyPalace)(normalized.lunar.month, normalized.hourBranch);
     const bureau = (0, nayin_1.getBureau)(lifePalace, normalized.yearStem);
@@ -88,71 +159,97 @@ function buildTuviChart(input, normalized) {
     });
     const transforms = (0, stars_1.placeFourTransformations)(normalized.yearStem, [...major, ...support]);
     const stars = [...major, ...support, ...transforms];
-    const viewYearStem = (0, core_1.getYearStem)(input.viewYear);
-    const viewYearBranch = (0, core_1.getYearBranch)(input.viewYear);
-    const annualStars = (0, fortune_1.placeAnnualMovingStars)(viewYearStem, viewYearBranch, stars);
-    const leapFortune = (0, fortune_1.resolveLeapFortuneMoment)(input.viewMonth, input.viewDay, Boolean(input.viewLeap), input.leapFortuneMode || profile.leapFortuneMode);
-    const effectiveYearStem = input.viewLeap && leapFortune.shifted && input.viewMonth === 12 ? (0, core_1.getYearStem)(input.viewYear + 1) : viewYearStem;
-    const monthlyPalaceId = (0, fortune_1.getMonthlyFortunePalace)(viewYearBranch, normalized.lunar.month, normalized.hourBranch, leapFortune.month);
-    const monthStem = (0, fortune_1.getMonthStem)(effectiveYearStem, leapFortune.month);
-    const monthBranch = (0, fortune_1.getMonthBranch)(leapFortune.month);
-    const monthlyStars = (0, fortune_1.placeMonthlyMovingStars)(monthStem, monthlyPalaceId, stars);
-    const dailyPalaceId = (0, fortune_1.getDailyFortunePalace)(monthlyPalaceId, leapFortune.day);
-    const dailyStars = (0, fortune_1.placeDailyMovingStars)(input.viewDayStem, dailyPalaceId, stars);
-    const hourlyPalaceId = (0, fortune_1.getHourlyFortunePalace)(dailyPalaceId, input.viewHourBranch);
-    const viewHourStem = (0, fortune_1.getHourStem)(input.viewDayStem, input.viewHourBranch);
-    const hourlyStars = (0, fortune_1.placeHourlyMovingStars)(viewHourStem, hourlyPalaceId, stars);
+    const viewYearStem = hasYear ? (0, core_1.getYearStem)(input.viewYear) : null;
+    const viewYearBranch = hasYear ? (0, core_1.getYearBranch)(input.viewYear) : null;
+    const annualStars = hasYear ? (0, fortune_1.placeAnnualMovingStars)(viewYearStem, viewYearBranch, stars) : [];
+    let monthlyFortunes = [];
+    let monthlyStars = [];
+    let monthlyPalaceId = null;
+    let monthStem = null;
+    let monthBranch = null;
+    let monthCanChi = null;
+    let leapFortune = null;
+    if (explicitScope) {
+        monthlyFortunes = buildMonthlyFortunes({ input, viewScope, viewYearStem, viewYearBranch, normalized, profile, stars });
+        if (viewScope === "single_month" && monthlyFortunes.length) {
+            const selected = monthlyFortunes[0];
+            monthlyStars = selected.parts.flatMap((part) => part.stars);
+            monthlyPalaceId = selected.parts.length === 1 ? selected.parts[0].palaceId : null;
+            monthStem = selected.parts[0].monthStem;
+            monthBranch = selected.parts[0].monthBranch;
+            monthCanChi = selected.parts.map((part) => part.monthCanChi).filter((value, index, list) => list.indexOf(value) === index).join(" / ");
+        }
+    }
+    else {
+        leapFortune = (0, fortune_1.resolveLeapFortuneMoment)(input.viewMonth, input.viewDay, Boolean(input.viewLeap), input.leapFortuneMode || profile.leapFortuneMode);
+        const effectiveYearStem = input.viewLeap && leapFortune.shifted && input.viewMonth === 12 ? (0, core_1.getYearStem)(input.viewYear + 1) : viewYearStem;
+        monthlyPalaceId = (0, fortune_1.getMonthlyFortunePalace)(viewYearBranch, normalized.lunar.month, normalized.hourBranch, leapFortune.month);
+        monthStem = (0, fortune_1.getMonthStem)(effectiveYearStem, leapFortune.month);
+        monthBranch = (0, fortune_1.getMonthBranch)(leapFortune.month);
+        monthCanChi = (0, fortune_1.getMonthCanChi)(effectiveYearStem, leapFortune.month);
+        monthlyStars = (0, fortune_1.placeMonthlyMovingStars)(monthStem, monthlyPalaceId, stars);
+    }
+    const hasLegacyDayHour = !explicitScope;
+    const dailyPalaceId = hasLegacyDayHour ? (0, fortune_1.getDailyFortunePalace)(monthlyPalaceId, leapFortune.day) : null;
+    const dailyStars = hasLegacyDayHour ? (0, fortune_1.placeDailyMovingStars)(input.viewDayStem, dailyPalaceId, stars) : [];
+    const hourlyPalaceId = hasLegacyDayHour ? (0, fortune_1.getHourlyFortunePalace)(dailyPalaceId, input.viewHourBranch) : null;
+    const viewHourStem = hasLegacyDayHour ? (0, fortune_1.getHourStem)(input.viewDayStem, input.viewHourBranch) : null;
+    const hourlyStars = hasLegacyDayHour ? (0, fortune_1.placeHourlyMovingStars)(viewHourStem, hourlyPalaceId, stars) : [];
     const palaces = buildPalaces({ normalized, input, lifePalace, bodyPalace, bureauNumber: bureau.number, stars, annualStars, monthlyStars, dailyStars, hourlyStars });
-    const nominalAge = input.viewYear - normalized.lunar.year + 1;
+    const nominalAge = hasYear ? input.viewYear - normalized.lunar.year + 1 : null;
     const activeDecade = palaces.find((palace) => nominalAge >= palace.decadeStart && nominalAge <= palace.decadeEnd) || null;
     const fortuneDirection = (0, fortune_1.getFortuneDirection)(normalized.yearStem, input.gender);
     const annualDecadePalaceId = activeDecade
         ? (0, fortune_1.getAnnualDecadePalace)(activeDecade.id, activeDecade.decadeStart, nominalAge, fortuneDirection)
         : null;
-    const minorFortunePalaceId = (0, fortune_1.getMinorFortunePalace)(normalized.yearBranch, viewYearBranch, input.gender);
+    const minorFortunePalaceId = hasYear ? (0, fortune_1.getMinorFortunePalace)(normalized.yearBranch, viewYearBranch, input.gender) : null;
     const annualDecadePalace = annualDecadePalaceId ? palaces.find((palace) => palace.id === annualDecadePalaceId) : null;
-    const minorFortunePalace = palaces.find((palace) => palace.id === minorFortunePalaceId);
-    const yearBranchPalace = palaces.find((palace) => palace.id === viewYearBranch);
-    const monthlyPalace = palaces.find((palace) => palace.id === monthlyPalaceId);
-    const dailyPalace = palaces.find((palace) => palace.id === dailyPalaceId);
-    const hourlyPalace = palaces.find((palace) => palace.id === hourlyPalaceId);
+    const minorFortunePalace = minorFortunePalaceId ? palaces.find((palace) => palace.id === minorFortunePalaceId) : null;
+    const yearBranchPalace = viewYearBranch ? palaces.find((palace) => palace.id === viewYearBranch) : null;
+    const monthlyPalace = monthlyPalaceId ? palaces.find((palace) => palace.id === monthlyPalaceId) : null;
+    const dailyPalace = dailyPalaceId ? palaces.find((palace) => palace.id === dailyPalaceId) : null;
+    const hourlyPalace = hourlyPalaceId ? palaces.find((palace) => palace.id === hourlyPalaceId) : null;
     const lifeStars = palaces.find((palace) => palace.id === lifePalace)?.stars || [];
     const analysis = {
         nominalAge,
         birthElement,
-        viewYearCanChi: (0, core_1.getYearCanChi)(input.viewYear),
+        viewScope: explicitScope ? viewScope : null,
+        viewYearCanChi: hasYear ? (0, core_1.getYearCanChi)(input.viewYear) : null,
         viewYearStem,
         viewYearBranch,
         viewMonth: input.viewMonth,
         monthStem,
         monthBranch,
-        monthCanChi: (0, fortune_1.getMonthCanChi)(effectiveYearStem, leapFortune.month),
+        monthCanChi,
         viewLeap: Boolean(input.viewLeap),
         leapFortuneMode: input.leapFortuneMode || profile.leapFortuneMode,
-        effectiveViewMonth: leapFortune.month,
-        effectiveViewDay: leapFortune.day,
+        effectiveViewMonth: leapFortune?.month || null,
+        effectiveViewDay: leapFortune?.day || null,
         monthlyPalaceId,
-        monthlyLabel: `Tháng ${input.viewMonth}${input.viewLeap ? " nhuận" : ""} âm lịch tại cung ${monthlyPalace.name} ở ${monthlyPalace.branch}`,
-        viewDay: input.viewDay,
-        viewDayStem: input.viewDayStem,
-        viewDayBranch: input.viewDayBranch,
-        viewDayCanChi: input.viewDayCanChi,
-        viewSolarDate: input.viewSolarDate,
+        monthlyFortunes,
+        monthlyLabel: monthlyFortunes.length === 1
+            ? `${monthlyFortunes[0].label} âm lịch: ${monthlyFortunes[0].parts.map((part) => `${part.phase.toLowerCase()} tại cung ${palaces.find((palace) => palace.id === part.palaceId).name} ở ${palaces.find((palace) => palace.id === part.palaceId).branch}`).join(", ")}`
+            : (monthlyPalace ? `Tháng ${input.viewMonth}${input.viewLeap ? " nhuận" : ""} âm lịch tại cung ${monthlyPalace.name} ở ${monthlyPalace.branch}` : null),
+        viewDay: hasLegacyDayHour ? input.viewDay : null,
+        viewDayStem: hasLegacyDayHour ? input.viewDayStem : null,
+        viewDayBranch: hasLegacyDayHour ? input.viewDayBranch : null,
+        viewDayCanChi: hasLegacyDayHour ? input.viewDayCanChi : null,
+        viewSolarDate: hasLegacyDayHour ? input.viewSolarDate : null,
         dailyPalaceId,
-        dailyLabel: `Ngày ${input.viewDay} âm lịch tại cung ${dailyPalace.name} ở ${dailyPalace.branch}`,
-        viewHourBranch: input.viewHourBranch,
+        dailyLabel: dailyPalace ? `Ngày ${input.viewDay} âm lịch tại cung ${dailyPalace.name} ở ${dailyPalace.branch}` : null,
+        viewHourBranch: hasLegacyDayHour ? input.viewHourBranch : null,
         viewHourStem,
-        viewHourCanChi: (0, fortune_1.getHourCanChi)(input.viewDayStem, input.viewHourBranch),
+        viewHourCanChi: hasLegacyDayHour ? (0, fortune_1.getHourCanChi)(input.viewDayStem, input.viewHourBranch) : null,
         hourlyPalaceId,
-        hourlyLabel: `Giờ ${constants_1.BRANCHES[input.viewHourBranch]} tại cung ${hourlyPalace.name} ở ${hourlyPalace.branch}`,
+        hourlyLabel: hourlyPalace ? `Giờ ${constants_1.BRANCHES[input.viewHourBranch]} tại cung ${hourlyPalace.name} ở ${hourlyPalace.branch}` : null,
         activeDecadePalaceId: activeDecade?.id || null,
-        activeDecadeLabel: activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "Ngoài dải đại vận",
+        activeDecadeLabel: activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : (hasYear ? "Ngoài dải đại vận" : null),
         annualDecadePalaceId,
-        annualDecadeLabel: annualDecadePalace ? `${annualDecadePalace.name} tại ${annualDecadePalace.branch}` : "Chưa xác định",
+        annualDecadeLabel: annualDecadePalace ? `${annualDecadePalace.name} tại ${annualDecadePalace.branch}` : null,
         minorFortunePalaceId,
-        minorFortuneLabel: `${minorFortunePalace.name} tại ${minorFortunePalace.branch}`,
+        minorFortuneLabel: minorFortunePalace ? `${minorFortunePalace.name} tại ${minorFortunePalace.branch}` : null,
         yearBranchPalaceId: viewYearBranch,
-        yearBranchPalaceLabel: `${yearBranchPalace.name} tại ${yearBranchPalace.branch}`,
+        yearBranchPalaceLabel: yearBranchPalace ? `${yearBranchPalace.name} tại ${yearBranchPalace.branch}` : null,
         supportiveCountAtLife: lifeStars.filter((item) => item.group === "support" || item.group === "transform").length,
         maleficCountAtLife: lifeStars.filter((item) => item.group === "malefic").length,
         annualStarCounts: countGroups(annualStars, "annual"),
@@ -167,12 +264,17 @@ function buildTuviChart(input, normalized) {
         calendarType: input.calendarType,
         lunarLeap: input.lunarLeap,
         timezone: input.timezone,
-        viewYear: input.viewYear,
-        viewMonth: input.viewMonth,
-        viewLeap: Boolean(input.viewLeap),
-        leapFortuneMode: input.leapFortuneMode || profile.leapFortuneMode,
-        viewDay: input.viewDay,
-        viewHourBranch: input.viewHourBranch,
+        ...(explicitScope ? { viewScope } : {}),
+        ...(hasYear ? { viewYear: input.viewYear } : {}),
+        ...(hasSingleMonth ? { viewMonth: input.viewMonth, viewLeap: Boolean(input.viewLeap) } : {}),
+        ...(explicitScope && viewScope === "all_months" ? { viewLeapMonth: input.viewLeapMonth || null } : {}),
+        ...(!explicitScope ? {
+            viewMonth: input.viewMonth,
+            viewLeap: Boolean(input.viewLeap),
+            leapFortuneMode: input.leapFortuneMode || profile.leapFortuneMode,
+            viewDay: input.viewDay,
+            viewHourBranch: input.viewHourBranch
+        } : {}),
         timePrecision: input.timePrecision || "exact",
         birthHourBranch: normalized.hourBranch,
         calculationMethod: profile.name
@@ -187,6 +289,7 @@ function buildTuviChart(input, normalized) {
         palaces,
         annualStars,
         monthlyStars,
+        monthlyFortunes,
         dailyStars,
         hourlyStars,
         analysis,
@@ -197,6 +300,8 @@ function buildTuviChart(input, normalized) {
             monthlyStars,
             dailyStars,
             hourlyStars,
+            viewScope: explicitScope ? viewScope : "legacy",
+            monthlyFortunes,
             lifePalace,
             bodyPalace,
             nominalAge,
@@ -210,14 +315,14 @@ function buildTuviChart(input, normalized) {
             monthlyPalaceId,
             dailyPalaceId,
             hourlyPalaceId,
-            viewYear: input.viewYear,
+            viewYear: hasYear ? input.viewYear : null,
             viewYearCanChi: analysis.viewYearCanChi,
             viewMonth: input.viewMonth,
             viewLeap: Boolean(input.viewLeap),
             monthCanChi: analysis.monthCanChi,
-            viewDay: input.viewDay,
-            viewDayCanChi: input.viewDayCanChi,
-            viewHourBranch: input.viewHourBranch,
+            viewDay: hasLegacyDayHour ? input.viewDay : null,
+            viewDayCanChi: hasLegacyDayHour ? input.viewDayCanChi : null,
+            viewHourBranch: hasLegacyDayHour ? input.viewHourBranch : null,
             viewHourCanChi: analysis.viewHourCanChi
         })
     };

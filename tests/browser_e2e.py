@@ -66,9 +66,14 @@ try:
             time.sleep(0.1)
 
     with sync_playwright() as p:
-        chromium_path = Path('/usr/bin/chromium')
+        chromium_candidates = [
+            Path('/usr/bin/chromium'),
+            Path('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
+            Path('/Applications/Chromium.app/Contents/MacOS/Chromium'),
+        ]
+        chromium_path = next((path for path in chromium_candidates if path.exists()), None)
         launch_args = {'headless': True, 'args': ['--no-sandbox', '--disable-dev-shm-usage']}
-        if chromium_path.exists():
+        if chromium_path:
             launch_args['executable_path'] = str(chromium_path)
         browser = p.chromium.launch(**launch_args)
         mode = detect_mode(browser, f'{base_url}/index.html')
@@ -93,23 +98,19 @@ try:
         assert desktop.locator('#calculationProfile').input_value() == 'VN_TAN_BIEN_1956'
         assert desktop.locator('#json-button').count() == 0
         assert desktop.locator('[data-topic="Đại vận"]').count() == 1
-        assert desktop.locator('[data-topic="Tiểu vận"]').count() == 1
-        assert desktop.locator('[data-topic="Vận hạn 2026"]').count() == 1
-        assert desktop.locator('[data-topic="Lưu nguyệt tháng 4"]').count() == 1
-        assert desktop.locator('[data-topic="Lưu nhật ngày 15"]').count() == 1
-        assert desktop.locator('[data-topic="Lưu thời giờ 7"]').count() == 1
-        assert desktop.locator('.monthly-fortune').count() >= 1
-        assert desktop.locator('.daily-fortune').count() >= 1
-        assert desktop.locator('.hourly-fortune').count() >= 1
+        assert desktop.locator('#viewScope').input_value() == 'natal_overview'
+        assert desktop.locator('#view-year-field').is_hidden()
+        assert desktop.locator('#view-month-field').is_hidden()
+        assert desktop.locator('#viewDay').count() == 0
+        assert desktop.locator('#viewHourBranch').count() == 0
+        assert desktop.locator('#viewLeap').count() == 0
+        assert desktop.locator('#leapFortuneMode').count() == 0
+        assert desktop.locator('[data-topic="Tiểu vận"]').count() == 0
+        assert desktop.locator('[data-topic="Vận hạn 2026"]').count() == 0
+        assert desktop.locator('[data-topic^="Lưu nguyệt"]').count() == 0
         assert desktop.locator('#time-exact').count() == 1
         assert desktop.locator('#time-branch').count() == 1
-        assert desktop.locator('#viewMonth').input_value() == '4'
-        assert desktop.locator('#viewDay').input_value() == '15'
-        assert desktop.locator('#viewHourBranch').input_value() == '7'
-        assert desktop.locator('.active-decade').count() >= 1
-        assert desktop.locator('.annual-decade').count() >= 1
-        assert desktop.locator('.minor-fortune').count() >= 1
-        assert desktop.locator('.year-branch').count() >= 1
+        assert desktop.locator('.active-decade').count() == 0
         desktop.set_viewport_size({'width': 911, 'height': 900})
         desktop.wait_for_timeout(100)
         chart_overflow = desktop.locator('.chart-center, .palace').evaluate_all(
@@ -121,19 +122,34 @@ try:
         )
         assert min(chart_font_sizes) >= 12
         desktop.set_viewport_size({'width': 1440, 'height': 1100})
-        assert desktop.locator('#viewLeap').count() == 1
-        assert desktop.locator('#leapFortuneMode').count() == 1
+        desktop.locator('#viewScope').select_option('yearly')
+        assert desktop.locator('#view-year-field').is_visible()
+        assert desktop.locator('#view-month-field').is_hidden()
+        desktop.locator('#birth-form button[type="submit"]').click()
+        assert desktop.locator('[data-topic="Vận hạn 2026"]').count() == 1
+        assert desktop.locator('[data-topic^="Lưu nguyệt"]').count() == 0
+
+        desktop.locator('#viewScope').select_option('single_month')
+        assert desktop.locator('#view-year-field').is_visible()
+        assert desktop.locator('#view-month-field').is_visible()
         desktop.locator('#viewYear').fill('2025')
-        desktop.locator('#viewMonth').select_option('6')
-        desktop.locator('#viewDay').fill('16')
-        desktop.locator('#viewLeap').check()
-        desktop.locator('#leapFortuneMode').select_option('split-half-next')
+        desktop.wait_for_timeout(100)
+        assert desktop.locator('#viewMonth option[value="6-leap"]').count() == 1
+        desktop.locator('#viewMonth').select_option('6-leap')
         desktop.locator('#birth-form button[type="submit"]').click()
         desktop.wait_for_timeout(250)
         assert desktop.locator('[data-topic="Lưu nguyệt tháng 6 nhuận"]').count() == 1
         assert 'tháng 6 nhuận' in desktop.locator('#result-meta').inner_text().lower()
+
+        desktop.locator('#viewScope').select_option('all_months')
+        assert desktop.locator('#view-year-field').is_visible()
+        assert desktop.locator('#view-month-field').is_hidden()
+        desktop.locator('#birth-form button[type="submit"]').click()
+        assert desktop.locator('[data-topic="Lưu nguyệt năm 2025"]').count() == 1
+        desktop.locator('[data-topic="Lưu nguyệt năm 2025"]').click()
+        assert desktop.locator('#report-root .report-card').count() == 13
+
         desktop.locator('#demo-button').click()
-        assert desktop.locator('#viewLeap').is_checked() is False
         desktop.locator('#birthTime').fill('23:30')
         desktop.locator('#calculationProfile').select_option('VN_TAN_BIEN_1956')
         desktop.locator('#birth-form button[type="submit"]').click()
@@ -145,15 +161,19 @@ try:
         assert 'Áo Bí' in ao_meta
         assert tan_meta != ao_meta
         desktop.locator('#demo-button').click()
+        desktop.locator('#viewScope').select_option('single_month')
+        desktop.locator('#viewYear').fill('2026')
+        desktop.locator('#viewMonth').select_option('4')
+        desktop.locator('#birth-form button[type="submit"]').click()
         assert desktop.locator('#pdf-options-button').count() == 1
         assert desktop.locator('#pdf-options-panel').is_hidden()
         desktop.locator('#pdf-options-button').click()
         assert desktop.locator('#pdf-options-panel').is_visible()
-        assert desktop.locator('[data-pdf-section]').count() == 16
-        assert desktop.locator('[data-pdf-section]:checked').count() == 16
-        assert '16/16' in desktop.locator('#pdf-options-summary').inner_text()
+        assert desktop.locator('[data-pdf-section]').count() == 14
+        assert desktop.locator('[data-pdf-section]:checked').count() == 14
+        assert '14/14' in desktop.locator('#pdf-options-summary').inner_text()
         desktop.locator('[data-pdf-preset="fortune"]').click()
-        assert desktop.locator('[data-pdf-section]:checked').count() == 9
+        assert desktop.locator('[data-pdf-section]:checked').count() == 7
         assert desktop.locator('[data-pdf-section="tai_chinh"]').is_checked() is False
         assert desktop.locator('[data-pdf-section="van_han"]').is_checked()
         assert desktop.locator('#print-report .print-page-header h2', has_text='Tài chính').count() == 0
@@ -167,8 +187,8 @@ try:
         assert 'Tiểu vận' in selected_text
         assert 'Vận hạn 2026' in selected_text
         assert 'Lưu nguyệt tháng 4' in selected_text
-        assert 'Lưu nhật ngày 15' in selected_text
-        assert 'Lưu thời giờ 7' in selected_text
+        assert 'Lưu nhật' not in selected_text
+        assert 'Lưu thời' not in selected_text
         with desktop.expect_download(timeout=90000) as selected_info:
             desktop.locator('#pdf-button').click()
         selected_pdf = ROOT / 'sample/MXiao-Tu-Vi-2026-van-han.pdf'
@@ -179,7 +199,7 @@ try:
         selected_page_count = int(selected_count_match.group(1))
         assert 4 <= selected_page_count <= 16
         desktop.locator('[data-pdf-preset="full"]').click()
-        assert desktop.locator('[data-pdf-section]:checked').count() == 16
+        assert desktop.locator('[data-pdf-section]:checked').count() == 14
 
         desktop.locator('#timezoneSearch').fill('New York')
         assert desktop.locator('#timezone option[value="America/New_York"]').count() == 1
@@ -198,22 +218,23 @@ try:
         desktop.locator('#demo-button').click()
         desktop.locator('#time-branch').click()
         desktop.locator('#birthHourBranch').select_option('5')
+        desktop.locator('#viewScope').select_option('single_month')
+        desktop.locator('#viewYear').fill('2026')
         desktop.locator('#viewMonth').select_option('7')
         desktop.locator('#birth-form button[type="submit"]').click()
         assert 'Giờ Thìn' in desktop.locator('#result-meta').inner_text()
         assert desktop.locator('[data-topic="Lưu nguyệt tháng 7"]').count() == 1
         assert desktop.locator('.monthly-fortune').count() >= 1
-        desktop.locator('#demo-button').click()
         desktop.locator('#compare-hours-button').click()
         assert desktop.locator('#compare-hours-panel').is_visible()
         desktop.locator('#compareHourA').select_option('5')
         desktop.locator('#compareHourB').select_option('6')
         desktop.locator('#run-hour-comparison').click()
         assert desktop.locator('.comparison-row.changed').count() >= 1
-        assert desktop.locator('[data-pdf-section]').count() == 17
+        assert desktop.locator('[data-pdf-section]').count() == 15
         assert desktop.locator('[data-pdf-section="so_sanh_gio"]').is_checked()
         desktop.locator('[data-pdf-preset="full"]').click()
-        assert desktop.locator('[data-pdf-section]:checked').count() == 17
+        assert desktop.locator('[data-pdf-section]:checked').count() == 15
         desktop.screenshot(path=ROOT / 'screenshots/desktop-v2.png', full_page=True)
         with desktop.expect_download(timeout=90000) as info:
             desktop.locator('#pdf-button').click()
@@ -239,9 +260,9 @@ try:
         text_data = subprocess.check_output(['pdftotext', str(text_pdf), '-'], text=True)
         normalized_text = ' '.join(text_data.split())
         assert 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT' in normalized_text
-        assert 'Lưu nguyệt tháng 4' in text_data
-        assert 'Lưu nhật ngày 15' in text_data
-        assert 'Lưu thời giờ 7' in text_data
+        assert 'Lưu nguyệt tháng 7' in text_data
+        assert 'Lưu nhật' not in text_data
+        assert 'Lưu thời' not in text_data
         assert 'So sánh hai khung giờ sinh' in text_data
         assert 'Nguyễn Minh An' in text_data
         pdf_info = subprocess.check_output(['pdfinfo', str(text_pdf)], text=True)
@@ -281,7 +302,7 @@ try:
         assert mobile.locator('.chart-panel').evaluate('e => e.scrollWidth > e.clientWidth')
         mobile.locator('#pdf-options-button').click()
         assert mobile.locator('#pdf-options-panel').is_visible()
-        assert mobile.locator('[data-pdf-section]').count() == 16
+        assert mobile.locator('[data-pdf-section]').count() == 14
         assert mobile.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
         mobile.screenshot(path=ROOT / 'screenshots/mobile-v2.png', full_page=True)
         assert not mobile_errors, mobile_errors
@@ -293,4 +314,4 @@ finally:
     except subprocess.TimeoutExpired:
         server.kill()
 
-print(f'Browser E2E passed: mode={mode}, timezone-only input, exact or branch time, annual, leap-month, monthly, daily and hourly fortune, responsive UI, direct PDF and searchable text PDF with metadata and bookmarks.')
+print(f'Browser E2E passed: mode={mode}, four view scopes, conditional leap month, exact or branch birth time, responsive UI, direct PDF and searchable text PDF with metadata and bookmarks.')

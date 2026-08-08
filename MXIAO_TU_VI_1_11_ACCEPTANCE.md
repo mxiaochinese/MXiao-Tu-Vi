@@ -7,7 +7,7 @@ Ngày nghiệm thu: 2026-08-08
 - Web app tĩnh, không tài khoản, không backend, không tự động lưu hoặc gửi dữ liệu sinh ra ngoài.
 - Hai phương pháp lập lá số thuộc phạm vi release: Tân Biên và Áo Bí.
 - Nhập ngày dương/âm, giờ chính xác hoặc khung giờ, giới tính, múi giờ và thời điểm muốn xem.
-- Có đại vận, lưu đại hạn, tiểu hạn, lưu niên, lưu nguyệt, lưu nhật và lưu thời.
+- Có đại vận, lưu đại hạn, tiểu hạn, lưu niên và lưu nguyệt theo phạm vi xem; Lưu nhật và Lưu thời không nằm trong flow công khai sau patch phạm vi xem.
 - Luận giải chính ở dạng đoạn văn phân tích, không dùng danh sách dữ kiện vụn làm nội dung chính.
 - Có lựa chọn nội dung cần xuất PDF, PDF văn bản searchable/selectable và PDF hình ảnh giữ bố cục.
 

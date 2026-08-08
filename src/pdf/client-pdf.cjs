@@ -141,6 +141,34 @@ function formatLunar(lunar) {
     return `${lunar.day}/${lunar.month}/${lunar.year}${lunar.leap ? " nhuận" : ""}`;
 }
 
+function viewScopeLabel(chart) {
+    const labels = {
+        natal_overview: "Lá số tổng quan",
+        yearly: `Vận năm ${chart.input.viewYear}`,
+        single_month: `Tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""} năm ${chart.input.viewYear}`,
+        all_months: `Toàn bộ các tháng năm ${chart.input.viewYear}`
+    };
+    return labels[chart.input.viewScope] || "Lá số tổng quan";
+}
+
+function fortuneRows(chart) {
+    const rows = [];
+    if (chart.analysis.activeDecadeLabel) rows.push(["Đại vận 10 năm", chart.analysis.activeDecadeLabel]);
+    if (chart.analysis.annualDecadeLabel) rows.push(["Lưu đại hạn", chart.analysis.annualDecadeLabel]);
+    if (chart.analysis.minorFortuneLabel) rows.push(["Tiểu hạn", chart.analysis.minorFortuneLabel]);
+    if (chart.analysis.yearBranchPalaceLabel) rows.push(["Lưu Thái Tuế", chart.analysis.yearBranchPalaceLabel]);
+    if (chart.analysis.monthlyLabel) rows.push(["Lưu nguyệt", chart.analysis.monthlyLabel]);
+    if (chart.input.viewScope === "all_months") rows.push(["Lưu nguyệt", `${chart.analysis.monthlyFortunes.length} tháng âm lịch đã được tính`]);
+    return rows;
+}
+
+function reportFileSuffix(chart) {
+    if (chart.input.viewScope === "natal_overview") return "tong-quan";
+    if (chart.input.viewScope === "yearly") return `nam-${chart.input.viewYear}`;
+    if (chart.input.viewScope === "all_months") return `nam-${chart.input.viewYear}-tat-ca-thang`;
+    return `nam-${chart.input.viewYear}-thang-${chart.input.viewMonth}${chart.input.viewLeap ? "-nhuan" : ""}`;
+}
+
 function drawCover(chart) {
     const canvas = createCanvas("portrait");
     const context = getContext(canvas);
@@ -174,8 +202,8 @@ function drawCover(chart) {
         `Múi giờ: ${chart.input.timezone}`,
         `Năm sinh: ${chart.normalized.yearCanChi}`,
         `Mệnh: ${chart.birthElement} | ${chart.bureau.label}`,
-        `Năm xem: ${chart.input.viewYear} | ${chart.analysis.viewYearCanChi} | Tuổi mụ: ${chart.analysis.nominalAge}`,
-        `Thời điểm xem: tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch, giờ ${chart.analysis.viewHourCanChi}`
+        `Phạm vi: ${viewScopeLabel(chart)}`,
+        ...(chart.analysis.nominalAge ? [`Tuổi mụ: ${chart.analysis.nominalAge} | ${chart.analysis.viewYearCanChi}`] : [])
     ];
     meta.forEach((line, index) => context.fillText(line, 92, 790 + index * 42));
     context.globalAlpha = 1;
@@ -210,7 +238,7 @@ function drawSummaryBox(context, x, y, width, height, label, value, accent = fal
 function drawOverviewPage(chart) {
     const canvas = createCanvas("portrait");
     const context = getContext(canvas);
-    let y = drawPageHeader(context, "Tổng quan lá số", `Các lớp vận hạn được tính cho năm ${chart.input.viewYear}.`);
+    let y = drawPageHeader(context, "Tổng quan lá số", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
     const gap = 16;
     const width = (canvas.width - 144 - gap) / 2;
     const summaryHeight = 112;
@@ -232,17 +260,9 @@ function drawOverviewPage(chart) {
     y += Math.ceil(boxes.length / 2) * summaryStride + 24;
     context.fillStyle = RED;
     setFont(context, 30, 800);
-    context.fillText(`Vận hạn năm ${chart.input.viewYear}`, 72, y);
+    context.fillText("Phạm vi luận giải", 72, y);
     y += 52;
-    const fortuneBoxes = [
-        ["Đại vận 10 năm", chart.analysis.activeDecadeLabel],
-        ["Lưu đại hạn", chart.analysis.annualDecadeLabel],
-        ["Tiểu hạn", chart.analysis.minorFortuneLabel],
-        ["Lưu Thái Tuế", chart.analysis.yearBranchPalaceLabel],
-        ["Lưu nguyệt", chart.analysis.monthlyLabel],
-        ["Lưu nhật", chart.analysis.dailyLabel],
-        ["Lưu thời", chart.analysis.hourlyLabel]
-    ];
+    const fortuneBoxes = [["Phạm vi", viewScopeLabel(chart)], ...fortuneRows(chart)];
     fortuneBoxes.forEach(([label, value], index) => {
         drawSummaryBox(context, 72, y + index * 124, canvas.width - 144, 114, label, value, true);
     });
@@ -268,8 +288,6 @@ function palaceMarkers(chart, palace) {
     if (palace.id === chart.analysis.minorFortunePalaceId) markers.push("Tiểu hạn");
     if (palace.id === chart.analysis.yearBranchPalaceId) markers.push("Lưu Thái Tuế");
     if (palace.id === chart.analysis.monthlyPalaceId) markers.push(`Lưu nguyệt T${chart.input.viewMonth}`);
-    if (palace.id === chart.analysis.dailyPalaceId) markers.push(`Lưu nhật N${chart.input.viewDay}`);
-    if (palace.id === chart.analysis.hourlyPalaceId) markers.push(`Lưu thời ${constantsBranch(chart.input.viewHourBranch)}`);
     return markers;
 }
 
@@ -320,16 +338,6 @@ function drawPalaceCell(context, chart, palace, x, y, width, height) {
         setFont(context, 8, 700);
         textY = drawWrappedText(context, palace.monthlyStars.map((item) => item.name).join(" · "), x + 14, textY, width - 28, 11) + 2;
     }
-    if (palace.dailyStars.length) {
-        context.fillStyle = "#17625d";
-        setFont(context, 8, 700);
-        textY = drawWrappedText(context, palace.dailyStars.map((item) => item.name).join(" · "), x + 14, textY, width - 28, 11) + 2;
-    }
-    if (palace.hourlyStars.length) {
-        context.fillStyle = "#35508a";
-        setFont(context, 8, 700);
-        drawWrappedText(context, palace.hourlyStars.map((item) => item.name).join(" · "), x + 14, textY, width - 28, 11);
-    }
     context.fillStyle = MUTED;
     setFont(context, 9, 650);
     context.fillText(markers.join(" · "), x + 14, y + height - 23);
@@ -344,7 +352,7 @@ function drawPalaceCell(context, chart, palace, x, y, width, height) {
 function drawChartPage(chart) {
     const canvas = createCanvas("landscape");
     const context = getContext(canvas);
-    const top = drawPageHeader(context, "Lá số Tử Vi", `Năm ${chart.input.viewYear}, tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch, giờ ${chart.analysis.viewHourCanChi}. Các vị trí vận hạn được đánh dấu trực tiếp trên 12 cung.`);
+    const top = drawPageHeader(context, "Lá số Tử Vi", `${viewScopeLabel(chart)}. Những lớp vận thuộc phạm vi đã chọn được đánh dấu trực tiếp trên 12 cung.`);
     const marginX = 55;
     const gap = 8;
     const cellWidth = (canvas.width - marginX * 2 - gap * 3) / 4;
@@ -370,27 +378,16 @@ function drawChartPage(chart) {
     drawWrappedText(context, chart.input.fullName || "Người xem", centerX + 34, centerY + 76, centerWidth - 68, 42);
     context.globalAlpha = 0.9;
     setFont(context, 17, 500);
-    const centerLines = [
-        `Mệnh ${chart.birthElement} - ${chart.bureau.label}`,
-        `Đại vận: ${chart.analysis.activeDecadeLabel}`,
-        `Lưu đại hạn: ${chart.analysis.annualDecadeLabel}`,
-        `Tiểu hạn: ${chart.analysis.minorFortuneLabel}`,
-        `Lưu nguyệt: ${chart.analysis.monthlyLabel}`,
-        `Lưu nhật: ${chart.analysis.dailyLabel}`,
-        `Lưu thời: ${chart.analysis.hourlyLabel}`
-    ];
+    const centerLines = [`Mệnh ${chart.birthElement} - ${chart.bureau.label}`, `Phạm vi: ${viewScopeLabel(chart)}`, ...fortuneRows(chart).map(([label, value]) => `${label}: ${value}`)];
     centerLines.forEach((line, index) => drawWrappedText(context, line, centerX + 34, centerY + 155 + index * 47, centerWidth - 68, 23));
     context.globalAlpha = 1;
     return canvas;
 }
 
 function topicOrder(chart) {
-    const annual = `Vận hạn ${chart.input.viewYear}`;
-    const monthly = `Lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}`;
-    const daily = `Lưu nhật ngày ${chart.input.viewDay}`;
-    const hourly = `Lưu thời giờ ${chart.input.viewHourBranch}`;
-    const desired = [...TOPIC_ORDER.slice(0, 5), annual, monthly, daily, hourly, ...TOPIC_ORDER.slice(5)];
     const present = new Set(chart.interpretations.map((item) => item.topic));
+    const periodTopics = Array.from(present).filter((topic) => topic.startsWith("Vận hạn ") || topic.startsWith("Lưu nguyệt "));
+    const desired = [...TOPIC_ORDER.slice(0, 5), ...periodTopics, ...TOPIC_ORDER.slice(5)];
     return desired.filter((topic) => present.has(topic));
 }
 
@@ -518,7 +515,7 @@ function drawInterpretationPages(chart, selectedTopics) {
     const bottom = PAGE_PORTRAIT.height - 92;
     let canvas = createCanvas("portrait");
     let context = getContext(canvas);
-    let y = drawPageHeader(context, "Luận giải chi tiết", `Tổng hợp lá số, vận hạn năm ${chart.input.viewYear} và lưu nguyệt tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}.`);
+    let y = drawPageHeader(context, "Luận giải chi tiết", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
     for (const topic of order) {
         const items = chart.interpretations.filter((item) => item.topic === topic);
         if (!items.length) continue;
@@ -687,7 +684,7 @@ async function downloadChartPdf(chart, exportOptions) {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `${safeFileName(chart.input.fullName)}-la-so-tu-vi-${chart.input.viewYear}-thang-${chart.input.viewMonth}-ngay-${chart.input.viewDay}.pdf`;
+    anchor.download = `${safeFileName(chart.input.fullName)}-la-so-tu-vi-${reportFileSuffix(chart)}.pdf`;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
@@ -811,7 +808,7 @@ function buildSelectableCover(chart) {
         `Giờ sinh: ${chart.normalized.timeDisplay || chart.normalized.adjustedTime}`,
         `Múi giờ: ${chart.input.timezone}`,
         `Mệnh: ${chart.birthElement} | ${chart.bureau.label}`,
-        `Thời điểm xem: năm ${chart.input.viewYear}, tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch, giờ ${chart.analysis.viewHourCanChi}`
+        `Phạm vi: ${viewScopeLabel(chart)}`
     ];
     meta.forEach((line, index) => textElement(page, line, 54, 405 + index * 27, 11, 400, WHITE));
     rectElement(page, 54, 610, page.widthPt - 108, 105, "#8d1019", "#d6747d", 0.8);
@@ -831,22 +828,18 @@ function buildSelectableOverview(chart) {
         ["Mệnh và Cục", `${chart.birthElement} - ${chart.bureau.label}`, false],
         ["Cung Mệnh", `${life.name} tại ${life.branch}`, false],
         ["Cung Thân", `${body.name} tại ${body.branch}`, false],
-        ["Đại vận", chart.analysis.activeDecadeLabel, true],
-        ["Lưu đại hạn", chart.analysis.annualDecadeLabel, true],
-        ["Tiểu hạn", chart.analysis.minorFortuneLabel, true],
-        ["Lưu nguyệt", chart.analysis.monthlyLabel, true],
-        ["Lưu nhật", `${chart.analysis.dailyLabel} | ${chart.analysis.viewDayCanChi}`, true],
-        ["Lưu thời", `${chart.analysis.hourlyLabel} | ${chart.analysis.viewHourCanChi}`, true]
+        ["Phạm vi", viewScopeLabel(chart), true],
+        ...fortuneRows(chart).map(([label, value]) => [label, value, true])
     ];
     const pages = [];
     let page = newTextPage("portrait");
-    let y = selectableHeader(page, "Tổng quan lá số", `Các lớp vận hạn được tính cho năm ${chart.input.viewYear}.`);
+    let y = selectableHeader(page, "Tổng quan lá số", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
     const bottom = page.heightPt - 58;
     for (const [label, value, accent] of rows) {
         if (y + 54 > bottom) {
             pages.push(page);
             page = newTextPage("portrait");
-            y = selectableHeader(page, "Tổng quan vận hạn", `Tiếp theo - năm ${chart.input.viewYear}.`);
+            y = selectableHeader(page, "Tổng quan vận hạn", `Tiếp theo - ${viewScopeLabel(chart)}.`);
         }
         y = addSummaryLine(page, label, value, y, accent);
     }
@@ -879,7 +872,7 @@ function buildSelectableInterpretationPages(chart, selectedTopics) {
     const order = topicOrder(chart).filter((topic) => selectedTopics.includes(topic));
     if (!order.length) return pages;
     let page = newTextPage("portrait");
-    let y = selectableHeader(page, "Luận giải chi tiết", `Vận hạn năm ${chart.input.viewYear}, tháng ${chart.input.viewMonth}${chart.input.viewLeap ? " nhuận" : ""}, ngày ${chart.input.viewDay} âm lịch.`);
+    let y = selectableHeader(page, "Luận giải chi tiết", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
     const bottom = page.heightPt - 62;
     for (const topic of order) {
         const items = chart.interpretations.filter((item) => item.topic === topic);
@@ -1282,7 +1275,7 @@ async function downloadSelectablePdf(chart, exportOptions) {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `${safeFileName(chart.input.fullName)}-bao-cao-tu-vi-van-ban-${chart.input.viewYear}-thang-${chart.input.viewMonth}-ngay-${chart.input.viewDay}.pdf`;
+    anchor.download = `${safeFileName(chart.input.fullName)}-bao-cao-tu-vi-van-ban-${reportFileSuffix(chart)}.pdf`;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
