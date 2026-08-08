@@ -227,11 +227,11 @@ try:
         count_match = re.search(rb'/Count (\d+)\b', data)
         assert count_match
         page_count = int(count_match.group(1))
-        assert 8 <= page_count <= 30
+        assert 8 <= page_count <= 48
         assert b'/MediaBox [0 0 595.28 841.89]' in data
         assert b'/MediaBox [0 0 841.89 595.28]' in data
         assert f'{page_count} trang A4' in desktop.locator('#toolbar-status').inner_text()
-        assert 10 <= page_count <= 30
+        assert 10 <= page_count <= 48
         text_pdf = ROOT / 'sample/MXiao-Tu-Vi-2026-text-final.pdf'
         with desktop.expect_download(timeout=90000) as text_info:
             desktop.locator('#print-button').click()

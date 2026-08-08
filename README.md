@@ -19,7 +19,7 @@ Web app tĩnh để lập lá số Tử Vi từ ngày sinh, giờ sinh, giới t
 - Tải một chạm PDF A4 dạng văn bản có thể tìm kiếm, chọn và sao chép chữ.
 - PDF văn bản dùng PDF 1.7, có XMP, định danh PDF/UA-1, metadata, bookmark, ngôn ngữ tài liệu, cấu trúc H1-H3, đoạn văn, hình có alt text và Artifact cho thành phần trang trí.
 - Tải một chạm PDF A4 dạng hình ảnh giữ bố cục ổn định.
-- Giới hạn tối đa 48 trang cho PDF văn bản và 30 trang cho PDF hình ảnh.
+- Giới hạn tối đa 48 trang cho cả PDF văn bản và PDF hình ảnh; nội dung dài được ngắt trang thay vì thu nhỏ chữ.
 - Chạy hoàn toàn trên trình duyệt, không yêu cầu backend.
 
 ## Chạy tại máy

@@ -19,7 +19,9 @@ for (const forbidden of ['src', 'tests', 'scripts', 'docs', 'knowledge', 'sample
 const visible = ['index.html', 'assets/app.js', 'assets/styles.css', 'assets/pdf.bundle.js'].map((file) => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 for (const phrase of ['sourceRuleId', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'engine xác định', 'phạm vi 1.0', 'địa điểm sinh', 'tọa độ', 'giờ mặt trời', 'json-button', 'copy-button']) assert.ok(!visible.includes(phrase), `Public package contains ${phrase}`);
 for (const marker of ['/*', '*/', String.fromCodePoint(0x2013), String.fromCodePoint(0x2014)]) assert.ok(!visible.includes(marker), `Public package contains forbidden marker ${marker}`);
-assert.match(visible, /MAX_PDF_PAGES = 30/);
+assert.match(visible, /MAX_PDF_PAGES = 48/);
+assert.match(visible, /PDF_BODY_FONT_SIZE = 11/);
+assert.match(visible, /CANVAS_BODY_FONT_SIZE = 23/);
 assert.match(visible, /MAX_TEXT_PDF_PAGES = 48/);
 assert.match(visible, /Lưu đại hạn/);
 assert.match(visible, /Tiểu hạn/);

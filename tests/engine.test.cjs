@@ -158,7 +158,7 @@ for (const gender of ['male', 'female']) {
         const topics = new Set(chart.interpretations.map((item) => item.topic));
         for (const topic of ['Tổng quan', '12 cung', 'Đại vận', 'Tiểu vận', `Vận hạn ${viewYear}`, 'Lưu nguyệt tháng 4', 'Lưu nhật ngày 15', 'Lưu thời giờ 7']) assert.ok(topics.has(topic));
         assert.ok(chart.interpretations.length >= 30);
-        assert.ok(chart.interpretations.every((item) => Array.isArray(item.paragraphs) && item.paragraphs.length >= 2));
+        assert.ok(chart.interpretations.every((item) => Array.isArray(item.paragraphs) && item.paragraphs.length >= 1));
         assert.ok(chart.interpretations.every((item) => !Object.prototype.hasOwnProperty.call(item, 'facts')));
         assert.ok(chart.interpretations.every((item) => item.paragraphs.every((paragraph) => paragraph.length >= 80)));
         const interpretationParagraphs = chart.interpretations.flatMap((item) => item.paragraphs);
@@ -166,6 +166,24 @@ for (const gender of ['male', 'female']) {
         assert.ok(interpretationParagraphs.every((paragraph) => !/^\s*(?:[-*•]|\d+[.)])\s+/u.test(paragraph)));
         const interpretationText = interpretationParagraphs.join(' ');
         for (const phrase of ['Căn cứ lá số', 'Chính tinh:', 'Cát tinh và trợ tinh:', 'Sát tinh và trở lực:']) assert.ok(!interpretationText.includes(phrase));
+        assert.doesNotMatch(interpretationText, /chắc chắn sẽ|ắt sẽ|số phận đã định|bắt buộc phải/iu);
+        assert.doesNotMatch(interpretationText, /Bộ sao lưu (?:năm|tháng|ngày|giờ) gồm/iu);
+        const overviewItems = chart.interpretations.filter((item) => item.topic === 'Tổng quan');
+        assert.ok(overviewItems.length >= 4 && overviewItems.length <= 6);
+        const timeline = overviewItems.find((item) => item.id === 'overview-timeline');
+        assert.ok(timeline && timeline.paragraphs.some((paragraph) => paragraph.includes('tuổi mụ')));
+        const validAgeRanges = new Set(chart.palaces.map((palace) => `${palace.decadeStart}-${palace.decadeEnd}`));
+        for (const match of timeline.body.matchAll(/(\d+)-(\d+) tuổi/gu)) assert.ok(validAgeRanges.has(`${match[1]}-${match[2]}`));
+        const palaceItems = chart.interpretations.filter((item) => item.topic === '12 cung');
+        assert.ok(new Set(palaceItems.map((item) => item.paragraphs.length)).size >= 2);
+        const openings = palaceItems.map((item) => item.paragraphs[0].toLowerCase().split(/\s+/).slice(0, 3).join(' '));
+        for (let index = 2; index < openings.length; index += 1) {
+          assert.ok(!(openings[index] === openings[index - 1] && openings[index] === openings[index - 2]));
+        }
+        assert.equal(chart.interpretations.filter((item) => item.topic === 'Mệnh - Thân').length, 1);
+        const annualLength = chart.interpretations.filter((item) => item.topic === `Vận hạn ${viewYear}`).reduce((sum, item) => sum + item.body.length, 0);
+        const monthLength = chart.interpretations.filter((item) => item.topic === 'Lưu nguyệt tháng 4').reduce((sum, item) => sum + item.body.length, 0);
+        assert.ok(monthLength < annualLength);
         assert.deepEqual(findForbiddenKey(chart), []);
         const text = JSON.stringify(chart).toLowerCase();
         for (const phrase of ['gợi ý thực hành', 'rule trace', 'dataset', 'codex', 'sourceid', 'sourcerule', 'profileversion']) assert.ok(!text.includes(phrase));

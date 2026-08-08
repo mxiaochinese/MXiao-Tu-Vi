@@ -5,7 +5,7 @@
   "description": "Web app tĩnh lập lá số Tử Vi, đối chiếu công khai 62 lá số, kiểm tra sâu 14 lá số và xuất báo cáo PDF A4 có kiểm định accessibility.",
   "scripts": {
     "build": "node scripts/build-browser-bundles.cjs",
-    "test": "node tests/calendar.test.cjs && node tests/profiles.test.cjs && node tests/patterns.test.cjs && node tests/engine.test.cjs && node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs && node tests/static.test.cjs && python3 tests/pdf_accessibility.py && python3 tests/server_smoke.py",
+    "test": "node tests/calendar.test.cjs && node tests/profiles.test.cjs && node tests/patterns.test.cjs && node tests/content-pipeline.test.cjs && node tests/engine.test.cjs && node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs && node tests/static.test.cjs && python3 tests/pdf_accessibility.py && python3 tests/server_smoke.py",
     "verify": "npm run build && npm test && npm run final-check",
     "test:e2e": "python3 tests/browser_e2e.py",
     "serve": "python3 -m http.server 4173",

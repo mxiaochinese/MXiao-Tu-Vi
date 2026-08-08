@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const moduleNames = ['constants', 'profiles', 'time-correction', 'core', 'nayin', 'brightness', 'stars', 'fortune', 'patterns', 'interpreter', 'engine'];
+const moduleNames = ['constants', 'profiles', 'time-correction', 'core', 'nayin', 'brightness', 'stars', 'fortune', 'patterns', 'content-pipeline', 'interpreter', 'engine'];
 
 function clean(source) {
   return source.replace(/^"use strict";\s*/, '').replace(/\/\/# sourceMappingURL=.*$/gm, '');

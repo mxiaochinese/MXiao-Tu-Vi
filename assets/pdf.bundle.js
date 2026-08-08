@@ -11,8 +11,14 @@ const WHITE = "#ffffff";
 const GOLD_SOFT = "#fff6dc";
 const PAGE_PORTRAIT = { width: 1240, height: 1754, widthPt: 595.28, heightPt: 841.89 };
 const PAGE_LANDSCAPE = { width: 1754, height: 1240, widthPt: 841.89, heightPt: 595.28 };
-const MAX_PDF_PAGES = 30;
+const MAX_PDF_PAGES = 48;
 const MAX_TEXT_PDF_PAGES = 48;
+const CANVAS_BODY_FONT_SIZE = 23;
+const CANVAS_BODY_LINE_HEIGHT = 32;
+const CANVAS_CARD_TITLE_SIZE = 28;
+const CANVAS_CARD_TITLE_LINE_HEIGHT = 36;
+const PDF_BODY_FONT_SIZE = 11;
+const PDF_BODY_LINE_HEIGHT = 15;
 const FONT_FAMILY = '"MXiao Gilroy", Arial, "Segoe UI", sans-serif';
 const TOPIC_ORDER = ["Tổng quan", "Mệnh - Thân", "12 cung", "Đại vận", "Tiểu vận", "Sự nghiệp", "Tài chính", "Tình cảm", "Gia đình - Quan hệ", "Sức khỏe - Nhịp sống"];
 
@@ -468,12 +474,12 @@ function chunkItemForHeight(item, maxHeight, estimate) {
 }
 
 function estimateCardHeight(context, item, width) {
-    setFont(context, 21, 800);
+    setFont(context, CANVAS_CARD_TITLE_SIZE, 800);
     const titleLines = wrapLines(context, item.title, width - 48).length;
-    setFont(context, 16, 400);
+    setFont(context, CANVAS_BODY_FONT_SIZE, 400);
     const paragraphLines = itemParagraphs(item).reduce((sum, paragraph) => sum + wrapLines(context, paragraph, width - 48).length, 0);
-    const paragraphGaps = Math.max(0, itemParagraphs(item).length - 1) * 14;
-    return 34 + titleLines * 28 + 16 + paragraphLines * 25 + paragraphGaps + 30;
+    const paragraphGaps = Math.max(0, itemParagraphs(item).length - 1) * 16;
+    return 34 + titleLines * CANVAS_CARD_TITLE_LINE_HEIGHT + 18 + paragraphLines * CANVAS_BODY_LINE_HEIGHT + paragraphGaps + 30;
 }
 
 function drawCard(context, item, x, y, width) {
@@ -485,25 +491,25 @@ function drawCard(context, item, x, y, width) {
     context.stroke();
     let cursor = y + 24;
     context.fillStyle = RED_DARK;
-    setFont(context, 21, 800);
-    cursor = drawWrappedText(context, item.title, x + 24, cursor, width - 48, 28) + 14;
+    setFont(context, CANVAS_CARD_TITLE_SIZE, 800);
+    cursor = drawWrappedText(context, item.title, x + 24, cursor, width - 48, CANVAS_CARD_TITLE_LINE_HEIGHT) + 16;
     context.fillStyle = INK;
-    setFont(context, 16, 400);
+    setFont(context, CANVAS_BODY_FONT_SIZE, 400);
     const paragraphs = itemParagraphs(item);
     paragraphs.forEach((paragraph, index) => {
-        cursor = drawWrappedText(context, paragraph, x + 24, cursor, width - 48, 25);
-        if (index < paragraphs.length - 1) cursor += 14;
+        cursor = drawWrappedText(context, paragraph, x + 24, cursor, width - 48, CANVAS_BODY_LINE_HEIGHT);
+        if (index < paragraphs.length - 1) cursor += 16;
     });
     return height;
 }
 
 function drawTopicHeading(context, topic, y) {
     context.fillStyle = RED;
-    setFont(context, 25, 800);
+    setFont(context, 34, 800);
     context.fillText(topic, 72, y);
     context.fillStyle = LINE;
-    context.fillRect(72, y + 38, context.canvas.width - 144, 1);
-    return y + 58;
+    context.fillRect(72, y + 46, context.canvas.width - 144, 1);
+    return y + 68;
 }
 
 function drawInterpretationPages(chart, selectedTopics) {
@@ -852,9 +858,9 @@ function buildSelectableOverview(chart) {
 function estimateSelectableCard(item, width) {
     const titleLines = wrapPdfText(item.title, width - 28, 13, 700).length;
     const paragraphs = itemParagraphs(item);
-    const paragraphLines = paragraphs.reduce((sum, paragraph) => sum + wrapPdfText(paragraph, width - 28, 10, 400).length, 0);
+    const paragraphLines = paragraphs.reduce((sum, paragraph) => sum + wrapPdfText(paragraph, width - 28, PDF_BODY_FONT_SIZE, 400).length, 0);
     const paragraphGaps = Math.max(0, paragraphs.length - 1) * 8;
-    return 24 + titleLines * 17 + 10 + paragraphLines * 14 + paragraphGaps + 18;
+    return 24 + titleLines * 17 + 10 + paragraphLines * PDF_BODY_LINE_HEIGHT + paragraphGaps + 18;
 }
 
 function drawSelectableCard(page, item, top, width) {
@@ -863,7 +869,7 @@ function drawSelectableCard(page, item, top, width) {
     let y = textBlock(page, item.title, 62, top + 14, width - 28, 13, 17, 700, RED_DARK) + 8;
     const paragraphs = itemParagraphs(item);
     paragraphs.forEach((paragraph, index) => {
-        y = textBlock(page, paragraph, 62, y, width - 28, 10, 14, 400, INK);
+        y = textBlock(page, paragraph, 62, y, width - 28, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK);
         if (index < paragraphs.length - 1) y += 8;
     });
     return height;
@@ -1285,7 +1291,7 @@ async function downloadSelectablePdf(chart, exportOptions) {
     return pages.length;
 }
 
-module.exports = { MAX_PDF_PAGES, MAX_TEXT_PDF_PAGES, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePages, buildSelectablePdfBlob, downloadSelectablePdf };
+module.exports = { MAX_PDF_PAGES, MAX_TEXT_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePages, buildSelectablePdfBlob, downloadSelectablePdf };
 
 global.MXiaoPdf=Object.freeze(module.exports);
 })(typeof globalThis!=='undefined'?globalThis:window);

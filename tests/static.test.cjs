@@ -30,7 +30,7 @@ for (const timezone of context.window.MXiaoTimezones) assert.doesNotThrow(() => 
 const publicText = ['index.html', 'assets/app.js', 'src/pdf/client-pdf.cjs'].map((file) => fs.readFileSync(path.join(root, file), 'utf8')).join('\n');
 for (const phrase of ['sourceRuleId', 'sourceIds', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'JSON', 'engine xác định', 'phạm vi 1.0', 'ghi chú nội bộ']) assert.ok(!publicText.includes(phrase), `Public content contains ${phrase}`);
 for (const pattern of [/fetch\s*\(/, /XMLHttpRequest/, /WebSocket\s*\(/, /sendBeacon\s*\(/, /localStorage/, /sessionStorage/]) assert.doesNotMatch(publicText, pattern);
-assert.match(publicText, /MAX_PDF_PAGES = 30/);
+assert.match(publicText, /MAX_PDF_PAGES = 48/);
 assert.match(publicText, /MAX_TEXT_PDF_PAGES = 48/);
 assert.match(publicText, /downloadSelectablePdf/);
 assert.doesNotMatch(publicText, /maxLines/);
@@ -39,6 +39,8 @@ assert.match(publicText, /interpretationParagraphs/);
 assert.doesNotMatch(publicText, /report-facts|Căn cứ lá số|<ul>\$\{item\.facts/);
 assert.match(publicText, /normalizeExportOptions/);
 const pdfModule = require(path.join(root, 'src/pdf/client-pdf.cjs'));
+assert.equal(pdfModule.PDF_BODY_FONT_SIZE, 11);
+assert.ok(pdfModule.CANVAS_BODY_FONT_SIZE * 595.28 / 1240 >= 10.5);
 const optionChart = { input: { viewYear: 2026, viewMonth: 4, viewDay: 15, viewHourBranch: 7 }, interpretations: [{ topic: 'Tổng quan' }, { topic: 'Đại vận' }, { topic: 'Tiểu vận' }, { topic: 'Vận hạn 2026' }, { topic: 'Lưu nguyệt tháng 4' }, { topic: 'Lưu nhật ngày 15' }, { topic: 'Lưu thời giờ 7' }, { topic: 'Tài chính' }] };
 const fortuneOptions = pdfModule.normalizeExportOptions(optionChart, { cover: true, overview: true, chart: false, topics: ['Đại vận', 'Tiểu vận', 'Vận hạn 2026', 'Lưu nguyệt tháng 4', 'Lưu nhật ngày 15', 'Lưu thời giờ 7'] });
 assert.equal(fortuneOptions.chart, false);
