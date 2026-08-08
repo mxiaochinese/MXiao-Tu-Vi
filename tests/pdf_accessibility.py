@@ -7,11 +7,11 @@ from pypdf import PdfReader
 from pypdf.generic import IndirectObject, ArrayObject, DictionaryObject
 
 ROOT = Path(__file__).resolve().parents[1]
-PDF = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'sample' / 'MXiao-Tu-Vi-2026-text-final.pdf'
-EXPECTED_TITLE = sys.argv[2] if len(sys.argv) > 2 else 'Lá số Tử Vi và luận giải chi tiết'
-EXPECTED_AUTHOR = sys.argv[3] if len(sys.argv) > 3 else 'MXiao Tử Vi'
-EXPECTED_HEADING = sys.argv[4] if len(sys.argv) > 4 else 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT'
-MIN_TEXT_LENGTH = int(sys.argv[5]) if len(sys.argv) > 5 else 50000
+PDF = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'sample' / 'MXiao-Ban-Do-Sao-final.pdf'
+EXPECTED_TITLE = sys.argv[2] if len(sys.argv) > 2 else 'Bản đồ sao cá nhân'
+EXPECTED_AUTHOR = sys.argv[3] if len(sys.argv) > 3 else 'MXiao Huyền Học'
+EXPECTED_HEADING = sys.argv[4] if len(sys.argv) > 4 else 'BẢN ĐỒ SAO CÁ NHÂN'
+MIN_TEXT_LENGTH = int(sys.argv[5]) if len(sys.argv) > 5 else 1500
 assert PDF.exists(), f'Missing {PDF}'
 data = PDF.read_bytes()
 assert data.startswith(b'%PDF-1.7')

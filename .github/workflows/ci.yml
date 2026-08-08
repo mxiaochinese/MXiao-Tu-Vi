@@ -21,10 +21,8 @@ jobs:
         run: npm run codex-check
       - uses: actions/upload-artifact@v4
         with:
-          name: generated-text-pdf
-          path: |
-            sample/MXiao-Tu-Vi-2026-text-final.pdf
-            sample/MXiao-Ban-Do-Sao-final.pdf
+          name: generated-pdf
+          path: sample/MXiao-Ban-Do-Sao-final.pdf
 
   pdfua:
     needs: test
@@ -33,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: generated-text-pdf
+          name: generated-pdf
           path: sample
       - name: Validate PDF/UA-1 with veraPDF 1.30.2
         run: bash scripts/verapdf-check.sh
@@ -41,6 +39,4 @@ jobs:
         if: always()
         with:
           name: verapdf-report
-          path: |
-            verapdf-report.xml
-            verapdf-astrology-report.xml
+          path: verapdf-report.xml

@@ -1,5 +1,11 @@
 # Changelog
 
+## Giao diện báo cáo trực tiếp
+
+- Gỡ PDF văn bản khỏi giao diện Tử Vi; mỗi công cụ chỉ còn một nút tải PDF trực tiếp.
+- Lược bỏ các câu mang giọng ghi chú kỹ thuật, ghi chú triển khai hoặc đối thoại nội bộ khỏi giao diện và PDF.
+- Rút gọn phần giới thiệu và hướng dẫn thành nội dung dành trực tiếp cho người xem.
+
 ## MXiao Huyền Học - Bản đồ sao
 
 - Mở rộng ứng dụng thành hai công cụ độc lập: Tử Vi và Bản đồ sao; giữ nguyên công thức và dữ liệu Tử Vi hiện có.

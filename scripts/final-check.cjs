@@ -22,7 +22,7 @@ for (const marker of ['/*', '*/', String.fromCodePoint(0x2013), String.fromCodeP
 assert.match(visible, /MAX_PDF_PAGES = 48/);
 assert.match(visible, /PDF_BODY_FONT_SIZE = 11/);
 assert.match(visible, /CANVAS_BODY_FONT_SIZE = 23/);
-assert.match(visible, /MAX_TEXT_PDF_PAGES = 48/);
+assert.doesNotMatch(visible, /MAX_TEXT_PDF_PAGES|downloadSelectablePdf|PDF văn bản|Xử lý riêng tư trên thiết bị|đã lựa chọn trước khi xuất PDF/i);
 assert.match(visible, /Lưu đại hạn/);
 assert.match(visible, /Tiểu hạn/);
 assert.match(visible, /Vận hạn/);
@@ -35,7 +35,6 @@ assert.match(visible, /Phương pháp lập lá số/);
 assert.match(visible, /Tân Biên/);
 assert.match(visible, /Áo Bí/);
 assert.match(visible, /pdfuaid:part/);
-assert.match(visible, /downloadSelectablePdf/);
 assert.match(visible, /downloadAstrologyPdf/);
 assert.match(visible, /Bản đồ sao cá nhân/);
 const engineBundle = fs.readFileSync(path.join(dist, 'assets/engine.bundle.js'), 'utf8');

@@ -12,7 +12,6 @@ const GOLD_SOFT = "#fff6dc";
 const PAGE_PORTRAIT = { width: 1240, height: 1754, widthPt: 595.28, heightPt: 841.89 };
 const PAGE_LANDSCAPE = { width: 1754, height: 1240, widthPt: 841.89, heightPt: 595.28 };
 const MAX_PDF_PAGES = 48;
-const MAX_TEXT_PDF_PAGES = 48;
 const CANVAS_BODY_FONT_SIZE = 23;
 const CANVAS_BODY_LINE_HEIGHT = 32;
 const CANVAS_CARD_TITLE_SIZE = 28;
@@ -215,7 +214,7 @@ function drawCover(chart) {
     context.stroke();
     context.fillStyle = WHITE;
     setFont(context, 18, 650);
-    drawWrappedText(context, "Báo cáo được trình bày theo những nội dung đã lựa chọn trước khi xuất PDF.", 126, 1280, 980, 30);
+    drawWrappedText(context, "Lá số tổng hợp mệnh bàn, vận hạn và luận giải Tử Vi.", 126, 1280, 980, 30);
     context.globalAlpha = 0.75;
     setFont(context, 14, 400);
     drawWrappedText(context, "Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.", 126, 1380, 980, 24);
@@ -781,182 +780,11 @@ function selectableHeader(page, title, subtitle = "") {
     return y + 22;
 }
 
-function selectableFooter(page, chart, number, total) {
-    const top = page.heightPt - 34;
-    lineElement(page, 48, top - 10, page.widthPt - 48, top - 10, LINE, 0.6);
-    textElement(page, `MXiao Tử Vi | ${chart.input.fullName || "Người xem"}`, 48, top + 3, 8, 400, MUTED, "Artifact");
-    const label = `${number}/${total}`;
-    textElement(page, label, page.widthPt - 48 - measurePdfText(label, 8, 400), top + 3, 8, 400, MUTED, "Artifact");
-}
-
 function addSummaryLine(page, label, value, top, accent = false) {
     rectElement(page, 48, top, page.widthPt - 96, 54, accent ? RED_SOFT : "#ffffff", accent ? "#e3aab0" : LINE, 0.8);
     textElement(page, label.toUpperCase(), 62, top + 19, 8, 700, MUTED);
     textBlock(page, value, 160, top + 10, page.widthPt - 222, 11, 15, 700, accent ? RED_DARK : INK);
     return top + 64;
-}
-
-function buildSelectableCover(chart) {
-    const page = newTextPage("portrait");
-    page.bookmark = "Bìa báo cáo";
-    rectElement(page, 0, 0, page.widthPt, page.heightPt, RED_DARK);
-    textElement(page, "MXIAO TỬ VI", 54, 72, 14, 700, WHITE, "Artifact");
-    textBlock(page, "LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT", 54, 155, page.widthPt - 108, 34, 43, 700, WHITE);
-    textElement(page, chart.input.fullName || "Người xem", 54, 330, 22, 700, WHITE);
-    const meta = [
-        `Dương lịch: ${formatDate(chart.normalized.solar)}`,
-        `Âm lịch: ${formatLunar(chart.normalized.lunar)}`,
-        `Giờ sinh: ${chart.normalized.timeDisplay || chart.normalized.adjustedTime}`,
-        `Múi giờ: ${chart.input.timezone}`,
-        `Mệnh: ${chart.birthElement} | ${chart.bureau.label}`,
-        `Phạm vi: ${viewScopeLabel(chart)}`
-    ];
-    meta.forEach((line, index) => textElement(page, line, 54, 405 + index * 27, 11, 400, WHITE));
-    rectElement(page, 54, 610, page.widthPt - 108, 105, "#8d1019", "#d6747d", 0.8);
-    textBlock(page, "Báo cáo được trình bày theo những nội dung đã lựa chọn trước khi xuất PDF.", 72, 632, page.widthPt - 144, 12, 18, 700, WHITE);
-    textBlock(page, "Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.", 72, 680, page.widthPt - 144, 9, 14, 400, WHITE);
-    return page;
-}
-
-function buildSelectableOverview(chart) {
-    const life = chart.palaces.find((item) => item.id === chart.lifePalace);
-    const body = chart.palaces.find((item) => item.id === chart.bodyPalace);
-    const rows = [
-        ["Dương lịch", formatDate(chart.normalized.solar), false],
-        ["Âm lịch", formatLunar(chart.normalized.lunar), false],
-        ["Giờ sinh", `${chart.normalized.timeDisplay || chart.normalized.adjustedTime} | ${chart.input.timezone}`, false],
-        ["Phương pháp", chart.input.calculationMethod, false],
-        ["Mệnh và Cục", `${chart.birthElement} - ${chart.bureau.label}`, false],
-        ["Cung Mệnh", `${life.name} tại ${life.branch}`, false],
-        ["Cung Thân", `${body.name} tại ${body.branch}`, false],
-        ["Phạm vi", viewScopeLabel(chart), true],
-        ...fortuneRows(chart).map(([label, value]) => [label, value, true])
-    ];
-    const pages = [];
-    let page = newTextPage("portrait");
-    let y = selectableHeader(page, "Tổng quan lá số", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
-    const bottom = page.heightPt - 58;
-    for (const [label, value, accent] of rows) {
-        if (y + 54 > bottom) {
-            pages.push(page);
-            page = newTextPage("portrait");
-            y = selectableHeader(page, "Tổng quan vận hạn", `Tiếp theo - ${viewScopeLabel(chart)}.`);
-        }
-        y = addSummaryLine(page, label, value, y, accent);
-    }
-    pages.push(page);
-    return pages;
-}
-
-function estimateSelectableCard(item, width) {
-    const titleLines = wrapPdfText(item.title, width - 28, 13, 700).length;
-    const paragraphs = itemParagraphs(item);
-    const paragraphLines = paragraphs.reduce((sum, paragraph) => sum + wrapPdfText(paragraph, width - 28, PDF_BODY_FONT_SIZE, 400).length, 0);
-    const paragraphGaps = Math.max(0, paragraphs.length - 1) * 8;
-    return 24 + titleLines * 17 + 10 + paragraphLines * PDF_BODY_LINE_HEIGHT + paragraphGaps + 18;
-}
-
-function drawSelectableCard(page, item, top, width) {
-    const height = estimateSelectableCard(item, width);
-    rectElement(page, 48, top, width, height, "#ffffff", LINE, 0.8);
-    let y = textBlock(page, item.title, 62, top + 14, width - 28, 13, 17, 700, RED_DARK) + 8;
-    const paragraphs = itemParagraphs(item);
-    paragraphs.forEach((paragraph, index) => {
-        y = textBlock(page, paragraph, 62, y, width - 28, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK);
-        if (index < paragraphs.length - 1) y += 8;
-    });
-    return height;
-}
-
-function buildSelectableInterpretationPages(chart, selectedTopics) {
-    const pages = [];
-    const order = topicOrder(chart).filter((topic) => selectedTopics.includes(topic));
-    if (!order.length) return pages;
-    let page = newTextPage("portrait");
-    let y = selectableHeader(page, "Luận giải chi tiết", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
-    const bottom = page.heightPt - 62;
-    for (const topic of order) {
-        const items = chart.interpretations.filter((item) => item.topic === topic);
-        if (!items.length) continue;
-        const topicHeight = 34;
-        const firstHeight = estimateSelectableCard(items[0], page.widthPt - 96);
-        if (y + topicHeight + firstHeight > bottom) {
-            pages.push(page);
-            page = newTextPage("portrait");
-            y = selectableHeader(page, "Luận giải chi tiết", `Tiếp theo - ${topic}`);
-        }
-        textElement(page, topic, 48, y + 18, 16, 700, RED);
-        lineElement(page, 48, y + 28, page.widthPt - 48, y + 28, LINE, 0.6);
-        y += topicHeight;
-        for (const item of items) {
-            const chunks = chunkItemForHeight(item, bottom - 110, (candidate) => estimateSelectableCard(candidate, page.widthPt - 96));
-            for (const chunk of chunks) {
-                const height = estimateSelectableCard(chunk, page.widthPt - 96);
-                if (y + height > bottom) {
-                    pages.push(page);
-                    page = newTextPage("portrait");
-                    y = selectableHeader(page, "Luận giải chi tiết", `Tiếp theo - ${topic}`);
-                    textElement(page, topic, 48, y + 18, 16, 700, RED);
-                    lineElement(page, 48, y + 28, page.widthPt - 48, y + 28, LINE, 0.6);
-                    y += topicHeight;
-                }
-                y += drawSelectableCard(page, chunk, y, page.widthPt - 96) + 10;
-            }
-        }
-        y += 8;
-    }
-    pages.push(page);
-    return pages;
-}
-
-function buildSelectableComparison(comparison) {
-    const pages = [];
-    let page = newTextPage("portrait");
-    let y = selectableHeader(page, "So sánh hai khung giờ sinh", "Đối chiếu những cấu trúc thay đổi giữa hai lá số.");
-    y = addSummaryLine(page, "Khung giờ A", comparison.labelA, y, true);
-    y = addSummaryLine(page, "Khung giờ B", comparison.labelB, y, true);
-    y = addSummaryLine(page, "Khác biệt chính", `${comparison.changedCount} hạng mục`, y, true);
-    y += 6;
-    const bottom = page.heightPt - 54;
-    for (const row of comparison.rows) {
-        const aLines = wrapPdfText(row.valueA, 170, 8.5, 400);
-        const bLines = wrapPdfText(row.valueB, 170, 8.5, 400);
-        const labelLines = wrapPdfText(row.label, 120, 8.5, 700);
-        const height = Math.max(44, 18 + Math.max(aLines.length, bLines.length, labelLines.length) * 12);
-        if (y + height > bottom) {
-            pages.push(page);
-            page = newTextPage("portrait");
-            y = selectableHeader(page, "So sánh hai khung giờ sinh", "Tiếp theo - các cấu trúc còn lại.");
-        }
-        rectElement(page, 48, y, page.widthPt - 96, height, row.changed ? RED_SOFT : "#ffffff", row.changed ? "#e3aab0" : LINE, 0.7);
-        labelLines.forEach((line, index) => textElement(page, line, 60, y + 18 + index * 12, 8.5, 700, RED_DARK));
-        aLines.forEach((line, index) => textElement(page, line, 190, y + 18 + index * 12, 8.5, 400, INK));
-        bLines.forEach((line, index) => textElement(page, line, 385, y + 18 + index * 12, 8.5, 400, INK));
-        y += height + 6;
-    }
-    pages.push(page);
-    return pages;
-}
-
-function buildSelectablePages(chart, exportOptions) {
-    const options = normalizeExportOptions(chart, exportOptions);
-    const pages = [];
-    if (options.cover) pages.push(buildSelectableCover(chart));
-    if (options.overview) pages.push(...buildSelectableOverview(chart));
-    if (options.chart) {
-        const page = newTextPage("landscape");
-        page.bookmark = "Lá số Tử Vi";
-        page.imageCanvas = drawChartPage(chart);
-        pages.push(page);
-    }
-    const detailedTopics = options.overview ? ["Tổng quan", ...options.topics] : options.topics;
-    pages.push(...buildSelectableInterpretationPages(chart, detailedTopics));
-    if (options.comparison) pages.push(...buildSelectableComparison(options.comparison));
-    if (pages.length > MAX_TEXT_PDF_PAGES) throw new Error(`Báo cáo văn bản có ${pages.length} trang, vượt giới hạn ${MAX_TEXT_PDF_PAGES} trang A4.`);
-    pages.forEach((page, index) => {
-        if (!(options.cover && index === 0) && !page.imageCanvas) selectableFooter(page, chart, index + 1, pages.length);
-    });
-    return pages;
 }
 
 function rasterizeType3Glyph(character, weight) {
@@ -1012,7 +840,7 @@ class PdfStore {
 function buildType3Font(store, characters, weight) {
     const chars = Array.from(new Set(characters)).filter((char) => char !== "\n" && char !== "\r");
     if (!chars.includes(" ")) chars.unshift(" ");
-    if (chars.length > 255) throw new Error("Báo cáo sử dụng quá nhiều ký tự khác nhau để tạo PDF văn bản.");
+    if (chars.length > 255) throw new Error("Báo cáo sử dụng quá nhiều ký tự khác nhau.");
     const codeMap = new Map();
     const widths = [];
     const charProcs = [];
@@ -1277,21 +1105,6 @@ async function buildSelectablePdfBlob(pages, metadata = {}) {
     return new Blob([serializePdfStore(store, catalogId, infoId)], { type: "application/pdf" });
 }
 
-async function downloadSelectablePdf(chart, exportOptions) {
-    await ensureFontsReady();
-    const pages = buildSelectablePages(chart, exportOptions);
-    const blob = await buildSelectablePdfBlob(pages);
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `${safeFileName(chart.input.fullName)}-bao-cao-tu-vi-van-ban-${reportFileSuffix(chart)}.pdf`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 3000);
-    return pages.length;
-}
-
 function astrologyPositionLabel(item) {
     return `${item.sign.name} ${Math.floor(item.degree)}°${String(Math.round((item.degree - Math.floor(item.degree)) * 60)).padStart(2, "0")}′${item.retrograde ? " ℞" : ""}`;
 }
@@ -1320,8 +1133,8 @@ function buildAstrologyCover(chart) {
     ];
     meta.forEach((line, index) => textElement(page, line, 54, 400 + index * 27, 11, 400, WHITE));
     rectElement(page, 54, 600, page.widthPt - 108, 118, "#8d1019", "#d6747d", 0.8);
-    textBlock(page, chart.status === "exact" ? "Báo cáo được tính từ thời điểm sinh chính xác do người dùng cung cấp." : "Báo cáo giới hạn chỉ dùng các yếu tố ổn định trong khoảng giờ được khảo sát.", 72, 622, page.widthPt - 144, 11, 17, 700, WHITE);
-    textBlock(page, "Phần luận giải thuộc hệ thống Chiêm tinh Tây phương và chỉ dùng để tham khảo, tự chiêm nghiệm.", 72, 674, page.widthPt - 144, 9, 14, 400, WHITE);
+    textBlock(page, "Chiêm tinh Tây phương", 72, 622, page.widthPt - 144, 11, 17, 700, WHITE);
+    textBlock(page, "Nội dung tham khảo và tự chiêm nghiệm.", 72, 674, page.widthPt - 144, 9, 14, 400, WHITE);
     return page;
 }
 
@@ -1335,7 +1148,7 @@ function astrologyOverviewParagraphs(chart) {
         const ascPosition = asc == null ? null : { signIndex: Math.floor(((asc % 360) + 360) % 360 / 30) };
         const signNames = ["Bạch Dương","Kim Ngưu","Song Tử","Cự Giải","Sư Tử","Xử Nữ","Thiên Bình","Bọ Cạp","Nhân Mã","Ma Kết","Bảo Bình","Song Ngư"];
         result.push(`Cung Mọc nằm tại ${signNames[ascPosition.signIndex]}, thể hiện cách bạn tiếp cận trải nghiệm mới; Thiên Đỉnh và 12 Nhà bổ sung các lĩnh vực đời sống được nhấn mạnh.`);
-    } else result.push("Do giờ sinh chưa đủ chắc chắn, phần luận giải tập trung vào các vị trí hành tinh ổn định trong khoảng giờ đã nhập.");
+    } else result.push("Giờ sinh chưa chắc chắn nên Cung Mọc, Thiên Đỉnh và 12 Nhà không xuất hiện trong báo cáo.");
     if (chart.patterns.length) result.push(`Các hành tinh tạo thành cấu trúc nổi bật: ${chart.patterns.map((item) => item.name).join(", ")}.`);
     const tight = chart.aspects.slice(0, 5);
     if (tight.length) result.push(`Các góc hợp gần nhất gồm ${tight.map((item) => `${item.aName} ${item.name.toLowerCase()} ${item.bName} (${item.orb.toFixed(2)}°)`).join("; ")}.`);
@@ -1344,7 +1157,7 @@ function astrologyOverviewParagraphs(chart) {
 
 function buildAstrologyOverview(chart) {
     const page = newTextPage("portrait");
-    let y = selectableHeader(page, "Tổng quan Bản đồ sao", chart.status === "exact" ? "Dữ liệu giờ sinh chính xác." : "Bản đồ giới hạn do giờ sinh chưa chắc chắn.");
+    let y = selectableHeader(page, "Tổng quan Bản đồ sao", chart.status === "exact" ? "Mặt Trời, Mặt Trăng, Cung Mọc và Thiên Đỉnh" : "Các vị trí hành tinh chính");
     const sun = chart.planets.find((item) => item.id === "sun");
     const moon = chart.planets.find((item) => item.id === "moon");
     if (sun) y = addSummaryLine(page, "Mặt Trời", astrologyPositionLabel(sun), y, true);
@@ -1399,7 +1212,7 @@ function buildAstrologySelectablePages(chart, chartCanvas, options = {}) {
     for (const kind of ["planets", "aspects", "houses", "balance"]) {
         if (selected.has(kind) && (kind !== "houses" || chart.houses.length)) pages.push(...buildAstrologyRowsPages(chart, kind));
     }
-    if (pages.length > MAX_TEXT_PDF_PAGES) throw new Error(`Báo cáo Bản đồ sao có ${pages.length} trang, vượt giới hạn ${MAX_TEXT_PDF_PAGES} trang A4.`);
+    if (pages.length > MAX_PDF_PAGES) throw new Error(`Báo cáo Bản đồ sao có ${pages.length} trang, vượt giới hạn ${MAX_PDF_PAGES} trang A4.`);
     pages.forEach((page, index) => { if (index && !page.imageCanvas) astrologyFooter(page, chart, index + 1, pages.length); });
     return pages;
 }
@@ -1419,7 +1232,7 @@ async function downloadAstrologyPdf(chart, chartCanvas, options = {}) {
     return pages.length;
 }
 
-module.exports = { MAX_PDF_PAGES, MAX_TEXT_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePages, buildSelectablePdfBlob, downloadSelectablePdf, buildAstrologySelectablePages, downloadAstrologyPdf };
+module.exports = { MAX_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, downloadChartPdf, buildSelectablePdfBlob, buildAstrologySelectablePages, downloadAstrologyPdf };
 
 global.MXiaoPdf=Object.freeze(module.exports);
 })(typeof globalThis!=='undefined'?globalThis:window);

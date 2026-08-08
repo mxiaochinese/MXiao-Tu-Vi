@@ -2,7 +2,7 @@
   "name": "mxiao-huyen-hoc",
   "version": "1.11.0",
   "private": true,
-  "description": "Web app tĩnh MXiao Huyền Học gồm Tử Vi và Bản đồ sao cá nhân, xử lý dữ liệu sinh ngay trên thiết bị.",
+  "description": "Web app tĩnh MXiao Huyền Học gồm Tử Vi và Bản đồ sao cá nhân.",
   "scripts": {
     "build": "node scripts/build-browser-bundles.cjs",
     "test": "node tests/calendar.test.cjs && node tests/profiles.test.cjs && node tests/patterns.test.cjs && node tests/content-pipeline.test.cjs && node tests/engine.test.cjs && node tests/astrology.test.cjs && node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs && node tests/static.test.cjs && npm run test:pdf && python3 tests/server_smoke.py",
@@ -12,7 +12,7 @@
     "final-check": "node scripts/final-check.cjs",
     "test:patterns": "node tests/patterns.test.cjs",
     "test:public": "node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs",
-    "test:pdf": "python3 tests/pdf_accessibility.py && python3 tests/pdf_accessibility.py sample/MXiao-Ban-Do-Sao-final.pdf 'Bản đồ sao cá nhân' 'MXiao Huyền Học' 'BẢN ĐỒ SAO CÁ NHÂN' 1500",
+    "test:pdf": "python3 tests/pdf_accessibility.py sample/MXiao-Ban-Do-Sao-final.pdf 'Bản đồ sao cá nhân' 'MXiao Huyền Học' 'BẢN ĐỒ SAO CÁ NHÂN' 1500",
     "test:pdfua": "bash scripts/verapdf-check.sh",
     "codex-check": "npm run build && npm run test:e2e && npm test && npm run final-check"
   },

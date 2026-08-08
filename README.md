@@ -18,11 +18,9 @@ Web app tĩnh gồm hai công cụ độc lập: Tử Vi và Bản đồ sao Tâ
 - Luận giải tổng quan, Mệnh - Thân, 12 cung và từng lớp vận hạn bằng các đoạn văn phân tích liên kết chính tinh, phụ tinh, Tứ Hóa, tam phương và cung xung chiếu.
 - Nhận diện các nhóm cách cục cốt lõi, giáp cung và mạng kích hoạt nhiều tầng.
 - So sánh hai khung giờ sinh để nhận diện phần cấu trúc lá số thay đổi.
-- Chọn từng phần cần xuất PDF hoặc dùng cấu hình nhanh: Đầy đủ, Tóm tắt, Vận hạn, 12 cung.
-- Tải một chạm PDF A4 dạng văn bản có thể tìm kiếm, chọn và sao chép chữ.
-- PDF văn bản dùng PDF 1.7, có XMP, định danh PDF/UA-1, metadata, bookmark, ngôn ngữ tài liệu, cấu trúc H1-H3, đoạn văn, hình có alt text và Artifact cho thành phần trang trí.
-- Tải một chạm PDF A4 dạng hình ảnh giữ bố cục ổn định.
-- Giới hạn tối đa 48 trang cho cả PDF văn bản và PDF hình ảnh; nội dung dài được ngắt trang thay vì thu nhỏ chữ.
+- Chọn từng phần cần xuất PDF: Đầy đủ, Tóm tắt, Vận hạn hoặc 12 cung.
+- Tải trực tiếp một báo cáo PDF A4 giữ bố cục ổn định.
+- Giới hạn tối đa 48 trang; nội dung dài được ngắt trang thay vì thu nhỏ chữ.
 - Chạy hoàn toàn trên trình duyệt, không yêu cầu backend.
 
 ### Bản đồ sao
@@ -64,7 +62,7 @@ Báo cáo chi tiết nằm tại `docs/PUBLIC_VALIDATION_REPORT.md`.
 npm run test:pdf
 ```
 
-Bài kiểm tra cục bộ xác nhận cả PDF Tử Vi và PDF Bản đồ sao dùng PDF 1.7, XMP, định danh PDF/UA-1, ngôn ngữ, cây cấu trúc, thứ tự tab, alt text, font Unicode nhúng, toàn vẹn MCID - ParentTree, thứ tự heading và khả năng trích xuất tiếng Việt. Quy trình CI dùng veraPDF 1.30.2 với profile `ua1` được mô tả tại `docs/PDF_ACCESSIBILITY.md`. Chạy cục bộ bằng `npm run test:pdfua` khi máy có Docker.
+Bài kiểm tra cục bộ xác nhận PDF Bản đồ sao dùng PDF 1.7, XMP, định danh PDF/UA-1, ngôn ngữ, cây cấu trúc, thứ tự tab, alt text, font Unicode nhúng, toàn vẹn MCID - ParentTree, thứ tự heading và khả năng trích xuất tiếng Việt. Quy trình CI dùng veraPDF 1.30.2 với profile `ua1` được mô tả tại `docs/PDF_ACCESSIBILITY.md`. Chạy cục bộ bằng `npm run test:pdfua` khi máy có Docker.
 
 ## Kiểm thử trình duyệt
 

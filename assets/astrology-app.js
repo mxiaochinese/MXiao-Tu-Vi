@@ -4,7 +4,7 @@
   const E = window.MXiaoAstrologyEngine;
   const P = window.MXiaoPdf;
   const LOCATIONS = Array.isArray(window.MXiaoAstrologyLocations) ? window.MXiaoAstrologyLocations : [];
-  if (!E || !P) throw new Error("Không thể khởi tạo công cụ Bản đồ sao.");
+  if (!E || !P) throw new Error("Bản đồ sao tạm thời không khả dụng.");
 
   const state = { activeTool: "tu-vi", timeAccuracy: "exact", chart: null, location: null };
   const $ = (id) => document.getElementById(id);
@@ -37,10 +37,10 @@
     $("astro-exact-field").hidden = mode !== "exact";
     $("astro-range-field").hidden = mode !== "range";
     $("astro-time-note").textContent = mode === "unknown"
-      ? "Hệ thống sẽ quét toàn bộ ngày sinh; Cung Mọc, Thiên Đỉnh và 12 Nhà sẽ không được tạo."
+      ? "Không hiển thị Cung Mọc, Thiên Đỉnh và 12 Nhà khi không biết giờ sinh."
       : mode === "range"
-        ? "Hệ thống quét khoảng giờ theo bước 5 phút và chỉ giữ những yếu tố ổn định."
-        : "Giờ và phút được quy đổi bằng lịch sử múi giờ của nơi sinh.";
+        ? "Chỉ hiển thị những vị trí ổn định trong khoảng giờ đã nhập."
+        : "Sử dụng giờ và phút đã nhập.";
   }
 
   function renderLocationOptions(query = "") {
@@ -60,7 +60,7 @@
     $("astro-location-search").value = location.label;
     $("astro-location-results").value = location.id;
     $("astro-location-results").hidden = true;
-    $("astro-location-summary").textContent = `Đã chọn ${location.label}. Dữ liệu sinh được xử lý riêng tư trên thiết bị.`;
+    $("astro-location-summary").textContent = `${location.label} - ${location.timezone}`;
   }
 
   function getInput() {

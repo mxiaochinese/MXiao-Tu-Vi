@@ -401,14 +401,12 @@
       else state.pdfSections.delete(input.dataset.pdfSection);
       state.pdfPreset = "custom";
       renderPdfOptions();
-      renderPrintReport();
     }));
     document.querySelectorAll("[data-pdf-preset]").forEach((button) => button.classList.toggle("active", button.dataset.pdfPreset === state.pdfPreset));
     const count = selectedPdfCount();
     const availableCount = definitions.filter((item) => item.available).length;
     $("pdf-options-summary").textContent = count ? `Đã chọn ${count}/${availableCount} phần khả dụng cho báo cáo.` : "Hãy chọn ít nhất một phần để xuất PDF.";
     $("pdf-button").disabled = count === 0;
-    $("print-button").disabled = count === 0;
   }
 
   function applyPdfPreset(name) {
@@ -418,7 +416,6 @@
     if (name === "full" && state.comparison) state.pdfSections.add("so_sanh_gio");
     state.pdfPreset = name;
     renderPdfOptions();
-    renderPrintReport();
   }
   function branchMidpoint(branch) {
     return branch === 1 ? { hour: 0, minute: 0 } : { hour: branch * 2 - 2, minute: 0 };
@@ -496,7 +493,6 @@
       state.pdfPreset = "custom";
       renderHourComparison();
       renderPdfOptions();
-      renderPrintReport();
       status("Đã tạo bảng so sánh hai khung giờ sinh.");
     } catch (error) {
       showError(error instanceof Error ? error.message : "Không thể so sánh giờ sinh.");
@@ -541,47 +537,10 @@
     $("report-root").querySelectorAll("[data-topic]").forEach((button) => button.addEventListener("click", () => { state.topic = button.dataset.topic; renderReport(); }));
   }
 
-  function renderPrintPalace(palace) {
-    const major = palace.stars.filter((star) => star.group === "major").map((star) => `${star.name}${star.brightness ? ` (${star.brightness})` : ""}`).join(", ") || "Vô chính diệu";
-    const other = palace.stars.filter((star) => !["major", "cycle"].includes(star.group)).slice(0, 12).map((star) => star.name).join(" · ");
-    const moving = [...palace.annualStars, ...palace.monthlyStars].map((star) => star.name).join(" · ");
-    return `<article class="print-palace" style="grid-column:${GRID_POSITION[palace.id][0]};grid-row:${GRID_POSITION[palace.id][1]}"><header><strong>${esc(palace.name)}${palace.isBody ? " - Thân" : ""}</strong><span>${esc(palace.branch)}</span></header><small>${esc(palace.element)} | ${palace.decadeStart}-${palace.decadeEnd} tuổi</small><b>${esc(major)}</b><p>${esc(other)}</p>${moving ? `<em>${esc(moving)}</em>` : ""}<footer>${esc(palaceFlags(palace).join(" · "))}</footer></article>`;
-  }
-
-  function renderPrintReport() {
-    const chart = state.chart;
-    if (!chart) return;
-    const options = getPdfExportOptions();
-    const life = chart.palaces.find((item) => item.id === chart.lifePalace);
-    const body = chart.palaces.find((item) => item.id === chart.bodyPalace);
-    const sections = [];
-    const printScope = viewScopeLabel(chart);
-    if (options.cover) sections.push(`<article class="print-page print-cover"><div class="print-brand">MXIAO TỬ VI</div><h1>LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT</h1><h2>${esc(chart.input.fullName)}</h2><dl><div><dt>Dương lịch</dt><dd>${chart.normalized.solar.day}/${chart.normalized.solar.month}/${chart.normalized.solar.year}</dd></div><div><dt>Âm lịch</dt><dd>${chart.normalized.lunar.day}/${chart.normalized.lunar.month}/${chart.normalized.lunar.year}${chart.normalized.lunar.leap ? " nhuận" : ""}</dd></div><div><dt>Giờ sinh</dt><dd>${esc(chart.normalized.timeDisplay || chart.normalized.adjustedTime)}</dd></div><div><dt>Múi giờ</dt><dd>${esc(chart.input.timezone)}</dd></div><div><dt>Phương pháp</dt><dd>${esc(chart.input.calculationMethod)}</dd></div><div><dt>Phạm vi</dt><dd>${esc(printScope)}</dd></div></dl><p>Nội dung thuộc hệ thống Tử Vi truyền thống và chỉ dùng để tham khảo.</p></article>`);
-    if (options.overview) {
-      const overviewRows = [["Mệnh và Cục", `${chart.birthElement} - ${chart.bureau.label}`], ["Cung Mệnh", `${life.name} tại ${life.branch}`], ["Cung Thân", `${body.name} tại ${body.branch}`], ["Phương pháp", chart.input.calculationMethod], ["Phạm vi", printScope], ...fortuneSummary(chart)];
-      sections.push(`<article class="print-page"><header class="print-page-header"><span>MXiao Tử Vi</span><h2>Tổng quan lá số</h2></header><div class="print-summary-grid">${overviewRows.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</div>${chart.interpretations.filter((item) => item.topic === "Tổng quan").map(renderReportCard).join("")}</article>`);
-    }
-    if (options.chart) sections.push(`<article class="print-page print-chart-page"><header class="print-page-header"><span>${esc(printScope)}</span><h2>Lá số Tử Vi</h2></header><div class="print-chart-grid">${chart.palaces.map(renderPrintPalace).join("")}<section class="print-chart-center"><h3>${esc(chart.input.fullName)}</h3><p>Mệnh ${esc(chart.birthElement)} - ${esc(chart.bureau.label)}</p><p>${esc(printScope)}</p>${fortuneSummary(chart).map(([, value]) => `<p>${esc(value)}</p>`).join("")}</section></div></article>`);
-    for (const topic of options.topics) {
-      const items = chart.interpretations.filter((item) => item.topic === topic);
-      if (!items.length) continue;
-      const first = renderReportCard(items[0]);
-      const rest = items.slice(1).map(renderReportCard).join("");
-      sections.push(`<section class="print-topic"><div class="print-topic-lead"><header class="print-page-header"><span>MXiao Tử Vi</span><h2>${esc(topic)}</h2></header>${first}</div>${rest}</section>`);
-    }
-    if (options.comparison) {
-      const comparison = options.comparison;
-      sections.push(`<article class="print-page"><header class="print-page-header"><span>MXiao Tử Vi</span><h2>So sánh hai khung giờ sinh</h2></header><div class="print-comparison-summary"><div><span>Khung giờ A</span><b>${esc(comparison.labelA)}</b></div><div><span>Khung giờ B</span><b>${esc(comparison.labelB)}</b></div><div><span>Khác biệt chính</span><b>${comparison.changedCount} mục</b></div></div><div class="print-comparison-table"><div class="print-comparison-row head"><b>Hạng mục</b><b>${esc(comparison.labelA)}</b><b>${esc(comparison.labelB)}</b></div>${comparison.rows.map((row) => `<div class="print-comparison-row ${row.changed ? "changed" : "same"}"><strong>${esc(row.label)}</strong><span>${esc(row.valueA)}</span><span>${esc(row.valueB)}</span></div>`).join("")}</div><p class="print-comparison-note">Bảng đối chiếu cho biết những cấu trúc thay đổi theo giờ sinh. Cần đối chiếu thêm với sự kiện thực tế để lựa chọn giờ phù hợp.</p></article>`);
-    }
-    $("print-report").innerHTML = sections.join("");
-    $("print-report").setAttribute("aria-hidden", sections.length ? "false" : "true");
-  }
-
   function renderAll() {
     renderChart();
     renderReport();
     renderPdfOptions();
-    renderPrintReport();
   }
 
   function generate() {
@@ -621,27 +580,6 @@
     } finally {
       button.disabled = false;
       button.textContent = "Tải PDF trực tiếp";
-    }
-  }
-
-  async function downloadTextPdf() {
-    if (!state.chart) return;
-    if (!selectedPdfCount()) {
-      showError("Hãy chọn ít nhất một phần để xuất PDF.");
-      return;
-    }
-    const button = $("print-button");
-    button.disabled = true;
-    button.textContent = "Đang tạo PDF văn bản...";
-    showError("");
-    try {
-      const pageCount = await P.downloadSelectablePdf(state.chart, getPdfExportOptions());
-      status(`Đã tải PDF văn bản ${pageCount} trang A4`);
-    } catch (error) {
-      showError(error instanceof Error ? error.message : "Không thể tạo PDF văn bản.");
-    } finally {
-      button.disabled = false;
-      button.textContent = "Tải PDF văn bản";
     }
   }
 
@@ -693,7 +631,6 @@
     $("pdf-select-all").addEventListener("click", () => applyPdfPreset("full"));
     document.querySelectorAll("[data-pdf-preset]").forEach((button) => button.addEventListener("click", () => applyPdfPreset(button.dataset.pdfPreset)));
     $("pdf-button").addEventListener("click", downloadPdf);
-    $("print-button").addEventListener("click", downloadTextPdf);
     loadDemo();
   }
 

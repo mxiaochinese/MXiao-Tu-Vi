@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#bd1523">
-  <meta name="description" content="MXiao Huyền Học gồm công cụ Tử Vi và Bản đồ sao cá nhân, hoạt động riêng tư ngay trên thiết bị.">
+  <meta name="description" content="MXiao Huyền Học gồm Tử Vi và Bản đồ sao cá nhân.">
   <title>MXiao Huyền Học</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/mxiao-mark.svg" type="image/svg+xml">
@@ -17,7 +17,6 @@
         <span class="brand-mark">M</span>
         <span class="brand-copy"><strong>MXiao Huyền Học</strong><span>Tử Vi và Bản đồ sao cá nhân</span></span>
       </a>
-      <span class="topbar-badge">Xử lý riêng tư trên thiết bị</span>
     </header>
 
     <nav class="tool-switcher" role="tablist" aria-label="Chọn công cụ">
@@ -30,8 +29,8 @@
       <section class="hero">
         <div>
           <span class="eyebrow">LÁ SỐ TỬ VI VIỆT NAM</span>
-          <h1>Xem lá số và vận hạn theo <em>đúng phạm vi bạn cần.</em></h1>
-          <p>Nhập ngày giờ sinh và múi giờ. Hệ thống tự quy đổi âm lịch, an cung sao, luận giải 12 cung và tạo báo cáo A4 theo nội dung bạn lựa chọn.</p>
+          <h1>Lập lá số Tử Vi <em>và xem vận hạn.</em></h1>
+          <p>Xem 12 cung, đại vận, vận năm, lưu nguyệt và luận giải theo dữ liệu sinh.</p>
           <div class="hero-points">
             <span class="hero-point">Luận giải tổng quan</span>
             <span class="hero-point">Đại vận 10 năm</span>
@@ -53,7 +52,7 @@
       <section class="workspace" aria-label="Công cụ lập lá số">
         <form id="birth-form" class="panel form-panel" novalidate>
           <div class="panel-heading-row">
-            <div><h2 class="panel-title">Thông tin sinh</h2><p class="panel-note">Ngày giờ sinh được tính theo múi giờ bạn lựa chọn.</p></div>
+            <div><h2 class="panel-title">Thông tin sinh</h2><p class="panel-note">Nhập ngày, giờ sinh và múi giờ.</p></div>
           </div>
 
           <div class="field-grid">
@@ -62,15 +61,15 @@
             <div class="field full" id="solar-date-field"><label for="solarDate">Ngày sinh dương lịch</label><input id="solarDate" type="date" min="1800-01-01" max="2199-12-31" value="1998-05-14" required></div>
             <div class="field full" id="lunar-date-field" hidden><label>Ngày sinh âm lịch</label><div class="lunar-date-grid"><input id="lunarDay" aria-label="Ngày âm lịch" type="number" min="1" max="30" value="19"><input id="lunarMonth" aria-label="Tháng âm lịch" type="number" min="1" max="12" value="4"><input id="lunarYear" aria-label="Năm âm lịch" type="number" min="1800" max="2199" value="1998"></div><label class="check-row"><input id="lunarLeap" type="checkbox"> Tháng nhuận</label></div>
             <div class="field full"><label>Độ chính xác giờ sinh</label><div class="segmented" role="group" aria-label="Độ chính xác giờ sinh"><button type="button" id="time-exact" class="active">Biết giờ và phút</button><button type="button" id="time-branch">Chỉ nhớ khung giờ</button></div></div>
-            <div class="field full"><label for="calculationProfile">Phương pháp lập lá số</label><select id="calculationProfile"><option value="VN_TAN_BIEN_1956" selected>Tân Biên - giờ Tý bắt đầu lúc 23:00</option><option value="VN_AO_BI_1972">Áo Bí - giờ Tý bắt đầu lúc 00:00</option></select><span class="field-help">Hai phương pháp được tách riêng. Lựa chọn này có thể làm thay đổi giờ Tý và vòng Tràng Sinh.</span></div>
+            <div class="field full"><label for="calculationProfile">Phương pháp lập lá số</label><select id="calculationProfile"><option value="VN_TAN_BIEN_1956" selected>Tân Biên - giờ Tý bắt đầu lúc 23:00</option><option value="VN_AO_BI_1972">Áo Bí - giờ Tý bắt đầu lúc 00:00</option></select><span class="field-help">Mỗi phương pháp có quy ước riêng về giờ Tý và vòng Tràng Sinh.</span></div>
             <div class="field" id="birth-time-field"><label for="birthTime">Giờ sinh</label><input id="birthTime" type="time" value="09:30" required></div>
-            <div class="field" id="birth-branch-field" hidden><label for="birthHourBranch">Khung giờ sinh</label><select id="birthHourBranch"><option value="1">Giờ Tý - 23:00 đến 00:59</option><option value="2">Giờ Sửu - 01:00 đến 02:59</option><option value="3">Giờ Dần - 03:00 đến 04:59</option><option value="4">Giờ Mão - 05:00 đến 06:59</option><option value="5">Giờ Thìn - 07:00 đến 08:59</option><option value="6" selected>Giờ Tỵ - 09:00 đến 10:59</option><option value="7">Giờ Ngọ - 11:00 đến 12:59</option><option value="8">Giờ Mùi - 13:00 đến 14:59</option><option value="9">Giờ Thân - 15:00 đến 16:59</option><option value="10">Giờ Dậu - 17:00 đến 18:59</option><option value="11">Giờ Tuất - 19:00 đến 20:59</option><option value="12">Giờ Hợi - 21:00 đến 22:59</option></select><span class="field-help">Hệ thống dùng thời điểm giữa khung giờ để lập lá số.</span></div>
+            <div class="field" id="birth-branch-field" hidden><label for="birthHourBranch">Khung giờ sinh</label><select id="birthHourBranch"><option value="1">Giờ Tý - 23:00 đến 00:59</option><option value="2">Giờ Sửu - 01:00 đến 02:59</option><option value="3">Giờ Dần - 03:00 đến 04:59</option><option value="4">Giờ Mão - 05:00 đến 06:59</option><option value="5">Giờ Thìn - 07:00 đến 08:59</option><option value="6" selected>Giờ Tỵ - 09:00 đến 10:59</option><option value="7">Giờ Ngọ - 11:00 đến 12:59</option><option value="8">Giờ Mùi - 13:00 đến 14:59</option><option value="9">Giờ Thân - 15:00 đến 16:59</option><option value="10">Giờ Dậu - 17:00 đến 18:59</option><option value="11">Giờ Tuất - 19:00 đến 20:59</option><option value="12">Giờ Hợi - 21:00 đến 22:59</option></select><span class="field-help">Lá số dùng giờ giữa của khung đã chọn.</span></div>
             <div class="field full"><label>Giới tính</label><div class="segmented" role="group" aria-label="Giới tính"><button type="button" id="gender-male" class="active">Nam</button><button type="button" id="gender-female">Nữ</button></div></div>
             <div class="field full"><label for="timezoneSearch">Múi giờ nơi sinh</label><input id="timezoneSearch" type="search" autocomplete="off" placeholder="Tìm múi giờ, ví dụ Ho Chi Minh, Tokyo, New York"><select id="timezone" aria-label="Chọn múi giờ"></select><span id="timezone-help" class="field-help">Mặc định: Asia/Ho_Chi_Minh, UTC+07:00.</span></div>
             <div class="form-section-heading full"><h3>Phạm vi luận giải</h3><p>Chỉ nhập năm hoặc tháng khi phần bạn muốn xem thực sự cần tới.</p></div>
             <div class="field full"><label for="viewScope">Bạn muốn xem phần nào?</label><select id="viewScope"><option value="natal_overview" selected>Lá số tổng quan</option><option value="yearly">Vận năm</option><option value="single_month">Một tháng cụ thể</option><option value="all_months">Toàn bộ các tháng trong năm</option></select></div>
             <div class="field full" id="view-year-field" hidden><label for="viewYear">Năm muốn xem</label><input id="viewYear" type="number" min="1900" max="2199" value="2026"></div>
-            <div class="field full" id="view-month-field" hidden><label for="viewMonth">Tháng âm lịch muốn xem</label><select id="viewMonth"><option value="1">Tháng 1</option><option value="2">Tháng 2</option><option value="3">Tháng 3</option><option value="4" selected>Tháng 4</option><option value="5">Tháng 5</option><option value="6">Tháng 6</option><option value="7">Tháng 7</option><option value="8">Tháng 8</option><option value="9">Tháng 9</option><option value="10">Tháng 10</option><option value="11">Tháng 11</option><option value="12">Tháng 12</option></select><span id="view-month-help" class="field-help">Hệ thống chỉ thêm lựa chọn tháng nhuận khi năm đã chọn thực sự có tháng nhuận.</span></div>
+            <div class="field full" id="view-month-field" hidden><label for="viewMonth">Tháng âm lịch muốn xem</label><select id="viewMonth"><option value="1">Tháng 1</option><option value="2">Tháng 2</option><option value="3">Tháng 3</option><option value="4" selected>Tháng 4</option><option value="5">Tháng 5</option><option value="6">Tháng 6</option><option value="7">Tháng 7</option><option value="8">Tháng 8</option><option value="9">Tháng 9</option><option value="10">Tháng 10</option><option value="11">Tháng 11</option><option value="12">Tháng 12</option></select><span id="view-month-help" class="field-help">Tùy chọn tháng nhuận xuất hiện khi năm được chọn có tháng nhuận.</span></div>
           </div>
 
           <div id="form-error" class="form-error" role="alert" hidden></div>
@@ -81,7 +80,7 @@
         <div class="result-stack">
           <section class="panel result-toolbar">
             <div><h2 id="result-title">Lá số mẫu</h2><p id="result-meta">Đang khởi tạo...</p></div>
-            <div class="toolbar-cluster"><div class="toolbar-actions"><button id="compare-hours-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="compare-hours-panel">So sánh giờ sinh</button><button id="pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="pdf-options-panel">Chọn nội dung PDF</button><button id="print-button" class="toolbar-button danger" type="button">Tải PDF văn bản</button><button id="pdf-button" class="toolbar-button" type="button">Tải PDF trực tiếp</button></div><span class="toolbar-hint">Các nội dung đã chọn được áp dụng cho cả hai loại PDF.</span><span id="toolbar-status" class="toolbar-status" aria-live="polite"></span></div>
+            <div class="toolbar-cluster"><div class="toolbar-actions"><button id="compare-hours-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="compare-hours-panel">So sánh giờ sinh</button><button id="pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="pdf-options-panel">Chọn nội dung PDF</button><button id="pdf-button" class="toolbar-button danger" type="button">Tải PDF trực tiếp</button></div><span id="toolbar-status" class="toolbar-status" aria-live="polite"></span></div>
           </section>
           <section id="compare-hours-panel" class="panel compare-hours-panel" hidden aria-label="So sánh hai khung giờ sinh">
             <div class="pdf-options-head"><div><h2>So sánh hai khung giờ sinh</h2><p>Dùng khi chưa chắc giờ sinh. Kết quả chỉ đối chiếu những cấu trúc thay đổi giữa hai lá số.</p></div><button id="compare-hours-close" class="icon-button" type="button" aria-label="Đóng phần so sánh giờ sinh">×</button></div>
@@ -89,7 +88,7 @@
             <div id="compare-hours-result" class="compare-hours-result"><p>Chọn hai khung giờ rồi nhấn so sánh.</p></div>
           </section>
           <section id="pdf-options-panel" class="panel pdf-options-panel" hidden aria-label="Chọn nội dung xuất PDF">
-            <div class="pdf-options-head"><div><h2>Nội dung xuất PDF</h2><p>Chọn cấu hình nhanh hoặc bật, tắt từng phần theo nhu cầu.</p></div><button id="pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div>
+            <div class="pdf-options-head"><div><h2>Nội dung xuất PDF</h2><p>Chọn các phần muốn đưa vào báo cáo.</p></div><button id="pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div>
             <div class="pdf-presets" role="group" aria-label="Cấu hình xuất PDF"><button type="button" data-pdf-preset="full" class="active">Đầy đủ</button><button type="button" data-pdf-preset="summary">Tóm tắt</button><button type="button" data-pdf-preset="fortune">Vận hạn</button><button type="button" data-pdf-preset="palaces">12 cung</button></div>
             <div id="pdf-options-grid" class="pdf-options-grid"></div>
             <div class="pdf-options-footer"><span id="pdf-options-summary" aria-live="polite"></span><button id="pdf-select-all" class="secondary-button compact" type="button">Chọn tất cả</button></div>
@@ -105,7 +104,7 @@
           <div>
             <span class="eyebrow">BẢN ĐỒ SAO CÁ NHÂN · NATAL CHART</span>
             <h1>Khám phá <em>Bản đồ sao cá nhân</em> của bạn.</h1>
-            <p>Vị trí hành tinh được tính ngay trên thiết bị từ ngày, giờ và nơi sinh. Công cụ không gửi dữ liệu sinh ra ngoài và xử lý rõ trường hợp không biết giờ sinh.</p>
+            <p>Xem vị trí hành tinh, góc hợp, Cung Mọc, Thiên Đỉnh và 12 Nhà từ dữ liệu sinh.</p>
           </div>
           <div class="astrology-orbit" aria-hidden="true"><span>☉</span><span>☾</span><span>ASC</span><span>MC</span><strong>MXiao</strong></div>
         </section>
@@ -124,11 +123,11 @@
             </div>
             <div id="astro-form-error" class="form-error" role="alert" hidden></div>
             <div class="form-actions"><button class="primary-button" type="submit">Lập Bản đồ sao</button><button class="secondary-button" id="astro-reset" type="button">Xóa dữ liệu vừa nhập</button></div>
-            <p class="microcopy">Các vị trí thiên thể là dữ liệu tính toán. Phần diễn giải thuộc Chiêm tinh Tây phương và chỉ dùng để tham khảo, tự chiêm nghiệm.</p>
+            <p class="microcopy">Phần diễn giải thuộc Chiêm tinh Tây phương và chỉ dùng để tham khảo, tự chiêm nghiệm.</p>
           </form>
 
           <div id="astro-result" class="result-stack astrology-results" hidden>
-            <section class="panel result-toolbar"><div><span id="astro-limit-badge" class="limited-badge" hidden>Bản đồ giới hạn do thiếu giờ sinh</span><h2 id="astro-result-title">Bản đồ sao</h2><p id="astro-result-meta"></p></div><div class="toolbar-cluster"><div class="toolbar-actions"><button id="astro-pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="astro-pdf-options">Chọn nội dung PDF</button><button id="astro-pdf-button" class="toolbar-button danger" type="button">Tải PDF Bản đồ sao</button></div><span id="astro-toolbar-status" class="toolbar-status" aria-live="polite"></span></div></section>
+            <section class="panel result-toolbar"><div><span id="astro-limit-badge" class="limited-badge" hidden>Bản đồ giới hạn do thiếu giờ sinh</span><h2 id="astro-result-title">Bản đồ sao</h2><p id="astro-result-meta"></p></div><div class="toolbar-cluster"><div class="toolbar-actions"><button id="astro-pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="astro-pdf-options">Chọn nội dung PDF</button><button id="astro-pdf-button" class="toolbar-button danger" type="button">Tải PDF trực tiếp</button></div><span id="astro-toolbar-status" class="toolbar-status" aria-live="polite"></span></div></section>
             <section id="astro-pdf-options" class="panel pdf-options-panel" hidden aria-label="Chọn nội dung PDF Bản đồ sao"><div class="pdf-options-head"><div><h2>Nội dung PDF Bản đồ sao</h2><p>Chọn các phần bạn muốn đưa vào báo cáo.</p></div><button id="astro-pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div><div class="pdf-options-grid"><label class="pdf-option"><input type="checkbox" data-astro-pdf="overview" checked><span>Tổng quan</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="wheel" checked><span>Vòng Bản đồ sao</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="planets" checked><span>Vị trí hành tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="aspects" checked><span>Góc hợp chính</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="houses" checked><span>12 Nhà và chủ tinh</span></label><label class="pdf-option"><input type="checkbox" data-astro-pdf="balance" checked><span>Nguyên tố và tính chất</span></label></div></section>
             <section class="panel astro-quick-panel"><div id="astro-quick-grid" class="astro-quick-grid"></div></section>
             <section class="panel astrology-wheel-panel"><div id="astro-wheel-root"></div></section>
@@ -143,8 +142,6 @@
     </main>
     <footer class="footer">MXiao Huyền Học - Nội dung tham khảo và tự chiêm nghiệm.</footer>
   </div>
-  <section id="print-report" class="print-report" aria-hidden="true"></section>
-
   <script src="assets/calendar.js"></script>
   <script src="assets/engine.bundle.js"></script>
   <script src="assets/pdf.bundle.js"></script>

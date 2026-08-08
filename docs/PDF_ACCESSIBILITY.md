@@ -1,4 +1,4 @@
-# Kiểm tra accessibility của PDF văn bản
+# Kiểm tra accessibility của PDF Bản đồ sao
 
 ## Kiểm tra cục bộ
 
@@ -33,7 +33,7 @@ Workflow `.github/workflows/ci.yml` chạy image chính thức đã ghim phiên 
 
 ```bash
 docker run --rm -v "$PWD:/data" verapdf/cli:v1.30.2 \
-  -f ua1 /data/sample/MXiao-Tu-Vi-2026-text-final.pdf > verapdf-report.xml
+  -f ua1 /data/sample/MXiao-Ban-Do-Sao-final.pdf > verapdf-report.xml
 python3 tests/verify_verapdf_report.py verapdf-report.xml
 ```
 

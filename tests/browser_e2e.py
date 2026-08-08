@@ -206,19 +206,8 @@ try:
         assert desktop.locator('[data-pdf-section]:checked').count() == 7
         assert desktop.locator('[data-pdf-section="tai_chinh"]').is_checked() is False
         assert desktop.locator('[data-pdf-section="van_han"]').is_checked()
-        assert desktop.locator('#print-report .print-page-header h2', has_text='Tài chính').count() == 0
-        assert desktop.locator('#print-report .print-page-header h2', has_text='Sự nghiệp').count() == 0
-        selected_text_pdf = ROOT / 'sample/MXiao-Tu-Vi-2026-van-han-text.pdf'
-        with desktop.expect_download(timeout=90000) as selected_text_info:
-            desktop.locator('#print-button').click()
-        selected_text_info.value.save_as(selected_text_pdf)
-        selected_text = subprocess.check_output(['pdftotext', str(selected_text_pdf), '-'], text=True)
-        assert 'Đại vận' in selected_text
-        assert 'Tiểu vận' in selected_text
-        assert 'Vận hạn 2026' in selected_text
-        assert 'Lưu nguyệt tháng 4' in selected_text
-        assert 'Lưu nhật' not in selected_text
-        assert 'Lưu thời' not in selected_text
+        assert desktop.locator('#print-button').count() == 0
+        assert desktop.locator('#print-report').count() == 0
         with desktop.expect_download(timeout=90000) as selected_info:
             desktop.locator('#pdf-button').click()
         selected_pdf = ROOT / 'sample/MXiao-Tu-Vi-2026-van-han.pdf'
@@ -283,39 +272,6 @@ try:
         assert b'/MediaBox [0 0 841.89 595.28]' in data
         assert f'{page_count} trang A4' in desktop.locator('#toolbar-status').inner_text()
         assert 10 <= page_count <= 48
-        text_pdf = ROOT / 'sample/MXiao-Tu-Vi-2026-text-final.pdf'
-        with desktop.expect_download(timeout=90000) as text_info:
-            desktop.locator('#print-button').click()
-        text_info.value.save_as(text_pdf)
-        text_data = subprocess.check_output(['pdftotext', str(text_pdf), '-'], text=True)
-        normalized_text = ' '.join(text_data.split())
-        assert 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT' in normalized_text
-        assert 'Lưu nguyệt tháng 7' in text_data
-        assert 'Lưu nhật' not in text_data
-        assert 'Lưu thời' not in text_data
-        assert 'So sánh hai khung giờ sinh' in text_data
-        assert 'Nguyễn Minh An' in text_data
-        pdf_info = subprocess.check_output(['pdfinfo', str(text_pdf)], text=True)
-        text_pages = int(pdf_info.split('Pages:')[1].splitlines()[0].strip())
-        assert 10 <= text_pages <= 48
-        assert 'Title:' in pdf_info and 'Lá số Tử Vi và luận giải chi tiết' in pdf_info
-        assert 'Author:' in pdf_info and 'MXiao Tử Vi' in pdf_info
-        text_raw = text_pdf.read_bytes()
-        assert b'/Outlines' in text_raw
-        assert b'/PageMode /UseOutlines' in text_raw
-        assert b'/Lang' in text_raw
-        assert b'/Tabs /S' in text_raw
-        assert b'/StructTreeRoot' in text_raw
-        assert text_raw.startswith(b'%PDF-1.7')
-        assert b'/Type /Metadata /Subtype /XML' in text_raw
-        assert b'pdfuaid:part' in text_raw
-        assert b'/Metadata' in text_raw
-        assert b'/S /H1' in text_raw
-        assert b'/S /H2' in text_raw
-        assert b'/S /H3' in text_raw
-        assert b'/S /P' in text_raw
-        assert b'/S /Figure' in text_raw
-        assert b'/Artifact BMC' in text_raw
         desktop.locator('#tool-astrology').click()
         assert desktop.locator('#astrology-tool').is_visible()
         assert desktop.locator('#tuvi-tool').is_hidden()
@@ -407,4 +363,4 @@ finally:
     except subprocess.TimeoutExpired:
         server.kill()
 
-print(f'Browser E2E passed: mode={mode}, four view scopes, conditional leap month, exact or branch birth time, responsive UI, direct PDF and searchable text PDF with metadata and bookmarks.')
+print(f'Browser E2E passed: mode={mode}, four view scopes, conditional leap month, exact or branch birth time, responsive UI, direct PDF downloads with metadata and bookmarks.')

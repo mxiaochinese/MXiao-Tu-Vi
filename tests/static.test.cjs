@@ -21,6 +21,8 @@ assert.doesNotMatch(html, /id="viewHourBranch"/);
 assert.doesNotMatch(html, /id="viewLeap"/);
 assert.doesNotMatch(html, /id="leapFortuneMode"/);
 assert.match(html, /id="compare-hours-panel"/);
+assert.doesNotMatch(html, /id="print-button"/);
+assert.doesNotMatch(html, /id="print-report"/);
 assert.match(html, /data-pdf-preset="full"/);
 assert.match(html, /data-pdf-preset="fortune"/);
 assert.match(html, /assets\/timezones\.js/);
@@ -41,11 +43,10 @@ for (const timezone of context.window.MXiaoTimezones) assert.doesNotThrow(() => 
 
 const publicText = ['index.html', 'assets/app.js', 'assets/astrology-app.js', 'src/pdf/client-pdf.cjs'].map((file) => fs.readFileSync(path.join(root, file), 'utf8')).join('\n');
 for (const phrase of ['sourceRuleId', 'sourceIds', 'profileVersion', 'RULE TRACE', 'Codex', 'Gợi ý thực hành', 'JSON', 'engine xác định', 'phạm vi 1.0', 'ghi chú nội bộ']) assert.ok(!publicText.includes(phrase), `Public content contains ${phrase}`);
-for (const phrase of ['placement', 'topology', 'orb profile', 'giấy phép permissive', 'được khóa cho phiên bản hiện tại', 'toàn chart', 'trong chart', 'danh mục địa điểm tích hợp sẵn', 'hoàn toàn độc lập với báo cáo']) assert.ok(!publicText.toLowerCase().includes(phrase), `Public content contains internal wording: ${phrase}`);
+for (const phrase of ['placement', 'topology', 'orb profile', 'giấy phép permissive', 'được khóa cho phiên bản hiện tại', 'toàn chart', 'trong chart', 'danh mục địa điểm tích hợp sẵn', 'hoàn toàn độc lập với báo cáo', 'xử lý riêng tư trên thiết bị', 'pdf văn bản', 'đã lựa chọn trước khi xuất pdf', 'downloadselectablepdf']) assert.ok(!publicText.toLowerCase().includes(phrase), `Public content contains internal wording: ${phrase}`);
 for (const pattern of [/fetch\s*\(/, /XMLHttpRequest/, /WebSocket\s*\(/, /sendBeacon\s*\(/, /localStorage/, /sessionStorage/]) assert.doesNotMatch(publicText, pattern);
 assert.match(publicText, /MAX_PDF_PAGES = 48/);
-assert.match(publicText, /MAX_TEXT_PDF_PAGES = 48/);
-assert.match(publicText, /downloadSelectablePdf/);
+assert.doesNotMatch(publicText, /MAX_TEXT_PDF_PAGES|downloadSelectablePdf/);
 assert.doesNotMatch(publicText, /maxLines/);
 assert.match(publicText, /getPdfExportOptions/);
 assert.match(publicText, /interpretationParagraphs/);
