@@ -13,22 +13,22 @@
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
         <details passedRules="106" failedRules="0" passedChecks="95603" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786181488828" finish="1786181490026">00:00:01.198</duration>
+      <duration start="1786182862101" finish="1786182863352">00:00:01.251</duration>
     </job>
     <job>
-      <item size="750631">
+      <item size="812327">
         <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/MXiao-Ban-Do-Sao-final.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
-        <details passedRules="106" failedRules="0" passedChecks="11209" failedChecks="0"></details>
+        <details passedRules="106" failedRules="0" passedChecks="18364" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786181490041" finish="1786181490187">00:00:00.146</duration>
+      <duration start="1786182863366" finish="1786182863560">00:00:00.194</duration>
     </job>
   </jobs>
   <batchSummary totalJobs="2" failedToParse="0" encrypted="0" outOfMemory="0" veraExceptions="0">
     <validationReports compliant="2" nonCompliant="0" failedJobs="0">2</validationReports>
     <featureReports failedJobs="0">0</featureReports>
     <repairReports failedJobs="0">0</repairReports>
-    <duration start="1786181488795" finish="1786181490190">00:00:01.395</duration>
+    <duration start="1786182862065" finish="1786182863564">00:00:01.499</duration>
   </batchSummary>
 </report>

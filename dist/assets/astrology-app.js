@@ -184,6 +184,11 @@
     return paragraphs;
   }
 
+  function narrativeHtml(chart) {
+    if (!chart.narrative?.sections?.length) return overviewParagraphs(chart).map((text) => `<p>${esc(text)}</p>`).join("");
+    return chart.narrative.sections.map((section) => `<section class="astro-narrative-section"><h3>${esc(section.title)}</h3>${section.paragraphs.map((item) => `<p>${esc(item.text)}</p>`).join("")}</section>`).join("");
+  }
+
   function planetTable(chart) {
     return `<div class="astro-table-wrap"><table><thead><tr><th>Thiên thể</th><th>Cung</th><th>Độ</th>${chart.angles ? "<th>Nhà</th>" : ""}<th>Trạng thái</th></tr></thead><tbody>${chart.planets.map((item) => `<tr><th>${esc(item.symbol)} ${esc(item.name)}</th><td>${esc(item.sign.name)}</td><td>${esc(E.formatDegree(item.degree))}</td>${chart.angles ? `<td>${item.house || "Không áp dụng"}</td>` : ""}<td>${item.stability && item.stability !== "stable" ? `Chưa ổn định: ${esc(item.possibleSigns.join(" / "))}` : item.retrograde ? "Nghịch hành" : "Thuận hành"}</td></tr>`).join("")}</tbody></table></div>`;
   }
@@ -205,7 +210,7 @@
     $("astro-limit-badge").hidden = !limited;
     $("astro-quick-grid").innerHTML = quickCards(chart);
     $("astro-wheel-root").innerHTML = wheelSvg(chart);
-    $("astro-overview").innerHTML = overviewParagraphs(chart).map((text) => `<p>${esc(text)}</p>`).join("");
+    $("astro-overview").innerHTML = narrativeHtml(chart);
     $("astro-planets").innerHTML = planetTable(chart);
     $("astro-aspects").innerHTML = aspectTable(chart);
     $("astro-houses-section").hidden = !chart.houses.length;

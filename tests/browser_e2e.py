@@ -318,11 +318,13 @@ try:
         assert desktop.locator('#astro-planets tbody tr').count() == 12
         assert desktop.locator('#astro-houses tbody tr').count() == 12
         assert desktop.locator('#astro-aspects tbody tr').count() >= 1
+        assert desktop.locator('.astro-narrative-section').count() == 9
+        assert desktop.locator('.astro-narrative-section p').count() >= 12
         assert 'TP. Hồ Chí Minh' in desktop.locator('#astro-result-meta').inner_text()
         desktop.locator('#astro-pdf-options-button').click()
         assert desktop.locator('#astro-pdf-options').is_visible()
         assert desktop.locator('[data-astro-pdf]').count() == 6
-        assert desktop.locator('[data-astro-pdf]:checked').count() == 6
+        assert desktop.locator('[data-astro-pdf]:checked').count() == 2
         astrology_pdf = ROOT / 'sample/MXiao-Ban-Do-Sao-final.pdf'
         with desktop.expect_download(timeout=90000) as astrology_pdf_info:
             desktop.locator('#astro-pdf-button').click()
@@ -331,6 +333,10 @@ try:
         astrology_info = subprocess.check_output(['pdfinfo', str(astrology_pdf)], text=True)
         assert 'BẢN ĐỒ SAO CÁ NHÂN' in astrology_text
         assert 'Nguyễn Minh An' in astrology_text
+        assert 'Luận giải Bản đồ sao' in astrology_text
+        assert 'Tình cảm và sự gắn bó' in astrology_text
+        for phrase in ['placement', 'evidence', 'confidence', 'rule id', 'dataset', 'json', 'debug']:
+            assert phrase not in astrology_text.lower()
         assert 'Vòng Bản đồ sao' in astrology_text or b'/Subtype /Image' in astrology_pdf.read_bytes()
         assert 'Author:' in astrology_info and 'MXiao Huyền Học' in astrology_info
         assert 'Title:' in astrology_info and 'Bản đồ sao cá nhân' in astrology_info

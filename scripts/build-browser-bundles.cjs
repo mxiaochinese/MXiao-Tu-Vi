@@ -23,8 +23,15 @@ const pdfSource = clean(fs.readFileSync(path.join(root, 'src/pdf/client-pdf.cjs'
 const pdfOutput = `(function(global){\n"use strict";\nconst module={exports:{}}; const exports=module.exports;\n${pdfSource}\nglobal.MXiaoPdf=Object.freeze(module.exports);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
 fs.writeFileSync(path.join(root, 'assets/pdf.bundle.js'), pdfOutput);
 
-const astrologySource = clean(fs.readFileSync(path.join(root, 'src/astrology/engine.js'), 'utf8'));
-const astrologyOutput = `(function(global){\n"use strict";\nconst module={exports:{}}; const exports=module.exports;\n${astrologySource}\nglobal.MXiaoAstrologyEngine=module.exports.createAstrologyEngine(global.Astronomy);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
+const astrologyModules = ['synthesis', 'engine'];
+const astrologyCorpus = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/interpretation-corpus-v1.4.json'), 'utf8'));
+const astrologyRules = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/synthesis-rules-v1.4.json'), 'utf8'));
+let astrologyOutput = `(function(global){\n"use strict";\nconst factories=Object.create(null); const cache=Object.create(null);\nfunction define(id,factory){factories[id]=factory;}\nfunction load(id){if(cache[id]) return cache[id].exports; const factory=factories[id]; if(!factory) throw new Error('Không tìm thấy module '+id); const module={exports:{}}; cache[id]=module; factory((request)=>load(request.replace(/^\\.\\//,'astrology/').replace(/\\.js$/,'')),module,module.exports); return module.exports;}\n`;
+for (const name of astrologyModules) {
+  const source = clean(fs.readFileSync(path.join(root, 'src/astrology', `${name}.js`), 'utf8'));
+  astrologyOutput += `define(${JSON.stringify(`astrology/${name}`)},function(require,module,exports){\n${source}\n});\n`;
+}
+astrologyOutput += `const corpus=${JSON.stringify(astrologyCorpus)}; const rules=${JSON.stringify(astrologyRules)}; const engine=load('astrology/engine'); global.MXiaoAstrologyEngine=engine.createAstrologyEngine(global.Astronomy,corpus,rules);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
 fs.writeFileSync(path.join(root, 'assets/astrology-engine.bundle.js'), astrologyOutput);
 fs.copyFileSync(path.join(root, 'node_modules/astronomy-engine/astronomy.browser.min.js'), path.join(root, 'assets/astronomy.browser.min.js'));
 console.log('Browser bundles built.');

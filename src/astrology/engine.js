@@ -1,6 +1,8 @@
 "use strict";
 
-const ENGINE_VERSION = "mxiao-astronomy-engine-1.0.0";
+const { createNarrative, NARRATIVE_VERSION } = require("./synthesis");
+
+const ENGINE_VERSION = "mxiao-astronomy-engine-1.4.0";
 const EPHEMERIS_NAME = "Astronomy Engine";
 const EPHEMERIS_VERSION = "2.1.19";
 const ORB_PROFILE = "mxiao_natal_v1";
@@ -145,7 +147,7 @@ function formatDegree(value) {
   return `${degrees}°${String(minutes).padStart(2, "0")}′`;
 }
 
-function createAstrologyEngine(Astronomy) {
+function createAstrologyEngine(Astronomy, interpretationCorpus = null, synthesisRules = null) {
   if (!Astronomy || !Astronomy.Body || !Astronomy.AstroTime) throw new Error("Không thể khởi tạo Astronomy Engine.");
 
   function astroTime(value) {
@@ -263,9 +265,17 @@ function createAstrologyEngine(Astronomy) {
     const separation = angularDistance(a.longitude, b.longitude);
     let best = null;
     for (const definition of ASPECTS) {
-      const maximum = a.tier === "luminary" || b.tier === "luminary" ? definition.luminaryOrb : definition.baseOrb;
+      let maximum = a.tier === "luminary" || b.tier === "luminary" ? definition.luminaryOrb : definition.baseOrb;
+      if (a.tier === "secondary" || b.tier === "secondary") maximum = Math.min(maximum, 3);
+      if (a.tier === "angle" || b.tier === "angle") maximum = Math.min(maximum, 4);
       const orb = Math.abs(separation - definition.angle);
-      if (orb <= maximum && (!best || orb < best.orb)) best = { ...definition, orb, maximum, separation };
+      if (orb <= maximum && (!best || orb < best.orb)) {
+        const expectedSignDistance = { conjunction: 0, sextile: 2, square: 3, trine: 4, opposition: 6 }[definition.id];
+        const signA = Math.floor(mod(a.longitude) / 30);
+        const signB = Math.floor(mod(b.longitude) / 30);
+        const signDistance = Math.min(Math.abs(signA - signB), 12 - Math.abs(signA - signB));
+        best = { ...definition, orb, maximum, separation, outOfSign: signDistance !== expectedSignDistance };
+      }
     }
     return best;
   }
@@ -290,7 +300,7 @@ function createAstrologyEngine(Astronomy) {
           result.push({ ...match, a: a.id, b: b.id, aName: a.name, bName: b.name, state: "not_applicable" });
           continue;
         }
-        const epsilon = new Astronomy.AstroTime(new Date(time.date.getTime() + 3600000));
+        const epsilon = new Astronomy.AstroTime(new Date(time.date.getTime() + 60000));
         const aBody = BODIES.find((item) => item.id === a.id);
         const bBody = BODIES.find((item) => item.id === b.id);
         let state = "indeterminate";
@@ -298,7 +308,7 @@ function createAstrologyEngine(Astronomy) {
           const futureA = bodyLongitude(epsilon, aBody);
           const futureB = bodyLongitude(epsilon, bBody);
           const futureOrb = Math.abs(angularDistance(futureA, futureB) - match.angle);
-          if (Math.abs(futureOrb - match.orb) > 1e-5) state = futureOrb < match.orb ? "applying" : "separating";
+          if (Math.abs(futureOrb - match.orb) > 1e-7) state = futureOrb < match.orb ? "applying" : "separating";
         }
         result.push({ ...match, a: a.id, b: b.id, aName: a.name, bName: b.name, state });
       }
@@ -314,6 +324,14 @@ function createAstrologyEngine(Astronomy) {
       if (members.length >= 3) {
         const generational = members.every((item) => item.tier === "outer");
         patterns.push({ id: `stellium_${sign.index}`, type: "stellium", name: generational ? `Cụm thế hệ tại ${sign.name}` : `Stellium tại ${sign.name}`, members: members.map((item) => item.id), priority: generational ? "low" : "high" });
+      }
+    }
+    const occupiedHouses = uniqueNumbers(core.map((item) => item.house));
+    for (const house of occupiedHouses) {
+      const members = core.filter((item) => item.house === house);
+      if (members.length >= 3) {
+        const generational = members.every((item) => item.tier === "outer");
+        patterns.push({ id: `house_cluster_${house}`, type: "house_cluster", name: `Cụm hành tinh tại Nhà ${house}`, members: members.map((item) => item.id), house, priority: generational ? "low" : "high" });
       }
     }
     const tight = aspects.filter((item) => item.orb <= 3 && !["north_node", "asc", "mc"].includes(item.a) && !["north_node", "asc", "mc"].includes(item.b));
@@ -336,7 +354,46 @@ function createAstrologyEngine(Astronomy) {
         }
       }
     }
+    for (let i = 0; i < core.length; i += 1) {
+      for (let j = i + 1; j < core.length; j += 1) {
+        for (let k = j + 1; k < core.length; k += 1) {
+          for (let l = k + 1; l < core.length; l += 1) {
+            const ids = [core[i].id, core[j].id, core[k].id, core[l].id];
+            const oppositions = [];
+            const squares = [];
+            for (let a = 0; a < ids.length; a += 1) {
+              for (let b = a + 1; b < ids.length; b += 1) {
+                if (edge(ids[a], ids[b], "opposition")) oppositions.push([ids[a], ids[b]]);
+                if (edge(ids[a], ids[b], "square")) squares.push([ids[a], ids[b]]);
+              }
+            }
+            const opposedNodes = new Set(oppositions.flat());
+            if (oppositions.length === 2 && opposedNodes.size === 4 && squares.length === 4) {
+              patterns.push({ id: `grand_cross_${ids.join("_")}`, type: "grand_cross", name: "Đại thập tự", members: ids, priority: "high" });
+            }
+          }
+        }
+      }
+    }
     return patterns;
+  }
+
+  function annotatePatternDependencies(aspects, patterns) {
+    const aspectPatterns = patterns
+      .filter((pattern) => ["grand_cross", "t_square", "grand_trine"].includes(pattern.type))
+      .sort((a, b) => ({ grand_cross: 3, t_square: 2, grand_trine: 1 }[b.type] - { grand_cross: 3, t_square: 2, grand_trine: 1 }[a.type]));
+    for (const pattern of aspectPatterns) {
+      const group = `pattern:${pattern.id}`;
+      pattern.dependencyGroup = group;
+      aspects
+        .filter((aspect) => aspect.orb <= 3 && pattern.members.includes(aspect.a) && pattern.members.includes(aspect.b))
+        .forEach((aspect) => { if (!aspect.patternDependencyGroup) aspect.patternDependencyGroup = group; });
+    }
+    return patterns;
+  }
+
+  function uniqueNumbers(values) {
+    return [...new Set(values.filter((value) => Number.isInteger(value)))];
   }
 
   function balances(planets, asc = null) {
@@ -359,25 +416,61 @@ function createAstrologyEngine(Astronomy) {
     });
   }
 
+  function houseRulerGraph(houses) {
+    const edges = houses.map((house) => ({ from: house.number, to: house.rulerHouse, rulerId: house.rulerId, rulerName: house.rulerName, cycleId: null }));
+    const cycles = [];
+    const selfLoops = [];
+    const assigned = new Set();
+    for (const start of edges.map((edge) => edge.from)) {
+      if (assigned.has(start)) continue;
+      const order = [];
+      const seenAt = new Map();
+      let current = start;
+      while (Number.isInteger(current) && !seenAt.has(current) && !assigned.has(current)) {
+        seenAt.set(current, order.length);
+        order.push(current);
+        current = edges.find((edge) => edge.from === current)?.to;
+      }
+      if (seenAt.has(current)) {
+        const members = order.slice(seenAt.get(current));
+        const id = `ruler_cycle_${members.slice().sort((a, b) => a - b).join("_")}`;
+        cycles.push({ id, houses: members, reciprocal: members.length > 1 });
+        members.forEach((house) => {
+          const edge = edges.find((item) => item.from === house);
+          if (edge) edge.cycleId = id;
+          if (edge?.from === edge?.to) selfLoops.push(house);
+        });
+      }
+      order.forEach((house) => assigned.add(house));
+    }
+    return { edges, cycles, selfLoops, maxNarrativeHops: 2 };
+  }
+
   function exactChart(input, date, time, resolved) {
     const astro = astroTime(resolved.utc);
     const houses = input.includeHouses === false ? null : calculateHouses(astro, input.location.latitude, input.location.longitude, input.houseSystem);
     const planets = calculatePlanets(astro, houses);
     const aspects = calculateAspects(planets, astro, houses);
-    return {
+    const patterns = annotatePatternDependencies(aspects, detectPatterns(planets, aspects));
+    const houseData = houseRecords(houses, planets);
+    const chart = {
       status: "exact",
       profile: { name: input.fullName, birthDate: input.birthDate, birthTimeLocal: input.birthTime, birthTimeAccuracy: "exact", birthPlaceLabel: input.location.label, latitude: input.location.latitude, longitude: input.location.longitude, timezoneId: input.location.timezone, utcDatetime: resolved.utc.toISOString(), utcOffsetMinutes: resolved.offsetMinutes },
       settings: { zodiac: "tropical", houseSystem: input.houseSystem, nodeType: "true" },
       angles: houses ? { asc: houses.asc, mc: houses.mc, dsc: houses.dsc, ic: houses.ic } : null,
       planets,
-      houses: houseRecords(houses, planets),
+      houses: houseData,
       houseCusps: houses?.cusps || [],
+      houseRulerGraph: houseRulerGraph(houseData),
+      houseSystemSemantics: { mcEqualsHouse10Cusp: input.houseSystem === "placidus", ascEqualsHouse1Cusp: input.houseSystem !== "whole_sign" },
       aspects,
-      patterns: detectPatterns(planets, aspects),
+      patterns,
       balances: balances(planets, houses?.asc),
       uncertainty: null,
-      metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: input.houseSystem, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
+      metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, narrativeVersion: NARRATIVE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: input.houseSystem, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
     };
+    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition);
+    return chart;
   }
 
   function sampleTimes(date, startMinute, endMinute, stepMinutes, timezone) {
@@ -409,11 +502,7 @@ function createAstrologyEngine(Astronomy) {
     if (!samples.length) throw new Error("Không có thời điểm dân sự hợp lệ trong khoảng giờ đã nhập.");
     const samplePositions = samples.map((sample) => {
       const time = astroTime(sample.utc);
-      const items = calculatePlanets(time, null);
-      const nodeValues = nodeLongitudeAndSpeed(time);
-      const nodePosition = signPosition(nodeValues.longitude);
-      items.push({ id: "north_node", name: "Nút Bắc", english: "North Node", symbol: "☊", tier: "secondary", ...nodeValues, ...nodePosition, retrograde: nodeValues.speed < 0, house: null });
-      return items;
+      return calculatePlanets(time, null);
     });
     const planets = BODIES.map((body) => {
       const values = samplePositions.map((items) => items.find((item) => item.id === body.id));
@@ -429,7 +518,10 @@ function createAstrologyEngine(Astronomy) {
     const nodeSigns = [...new Set(nodeSamples.map((item) => item.signIndex))];
     const nodeRetro = [...new Set(nodeSamples.map((item) => item.retrograde))];
     const nodeStable = nodeSigns.length === 1 && nodeRetro.length === 1;
-    planets.push({ ...nodeSamples[Math.floor(nodeSamples.length / 2)], stability: nodeStable ? "stable" : nodeSigns.length <= 2 ? "conditional" : "unstable", possibleSigns: nodeSigns.map((index) => SIGNS[index].name), longitudeRange: { start: nodeSamples[0].longitude, end: nodeSamples[nodeSamples.length - 1].longitude } });
+    const north = { ...nodeSamples[Math.floor(nodeSamples.length / 2)], stability: nodeStable ? "stable" : nodeSigns.length <= 2 ? "conditional" : "unstable", possibleSigns: nodeSigns.map((index) => SIGNS[index].name), longitudeRange: { start: nodeSamples[0].longitude, end: nodeSamples[nodeSamples.length - 1].longitude } };
+    planets.push(north);
+    const southPosition = signPosition(north.longitude + 180);
+    planets.push({ id: "south_node", name: "Nút Nam", english: "South Node", symbol: "☋", tier: "secondary", longitude: southPosition.longitude, speed: north.speed, ...southPosition, retrograde: north.retrograde, house: null, stability: north.stability, possibleSigns: north.possibleSigns.map((name) => SIGNS[(SIGNS.find((sign) => sign.name === name)?.index + 6) % 12].name), longitudeRange: { start: mod(north.longitudeRange.start + 180), end: mod(north.longitudeRange.end + 180) } });
     const aspects = calculateAspects(planets, midpointAstro, null).filter((aspect) => {
       const a = planets.find((item) => item.id === aspect.a);
       const b = planets.find((item) => item.id === aspect.b);
@@ -439,7 +531,8 @@ function createAstrologyEngine(Astronomy) {
         return pa && pb && aspectAt(pa, pb)?.id === aspect.id;
       });
     });
-    return {
+    const patterns = annotatePatternDependencies(aspects, detectPatterns(planets.filter((item) => item.stability === "stable"), aspects));
+    const chart = {
       status: input.timeAccuracy,
       profile: { name: input.fullName, birthDate: input.birthDate, birthTimeLocal: input.timeAccuracy === "unknown" ? null : `${input.timeFrom}-${input.timeTo}`, birthTimeAccuracy: input.timeAccuracy, birthPlaceLabel: input.location.label, latitude: input.location.latitude, longitude: input.location.longitude, timezoneId: input.location.timezone, utcDatetime: null, utcOffsetMinutes: null },
       settings: { zodiac: "tropical", houseSystem: null, nodeType: "true" },
@@ -447,12 +540,16 @@ function createAstrologyEngine(Astronomy) {
       planets,
       houses: [],
       houseCusps: [],
+      houseRulerGraph: { edges: [], cycles: [], selfLoops: [], maxNarrativeHops: 2 },
+      houseSystemSemantics: { mcEqualsHouse10Cusp: false, ascEqualsHouse1Cusp: false },
       aspects,
-      patterns: detectPatterns(planets.filter((item) => item.stability === "stable"), aspects),
+      patterns,
       balances: balances(planets.filter((item) => item.stability === "stable"), null),
       uncertainty: { sampleStepMinutes: 5, sampleCount: samples.length, startLocal: samples[0].local, endLocal: samples[samples.length - 1].local, stablePlanetIds: planets.filter((item) => item.stability === "stable").map((item) => item.id), conditionalPlanetIds: planets.filter((item) => item.stability !== "stable").map((item) => item.id), housesAvailable: false },
-      metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: null, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
+      metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, narrativeVersion: NARRATIVE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: null, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
     };
+    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition);
+    return chart;
   }
 
   function buildNatalChart(rawInput) {
@@ -471,7 +568,7 @@ function createAstrologyEngine(Astronomy) {
     return exactChart(input, date, time, resolved);
   }
 
-  return Object.freeze({ ENGINE_VERSION, EPHEMERIS_NAME, EPHEMERIS_VERSION, ORB_PROFILE, RULERSHIP_PROFILE, SIGNS, BODIES, ASPECTS, mod, signedDelta, angularDistance, validGregorianDate, parseClock, zonedLocalCandidates, resolveLocalDateTime, signPosition, formatDegree, buildNatalChart, calculateHouses, calculatePlanets, calculateAspects, detectPatterns });
+  return Object.freeze({ ENGINE_VERSION, EPHEMERIS_NAME, EPHEMERIS_VERSION, NARRATIVE_VERSION, ORB_PROFILE, RULERSHIP_PROFILE, SIGNS, BODIES, ASPECTS, mod, signedDelta, angularDistance, validGregorianDate, parseClock, zonedLocalCandidates, resolveLocalDateTime, signPosition, formatDegree, buildNatalChart, calculateHouses, calculatePlanets, calculateAspects, detectPatterns, annotatePatternDependencies, houseRulerGraph });
 }
 
-module.exports = { createAstrologyEngine, ENGINE_VERSION, EPHEMERIS_NAME, EPHEMERIS_VERSION, ORB_PROFILE, RULERSHIP_PROFILE, SIGNS, BODIES, ASPECTS };
+module.exports = { createAstrologyEngine, ENGINE_VERSION, EPHEMERIS_NAME, EPHEMERIS_VERSION, NARRATIVE_VERSION, ORB_PROFILE, RULERSHIP_PROFILE, SIGNS, BODIES, ASPECTS };

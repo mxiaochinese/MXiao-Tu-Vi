@@ -16,6 +16,12 @@
     "name": "IANA Time Zone Database",
     "runtime": "Intl.DateTimeFormat"
   },
+  "interpretationCorpus": {
+    "id": "mxiao_astrology_interpretation_corpus_v1_4",
+    "rules": "mxiao_astrology_synthesis_rules_v1_4",
+    "role": "Semantic atoms and whole-chart synthesis constraints supplied in the MXiao V1.4 Deep QA bundle.",
+    "directComponentCopy": false
+  },
   "fixturePolicy": "Independent reference values only; never regenerate expected values from the MXiao production engine.",
   "excludedEngine": {
     "name": "Swiss Ephemeris",

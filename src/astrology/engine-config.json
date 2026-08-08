@@ -1,5 +1,5 @@
 {
-  "configVersion": "mxiao_astrology_config_1.0.0",
+  "configVersion": "mxiao_astrology_config_1.4.0",
   "engine": {
     "name": "Astronomy Engine",
     "version": "2.1.19",
@@ -11,6 +11,39 @@
   "nodeType": "true_node",
   "houseSystems": ["placidus", "whole_sign", "equal"],
   "uncertainTimeSampleStepMinutes": 5,
+  "interpretation": {
+    "corpus": "mxiao_astrology_interpretation_corpus_v1_4",
+    "rules": "mxiao_astrology_synthesis_rules_v1_4",
+    "directComponentCopy": false,
+    "retrogradeInterpretation": false,
+    "chironEnabled": false,
+    "chironReason": "Astronomy Engine 2.1.19 does not provide the required Chiron calculation in this implementation.",
+    "defaultDomains": ["love", "career", "communication", "family", "money"],
+    "allHousesDefaultPdf": false
+  },
+  "evidenceIndependence": {
+    "enabled": true,
+    "majorClaimMinimumRoots": 3,
+    "majorClaimMinimumFamilies": 2,
+    "domainClaimMinimumRoots": 2,
+    "domainClaimMinimumFamilies": 2,
+    "southNodeSharesNorthNodeRoot": true,
+    "patternSharesComponentDependency": true
+  },
+  "houseRulerGraph": {
+    "rulership": "traditional",
+    "cycleDetection": true,
+    "maxNarrativeHops": 2,
+    "repeatCycleAmplification": false
+  },
+  "aspectGeometry": {
+    "signIndependent": true,
+    "emitOutOfSign": true,
+    "epsilonSeconds": 60,
+    "nodeOrbCap": 3,
+    "angleOrbCap": 4,
+    "patternEdgeOrbCap": 3
+  },
   "aspects": [
     { "id": "conjunction", "angle": 0, "baseOrb": 6, "luminaryOrb": 8 },
     { "id": "sextile", "angle": 60, "baseOrb": 4, "luminaryOrb": 5 },

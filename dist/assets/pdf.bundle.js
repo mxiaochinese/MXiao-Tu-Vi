@@ -1462,6 +1462,55 @@ function buildAstrologyOverview(chart) {
     return page;
 }
 
+function buildAstrologyNarrativePages(chart) {
+    if (!chart.narrative?.sections?.length) return [buildAstrologyOverview(chart)];
+    const pages = [];
+    const bottom = PAGE_PORTRAIT.heightPt - 58;
+    let page = null;
+    let y = 0;
+    function startPage(sectionTitle = "") {
+        page = newTextPage("portrait");
+        page.bookmark = sectionTitle || "Luận giải tổng hợp";
+        y = selectableHeader(page, "Luận giải Bản đồ sao", chart.profile.name || "Người xem");
+        pages.push(page);
+    }
+    function sectionHeading(title, continued = false) {
+        const label = continued ? `${title}, tiếp theo` : title;
+        const lines = wrapPdfText(label, page.widthPt - 96, 17, 700);
+        const required = lines.length * 22 + 22;
+        if (!page || y + required > bottom) startPage(title);
+        textBlock(page, label, 48, y, page.widthPt - 96, 17, 22, 700, RED, "H2");
+        y += lines.length * 22 + 9;
+        lineElement(page, 48, y, page.widthPt - 48, y, LINE, 0.7);
+        y += 14;
+    }
+    function narrativeParagraph(text, sectionTitle) {
+        let lines = wrapPdfText(text, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400);
+        let continued = false;
+        while (lines.length) {
+            let available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
+            if (available < 3) {
+                startPage(sectionTitle);
+                sectionHeading(sectionTitle, true);
+                continued = true;
+                available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
+            }
+            const part = lines.splice(0, Math.min(lines.length, available));
+            const group = nextSemanticGroup(page);
+            part.forEach((line, index) => textElement(page, line, 48, y + PDF_BODY_FONT_SIZE + index * PDF_BODY_LINE_HEIGHT, PDF_BODY_FONT_SIZE, 400, INK, "P", group));
+            y += part.length * PDF_BODY_LINE_HEIGHT + 11;
+            if (lines.length && !continued) continued = true;
+        }
+    }
+    startPage();
+    for (const section of chart.narrative.sections) {
+        sectionHeading(section.title);
+        section.paragraphs.forEach((item) => narrativeParagraph(item.text, section.title));
+        y += 8;
+    }
+    return pages;
+}
+
 function buildAstrologyRowsPages(chart, kind) {
     const titles = { planets: "Bảng vị trí hành tinh", aspects: "Bảng góc hợp chính", houses: "12 Nhà và đường chủ tinh", balance: "Nguyên tố và tính chất" };
     let rows = [];
@@ -1491,7 +1540,7 @@ function buildAstrologyRowsPages(chart, kind) {
 function buildAstrologySelectablePages(chart, chartCanvas, options = {}) {
     const selected = new Set(options.sections || ["overview", "wheel", "planets", "aspects", "houses", "balance"]);
     const pages = [buildAstrologyCover(chart)];
-    if (selected.has("overview")) pages.push(buildAstrologyOverview(chart));
+    if (selected.has("overview")) pages.push(...buildAstrologyNarrativePages(chart));
     if (selected.has("wheel") && chartCanvas) {
         const page = newTextPage("landscape");
         page.bookmark = "Vòng Bản đồ sao";
