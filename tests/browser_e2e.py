@@ -110,6 +110,17 @@ try:
         assert desktop.locator('.annual-decade').count() >= 1
         assert desktop.locator('.minor-fortune').count() >= 1
         assert desktop.locator('.year-branch').count() >= 1
+        desktop.set_viewport_size({'width': 911, 'height': 900})
+        desktop.wait_for_timeout(100)
+        chart_overflow = desktop.locator('.chart-center, .palace').evaluate_all(
+            '(elements) => elements.filter((element) => element.scrollHeight > element.clientHeight + 1).map((element) => element.className)'
+        )
+        assert chart_overflow == []
+        chart_font_sizes = desktop.locator('.palace-title strong, .major-star, .minor-stars, .center-fortunes span').evaluate_all(
+            '(elements) => elements.map((element) => parseFloat(getComputedStyle(element).fontSize))'
+        )
+        assert min(chart_font_sizes) >= 12
+        desktop.set_viewport_size({'width': 1440, 'height': 1100})
         assert desktop.locator('#viewLeap').count() == 1
         assert desktop.locator('#leapFortuneMode').count() == 1
         desktop.locator('#viewYear').fill('2025')
