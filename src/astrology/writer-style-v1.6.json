@@ -1,0 +1,57 @@
+{
+  "style_id": "mxiao_astrology_writer_style_v1_6",
+  "version": "1.6",
+  "language": "vi",
+  "goal": "natural expert reading, not checklist prose",
+  "report_word_targets": {
+    "default_full": [5500, 8500],
+    "dense_chart_soft_max": 9500,
+    "quota_is_not_requirement": true
+  },
+  "paragraph": {
+    "uniform_length_forbidden": true,
+    "allow_short_anchor_paragraphs": true,
+    "preferred_sentence_count_range": [3, 7]
+  },
+  "tracked_ai_phrases": [
+    "điều này không có nghĩa là",
+    "không đơn giản là",
+    "điểm cần lưu ý là",
+    "mặt trái",
+    "khi kết hợp với",
+    "vì vậy có thể thấy",
+    "nói cách khác",
+    "trong khuôn khổ chiêm tinh",
+    "cùng cấu trúc đó",
+    "điều thú vị là"
+  ],
+  "tracked_templates": [
+    "không phải X mà là Y",
+    "ở trạng thái tốt / ở trạng thái căng",
+    "điểm mạnh / điểm yếu / hướng phát triển",
+    "khi trưởng thành ...",
+    "bài học ở đây ..."
+  ],
+  "hard_bans": [
+    "runtime jargon in user prose",
+    "one disclaimer per paragraph",
+    "copying semantic atom paragraphs verbatim",
+    "forced coaching after every observation",
+    "same paragraph opening pattern three times in a row"
+  ],
+  "soft_limits": {
+    "same_opening_pattern_consecutive_paragraphs": 2,
+    "ban_phrase_occurrences_per_1000_words": 4,
+    "same_semantic_claim_without_new_domain_function": 0,
+    "you_can_openings_per_3_paragraphs": 2
+  },
+  "writer_priorities": [
+    "say what is specific to this chart",
+    "link factors before naming generic meanings",
+    "vary sentence rhythm",
+    "use one paragraph for one interpretive job",
+    "reserve advice for development sections",
+    "end naturally instead of forcing a balanced moral"
+  ],
+  "regression_sample": "MXiao_Ban_Do_Sao_Mau_Output_User_Facing_V1_6.md"
+}

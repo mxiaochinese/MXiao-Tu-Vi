@@ -1,0 +1,183 @@
+{
+  "rules_id": "mxiao_astrology_synthesis_rules_v1_6",
+  "version": "1.6",
+  "status": "editorial_qa_candidate",
+  "language": "vi",
+  "evidence_model": {
+    "root_rule": "Every evidence object has one root. Derived objects may enrich interpretation but cannot independently increase confidence.",
+    "classes": [
+      "placement_state",
+      "aspect_relation",
+      "house_ruler_relation",
+      "angle_proximity",
+      "aspect_pattern",
+      "element_modality_balance",
+      "secondary_axis"
+    ],
+    "dependency_examples": {
+      "venus_sign_and_house": "same placement_state root",
+      "t_square_and_component_squares": "same aspect-pattern dependency group for confidence counting",
+      "north_and_south_node": "same secondary_axis root",
+      "chart_ruler_and_its_placement": "chart ruler is status metadata; its placement is one placement root"
+    },
+    "major_claim_minimum": {
+      "distinct_roots": 3,
+      "distinct_families": 2
+    },
+    "domain_claim_minimum": {
+      "distinct_roots": 2,
+      "distinct_families": 2
+    },
+    "composite_dependency_rule": "If a composite relation/pattern and one or more of its constituent facts are all cited, they share one dependency bundle and contribute at most one support unit to the minimum-evidence count. The composite may increase relevance/ranking but not inflate independence.",
+    "support_unit_key": "dependency_group_or_independence_key"
+  },
+  "semantic_tension_axes": [
+    {
+      "id": "autonomy_attachment",
+      "pole_a": "tự chủ",
+      "pole_b": "gắn bó"
+    },
+    {
+      "id": "stability_change",
+      "pole_a": "ổn định",
+      "pole_b": "thay đổi"
+    },
+    {
+      "id": "privacy_exchange",
+      "pole_a": "riêng tư",
+      "pole_b": "trao đổi"
+    },
+    {
+      "id": "achievement_nurture",
+      "pole_a": "thành tựu",
+      "pole_b": "nuôi dưỡng"
+    },
+    {
+      "id": "precision_breadth",
+      "pole_a": "chính xác",
+      "pole_b": "mở rộng"
+    },
+    {
+      "id": "harmony_assertion",
+      "pole_a": "hài hòa",
+      "pole_b": "khẳng định"
+    },
+    {
+      "id": "control_surrender",
+      "pole_a": "kiểm soát",
+      "pole_b": "buông lỏng"
+    },
+    {
+      "id": "idealism_reality",
+      "pole_a": "lý tưởng",
+      "pole_b": "thực tế"
+    },
+    {
+      "id": "speed_deliberation",
+      "pole_a": "tốc độ",
+      "pole_b": "cân nhắc"
+    }
+  ],
+  "tension_emission_rule": {
+    "requires_support_on_both_poles": true,
+    "min_independent_root_each_pole": 1,
+    "min_combined_significance": 6,
+    "ban": "Do not manufacture a contradiction just to make the reading sound nuanced."
+  },
+  "house_ruler_synthesis": {
+    "algorithm": [
+      "resolve cusp sign",
+      "resolve traditional ruler",
+      "read ruler sign/house/aspects",
+      "connect source house -> ruler destination house",
+      "stop narrative traversal after 2 hops",
+      "detect cycles and collapse them into one reciprocal motif"
+    ],
+    "self_loop": "Interpret as concentration of that house topic, not infinite reinforcement.",
+    "cycle": "Interpret reciprocal coupling once; no repeated score multiplication.",
+    "same_ruler_multiple_houses": "Shared ruler creates a linkage, but the planet does not gain extra weight merely because the zodiac gives it multiple domiciles."
+  },
+  "aspect_synthesis": {
+    "geometry_first": true,
+    "sign_relationship_secondary": true,
+    "out_of_sign_supported": true,
+    "rule": "First describe the relation between planetary functions. Then use each sign and house to show how/where the relation manifests. Do not infer aspect quality from sign archetype alone."
+  },
+  "slow_planet_priority": {
+    "outer_outer": "background unless personalized",
+    "social_outer": "cohort/social-cycle unless personalized",
+    "personal_outer": "potentially personal if orb/house/angle supports it"
+  },
+  "section_novelty": {
+    "max_semantic_overlap_fraction": 0.32,
+    "rule": "If a later section repeats an earlier theme, it must add a domain-specific mechanism, trade-off, or application; otherwise merge or omit it."
+  },
+  "career_language": {
+    "specific_job_titles_default": false,
+    "allowed_output": "môi trường làm việc, kiểu vai trò, dạng nhiệm vụ và điều kiện phát huy",
+    "job_group_suggestion_requires": {
+      "distinct_roots": 3,
+      "distinct_families": 3
+    },
+    "ban": "Do not state a single best career as destiny."
+  },
+  "writer_order": [
+    "deduplicate evidence",
+    "rank significance",
+    "cluster themes",
+    "detect supported tensions",
+    "assign life domains",
+    "check cross-section novelty",
+    "compose natural Vietnamese prose",
+    "run AI-style template lint",
+    "run determinism and terminology lint",
+    "rewrite failed sections"
+  ],
+  "banned_writer_behavior": [
+    "concatenate component paragraphs",
+    "invent retrograde meanings",
+    "treat South Node as independent evidence",
+    "equate MC with House 10 in all house systems",
+    "turn internal scores into percentages",
+    "force a tension without both poles",
+    "stop after one explanatory paragraph when evidence supports deeper synthesis",
+    "inflate word count by restating the same placement in different adjectives",
+    "explain methodology repeatedly inside user prose",
+    "end every paragraph with a coaching or integration sentence",
+    "use the same contrast template repeatedly",
+    "inflate depth by adding defensive caveats"
+  ],
+  "pattern_rule": "Aspect patterns are topological summaries of aspect edges. A T-square does not count as three new independent facts in addition to its opposition and squares.",
+  "narrative_depth_contract": {
+    "default_mode": "full",
+    "full_report_target_words": [
+      5500,
+      8500
+    ],
+    "soft_ceiling_words": 9500,
+    "major_section_paragraphs": [
+      4,
+      8
+    ],
+    "domain_section_paragraphs": [
+      3,
+      7
+    ],
+    "paragraph_target_words": [
+      60,
+      170
+    ],
+    "required_moves_per_major_section": [
+      "luận điểm trung tâm",
+      "cơ chế từ nhiều yếu tố",
+      "yếu tố điều chỉnh hoặc đối trọng",
+      "biểu hiện thuận",
+      "biểu hiện dễ lệch",
+      "liên hệ sang domain khác khi có căn cứ",
+      "hướng tích hợp hoặc câu hỏi tự quan sát"
+    ],
+    "do_not_pad": true,
+    "rule": "Depth follows chart signal density. Natural prose takes priority over uniform section length."
+  },
+  "writer_style_profile": "mxiao_astrology_writer_style_v1_6.json"
+}

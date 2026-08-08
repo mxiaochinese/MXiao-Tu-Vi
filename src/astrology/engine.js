@@ -2,7 +2,7 @@
 
 const { createNarrative, NARRATIVE_VERSION } = require("./synthesis");
 
-const ENGINE_VERSION = "mxiao-astronomy-engine-1.4.0";
+const ENGINE_VERSION = "mxiao-astronomy-engine-1.6.0";
 const EPHEMERIS_NAME = "Astronomy Engine";
 const EPHEMERIS_VERSION = "2.1.19";
 const ORB_PROFILE = "mxiao_natal_v1";
@@ -147,7 +147,7 @@ function formatDegree(value) {
   return `${degrees}°${String(minutes).padStart(2, "0")}′`;
 }
 
-function createAstrologyEngine(Astronomy, interpretationCorpus = null, synthesisRules = null) {
+function createAstrologyEngine(Astronomy, interpretationCorpus = null, synthesisRules = null, writerStyle = null) {
   if (!Astronomy || !Astronomy.Body || !Astronomy.AstroTime) throw new Error("Không thể khởi tạo Astronomy Engine.");
 
   function astroTime(value) {
@@ -469,7 +469,7 @@ function createAstrologyEngine(Astronomy, interpretationCorpus = null, synthesis
       uncertainty: null,
       metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, narrativeVersion: NARRATIVE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: input.houseSystem, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
     };
-    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition);
+    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition, writerStyle);
     return chart;
   }
 
@@ -548,7 +548,7 @@ function createAstrologyEngine(Astronomy, interpretationCorpus = null, synthesis
       uncertainty: { sampleStepMinutes: 5, sampleCount: samples.length, startLocal: samples[0].local, endLocal: samples[samples.length - 1].local, stablePlanetIds: planets.filter((item) => item.stability === "stable").map((item) => item.id), conditionalPlanetIds: planets.filter((item) => item.stability !== "stable").map((item) => item.id), housesAvailable: false },
       metadata: { calculationEngine: EPHEMERIS_NAME, calculationEngineVersion: EPHEMERIS_VERSION, mxiaoEngineVersion: ENGINE_VERSION, narrativeVersion: NARRATIVE_VERSION, ephemerisModel: "VSOP87/NOVAS-derived", zodiac: "tropical", houseSystem: null, nodeType: "true_node", orbProfile: ORB_PROFILE, rulershipProfile: RULERSHIP_PROFILE, networkAccess: false }
     };
-    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition);
+    chart.narrative = createNarrative(chart, interpretationCorpus, synthesisRules, signPosition, writerStyle);
     return chart;
   }
 
