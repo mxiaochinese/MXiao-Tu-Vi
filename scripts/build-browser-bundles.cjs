@@ -26,7 +26,7 @@ fs.writeFileSync(path.join(root, 'assets/pdf.bundle.js'), pdfOutput);
 const astrologyModules = ['synthesis', 'engine'];
 const astrologyCorpus = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/interpretation-corpus-v1.6.json'), 'utf8'));
 const astrologyRules = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/synthesis-rules-v1.6.json'), 'utf8'));
-const astrologyWriterStyle = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/writer-style-v1.6.json'), 'utf8'));
+const astrologyWriterStyle = JSON.parse(fs.readFileSync(path.join(root, 'src/astrology/writer-style-v1.7.json'), 'utf8'));
 let astrologyOutput = `(function(global){\n"use strict";\nconst factories=Object.create(null); const cache=Object.create(null);\nfunction define(id,factory){factories[id]=factory;}\nfunction load(id){if(cache[id]) return cache[id].exports; const factory=factories[id]; if(!factory) throw new Error('Không tìm thấy module '+id); const module={exports:{}}; cache[id]=module; factory((request)=>load(request.replace(/^\\.\\//,'astrology/').replace(/\\.js$/,'')),module,module.exports); return module.exports;}\n`;
 for (const name of astrologyModules) {
   const source = clean(fs.readFileSync(path.join(root, 'src/astrology', `${name}.js`), 'utf8'));

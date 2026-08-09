@@ -2,7 +2,7 @@
 
 const { createNarrative, NARRATIVE_VERSION } = require("./synthesis");
 
-const ENGINE_VERSION = "mxiao-astronomy-engine-1.6.0";
+const ENGINE_VERSION = "mxiao-astronomy-engine-1.7.0";
 const EPHEMERIS_NAME = "Astronomy Engine";
 const EPHEMERIS_VERSION = "2.1.19";
 const ORB_PROFILE = "mxiao_natal_v1";

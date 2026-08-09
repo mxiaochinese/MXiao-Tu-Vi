@@ -1,5 +1,5 @@
 {
-  "configVersion": "mxiao_astrology_config_1.6.0",
+  "configVersion": "mxiao_astrology_config_1.7.0",
   "engine": {
     "name": "Astronomy Engine",
     "version": "2.1.19",
@@ -14,7 +14,7 @@
   "interpretation": {
     "corpus": "mxiao_astrology_interpretation_corpus_v1_6",
     "rules": "mxiao_astrology_synthesis_rules_v1_6",
-    "writerStyle": "mxiao_astrology_writer_style_v1_6",
+    "writerStyle": "mxiao_astrology_writer_style_v1_7",
     "directComponentCopy": false,
     "retrogradeInterpretation": false,
     "chironEnabled": false,

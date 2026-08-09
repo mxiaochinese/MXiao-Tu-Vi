@@ -1,6 +1,6 @@
 "use strict";
 
-const NARRATIVE_VERSION = "mxiao-astrology-narrative-1.6.0";
+const NARRATIVE_VERSION = "mxiao-astrology-narrative-1.7.0";
 
 const DOMAIN_BODIES = {
   self: ["sun", "moon"],
@@ -32,7 +32,7 @@ const DOMAIN_PLAN = {
     title: "Công việc và vai trò xã hội",
     bodies: ["sun", "mercury", "mars", "jupiter", "saturn"],
     houses: [2, 6, 10],
-    lead: "Công việc hợp không chỉ nằm ở tên nghề, mà ở loại vấn đề được giải quyết, quyền chịu trách nhiệm và tiêu chuẩn mà bạn có thể thực sự làm chủ.",
+    lead: "Công việc phù hợp phụ thuộc vào loại vấn đề được giải quyết, quyền chịu trách nhiệm và tiêu chuẩn bạn có thể thực sự làm chủ. Tên nghề chỉ là lớp mô tả bên ngoài.",
     focus: "môi trường làm việc, dạng nhiệm vụ và mức tự chủ"
   },
   communication: {
@@ -387,7 +387,7 @@ function buildDevelopment(chart, index, evidence) {
     .sort((a, b) => b.significance - a.significance || a.orb - b.orb)[0];
   const items = evidence.filter((item) => [...tension, flow].filter(Boolean).some((aspect) => item.bodies.includes(aspect.a) && item.bodies.includes(aspect.b))).slice(0, 6);
   const tensionText = tension.length
-    ? `Điểm phát triển rõ nhất nằm ở cách điều phối các mạch ${tension.map((item) => index.pairs.get(`${item.a}:${item.b}`)?.axis || `${item.aName} và ${item.bName}`).join("; ")}. Các góc căng cho thấy hai phía cùng cần có chỗ vận hành; mục tiêu không phải loại bỏ một phía mà là nhận ra thời điểm, giới hạn và cách chuyển nhịp phù hợp.`
+    ? `Điểm phát triển rõ nhất nằm ở cách điều phối các mạch ${tension.map((item) => index.pairs.get(`${item.a}:${item.b}`)?.axis || `${item.aName} và ${item.bName}`).join("; ")}. Các góc căng cho thấy hai phía cùng cần có chỗ vận hành. Việc nhận ra thời điểm, giới hạn và cách chuyển nhịp phù hợp quan trọng hơn cố loại bỏ một phía.`
     : "Lá số không tạo một lực kéo căng đủ rõ để gán thành bài toán trung tâm. Hướng phát triển phù hợp hơn là nhận ra lúc một thế mạnh quen thuộc đang được dùng quá tự động và thử mở thêm một cách phản ứng khác.";
   const resourceText = flow ? `Nguồn hỗ trợ có thể đến từ ${index.pairs.get(`${flow.a}:${flow.b}`)?.axis || `${flow.aName} và ${flow.bName}`}, vì ${lowerFirst(index.aspects.get(flow.id)?.operator || "hai chức năng có khả năng phối hợp")}. Khi được dùng có ý thức, mạch thuận này giúp bạn xử lý phần căng mà không biến việc phát triển thành tự phê bình.` : "Việc phát triển nên dựa trên quan sát lặp lại trong đời sống thực, không trên một nhãn cố định từ lá số.";
   return { id: "development", title: "Điểm phát triển và cách tích hợp", paragraphs: [paragraph(tensionText, items), paragraph(resourceText, items)] };
@@ -487,7 +487,7 @@ function buildSummaryV16(chart, index, evidence, planetMap, chartRulerId) {
   }
 
   if (top[0]) paragraphs.push(paragraph(`${aspectDetail(top[0], index)} Đây là một trong những đường nối có sức nặng nhất vì nó chạm trực tiếp tới cách bạn lựa chọn, phản ứng hoặc đưa ý định thành hành động. Trong đời sống thực, mạch này thường lộ rõ ở thời điểm phải vừa giữ điều mình coi trọng, vừa đáp lại yêu cầu đang diễn ra trước mắt.`, evidenceForAspects(evidence, [top[0]], support)));
-  if (top[1]) paragraphs.push(paragraph(`${aspectDetail(top[1], index, ["square", "opposition"].includes(top[1].id) ? "tension" : "resource")} Mối liên hệ này bổ sung một nhịp khác cho phần mở đầu. Nó cho thấy cách vận hành không chỉ dựa vào ý chí; chất lượng kết quả còn phụ thuộc vào việc hai chức năng có được dùng đúng thời điểm và đúng vai trò hay không.`, evidenceForAspects(evidence, [top[1]], support)));
+  if (top[1]) paragraphs.push(paragraph(`${aspectDetail(top[1], index, ["square", "opposition"].includes(top[1].id) ? "tension" : "resource")} Mối liên hệ này bổ sung một nhịp khác cho phần mở đầu. Ý chí tự nó chưa quyết định toàn bộ cách vận hành; chất lượng kết quả còn phụ thuộc vào việc hai chức năng có được dùng đúng thời điểm và đúng vai trò hay không.`, evidenceForAspects(evidence, [top[1]], support)));
   if (top[2]) {
     const mode = ["square", "opposition"].includes(top[2].id) ? "tension" : "resource";
     paragraphs.push(paragraph(`${aspectInContext(top[2], index, "bức tranh tổng thể", mode, "Một mạch khác đến từ")} Ảnh hưởng của nó thường kín hơn hai đường nối đầu, nhưng lại rõ vào lúc bạn cần duy trì một lựa chọn sau khi hứng khởi ban đầu đã qua.`, evidenceForAspects(evidence, [top[2]], support)));
@@ -624,7 +624,7 @@ function domainParagraphs(domain, chart, index, evidence, planetMap) {
     const mc = chart.signPosition(chart.angles.mc).sign;
     const house10 = chart.houses.find((item) => item.number === 10);
     const samePoint = chart.houseSystemSemantics?.mcEqualsHouse10Cusp;
-    paragraphs.push(paragraph(`Thiên Đỉnh ở ${mc.name} mô tả cách vai trò xã hội dễ được nhìn thấy, còn Nhà 10 bắt đầu ở ${house10.sign.name} cho biết cấu trúc của con đường nghề nghiệp. ${samePoint ? "Trong hệ Nhà đang dùng, hai điểm gặp nhau nhưng vẫn trả lời hai câu hỏi khác nhau." : "Hai điểm không trùng nhau trong hệ Nhà đang dùng, nên hình ảnh nghề nghiệp và cách xây sự nghiệp cần được giữ như hai lớp riêng."} Sự nghiệp vì thế không chỉ là được nhận diện thế nào, mà còn là nền trách nhiệm được tổ chức ra sao.`, support));
+    paragraphs.push(paragraph(`Thiên Đỉnh ở ${mc.name} mô tả cách vai trò xã hội dễ được nhìn thấy, còn Nhà 10 bắt đầu ở ${house10.sign.name} cho biết cấu trúc của con đường nghề nghiệp. ${samePoint ? "Trong hệ Nhà đang dùng, hai điểm gặp nhau nhưng vẫn trả lời hai câu hỏi khác nhau." : "Hai điểm không trùng nhau trong hệ Nhà đang dùng, nên hình ảnh nghề nghiệp và cách xây sự nghiệp cần được giữ như hai lớp riêng."} Sự nghiệp vì thế gồm cả cách vai trò được nhận diện và nền trách nhiệm được tổ chức.`, support));
   }
 
   if (chart.houses?.length) {
@@ -637,7 +637,7 @@ function domainParagraphs(domain, chart, index, evidence, planetMap) {
   paragraphs.push(paragraph(`Nhịp bền hơn cho ${plan.focus} xuất hiện khi ${lowerFirst(first.sign.constructive_style || "thế mạnh thứ nhất")} có thể làm việc cùng ${lowerFirst(second.sign.constructive_style || "thế mạnh thứ hai")}. Một phía tạo động lực, phía kia giữ chất lượng hoặc kiểm tra độ phù hợp. Cách chia việc này giữ cho lĩnh vực không bị kéo hoàn toàn về một phản ứng quen thuộc.`, support));
 
   if (support.length >= 5 && paragraphs.length < 7) {
-    paragraphs.push(paragraph(`Các mối nối ở ${lowerFirst(plan.title)} khá dày, nên lĩnh vực này phản hồi mạnh với thay đổi ở những phần liên quan. Một lựa chọn tốt không chỉ giải quyết mục tiêu trước mắt; nó còn giữ điều kiện cho ${plan.focus} tiếp tục vận hành mà không buộc một nhu cầu quan trọng khác phải trả giá quá lớn.`, support));
+    paragraphs.push(paragraph(`Các mối nối ở ${lowerFirst(plan.title)} khá dày, nên lĩnh vực này phản hồi mạnh với thay đổi ở những phần liên quan. Một lựa chọn tốt giải quyết mục tiêu trước mắt, đồng thời giữ điều kiện cho ${plan.focus} tiếp tục vận hành mà không buộc một nhu cầu quan trọng khác phải trả giá quá lớn.`, support));
   }
   return paragraphs;
 }
@@ -698,13 +698,21 @@ function lintNarrative(sections, writerStyle = {}) {
   const words = prose.split(/\s+/).filter(Boolean).length;
   const limit = Math.max(1, Math.ceil(words / 1000) * (writerStyle.soft_limits?.ban_phrase_occurrences_per_1000_words ?? 4));
   if (trackedCount > limit) issues.push("tracked_phrase_density");
-  return { pass: issues.length === 0, issues: unique(issues), words, paragraphs: paragraphs.length, tracked_phrase_count: trackedCount };
+  const formulaicContrastPatterns = [
+    /không chỉ/giu,
+    /không đơn thuần/giu,
+    /không phải[^.!?\n]{0,160}?mà(?:\s+là)?(?=\s|[,:;.!?]|$)/giu,
+    /không hẳn[^.!?\n]{0,160}?mà(?=\s|[,:;.!?]|$)/giu
+  ];
+  const formulaicContrastCount = formulaicContrastPatterns.reduce((sum, pattern) => sum + (prose.match(pattern) || []).length, 0);
+  if (formulaicContrastCount) issues.push("formulaic_contrast");
+  return { pass: issues.length === 0, issues: unique(issues), words, paragraphs: paragraphs.length, tracked_phrase_count: trackedCount, formulaic_contrast_count: formulaicContrastCount };
 }
 
 function rewriteForStyle(sections, writerStyle) {
   const replacements = [
     [/điều này không có nghĩa là/gi, "cách đọc này không đồng nhất với"],
-    [/không đơn giản là/gi, "không chỉ là"],
+    [/không đơn giản là/gi, "vượt ra ngoài"],
     [/điểm cần lưu ý là/gi, "phần đáng chú ý nằm ở"],
     [/khi kết hợp với/gi, "đứng cạnh"],
     [/nói cách khác/gi, "nhìn từ nhịp vận hành"],

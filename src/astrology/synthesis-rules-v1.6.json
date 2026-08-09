@@ -179,5 +179,5 @@
     "do_not_pad": true,
     "rule": "Depth follows chart signal density. Natural prose takes priority over uniform section length."
   },
-  "writer_style_profile": "mxiao_astrology_writer_style_v1_6.json"
+  "writer_style_profile": "mxiao_astrology_writer_style_v1_7.json"
 }

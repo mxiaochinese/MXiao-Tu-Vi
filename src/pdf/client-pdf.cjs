@@ -1562,22 +1562,16 @@ function buildAstrologyNarrativePages(chart) {
         y += 14;
     }
     function narrativeParagraph(text, sectionTitle) {
-        let lines = wrapPdfText(text, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400);
-        let continued = false;
-        while (lines.length) {
-            let available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
-            if (available < 3) {
-                startPage(sectionTitle);
-                sectionHeading(sectionTitle, true);
-                continued = true;
-                available = Math.floor((bottom - y) / PDF_BODY_LINE_HEIGHT);
-            }
-            const part = lines.splice(0, Math.min(lines.length, available));
-            const group = nextSemanticGroup(page);
-            part.forEach((line, index) => textElement(page, line, 48, y + PDF_BODY_FONT_SIZE + index * PDF_BODY_LINE_HEIGHT, PDF_BODY_FONT_SIZE, 400, INK, "P", group));
-            y += part.length * PDF_BODY_LINE_HEIGHT + 11;
-            if (lines.length && !continued) continued = true;
+        const lines = wrapPdfText(text, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400);
+        const required = lines.length * PDF_BODY_LINE_HEIGHT + 11;
+        if (y + required > bottom) {
+            startPage(sectionTitle);
+            sectionHeading(sectionTitle, true);
         }
+        if (y + required > bottom) throw new Error(`Đoạn luận giải "${sectionTitle}" quá dài để giữ nguyên trên một trang A4.`);
+        const group = nextSemanticGroup(page);
+        lines.forEach((line, index) => textElement(page, line, 48, y + PDF_BODY_FONT_SIZE + index * PDF_BODY_LINE_HEIGHT, PDF_BODY_FONT_SIZE, 400, INK, "P", group));
+        y += required;
     }
     startPage();
     for (const section of chart.narrative.sections) {
