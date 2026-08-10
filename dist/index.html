@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#bd1523">
-  <meta name="description" content="MXiao Huyền Học gồm Tử Vi và Bản đồ sao cá nhân.">
+  <meta name="description" content="MXiao Huyền Học gồm Tử Vi, Bản đồ sao và Thần số học cá nhân.">
   <title>MXiao Huyền Học</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/mxiao-mark.svg" type="image/svg+xml">
@@ -15,13 +15,14 @@
     <header class="topbar">
       <a class="brand" href="#top" aria-label="Về đầu trang">
         <span class="brand-mark">M</span>
-        <span class="brand-copy"><strong>MXiao Huyền Học</strong><span>Tử Vi và Bản đồ sao cá nhân</span></span>
+        <span class="brand-copy"><strong>MXiao Huyền Học</strong><span>Tử Vi, Bản đồ sao và Thần số học</span></span>
       </a>
     </header>
 
     <nav class="tool-switcher" role="tablist" aria-label="Chọn công cụ">
       <button id="tool-tuvi" class="active" type="button" role="tab" aria-selected="true" aria-controls="tuvi-tool">Tử Vi</button>
       <button id="tool-astrology" type="button" role="tab" aria-selected="false" aria-controls="astrology-tool">Bản đồ sao</button>
+      <button id="tool-numerology" type="button" role="tab" aria-selected="false" aria-controls="numerology-tool">Thần số học</button>
     </nav>
 
     <main id="top">
@@ -139,6 +140,47 @@
           </div>
         </section>
       </div>
+
+      <div id="numerology-tool" role="tabpanel" aria-labelledby="tool-numerology" hidden>
+        <section class="hero numerology-hero">
+          <div>
+            <span class="eyebrow">THẦN SỐ HỌC PYTHAGORAS</span>
+            <h1>Khám phá <em>cấu trúc con số</em> của bạn.</h1>
+            <p>Xem năm chỉ số cốt lõi, biểu đồ ngày sinh, các chặng phát triển và nhịp năm cá nhân.</p>
+            <div class="hero-points"><span class="hero-point">Năm chỉ số cốt lõi</span><span class="hero-point">Biểu đồ ngày sinh</span><span class="hero-point">Chu kỳ và thử thách</span><span class="hero-point">12 tháng cá nhân</span></div>
+          </div>
+          <div class="numerology-symbol" aria-hidden="true"><span>3</span><span>6</span><span>9</span><span>2</span><strong>5</strong><span>8</span><span>1</span><span>4</span><span>7</span></div>
+        </section>
+
+        <section class="workspace numerology-workspace" aria-label="Công cụ lập báo cáo Thần số học">
+          <form id="numerology-form" class="panel form-panel" novalidate>
+            <div class="panel-heading-row"><div><h2 class="panel-title">Thông tin cá nhân</h2><p class="panel-note">Dùng họ tên khai sinh và ngày sinh Dương lịch.</p></div></div>
+            <div class="field-grid">
+              <div class="field full"><label for="numerology-birth-name">Họ tên khai sinh</label><input id="numerology-birth-name" maxlength="100" autocomplete="name" value="Trần Minh Anh" required><span class="field-help">Không nhập danh xưng hoặc hậu tố thế hệ.</span></div>
+              <div class="field full"><label for="numerology-date">Ngày sinh Dương lịch</label><input id="numerology-date" type="date" min="1900-01-01" max="2099-12-31" value="1998-10-15" required></div>
+              <div class="field full"><label for="numerology-current-name">Tên đang dùng <span class="optional-label">không bắt buộc</span></label><input id="numerology-current-name" maxlength="100" autocomplete="off" placeholder="Chỉ nhập khi muốn xem thêm lớp tên hiện tại"></div>
+              <div class="field full"><label for="numerology-year">Năm muốn xem</label><select id="numerology-year"></select></div>
+            </div>
+            <div id="numerology-form-error" class="form-error" role="alert" hidden></div>
+            <section id="numerology-name-review" class="name-review" hidden aria-label="Xác nhận cấu trúc tên"><h3>Xác nhận cách đọc tên</h3><p>Kiểm tra các đơn vị tên và tên gọi trước khi lập báo cáo.</p><div id="numerology-name-review-root"></div></section>
+            <div class="form-actions"><button class="primary-button" type="submit">Kiểm tra và lập báo cáo</button><button class="secondary-button" id="numerology-reset" type="button">Xóa dữ liệu vừa nhập</button></div>
+            <p class="microcopy">Kết quả thuộc hệ quy ước Thần số học Pythagoras và chỉ dùng để tham khảo, tự chiêm nghiệm.</p>
+          </form>
+
+          <div id="numerology-result" class="result-stack numerology-results" hidden>
+            <section class="panel result-toolbar"><div><h2 id="numerology-result-title">Báo cáo Thần số học</h2><p id="numerology-result-meta"></p></div><div class="toolbar-cluster"><div class="toolbar-actions"><button id="numerology-pdf-options-button" class="toolbar-button" type="button" aria-expanded="false" aria-controls="numerology-pdf-options">Chọn nội dung PDF</button><button id="numerology-pdf-button" class="toolbar-button danger" type="button">Tải PDF trực tiếp</button></div><span id="numerology-toolbar-status" class="toolbar-status" aria-live="polite"></span></div></section>
+            <section id="numerology-pdf-options" class="panel pdf-options-panel" hidden aria-label="Chọn nội dung PDF Thần số học"><div class="pdf-options-head"><div><h2>Nội dung PDF Thần số học</h2><p>Chọn những phần muốn đưa vào báo cáo.</p></div><button id="numerology-pdf-options-close" class="icon-button" type="button" aria-label="Đóng phần chọn nội dung">×</button></div><div id="numerology-pdf-options-grid" class="pdf-options-grid"></div></section>
+            <section class="panel numerology-core-panel"><div id="numerology-core-cards" class="numerology-core-cards"></div></section>
+            <section class="panel numerology-motifs-panel"><h2>Những nét nổi bật</h2><div id="numerology-motifs" class="numerology-motifs"></div></section>
+            <section class="panel numerology-chart-panel"><div class="numerology-section-head"><div><h2>Biểu đồ ngày sinh</h2><p>Chọn một ô hoặc mũi tên để xem phần giải thích.</p></div></div><div class="numerology-chart-layout"><div id="numerology-birth-chart" class="numerology-birth-chart"></div><div id="numerology-chart-detail" class="numerology-chart-detail" aria-live="polite"></div></div></section>
+            <section class="panel numerology-cycle-panel"><div class="numerology-section-head"><div><h2>Dòng thời gian phát triển</h2><p>Ba chu kỳ lớn, bốn Đỉnh cao và bốn Thử thách.</p></div></div><div id="numerology-timeline"></div></section>
+            <section class="panel numerology-month-panel"><div class="numerology-section-head"><div><h2 id="numerology-month-title">12 tháng cá nhân</h2><p>Nhịp tháng nằm trong chủ đề chung của năm đã chọn.</p></div></div><div id="numerology-months" class="numerology-months"></div></section>
+            <section class="panel numerology-reading"><h2>Luận giải chi tiết</h2><nav id="numerology-report-nav" class="numerology-report-nav" aria-label="Các phần luận giải"></nav><div id="numerology-report" class="numerology-report"></div></section>
+            <details class="panel numerology-calculation"><summary>Xem cách tính</summary><div id="numerology-calculation-root"></div></details>
+            <section class="panel astrology-disclaimer"><p>Thần số học là một hệ quy ước diễn giải, không phải phép đo khoa học và không thay thế tư vấn y tế, pháp lý, tài chính hoặc quyết định chuyên môn.</p></section>
+          </div>
+        </section>
+      </div>
     </main>
     <footer class="footer">MXiao Huyền Học - Nội dung tham khảo và tự chiêm nghiệm.</footer>
   </div>
@@ -151,5 +193,7 @@
   <script src="assets/astrology-engine.bundle.js"></script>
   <script src="assets/astrology-locations.js"></script>
   <script src="assets/astrology-app.js"></script>
+  <script src="assets/numerology-engine.bundle.js"></script>
+  <script src="assets/numerology-app.js"></script>
 </body>
 </html>

@@ -25,6 +25,7 @@ jobs:
           path: |
             sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf
             sample/MXiao-Ban-Do-Sao-final.pdf
+            sample/MXiao-Than-So-Hoc-final.pdf
 
   pdfua:
     needs: test

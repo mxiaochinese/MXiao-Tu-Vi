@@ -5,14 +5,14 @@
   "description": "Web app tĩnh MXiao Huyền Học gồm Tử Vi và Bản đồ sao cá nhân.",
   "scripts": {
     "build": "node scripts/build-browser-bundles.cjs",
-    "test": "node tests/calendar.test.cjs && node tests/profiles.test.cjs && node tests/patterns.test.cjs && node tests/content-pipeline.test.cjs && node tests/content-quality.test.cjs && node tests/engine.test.cjs && node tests/astrology.test.cjs && node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs && node tests/static.test.cjs && npm run test:pdf && python3 tests/server_smoke.py",
+    "test": "node tests/calendar.test.cjs && node tests/profiles.test.cjs && node tests/patterns.test.cjs && node tests/content-pipeline.test.cjs && node tests/content-quality.test.cjs && node tests/engine.test.cjs && node tests/astrology.test.cjs && node tests/numerology.test.cjs && node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs && node tests/static.test.cjs && npm run test:pdf && python3 tests/server_smoke.py",
     "verify": "npm run build && npm test && npm run final-check",
     "test:e2e": "python3 tests/browser_e2e.py",
     "serve": "python3 -m http.server 4173",
     "final-check": "node scripts/final-check.cjs",
     "test:patterns": "node tests/patterns.test.cjs",
     "test:public": "node tests/public-reference.test.cjs && node tests/public-deep-reference.test.cjs",
-    "test:pdf": "python3 tests/pdf_accessibility.py sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf 'Lá số Tử Vi và luận giải chi tiết' 'MXiao Tử Vi' 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT' 8000 0 && python3 tests/pdf_accessibility.py sample/MXiao-Ban-Do-Sao-final.pdf 'Bản đồ sao cá nhân' 'MXiao Huyền Học' 'BẢN ĐỒ SAO CÁ NHÂN' 1500 1",
+    "test:pdf": "python3 tests/pdf_accessibility.py sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf 'Lá số Tử Vi và luận giải chi tiết' 'MXiao Tử Vi' 'LÁ SỐ TỬ VI VÀ LUẬN GIẢI CHI TIẾT' 8000 0 && python3 tests/pdf_accessibility.py sample/MXiao-Ban-Do-Sao-final.pdf 'Bản đồ sao cá nhân' 'MXiao Huyền Học' 'BẢN ĐỒ SAO CÁ NHÂN' 1500 1 && python3 tests/pdf_accessibility.py sample/MXiao-Than-So-Hoc-final.pdf 'Báo cáo Thần số học cá nhân' 'MXiao Huyền Học' 'BÁO CÁO THẦN SỐ HỌC CÁ NHÂN' 3000 0",
     "test:pdfua": "bash scripts/verapdf-check.sh",
     "codex-check": "npm run build && npm run test:e2e && npm test && npm run final-check"
   },

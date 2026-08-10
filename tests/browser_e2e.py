@@ -24,7 +24,7 @@ def free_port():
 def hydrate(page):
     page.set_content(HYDRATED_HTML, wait_until='domcontentloaded')
     page.add_style_tag(content=(ROOT / 'assets/styles.css').read_text(encoding='utf-8'))
-    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/timezones.js', 'assets/app.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/astrology-locations.js', 'assets/astrology-app.js']:
+    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/timezones.js', 'assets/app.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/astrology-locations.js', 'assets/astrology-app.js', 'assets/numerology-engine.bundle.js', 'assets/numerology-app.js']:
         page.add_script_tag(content=(ROOT / file).read_text(encoding='utf-8'))
     page.wait_for_timeout(500)
 
@@ -376,6 +376,75 @@ try:
         assert desktop.locator('#astro-form-error').is_hidden()
         assert desktop.locator('#astro-houses tbody tr').count() == 12
 
+        desktop.locator('#tool-numerology').click()
+        assert desktop.locator('#numerology-tool').is_visible()
+        assert desktop.locator('#tuvi-tool').is_hidden()
+        assert desktop.locator('#astrology-tool').is_hidden()
+        assert 'tool=than-so-hoc' in desktop.url
+        desktop.locator('#numerology-year').select_option('2026')
+        desktop.locator('#numerology-form button[type="submit"]').click()
+        assert desktop.locator('#numerology-name-review').is_visible()
+        assert desktop.locator('.name-review-card').count() == 1
+        assert desktop.locator('[data-given-unit]').input_value() == '2'
+        desktop.locator('#numerology-confirm-name').click()
+        desktop.wait_for_timeout(500)
+        assert desktop.locator('#numerology-form-error').is_hidden()
+        assert desktop.locator('#numerology-result').is_visible()
+        assert desktop.locator('.numerology-core-card').count() == 5
+        assert desktop.locator('.numerology-motifs article').count() == 4
+        assert desktop.locator('.birth-grid button').count() == 9
+        assert desktop.locator('.cycle-track article').count() == 7
+        assert desktop.locator('.numerology-months article').count() == 12
+        assert desktop.locator('.numerology-report > section').count() == 10
+        assert desktop.locator('.numerology-report p').count() >= 60
+        assert 'Năm cá nhân 8' in desktop.locator('#numerology-result-meta').inner_text()
+        assert desktop.locator('.numerology-core-card').nth(0).locator('strong').inner_text() == '7'
+        assert desktop.locator('.numerology-core-card').nth(2).locator('strong').inner_text() == '3'
+        numerology_font_sizes = desktop.locator('.numerology-core-card p, .numerology-months p, .numerology-report p').evaluate_all(
+            '(elements) => elements.map((element) => parseFloat(getComputedStyle(element).fontSize))'
+        )
+        assert min(numerology_font_sizes) >= 13
+        desktop.locator('[data-chart-number="7"]').click()
+        assert 'Số 7' in desktop.locator('#numerology-chart-detail').inner_text()
+        desktop.locator('#numerology-pdf-options-button').click()
+        assert desktop.locator('#numerology-pdf-options').is_visible()
+        assert desktop.locator('[data-numerology-pdf]').count() == 10
+        assert desktop.locator('[data-numerology-pdf]:checked').count() == 10
+        numerology_pdf = ROOT / 'sample/MXiao-Than-So-Hoc-final.pdf'
+        with desktop.expect_download(timeout=90000) as numerology_pdf_info:
+            desktop.locator('#numerology-pdf-button').click()
+        numerology_pdf_info.value.save_as(numerology_pdf)
+        numerology_text = subprocess.check_output(['pdftotext', str(numerology_pdf), '-'], text=True)
+        numerology_info = subprocess.check_output(['pdfinfo', str(numerology_pdf)], text=True)
+        assert 'BÁO CÁO THẦN SỐ HỌC CÁ NHÂN' in numerology_text
+        assert 'Trần Minh Anh' in numerology_text
+        assert 'Bức tranh tổng hợp' in numerology_text
+        assert 'Biểu đồ ngày sinh' in numerology_text
+        assert 'Năm cá nhân 2026' in numerology_text
+        assert 'Author:' in numerology_info and 'MXiao Huyền Học' in numerology_info
+        assert 'Title:' in numerology_info and 'Báo cáo Thần số học cá nhân' in numerology_info
+        numerology_data = numerology_pdf.read_bytes()
+        assert b'/StructTreeRoot' in numerology_data
+        assert numerology_data.count(b'12.00 Tf') >= 80
+        for phrase in ['source id', 'rule id', 'dataset', 'json', 'debug', 'không chỉ', 'không đơn thuần']:
+            assert phrase not in numerology_text.lower()
+        desktop.screenshot(path=ROOT / 'screenshots/numerology-desktop.png')
+
+        desktop.locator('#numerology-reset').click()
+        assert desktop.locator('#numerology-result').is_hidden()
+        assert desktop.locator('#numerology-birth-name').input_value() == ''
+        desktop.locator('#numerology-birth-name').fill('Nguyễn Mỹ Linh')
+        desktop.locator('#numerology-date').fill('1990-08-12')
+        desktop.locator('#numerology-form button[type="submit"]').click()
+        assert desktop.locator('[data-y-key]').count() == 2
+        desktop.locator('#numerology-confirm-name').click()
+        assert 'từng chữ Y' in desktop.locator('#numerology-form-error').inner_text()
+        for y_select in desktop.locator('[data-y-key]').all():
+            y_select.select_option('vowel')
+        desktop.locator('#numerology-confirm-name').click()
+        assert desktop.locator('#numerology-form-error').is_hidden()
+        assert desktop.locator('#numerology-result').is_visible()
+
         desktop.locator('#tool-tuvi').click()
         assert desktop.locator('#tuvi-tool').is_visible()
         assert desktop.locator('.palace').count() == 12
@@ -404,6 +473,10 @@ try:
         assert mobile.locator('.natal-wheel').count() == 1
         assert mobile.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
         mobile.screenshot(path=ROOT / 'screenshots/astrology-mobile.png', full_page=True)
+        mobile.locator('#tool-numerology').click()
+        assert mobile.locator('#numerology-tool').is_visible()
+        assert mobile.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
+        mobile.screenshot(path=ROOT / 'screenshots/numerology-mobile.png', full_page=True)
         assert not mobile_errors, mobile_errors
         browser.close()
 finally:

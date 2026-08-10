@@ -13,19 +13,23 @@
   const pad = (value) => String(value).padStart(2, "0");
 
   function selectTool(tool, updateUrl = true) {
-    state.activeTool = tool === "ban-do-sao" ? "ban-do-sao" : "tu-vi";
+    state.activeTool = ["tu-vi", "ban-do-sao", "than-so-hoc"].includes(tool) ? tool : "tu-vi";
     $("tuvi-tool").hidden = state.activeTool !== "tu-vi";
     $("astrology-tool").hidden = state.activeTool !== "ban-do-sao";
+    $("numerology-tool").hidden = state.activeTool !== "than-so-hoc";
     $("tool-tuvi").classList.toggle("active", state.activeTool === "tu-vi");
     $("tool-astrology").classList.toggle("active", state.activeTool === "ban-do-sao");
+    $("tool-numerology").classList.toggle("active", state.activeTool === "than-so-hoc");
     $("tool-tuvi").setAttribute("aria-selected", String(state.activeTool === "tu-vi"));
     $("tool-astrology").setAttribute("aria-selected", String(state.activeTool === "ban-do-sao"));
-    document.title = state.activeTool === "ban-do-sao" ? "Bản đồ sao cá nhân | MXiao Huyền Học" : "Tử Vi | MXiao Huyền Học";
+    $("tool-numerology").setAttribute("aria-selected", String(state.activeTool === "than-so-hoc"));
+    document.title = state.activeTool === "ban-do-sao" ? "Bản đồ sao cá nhân | MXiao Huyền Học" : state.activeTool === "than-so-hoc" ? "Thần số học | MXiao Huyền Học" : "Tử Vi | MXiao Huyền Học";
     if (updateUrl) {
       const url = new URL(window.location.href);
       url.searchParams.set("tool", state.activeTool);
       history.replaceState(null, "", url);
     }
+    window.dispatchEvent(new CustomEvent("mxiao:toolchange", { detail: { tool: state.activeTool } }));
   }
 
   function setTimeAccuracy(mode) {
@@ -268,6 +272,7 @@
 
   $("tool-tuvi").addEventListener("click", () => selectTool("tu-vi"));
   $("tool-astrology").addEventListener("click", () => selectTool("ban-do-sao"));
+  $("tool-numerology").addEventListener("click", () => selectTool("than-so-hoc"));
   ["exact", "range", "unknown"].forEach((mode) => $("astro-time-" + mode).addEventListener("click", () => setTimeAccuracy(mode)));
   $("astro-location-search").addEventListener("input", (event) => renderLocationOptions(event.target.value));
   $("astro-location-search").addEventListener("focus", (event) => renderLocationOptions(event.target.value));
@@ -320,5 +325,5 @@
   setTimeAccuracy("exact");
   selectLocation("vn-hcm");
   const requested = new URLSearchParams(window.location.search).get("tool");
-  selectTool(requested === "ban-do-sao" ? "ban-do-sao" : "tu-vi", false);
+  selectTool(["ban-do-sao", "than-so-hoc"].includes(requested) ? requested : "tu-vi", false);
 })();

@@ -136,6 +136,31 @@ function drawAstrologyCoverPattern(context) {
     context.restore();
 }
 
+function drawNumerologyCoverPattern(context) {
+    context.save();
+    context.globalAlpha = 0.14;
+    context.strokeStyle = WHITE;
+    context.lineWidth = 2;
+    const size = 112;
+    const startX = 780;
+    const startY = 116;
+    for (let row = 0; row < 3; row += 1) {
+        for (let column = 0; column < 3; column += 1) {
+            roundedRect(context, startX + column * (size + 16), startY + row * (size + 16), size, size, 20);
+            context.stroke();
+        }
+    }
+    context.globalAlpha = 0.18;
+    setFont(context, 42, 700);
+    context.fillStyle = WHITE;
+    [3,6,9,2,5,8,1,4,7].forEach((number, index) => {
+        const column = index % 3;
+        const row = Math.floor(index / 3);
+        context.fillText(String(number), startX + column * (size + 16) + 42, startY + row * (size + 16) + 30);
+    });
+    context.restore();
+}
+
 function createBrandCoverBackground(kind) {
     const canvas = createCanvas("portrait");
     const context = getContext(canvas);
@@ -151,6 +176,7 @@ function createBrandCoverBackground(kind) {
     context.fillStyle = glow;
     context.fillRect(0, 0, canvas.width, canvas.height);
     if (kind === "astrology") drawAstrologyCoverPattern(context);
+    else if (kind === "numerology") drawNumerologyCoverPattern(context);
     else drawTuviCoverPattern(context);
     drawBrandLogo(context);
     roundedRect(context, 112, 1282, 1016, 238, 28);
@@ -1643,7 +1669,192 @@ async function downloadAstrologyPdf(chart, chartCanvas, options = {}) {
     return pages.length;
 }
 
-module.exports = { MAX_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, buildTuviSelectablePages, downloadChartPdf, buildSelectablePdfBlob, buildAstrologySelectablePages, downloadAstrologyPdf };
+function numerologyFooter(page, profile, number, total) {
+    const top = page.heightPt - 34;
+    lineElement(page, 48, top - 10, page.widthPt - 48, top - 10, LINE, 0.6);
+    textElement(page, `MXiao Huyền Học | ${profile.birth_name.original || "Người xem"}`, 48, top + 3, 8.5, 400, MUTED, "Artifact");
+    const label = `${number}/${total}`;
+    textElement(page, label, page.widthPt - 48 - measurePdfText(label, 8.5, 400), top + 3, 8.5, 400, MUTED, "Artifact");
+}
+
+function numerologyValueLabel(number) {
+    if (number === 11) return "11/2";
+    if (number === 22) return "22/4";
+    if (number === 33) return "33/6";
+    return String(number);
+}
+
+function buildNumerologyCover(profile) {
+    const page = newTextPage("portrait");
+    page.bookmark = "Bìa báo cáo";
+    page.imageCanvas = createBrandCoverBackground("numerology");
+    page.imageArtifact = true;
+    textElement(page, "THẦN SỐ HỌC", 54, 125, 11.5, 700, WHITE, "Artifact");
+    textBlock(page, "BÁO CÁO THẦN SỐ HỌC CÁ NHÂN", 54, 170, page.widthPt - 108, 27, 35, 700, WHITE, "H1");
+    textElement(page, profile.birth_name.original || "Người xem", 54, 338, 22, 700, WHITE, "H2");
+    const meta = [
+        `Ngày sinh: ${profile.date.birth_date}`,
+        `Đường đời: ${numerologyValueLabel(profile.date.life_path.value)}`,
+        `Sứ mệnh: ${numerologyValueLabel(profile.birth_name.expression.reduced)}`,
+        `Linh hồn: ${numerologyValueLabel(profile.birth_name.soul_urge.reduced)}`,
+        `Nhân cách: ${numerologyValueLabel(profile.birth_name.personality.reduced)}`,
+        `Năm cá nhân ${profile.date.forecast.year}: ${profile.date.forecast.personal_year.value}`
+    ];
+    meta.forEach((line, index) => textElement(page, line, 54, 408 + index * 25, 11.5, 400, WHITE));
+    textBlock(page, "Báo cáo trình bày những phần đã chọn trước khi xuất PDF.", 72, 638, page.widthPt - 144, 12, 18, 700, WHITE, "P");
+    textBlock(page, "Nội dung thuộc hệ quy ước Thần số học Pythagoras và dùng để tham khảo, tự chiêm nghiệm.", 72, 692, page.widthPt - 144, 10.5, 15, 400, WHITE, "P");
+    return page;
+}
+
+function buildNumerologyCorePage(profile) {
+    const page = newTextPage("portrait");
+    let y = selectableHeader(page, "Năm chỉ số cốt lõi", `${profile.birth_name.original} | ${profile.date.birth_date}`);
+    const items = [
+        ["Đường đời", profile.date.life_path.value, "Trục phát triển dài hạn"],
+        ["Ngày sinh", profile.date.birthday.value, `Năng lực từ ngày ${profile.date.birthday.raw}`],
+        ["Sứ mệnh", profile.birth_name.expression.reduced, "Cách năng lực đi ra hành động"],
+        ["Linh hồn", profile.birth_name.soul_urge.reduced, "Động cơ và nhu cầu bên trong"],
+        ["Nhân cách", profile.birth_name.personality.reduced, "Ấn tượng và cách tiếp xúc ban đầu"]
+    ];
+    items.forEach(([label, value, note], index) => {
+        const top = y + index * 76;
+        rectElement(page, 48, top, page.widthPt - 96, 64, index % 2 ? "#ffffff" : RED_SOFT, LINE, 0.8);
+        textElement(page, label, 64, top + 25, 13, 700, RED_DARK, "H3");
+        textElement(page, numerologyValueLabel(value), 196, top + 33, 25, 700, RED, "P");
+        textBlock(page, note, 258, top + 18, page.widthPt - 322, 11.5, 16, 400, INK, "P");
+    });
+    y += items.length * 76 + 8;
+    textElement(page, "Chỉ số bổ trợ", 48, y + 18, 17, 700, RED, "H2");
+    y += 35;
+    [
+        ["Trưởng thành", numerologyValueLabel(profile.maturity)],
+        ["Tư duy Lý trí", numerologyValueLabel(profile.rational_thought)],
+        ["Năm cá nhân", `${profile.date.forecast.personal_year.value} trong ${profile.date.forecast.year}`]
+    ].forEach(([label, value]) => { y = addSummaryLine(page, label, value, y, true); });
+    return page;
+}
+
+function buildNumerologyChartPage(profile) {
+    const page = newTextPage("portrait");
+    let y = selectableHeader(page, "Biểu đồ ngày sinh", profile.date.birth_date);
+    const counts = profile.date.birth_chart.counts;
+    const order = [3,6,9,2,5,8,1,4,7];
+    const gap = 10;
+    const cell = (page.widthPt - 96 - gap * 2) / 3;
+    order.forEach((number, index) => {
+        const column = index % 3;
+        const row = Math.floor(index / 3);
+        const left = 48 + column * (cell + gap);
+        const top = y + row * (cell * 0.58 + gap);
+        rectElement(page, left, top, cell, cell * 0.58, counts[number] ? RED_SOFT : "#ffffff", counts[number] ? "#d89aa1" : LINE, 0.9);
+        textElement(page, String(number), left + 16, top + 34, 23, 700, RED_DARK, "P");
+        const status = counts[number] ? `Xuất hiện ${counts[number]} lần` : "Ít được đại diện";
+        textBlock(page, status, left + 54, top + 19, cell - 66, 10, 14, 400, MUTED, "P");
+    });
+    y += 3 * (cell * 0.58 + gap) + 18;
+    textElement(page, "Mũi tên đầy", 48, y + 17, 15, 700, RED, "H2");
+    y += 31;
+    y = textBlock(page, profile.date.birth_chart.filled_arrows.length ? profile.date.birth_chart.filled_arrows.join(", ") : "Không có mũi tên đầy.", 48, y, page.widthPt - 96, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK) + 10;
+    textElement(page, "Đường trống", 48, y + 17, 15, 700, RED, "H2");
+    y += 31;
+    textBlock(page, profile.date.birth_chart.empty_arrows.length ? profile.date.birth_chart.empty_arrows.join(", ") : "Không có đường trống hoàn toàn.", 48, y, page.widthPt - 96, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK);
+    return page;
+}
+
+function buildNumerologyCyclePage(profile) {
+    const page = newTextPage("portrait");
+    let y = selectableHeader(page, "Dòng thời gian phát triển", `Năm đang xem: ${profile.date.forecast.year}`);
+    textElement(page, "Ba chu kỳ lớn", 48, y + 18, 17, 700, RED, "H2");
+    y += 38;
+    profile.date.periods.forEach((item) => {
+        const age = `${item.age_start}${item.age_end == null ? "+" : `-${item.age_end}`} tuổi`;
+        y = addSummaryLine(page, `Chu kỳ ${item.index}`, `Số ${numerologyValueLabel(item.value)} | ${age}`, y, true);
+    });
+    y += 12;
+    textElement(page, "Bốn Đỉnh cao và Thử thách", 48, y + 18, 17, 700, RED, "H2");
+    y += 38;
+    profile.date.pinnacles.forEach((item, index) => {
+        const age = `${item.age_start}${item.age_end == null ? "+" : `-${item.age_end}`} tuổi`;
+        y = addSummaryLine(page, `Đỉnh ${item.index}`, `Số ${numerologyValueLabel(item.value)} | Thử thách ${profile.date.challenges[index]} | ${age}`, y, index % 2 === 0);
+    });
+    y += 12;
+    textElement(page, `Năm cá nhân ${profile.date.forecast.year}`, 48, y + 18, 17, 700, RED, "H2");
+    y += 38;
+    textBlock(page, `Năm cá nhân ${profile.date.forecast.personal_year.value}. Các tháng lần lượt: ${Object.entries(profile.date.forecast.personal_months).map(([month, value]) => `tháng ${month} số ${value}`).join(", ")}.`, 48, y, page.widthPt - 96, PDF_BODY_FONT_SIZE, PDF_BODY_LINE_HEIGHT, 400, INK);
+    return page;
+}
+
+function buildNumerologyNarrativePages(profile, narrative, selected) {
+    const pages = [];
+    const bottom = PAGE_PORTRAIT.heightPt - 58;
+    let page = null;
+    let y = 0;
+    function startPage(sectionTitle) {
+        page = newTextPage("portrait");
+        page.bookmark = sectionTitle || "Luận giải Thần số học";
+        y = selectableHeader(page, "Luận giải Thần số học", profile.birth_name.original || "Người xem");
+        pages.push(page);
+    }
+    function heading(title, continued = false) {
+        const label = continued ? `${title}, tiếp theo` : title;
+        const lines = wrapPdfText(label, page.widthPt - 96, 17, 700);
+        const required = lines.length * 22 + 24;
+        if (!page || y + required > bottom) startPage(title);
+        textBlock(page, label, 48, y, page.widthPt - 96, 17, 22, 700, RED, "H2");
+        y += lines.length * 22 + 9;
+        lineElement(page, 48, y, page.widthPt - 48, y, LINE, 0.7);
+        y += 14;
+    }
+    function paragraph(text, title) {
+        const lines = wrapPdfText(text, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400);
+        const required = lines.length * PDF_BODY_LINE_HEIGHT + 11;
+        if (y + required > bottom) {
+            startPage(title);
+            heading(title, true);
+        }
+        if (y + required > bottom) throw new Error(`Đoạn luận giải "${title}" quá dài để giữ nguyên trên một trang A4.`);
+        const group = nextSemanticGroup(page);
+        lines.forEach((line, index) => textElement(page, line, 48, y + PDF_BODY_FONT_SIZE + index * PDF_BODY_LINE_HEIGHT, PDF_BODY_FONT_SIZE, 400, INK, "P", group));
+        y += required;
+    }
+    for (const section of narrative.sections.filter((item) => selected.has(item.id))) {
+        if (!page) startPage(section.title);
+        heading(section.title);
+        section.paragraphs.forEach((text) => paragraph(text, section.title));
+        y += 8;
+    }
+    return pages;
+}
+
+function buildNumerologySelectablePages(profile, narrative, options = {}) {
+    const selected = new Set(options.sections || narrative.sections.map((section) => section.id));
+    if (!selected.size) throw new Error("Hãy chọn ít nhất một phần cho PDF Thần số học.");
+    const pages = [buildNumerologyCover(profile)];
+    if (selected.has("overview") || selected.has("core")) pages.push(buildNumerologyCorePage(profile));
+    if (selected.has("chart")) pages.push(buildNumerologyChartPage(profile));
+    if (selected.has("cycles") || selected.has("year")) pages.push(buildNumerologyCyclePage(profile));
+    pages.push(...buildNumerologyNarrativePages(profile, narrative, selected));
+    if (pages.length > MAX_PDF_PAGES) throw new Error(`Báo cáo Thần số học có ${pages.length} trang, vượt giới hạn ${MAX_PDF_PAGES} trang A4.`);
+    pages.forEach((page, index) => { if (index) numerologyFooter(page, profile, index + 1, pages.length); });
+    return pages;
+}
+
+async function downloadNumerologyPdf(profile, narrative, options = {}) {
+    await Promise.all([ensureFontsReady(), ensureBrandLogoReady()]);
+    const pages = buildNumerologySelectablePages(profile, narrative, options);
+    const blob = await buildSelectablePdfBlob(pages, { title: "Báo cáo Thần số học cá nhân", author: "MXiao Huyền Học", subject: "Báo cáo Thần số học Pythagoras", keywords: "Thần số học, Pythagoras, biểu đồ ngày sinh, năm cá nhân" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `MXiao_Than_So_Hoc_${safeFileName(profile.birth_name.original).replace(/-/g, "_")}.pdf`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 3000);
+    return pages.length;
+}
+
+module.exports = { MAX_PDF_PAGES, CANVAS_BODY_FONT_SIZE, PDF_BODY_FONT_SIZE, normalizeExportOptions, createReportPages, buildPdfBlob, buildTuviSelectablePages, downloadChartPdf, buildSelectablePdfBlob, buildAstrologySelectablePages, downloadAstrologyPdf, buildNumerologySelectablePages, downloadNumerologyPdf };
 
 global.MXiaoPdf=Object.freeze(module.exports);
 })(typeof globalThis!=='undefined'?globalThis:window);

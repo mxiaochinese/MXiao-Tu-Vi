@@ -449,7 +449,7 @@ a { color: inherit; }
 .report-copy p { margin: 0; color: var(--ink-700); line-height: 1.72; font-size: 16px; text-align: left; }
 .report-copy p + p { margin-top: 12px; }
 
-.tool-switcher { width: min(1180px, calc(100% - 40px)); margin: 18px auto 0; padding: 5px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.9); box-shadow: 0 10px 30px rgba(83,24,31,.06); }
+.tool-switcher { width: min(1180px, calc(100% - 40px)); margin: 18px auto 0; padding: 5px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.9); box-shadow: 0 10px 30px rgba(83,24,31,.06); }
 .tool-switcher button { min-height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--ink-500); font: inherit; font-weight: 800; cursor: pointer; }
 .tool-switcher button.active { color: #fff; background: linear-gradient(135deg, var(--mx-red-600), var(--mx-red-800)); box-shadow: 0 7px 18px rgba(162,15,30,.2); }
 .astrology-hero { align-items: center; }
@@ -517,4 +517,94 @@ a { color: inherit; }
   .astro-quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .astro-balance { grid-template-columns: 1fr; }
   .astrology-reading { padding: 20px; }
+}
+
+.numerology-hero { align-items: center; }
+.numerology-symbol { width: min(330px, 75vw); aspect-ratio: 1; margin: auto; padding: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border: 1px solid rgba(189,21,35,.2); border-radius: 38px; background: linear-gradient(145deg, #fff, #fff0f2); box-shadow: 0 24px 60px rgba(105,17,29,.1); }
+.numerology-symbol span, .numerology-symbol strong { display: grid; place-items: center; border: 1px solid #ead2d5; border-radius: 18px; color: var(--mx-red-800); font-size: 25px; font-weight: 800; }
+.numerology-symbol strong { color: #fff; background: linear-gradient(135deg, var(--mx-red-600), var(--mx-red-800)); font-size: 34px; }
+.numerology-workspace { align-items: start; }
+.optional-label { color: var(--ink-500); font-size: 12px; font-weight: 600; }
+.name-review { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
+.name-review > h3 { margin: 0 0 6px; color: var(--mx-red-800); font-size: 19px; }
+.name-review > p { margin: 0 0 16px; color: var(--ink-500); font-size: 14px; line-height: 1.55; }
+.name-review-card { margin: 0 0 15px; padding: 16px; border: 1px solid #ead7d9; border-radius: 16px; background: #fffafa; }
+.name-review-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.name-review-heading h4 { margin: 0; color: var(--mx-red-800); font-size: 16px; }
+.name-review-heading span { color: #7d661d; font-size: 12px; font-weight: 800; }
+.normalized-name { margin: 9px 0; color: var(--ink-500); font-size: 13px; letter-spacing: .04em; }
+.name-token-row { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 10px 0 14px; }
+.name-token-row > span { padding: 8px 11px; border-radius: 10px; color: #fff; background: var(--mx-red-700); font-size: 14px; font-weight: 800; }
+.merge-control { display: inline-flex; align-items: center; gap: 4px; color: var(--ink-500); font-size: 12px; }
+.review-select { display: grid; gap: 6px; color: var(--ink-700); font-size: 14px; font-weight: 700; }
+.review-select select, .y-review-list select { min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font: inherit; }
+.y-review-list { margin-top: 15px; }
+.y-review-list h5 { margin: 0 0 9px; color: var(--ink-700); font-size: 14px; }
+.y-review-list label { display: grid; grid-template-columns: minmax(0, 1fr) minmax(130px, .7fr); gap: 10px; align-items: center; margin-top: 8px; color: var(--ink-600); font-size: 14px; }
+.review-ready { margin: 12px 0 0; color: #1f6d5e; font-size: 14px; }
+.numerology-core-panel, .numerology-motifs-panel, .numerology-chart-panel, .numerology-cycle-panel, .numerology-month-panel, .numerology-reading { padding: 26px; }
+.numerology-core-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.numerology-core-card { min-height: 168px; padding: 18px 15px; border: 1px solid #ead4d7; border-radius: 18px; background: linear-gradient(155deg, #fff, #fff4f5); }
+.numerology-core-card > span { display: block; color: var(--mx-red-800); font-size: 14px; font-weight: 800; }
+.numerology-core-card > strong { display: block; margin: 10px 0 5px; color: var(--mx-red-700); font-size: 36px; line-height: 1; }
+.numerology-core-card p { margin: 0; color: var(--ink-500); font-size: 14px; line-height: 1.45; }
+.numerology-motifs-panel h2, .numerology-section-head h2, .numerology-reading > h2 { margin: 0 0 16px; color: var(--mx-red-800); font-size: 22px; }
+.numerology-motifs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.numerology-motifs article { padding: 17px; border-radius: 15px; background: #f8f2f3; }
+.numerology-motifs span { display: block; color: var(--ink-500); font-size: 13px; font-weight: 700; }
+.numerology-motifs strong { display: block; margin: 5px 0; color: var(--mx-red-800); font-size: 22px; }
+.numerology-motifs p { margin: 0; color: var(--ink-600); font-size: 14px; line-height: 1.5; }
+.numerology-section-head p { margin: -10px 0 18px; color: var(--ink-500); font-size: 14px; }
+.numerology-chart-layout { display: grid; grid-template-columns: minmax(300px, .8fr) minmax(300px, 1.2fr); gap: 22px; }
+.birth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.birth-grid button { min-height: 92px; border: 1px solid #e4cdd0; border-radius: 16px; background: #fff; color: var(--mx-red-800); cursor: pointer; }
+.birth-grid button.present { background: #fff2f3; border-color: #d99299; }
+.birth-grid span { display: block; font-size: 25px; font-weight: 800; }
+.birth-grid small { display: block; min-height: 18px; color: var(--ink-500); font-size: 12px; }
+.arrow-list { margin-top: 14px; }
+.arrow-list h3 { margin: 0 0 8px; font-size: 15px; }
+.arrow-list button { margin: 0 6px 6px 0; padding: 8px 10px; border: 1px solid #dec7ca; border-radius: 999px; background: #fff; color: var(--mx-red-800); font: inherit; font-size: 13px; cursor: pointer; }
+.numerology-chart-detail { min-height: 220px; padding: 22px; border-radius: 18px; background: linear-gradient(145deg, var(--mx-red-800), #7f0713); color: #fff; }
+.numerology-chart-detail h3 { margin: 0 0 12px; font-size: 22px; }
+.numerology-chart-detail p { margin: 0 0 12px; color: rgba(255,255,255,.9); font-size: 15px; line-height: 1.65; }
+.cycle-track { display: grid; gap: 10px; margin-top: 10px; }
+.periods-track { grid-template-columns: repeat(3, 1fr); }
+.pinnacles-track { grid-template-columns: repeat(4, 1fr); }
+.cycle-track article { padding: 15px; border: 1px solid #e6d1d4; border-radius: 15px; background: #fff9fa; }
+.cycle-track span, .cycle-track small, .cycle-track em { display: block; }
+.cycle-track span { color: var(--ink-500); font-size: 13px; font-weight: 700; }
+.cycle-track strong { display: block; margin: 5px 0; color: var(--mx-red-800); font-size: 25px; }
+.cycle-track small { color: var(--ink-600); font-size: 13px; }
+.cycle-track em { margin-top: 9px; color: #835f18; font-size: 12px; font-style: normal; font-weight: 800; }
+.timeline-year-marker { margin: 14px 0 0; padding: 13px 16px; border-radius: 12px; color: #fff; background: var(--mx-red-700); font-size: 15px; }
+.numerology-months { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.numerology-months article { padding: 15px; border: 1px solid #ead5d8; border-radius: 15px; }
+.numerology-months span { color: var(--ink-500); font-size: 13px; font-weight: 700; }
+.numerology-months strong { display: block; margin: 4px 0; color: var(--mx-red-800); font-size: 24px; }
+.numerology-months p { margin: 0; color: var(--ink-600); font-size: 13px; line-height: 1.45; }
+.numerology-report-nav { display: flex; gap: 7px; overflow-x: auto; margin-bottom: 22px; padding-bottom: 5px; }
+.numerology-report-nav a { flex: 0 0 auto; padding: 8px 11px; border-radius: 999px; color: var(--mx-red-800); background: #f8edef; font-size: 13px; font-weight: 800; text-decoration: none; }
+.numerology-report section { scroll-margin-top: 18px; }
+.numerology-report h3 { margin: 28px 0 12px; color: var(--mx-red-800); font-size: 20px; }
+.numerology-report p { margin: 0 0 15px; color: var(--ink-700); font-size: 16px; line-height: 1.72; }
+.numerology-calculation { padding: 0 22px 20px; }
+.numerology-calculation summary { padding: 19px 0; color: var(--mx-red-800); font-size: 16px; font-weight: 800; cursor: pointer; }
+.numerology-calculation p { color: var(--ink-700); font-size: 15px; line-height: 1.65; }
+
+@media (max-width: 980px) {
+  .numerology-core-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .numerology-months { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .tool-switcher button { min-height: 48px; font-size: 14px; }
+  .numerology-workspace { grid-template-columns: 1fr; }
+  .numerology-core-cards, .numerology-motifs, .numerology-chart-layout, .periods-track, .pinnacles-track { grid-template-columns: 1fr; }
+  .numerology-months { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .numerology-core-panel, .numerology-motifs-panel, .numerology-chart-panel, .numerology-cycle-panel, .numerology-month-panel, .numerology-reading { padding: 20px; }
+  .numerology-core-card { min-height: 0; }
+  .y-review-list label { grid-template-columns: 1fr; }
+}
+@media (max-width: 430px) {
+  .tool-switcher { grid-template-columns: 1fr; }
+  .numerology-months { grid-template-columns: 1fr; }
 }

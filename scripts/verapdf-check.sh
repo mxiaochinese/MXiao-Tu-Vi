@@ -5,6 +5,7 @@ REPORT="${1:-$ROOT/verapdf-report.xml}"
 PDFS=(
   "$ROOT/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf"
   "$ROOT/sample/MXiao-Ban-Do-Sao-final.pdf"
+  "$ROOT/sample/MXiao-Than-So-Hoc-final.pdf"
 )
 
 run_local() {
@@ -21,7 +22,8 @@ elif command -v docker >/dev/null 2>&1; then
   docker run --rm -v "$ROOT:/data" verapdf/cli:v1.30.2 \
     -f ua1 \
     /data/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf \
-    /data/sample/MXiao-Ban-Do-Sao-final.pdf > "$REPORT"
+    /data/sample/MXiao-Ban-Do-Sao-final.pdf \
+    /data/sample/MXiao-Than-So-Hoc-final.pdf > "$REPORT"
 else
   cat >&2 <<'MSG'
 Không tìm thấy veraPDF CLI hoặc Docker.
