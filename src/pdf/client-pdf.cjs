@@ -615,7 +615,7 @@ function drawInterpretationPages(chart, selectedTopics) {
     let context = getContext(canvas);
     let y = drawPageHeader(context, "Luận giải chi tiết", `Phạm vi báo cáo: ${viewScopeLabel(chart)}.`);
     for (const topic of order) {
-        const items = chart.interpretations.filter((item) => item.topic === topic);
+        const items = [...(topic === "Tổng quan" ? chart.wholePersonInterpretations || [] : []), ...chart.interpretations.filter((item) => item.topic === topic)];
         if (!items.length) continue;
         const firstHeight = estimateCardHeight(context, items[0], canvas.width - 144);
         if (y + 58 + firstHeight > bottom) {
@@ -1436,7 +1436,7 @@ function buildTuviInterpretationPages(chart, selectedTopics) {
         }
     }
     for (const topic of order) {
-        const items = chart.interpretations.filter((item) => item.topic === topic);
+        const items = [...(topic === "Tổng quan" ? chart.wholePersonInterpretations || [] : []), ...chart.interpretations.filter((item) => item.topic === topic)];
         if (!items.length) continue;
         if (!page) {
             startPage(topic);

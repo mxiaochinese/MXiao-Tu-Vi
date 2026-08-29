@@ -1,0 +1,1013 @@
+{
+  "reportId": "astrology-fd64624f",
+  "system": "astrology",
+  "subject": {},
+  "scope": "overview",
+  "evidence": [
+    {
+      "id": "astrology.summary.1",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Ấn tượng chung của lá số là sự gặp nhau giữa một ý hướng chậm rãi, ổn định, chú ý trải nghiệm giác quan, thực tế và ưu tiên điều có thể duy trì và nhịp cảm xúc rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn. Cung Mọc Cự Giải quyết định cách hai lớp ấy xuất hiện ra bên ngoài: bạn thường bước vào tình huống mới bằng phẩm chất nước và nhịp thống lĩnh. Đây là một hệ có nhiều tốc độ, không phải ba nét tính cách đứng cạnh nhau.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.summary.2",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Mặt Trời và Sao Hỏa tạo trùng tụ, đưa ý chí và động lực hành động vào cùng một mạch. Hai chức năng vận hành rất gần nhau, làm chủ đề trở nên tập trung và khó tách riêng. Đây là một trong những đường nối có sức nặng nhất vì nó chạm trực tiếp tới cách bạn lựa chọn, phản ứng hoặc đưa ý định thành hành động. Trong đời sống thực, mạch này thường lộ rõ ở thời điểm phải vừa giữ điều mình coi trọng, vừa đáp lại yêu cầu đang diễn ra trước mắt.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.summary.3",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Mặt Trăng và Sao Mộc tạo góc vuông, đưa nhu cầu an toàn và khả năng mở rộng niềm tin vào cùng một mạch. Xung đột lặp lại, phản ứng quá mức hoặc cảm giác phải chọn một bỏ một. Mối liên hệ này bổ sung một nhịp khác cho phần mở đầu. Ý chí tự nó chưa quyết định toàn bộ cách vận hành; chất lượng kết quả còn phụ thuộc vào việc hai chức năng có được dùng đúng thời điểm và đúng vai trò hay không.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.summary.4",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Một mạch khác đến từ Mặt Trăng tam hợp Sao Thổ làm nhu cầu được nâng đỡ và yêu cầu tự kiểm soát - trách nhiệm trở thành một đường nối trực tiếp. Điểm thuận ở bức tranh tổng thể nằm ở sự trôi chảy, tự tin và khả năng dùng hai chức năng cùng lúc. Ảnh hưởng của nó thường kín hơn hai đường nối đầu, nhưng lại rõ vào lúc bạn cần duy trì một lựa chọn sau khi hứng khởi ban đầu đã qua.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.summary.5",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Stellium tại Bạch Dương gom nhiều yếu tố vào cùng một vùng chú ý. Vì vậy, cùng một chủ đề dễ quay lại trong nhiều hoàn cảnh: lúc bắt đầu một việc, khi phải chọn mức cam kết và khi cần quyết định đâu là phần xứng đáng được đầu tư sâu.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11",
+        "astrology.source.pattern:stellium_0"
+      ]
+    },
+    {
+      "id": "astrology.summary.6",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Chủ tinh Cung Mọc là Mặt Trăng Nhân Mã ở Nhà 6. Vị trí này cho biết phản ứng ban đầu cuối cùng thường được đưa về công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Khi phần khởi động và phần duy trì đi cùng nhau, bạn có thể vừa phản ứng đúng lúc vừa giữ được một hướng đủ lâu để tạo kết quả.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.summary.7",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Tổng quan lá số",
+      "fact": "Tổng quan lá số",
+      "interpretation": "Điểm xuyên suốt không phải là buộc mọi phần của mình chạy cùng một nhịp. Mặt Trời giữ hướng, Mặt Trăng báo nhu cầu an toàn, còn các hành tinh cá nhân cho biết bạn suy nghĩ, gắn bó và hành động bằng cách nào. Khi mỗi chức năng được dùng đúng việc, những nét tưởng như trái nhau lại tạo thành một chu trình khá mạch lạc.",
+      "polarity": "mixed",
+      "strength": 0.9,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.1",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Mặt Trời Kim Ngưu ở Nhà 11 đưa bản sắc có ý thức, ý chí tự biểu đạt và cảm nhận về hướng phát triển của bản thân vào bạn bè, mạng lưới, cộng đồng, dự án tập thể, lý tưởng xã hội và mục tiêu dài hạn vượt khỏi cái tôi cá nhân. Cung Kim Ngưu làm chức năng ấy biểu hiện theo cách chậm rãi, ổn định, chú ý trải nghiệm giác quan, thực tế và ưu tiên điều có thể duy trì. Với Mặt Trời, trọng tâm là cảm giác mình đang xây một đời sống có hướng. Năng lực tự nhiên nằm ở bền bỉ, biết giữ nguồn lực, xây nền và tạo cảm giác chắc chắn; phần dễ làm nhịp này nặng đi là bám vào cái quen thuộc, chậm thay đổi hoặc đánh đồng an toàn với không được dịch chuyển.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.2",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Nhà 11 làm ý thức về bản thân gắn mạnh với bạn bè, mạng lưới, cộng đồng, dự án tập thể, lý tưởng xã hội và mục tiêu dài hạn vượt khỏi cái tôi cá nhân. Thành quả ở đây dễ chạm trực tiếp vào lòng tự trọng, nên phản hồi có thể được tiếp nhận rất sâu. Năng lực ở vị trí này gồm khả năng tự định hướng, sáng tạo, chủ động và xây dựng một bản sắc nhất quán; nó phát huy tốt nhất khi tiêu chuẩn giúp công việc tiến lên thay vì biến mọi sai số thành một đánh giá về chính mình.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.3",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Mặt Trăng Nhân Mã ở Nhà 6 đưa nhu cầu cảm xúc, phản ứng bản năng, cảm giác an toàn và cách tự điều chỉnh vào công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Cung Nhân Mã làm chức năng ấy biểu hiện theo cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn. Đây là lớp phản ứng đến trước phần lý giải: điều gì khiến bạn thấy yên, điều gì làm đầu óc tiếp tục bận và kiểu trao đổi nào giúp cảm xúc có đường đi.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.4",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Tại Nhà 6, nhu cầu cảm xúc tìm chỗ đứng trong công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Mặt thuận là lạc quan, ham học, thẳng thắn, dám mở rộng giới hạn và nhìn xa hơn hoàn cảnh trước mắt. Khi áp lực kéo dài, xu hướng quá chắc vào niềm tin của mình, bỏ qua chi tiết, phóng đại hoặc liên tục tìm cái mới để tránh cam kết có thể xuất hiện rõ hơn, nhất là nếu nhu cầu chưa được gọi đúng tên.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.5",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Cung Mọc Cự Giải tạo lớp tiếp xúc đầu tiên với hoàn cảnh. Bạn dễ quan sát, quyết định hoặc tự bảo vệ theo phẩm chất nước và nhịp thống lĩnh trước khi những phần phức tạp hơn kịp lộ ra. Người khác thường gặp lớp này sớm hơn Mặt Trời và Mặt Trăng.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.6",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Mặt Trăng Nhân Mã ở Nhà 6 là chủ tinh của Cung Mọc. Vì nằm trong công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động, chủ tinh kéo cách bạn bắt đầu về vùng này rất nhanh. Nó giải thích vì sao cùng một Cung Mọc có thể biểu hiện khác nhau: dấu hiệu bên ngoài chỉ là cửa vào, còn chủ tinh mới cho biết cửa ấy thường dẫn tới đâu.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.7",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Chủ tinh còn nối với Mặt Trăng góc vuông Sao Mộc làm nhu cầu an toàn và khả năng mở rộng niềm tin trở thành một đường nối trực tiếp. Phần dễ căng ở cách bạn bước vào hoàn cảnh là xung đột lặp lại, phản ứng quá mức hoặc cảm giác phải chọn một bỏ một. Vì vậy, ấn tượng ban đầu không đứng yên ở vẻ ngoài; nó nhanh chóng kéo theo cách bạn xử lý nhu cầu, phản hồi người khác hoặc giữ trách nhiệm với lựa chọn vừa mở ra.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.8",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Mặt Trời và Mặt Trăng không tạo góc hợp chính đủ gần. Hai lớp này vẫn liên hệ qua các hành tinh và chủ đề khác, nhưng không có một đường nối duy nhất buộc chúng phải luôn hòa thuận hoặc luôn căng. Cách phối hợp sẽ thay đổi rõ hơn theo bối cảnh.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.big_three.9",
+      "system": "astrology",
+      "topic": "identity",
+      "sourceType": "relationship",
+      "label": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "fact": "Ba trụ cột: Mặt Trời, Mặt Trăng và Cung Mọc",
+      "interpretation": "Đặt cả ba trụ cạnh nhau, có thể thấy phần chủ động và phần cảm xúc không nhất thiết khởi hành cùng lúc. Trong công việc, Mặt Trời thường giữ mục tiêu lâu hơn; trong quan hệ gần, Mặt Trăng phản hồi nhanh hơn với chất lượng tương tác. Hiểu sự khác biệt này giúp giải thích những lúc bạn rất rõ hướng nhưng vẫn cần thêm thời gian để thấy thật sự yên với lựa chọn.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.placement:sun:sun",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.ruler:house_2:house_11"
+      ]
+    },
+    {
+      "id": "astrology.core_dynamics.1",
+      "system": "astrology",
+      "topic": "core_dynamics",
+      "sourceType": "relationship",
+      "label": "Những cấu trúc nổi bật",
+      "fact": "Những cấu trúc nổi bật",
+      "interpretation": "Mạch đầu tiên cho thấy Mặt Trời trùng tụ Sao Hỏa làm ý chí và động lực hành động trở thành một đường nối trực tiếp. Điểm thuận ở cấu trúc chung nằm ở cường độ, tập trung, phối hợp. Mạch này thường dễ nhận ra trong quyết định có ý nghĩa, khi hai nhu cầu cùng hợp lý nhưng không thể cùng đứng ở vị trí dẫn đường.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine"
+      ]
+    },
+    {
+      "id": "astrology.core_dynamics.2",
+      "system": "astrology",
+      "topic": "core_dynamics",
+      "sourceType": "relationship",
+      "label": "Những cấu trúc nổi bật",
+      "fact": "Những cấu trúc nổi bật",
+      "interpretation": "Một đường nối khác nằm ở Mặt Trăng góc vuông Sao Mộc làm nhu cầu an toàn và khả năng mở rộng niềm tin trở thành một đường nối trực tiếp. Phần dễ căng ở cấu trúc chung là xung đột lặp lại, phản ứng quá mức hoặc cảm giác phải chọn một bỏ một. Giá trị thực tế nằm ở khả năng chuyển đổi giữa hai chức năng, để một phía không phải gánh luôn công việc của phía còn lại.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine"
+      ]
+    },
+    {
+      "id": "astrology.core_dynamics.3",
+      "system": "astrology",
+      "topic": "core_dynamics",
+      "sourceType": "relationship",
+      "label": "Những cấu trúc nổi bật",
+      "fact": "Những cấu trúc nổi bật",
+      "interpretation": "Ở lớp sâu hơn Mặt Trăng tam hợp Sao Thổ làm nhu cầu được nâng đỡ và yêu cầu tự kiểm soát - trách nhiệm trở thành một đường nối trực tiếp. Điểm thuận ở cấu trúc chung nằm ở sự trôi chảy, tự tin và khả năng dùng hai chức năng cùng lúc. Nguồn thuận này phát huy rõ nhất khi cảm xúc cần một khung đủ vững để không bị cuốn theo thay đổi nhất thời.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine"
+      ]
+    },
+    {
+      "id": "astrology.core_dynamics.4",
+      "system": "astrology",
+      "topic": "core_dynamics",
+      "sourceType": "relationship",
+      "label": "Những cấu trúc nổi bật",
+      "fact": "Những cấu trúc nổi bật",
+      "interpretation": "Stellium tại Bạch Dương nối Sao Thủy, Sao Kim và Sao Thổ thành một vùng tập trung. Sự tập trung này khiến cách các hành tinh phối hợp trở nên quan trọng hơn từng vị trí đứng riêng.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:sun:sextile"
+      ]
+    },
+    {
+      "id": "astrology.core_dynamics.5",
+      "system": "astrology",
+      "topic": "core_dynamics",
+      "sourceType": "relationship",
+      "label": "Những cấu trúc nổi bật",
+      "fact": "Những cấu trúc nổi bật",
+      "interpretation": "Chủ tinh Nhà 9 trở về chính Nhà đó, làm lĩnh vực này có tính tự quy chiếu. Khi thuận, bạn có thể đi rất sâu và xây kinh nghiệm vững; khi kẹt, cùng một cách xử lý dễ lặp lại mà thiếu dữ liệu mới từ bên ngoài.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.ruler:house_9:house_9"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.1",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Đời sống tình cảm được tạo bởi nhiều nhịp khác nhau: cách cần được gần gũi, cách trao tình cảm và cách chủ động khi có hấp dẫn. Ở tình cảm và sự gắn bó, Mặt Trăng Nhân Mã ở Nhà 6 đem cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn trong công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Cũng trong tình cảm và sự gắn bó, Sao Kim Bạch Dương ở Nhà 9 đem cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động trong hệ niềm tin, học thuật bậc cao, thế giới quan, hành trình mở rộng nhận thức và tiếp xúc với những khung văn hóa khác. Trọng tâm nằm ở độ tin cậy, khoảng tự do và cách hai người duy trì đối thoại.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.2",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Trong tình cảm và sự gắn bó, Mặt Trăng tam hợp Sao Thổ làm nhu cầu được nâng đỡ và yêu cầu tự kiểm soát - trách nhiệm trở thành một đường nối trực tiếp. Điểm thuận ở tình cảm và sự gắn bó nằm ở sự trôi chảy, tự tin và khả năng dùng hai chức năng cùng lúc. Nguồn thuận này giúp một chức năng mở đường cho chức năng kia, nhờ đó độ tin cậy, khoảng tự do và cách hai người duy trì đối thoại không bị mắc ở phản ứng đầu tiên khi hoàn cảnh thay đổi.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.3",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Ở tình cảm và sự gắn bó, điểm dễ lệch không đến từ một góc căng nổi trội, mà từ việc dùng quá lâu cùng một cách phản ứng. Xu hướng nóng vội, thiếu kiên nhẫn, phản ứng trước khi quan sát đủ dữ kiện dễ rõ hơn khi thiếu thời gian, thiếu thông tin hoặc cảm giác an toàn bị xáo trộn.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.4",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Tình cảm và sự gắn bó đặt Mặt Trăng, với cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn, cạnh Sao Kim, vốn vận hành theo cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động. Sự khác tốc độ này giải thích vì sao độ tin cậy, khoảng tự do và cách hai người duy trì đối thoại có thể trôi chảy trong bối cảnh này nhưng cần thêm thời gian ở bối cảnh khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.5",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Nhà 5 mở ở Bọ Cạp, còn chủ tinh Sao Hỏa nằm tại Nhà 11. Vì vậy, câu chuyện của Nhà 5 thường tìm được lối đi qua trải nghiệm của Nhà 11, thay vì chỉ quanh quẩn trong phạm vi ban đầu. Nhà 7 mở ở Ma Kết, còn chủ tinh Sao Thổ nằm tại Nhà 10. Vì vậy, câu chuyện của Nhà 7 thường tìm được lối đi qua trải nghiệm của Nhà 10, thay vì chỉ quanh quẩn trong phạm vi ban đầu.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.6",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Nhịp bền hơn cho độ tin cậy, khoảng tự do và cách hai người duy trì đối thoại xuất hiện khi lạc quan, ham học, thẳng thắn, dám mở rộng giới hạn và nhìn xa hơn hoàn cảnh trước mắt có thể làm việc cùng tạo động lực, quyết đoán, dám thử và dễ khởi phát một tiến trình mới. Một phía tạo động lực, phía kia giữ chất lượng hoặc kiểm tra độ phù hợp. Cách chia việc này giữ cho lĩnh vực không bị kéo hoàn toàn về một phản ứng quen thuộc.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_love.7",
+      "system": "astrology",
+      "topic": "love",
+      "sourceType": "relationship",
+      "label": "Tình cảm và sự gắn bó",
+      "fact": "Tình cảm và sự gắn bó",
+      "interpretation": "Các mối nối ở tình cảm và sự gắn bó khá dày, nên lĩnh vực này phản hồi mạnh với thay đổi ở những phần liên quan. Một lựa chọn tốt giải quyết mục tiêu trước mắt, đồng thời giữ điều kiện cho độ tin cậy, khoảng tự do và cách hai người duy trì đối thoại tiếp tục vận hành mà không buộc một nhu cầu quan trọng khác phải trả giá quá lớn.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:uranus:venus:sextile"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.1",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Công việc phù hợp phụ thuộc vào loại vấn đề được giải quyết, quyền chịu trách nhiệm và tiêu chuẩn bạn có thể thực sự làm chủ. Tên nghề chỉ là lớp mô tả bên ngoài. Ở công việc và vai trò xã hội, Mặt Trời Kim Ngưu ở Nhà 11 đem cách chậm rãi, ổn định, chú ý trải nghiệm giác quan, thực tế và ưu tiên điều có thể duy trì trong bạn bè, mạng lưới, cộng đồng, dự án tập thể, lý tưởng xã hội và mục tiêu dài hạn vượt khỏi cái tôi cá nhân. Cũng trong công việc và vai trò xã hội, Sao Thủy Bạch Dương ở Nhà 10 đem cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động trong vai trò xã hội, nghề nghiệp, trách nhiệm công khai, thành tựu và hình ảnh được xây dựng trong không gian chung. Cũng trong công việc và vai trò xã hội, Sao Hỏa Kim Ngưu ở Nhà 11 đem cách chậm rãi, ổn định, chú ý trải nghiệm giác quan, thực tế và ưu tiên điều có thể duy trì trong bạn bè, mạng lưới, cộng đồng, dự án tập thể, lý tưởng xã hội và mục tiêu dài hạn vượt khỏi cái tôi cá nhân. Trọng tâm nằm ở môi trường làm việc, dạng nhiệm vụ và mức tự chủ.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.2",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Trong công việc và vai trò xã hội, Mặt Trời trùng tụ Sao Hỏa làm ý chí và động lực hành động trở thành một đường nối trực tiếp. Điểm thuận ở công việc và vai trò xã hội nằm ở cường độ, tập trung, phối hợp. Nguồn thuận này giúp một chức năng mở đường cho chức năng kia, nhờ đó môi trường làm việc, dạng nhiệm vụ và mức tự chủ không bị mắc ở phản ứng đầu tiên khi hoàn cảnh thay đổi.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.3",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Ở công việc và vai trò xã hội, điểm dễ lệch không đến từ một góc căng nổi trội, mà từ việc dùng quá lâu cùng một cách phản ứng.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.4",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Công việc và vai trò xã hội đặt Mặt Trời, với cách chậm rãi, ổn định, chú ý trải nghiệm giác quan, thực tế và ưu tiên điều có thể duy trì, cạnh Sao Thủy, vốn vận hành theo cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động. Sự khác tốc độ này giải thích vì sao môi trường làm việc, dạng nhiệm vụ và mức tự chủ có thể trôi chảy trong bối cảnh này nhưng cần thêm thời gian ở bối cảnh khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.5",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Thiên Đỉnh ở Bạch Dương mô tả cách vai trò xã hội dễ được nhìn thấy, còn Nhà 10 bắt đầu ở Bạch Dương cho biết cấu trúc của con đường nghề nghiệp. Trong hệ Nhà đang dùng, hai điểm gặp nhau nhưng vẫn trả lời hai câu hỏi khác nhau. Sự nghiệp vì thế gồm cả cách vai trò được nhận diện và nền trách nhiệm được tổ chức.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.6",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Nhà 2 mở ở Sư Tử, còn chủ tinh Mặt Trời nằm tại Nhà 11. Vì vậy, câu chuyện của Nhà 2 thường tìm được lối đi qua trải nghiệm của Nhà 11, thay vì chỉ quanh quẩn trong phạm vi ban đầu. Nhà 6 mở ở Nhân Mã, còn chủ tinh Sao Mộc nằm tại Nhà 9. Vì vậy, câu chuyện của Nhà 6 thường tìm được lối đi qua trải nghiệm của Nhà 9, thay vì chỉ quanh quẩn trong phạm vi ban đầu. Nhà 10 mở ở Bạch Dương, còn chủ tinh Sao Hỏa nằm tại Nhà 11. Vì vậy, câu chuyện của Nhà 10 thường tìm được lối đi qua trải nghiệm của Nhà 11, thay vì chỉ quanh quẩn trong phạm vi ban đầu.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_career.7",
+      "system": "astrology",
+      "topic": "career",
+      "sourceType": "relationship",
+      "label": "Công việc và vai trò xã hội",
+      "fact": "Công việc và vai trò xã hội",
+      "interpretation": "Nhịp bền hơn cho môi trường làm việc, dạng nhiệm vụ và mức tự chủ xuất hiện khi bền bỉ, biết giữ nguồn lực, xây nền và tạo cảm giác chắc chắn có thể làm việc cùng tạo động lực, quyết đoán, dám thử và dễ khởi phát một tiến trình mới.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:mars:sun:conjunction",
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:sun:sun"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.1",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Cách tư duy hiện ra rõ nhất ở nhịp thu nhận thông tin, cách sắp xếp ý và thời điểm bạn thấy một kết luận đã đủ chắc để nói ra. Ở tư duy, học tập và giao tiếp, Sao Thủy Bạch Dương ở Nhà 10 đem cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động trong vai trò xã hội, nghề nghiệp, trách nhiệm công khai, thành tựu và hình ảnh được xây dựng trong không gian chung. Cũng trong tư duy, học tập và giao tiếp, Mặt Trăng Nhân Mã ở Nhà 6 đem cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn trong công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Trọng tâm nằm ở khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.2",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Trong tư duy, học tập và giao tiếp, Mặt Trăng tam hợp Sao Thổ làm nhu cầu được nâng đỡ và yêu cầu tự kiểm soát - trách nhiệm trở thành một đường nối trực tiếp. Điểm thuận ở tư duy, học tập và giao tiếp nằm ở sự trôi chảy, tự tin và khả năng dùng hai chức năng cùng lúc. Nguồn thuận này giúp một chức năng mở đường cho chức năng kia, nhờ đó khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng không bị mắc ở phản ứng đầu tiên khi hoàn cảnh thay đổi.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.3",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Trong tư duy, học tập và giao tiếp, Mặt Trăng góc vuông Sao Mộc làm nhu cầu an toàn và khả năng mở rộng niềm tin trở thành một đường nối trực tiếp. Phần dễ căng ở tư duy, học tập và giao tiếp là xung đột lặp lại, phản ứng quá mức hoặc cảm giác phải chọn một bỏ một. Áp lực thường tăng khi cả hai phía đều muốn được giải quyết ngay. Nếu một chức năng phủ lên chức năng kia, khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng có thể tạm yên nhưng sẽ quay lại dưới một hình thức khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.4",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Tư duy, học tập và giao tiếp đặt Sao Thủy, với cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động, cạnh Mặt Trăng, vốn vận hành theo cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn. Sự khác tốc độ này giải thích vì sao khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng có thể trôi chảy trong bối cảnh này nhưng cần thêm thời gian ở bối cảnh khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.5",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Nhà 3 mở ở Xử Nữ, còn chủ tinh Sao Thủy nằm tại Nhà 10. Vì vậy, câu chuyện của Nhà 3 thường tìm được lối đi qua trải nghiệm của Nhà 10, thay vì chỉ quanh quẩn trong phạm vi ban đầu. Nhà 9 bắt đầu ở Song Ngư, và Sao Mộc trở về chính Nhà này. Chủ đề ở đây có độ tập trung cao, thường được giải quyết bằng cách đi thẳng vào bản thân lĩnh vực thay vì tìm một đường vòng qua nơi khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.6",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Nhịp bền hơn cho khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng xuất hiện khi tạo động lực, quyết đoán, dám thử và dễ khởi phát một tiến trình mới có thể làm việc cùng lạc quan, ham học, thẳng thắn, dám mở rộng giới hạn và nhìn xa hơn hoàn cảnh trước mắt.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_communication.7",
+      "system": "astrology",
+      "topic": "communication",
+      "sourceType": "relationship",
+      "label": "Tư duy, học tập và giao tiếp",
+      "fact": "Tư duy, học tập và giao tiếp",
+      "interpretation": "Các mối nối ở tư duy, học tập và giao tiếp khá dày, nên lĩnh vực này phản hồi mạnh với thay đổi ở những phần liên quan. Một lựa chọn tốt giải quyết mục tiêu trước mắt, đồng thời giữ điều kiện cho khả năng học, trao đổi và chuyển một ý tưởng thành lời rõ ràng tiếp tục vận hành mà không buộc một nhu cầu quan trọng khác phải trả giá quá lớn.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.aspect:jupiter:mars:sextile",
+        "astrology.source.aspect:jupiter:sun:sextile",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.aspect:uranus:venus:sextile",
+        "astrology.source.aspect:mercury:saturn:conjunction"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.1",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Không gian riêng tư cho thấy điều gì giúp bạn hạ nhịp, lấy lại cảm giác thuộc về và thôi phải giữ vai trò bên ngoài. Ở gia đình và nền tảng riêng tư, Mặt Trăng Nhân Mã ở Nhà 6 đem cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn trong công việc thường nhật, kỹ năng, thói quen, dịch vụ, tổ chức đời sống và cách duy trì khả năng hoạt động. Cũng trong gia đình và nền tảng riêng tư, Sao Kim Bạch Dương ở Nhà 9 đem cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động trong hệ niềm tin, học thuật bậc cao, thế giới quan, hành trình mở rộng nhận thức và tiếp xúc với những khung văn hóa khác. Trọng tâm nằm ở nhu cầu an toàn, ranh giới riêng và cách hồi phục.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.2",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Trong gia đình và nền tảng riêng tư, Mặt Trăng tam hợp Sao Thổ làm nhu cầu được nâng đỡ và yêu cầu tự kiểm soát - trách nhiệm trở thành một đường nối trực tiếp. Điểm thuận ở gia đình và nền tảng riêng tư nằm ở sự trôi chảy, tự tin và khả năng dùng hai chức năng cùng lúc. Nguồn thuận này giúp một chức năng mở đường cho chức năng kia, nhờ đó nhu cầu an toàn, ranh giới riêng và cách hồi phục không bị mắc ở phản ứng đầu tiên khi hoàn cảnh thay đổi.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.3",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Ở gia đình và nền tảng riêng tư, điểm dễ lệch không đến từ một góc căng nổi trội, mà từ việc dùng quá lâu cùng một cách phản ứng.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.4",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Gia đình và nền tảng riêng tư đặt Mặt Trăng, với cách rộng mở, hướng tương lai, thích khám phá, tìm ý nghĩa và kết nối trải nghiệm thành bức tranh lớn, cạnh Sao Kim, vốn vận hành theo cách trực tiếp, nhanh, chủ động và thích bắt đầu từ hành động. Sự khác tốc độ này giải thích vì sao nhu cầu an toàn, ranh giới riêng và cách hồi phục có thể trôi chảy trong bối cảnh này nhưng cần thêm thời gian ở bối cảnh khác.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.5",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Nhà 4 mở ở Thiên Bình, còn chủ tinh Sao Kim nằm tại Nhà 9. Vì vậy, câu chuyện của Nhà 4 thường tìm được lối đi qua trải nghiệm của Nhà 9, thay vì chỉ quanh quẩn trong phạm vi ban đầu.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    },
+    {
+      "id": "astrology.domain_family.6",
+      "system": "astrology",
+      "topic": "family",
+      "sourceType": "relationship",
+      "label": "Gia đình và nền tảng riêng tư",
+      "fact": "Gia đình và nền tảng riêng tư",
+      "interpretation": "Nhịp bền hơn cho nhu cầu an toàn, ranh giới riêng và cách hồi phục xuất hiện khi lạc quan, ham học, thẳng thắn, dám mở rộng giới hạn và nhìn xa hơn hoàn cảnh trước mắt có thể làm việc cùng tạo động lực, quyết đoán, dám thử và dễ khởi phát một tiến trình mới.",
+      "polarity": "mixed",
+      "strength": 0.78,
+      "confidence": "high",
+      "relatedEvidenceIds": [
+        "astrology.source.aspect:jupiter:moon:square",
+        "astrology.source.aspect:moon:saturn:trine",
+        "astrology.source.pattern:stellium_0",
+        "astrology.source.placement:moon:moon",
+        "astrology.source.aspect:mercury:saturn:conjunction",
+        "astrology.source.ruler:house_7:house_10",
+        "astrology.source.placement:saturn:saturn"
+      ]
+    }
+  ],
+  "priorityTopics": [
+    "identity",
+    "behavior",
+    "work",
+    "relationship",
+    "development"
+  ],
+  "constraints": {
+    "maxCoreClaims": 5,
+    "maxStrengths": 4,
+    "maxTensions": 3,
+    "maxBehaviorPatterns": 4,
+    "language": "vi",
+    "forbidNewFacts": true,
+    "requireEvidenceIds": true
+  }
+}

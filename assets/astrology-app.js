@@ -3,6 +3,7 @@
 
   const E = window.MXiaoAstrologyEngine;
   const P = window.MXiaoPdf;
+  const S = window.MXiaoWholePerson;
   const LOCATIONS = Array.isArray(window.MXiaoAstrologyLocations) ? window.MXiaoAstrologyLocations : [];
   if (!E || !P) throw new Error("Bản đồ sao tạm thời không khả dụng.");
 
@@ -190,7 +191,30 @@
 
   function narrativeHtml(chart) {
     if (!chart.narrative?.sections?.length) return overviewParagraphs(chart).map((text) => `<p>${esc(text)}</p>`).join("");
-    return chart.narrative.sections.map((section) => `<section class="astro-narrative-section"><h3>${esc(section.title)}</h3>${section.paragraphs.map((item) => `<p>${esc(item.text)}</p>`).join("")}</section>`).join("");
+    const sections = [...chart.narrative.sections];
+    if (chart.wholePersonProfile && S) {
+      const content = S.overviewContent(chart.wholePersonProfile);
+      const paragraphs = [content.portrait, content.identity, ...content.strengths.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`), ...content.tensions.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`)];
+      const summaryIndex = sections.findIndex((section) => section.id === "summary");
+      const summary = { id: "summary", title: "Chân dung tổng hợp", paragraphs: paragraphs.filter(Boolean).map((text) => ({ text })) };
+      if (summaryIndex >= 0) sections[summaryIndex] = summary; else sections.unshift(summary);
+    }
+    return sections.map((section) => `<section class="astro-narrative-section"><h3>${esc(section.title)}</h3>${section.paragraphs.map((item) => `<p>${esc(item.text)}</p>`).join("")}</section>`).join("");
+  }
+
+  async function synthesizeOverview(chart) {
+    if (!S || !chart) return;
+    const input = S.astrologyInput(chart);
+    if (!input.evidence.length) return;
+    const profile = await S.requestWholePerson(input);
+    if (state.chart !== chart || !profile) return;
+    chart.wholePersonProfile = profile;
+    const content = S.overviewContent(profile);
+    const paragraphs = [content.portrait, content.identity, ...content.strengths.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`), ...content.tensions.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`)].filter(Boolean);
+    const summaryIndex = chart.narrative.sections.findIndex((section) => section.id === "summary");
+    const summary = { id: "summary", title: "Chân dung tổng hợp", paragraphs: paragraphs.map((text) => ({ text })) };
+    if (summaryIndex >= 0) chart.narrative.sections[summaryIndex] = summary; else chart.narrative.sections.unshift(summary);
+    $("astro-overview").innerHTML = narrativeHtml(chart);
   }
 
   function planetTable(chart) {
@@ -317,6 +341,7 @@
       showError("");
       state.chart = E.buildNatalChart(getInput());
       renderChart(state.chart);
+      void synthesizeOverview(state.chart);
     } catch (error) {
       showError(error.message || "Không thể lập Bản đồ sao.");
     }

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <report>
   <buildInformation>
-    <releaseDetails id="core" version="1.30.2" buildDate="2026-06-03T10:43:00Z"></releaseDetails>
-    <releaseDetails id="validation-model" version="1.30.2" buildDate="2026-06-03T10:46:00Z"></releaseDetails>
-    <releaseDetails id="apps" version="1.30.2" buildDate="2026-06-03T10:55:00Z"></releaseDetails>
+    <releaseDetails id="core" version="1.30.2" buildDate="2026-06-03T10:43:00+07:00"></releaseDetails>
+    <releaseDetails id="validation-model" version="1.30.2" buildDate="2026-06-03T10:46:00+07:00"></releaseDetails>
+    <releaseDetails id="apps" version="1.30.2" buildDate="2026-06-03T10:55:00+07:00"></releaseDetails>
   </buildInformation>
   <jobs>
     <job>
-      <item size="1147763">
-        <name>/data/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf</name>
+      <item size="1161816">
+        <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/vu-minh-hieu-la-so-tu-vi-tong-quan.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
         <details passedRules="106" failedRules="0" passedChecks="95635" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786348750966" finish="1786348753630">00:00:02.664</duration>
+      <duration start="1788019369229" finish="1788019373127">00:00:03.898</duration>
     </job>
     <job>
-      <item size="1018170">
-        <name>/data/sample/MXiao-Ban-Do-Sao-final.pdf</name>
+      <item size="1036509">
+        <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/MXiao-Ban-Do-Sao-final.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
         <details passedRules="106" failedRules="0" passedChecks="56635" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786348753653" finish="1786348754337">00:00:00.684</duration>
+      <duration start="1788019373165" finish="1788019374383">00:00:01.218</duration>
     </job>
     <job>
-      <item size="975049">
-        <name>/data/sample/MXiao-Than-So-Hoc-final.pdf</name>
+      <item size="990061">
+        <name>/Users/hoeng/Downloads/MXiao-Tu-Vi-1.11.0-source/sample/MXiao-Than-So-Hoc-final.pdf</name>
       </item>
       <validationReport jobEndStatus="normal" profileName="PDF/UA-1 validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
         <details passedRules="106" failedRules="0" passedChecks="62195" failedChecks="0"></details>
       </validationReport>
-      <duration start="1786348754347" finish="1786348754992">00:00:00.645</duration>
+      <duration start="1788019374400" finish="1788019375669">00:00:01.269</duration>
     </job>
   </jobs>
   <batchSummary totalJobs="3" failedToParse="0" encrypted="0" outOfMemory="0" veraExceptions="0">
     <validationReports compliant="3" nonCompliant="0" failedJobs="0">3</validationReports>
     <featureReports failedJobs="0">0</featureReports>
     <repairReports failedJobs="0">0</repairReports>
-    <duration start="1786348750910" finish="1786348755001">00:00:04.091</duration>
+    <duration start="1788019369108" finish="1788019375681">00:00:06.573</duration>
   </batchSummary>
 </report>

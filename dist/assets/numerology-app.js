@@ -3,6 +3,7 @@
 
   const E = window.MXiaoNumerologyEngine;
   const P = window.MXiaoPdf;
+  const S = window.MXiaoWholePerson;
   if (!E || !P) throw new Error("Thần số học tạm thời không khả dụng.");
   const $ = (id) => document.getElementById(id);
   const esc = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[char]));
@@ -148,6 +149,24 @@
     $("numerology-motifs").innerHTML = motifCards(profile);
     renderChart(profile); renderTimeline(profile); renderMonths(profile); renderReport(narrative); renderCalculation(profile); renderPdfOptions(narrative);
     $("numerology-result").scrollIntoView({ behavior: "smooth", block: "start" });
+    void synthesizeOverview(profile, narrative);
+  }
+  async function synthesizeOverview(profile, deterministicNarrative) {
+    if (!S) return;
+    const input = S.numerologyInput(profile, deterministicNarrative);
+    if (!input.evidence.length) return;
+    const wholePersonProfile = await S.requestWholePerson(input);
+    if (state.profile !== profile || !wholePersonProfile) return;
+    const content = S.overviewContent(wholePersonProfile);
+    const paragraphs = [content.portrait, content.identity, ...content.strengths.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`), ...content.tensions.map((item) => `${item.title}. ${item.paragraphs.join(" ")}`)].filter(Boolean);
+    const narrative = {
+      ...deterministicNarrative,
+      sections: deterministicNarrative.sections.map((section) => section.id === "overview" ? { ...section, title: "Chân dung tổng hợp", paragraphs } : section)
+    };
+    profile.wholePersonProfile = wholePersonProfile;
+    state.narrative = narrative;
+    renderReport(narrative);
+    renderPdfOptions(narrative);
   }
   function confirmAndBuild() {
     try {

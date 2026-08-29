@@ -24,7 +24,7 @@ def free_port():
 def hydrate(page):
     page.set_content(HYDRATED_HTML, wait_until='domcontentloaded')
     page.add_style_tag(content=(ROOT / 'assets/styles.css').read_text(encoding='utf-8'))
-    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/timezones.js', 'assets/app.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/astrology-locations.js', 'assets/astrology-app.js', 'assets/numerology-engine.bundle.js', 'assets/numerology-app.js']:
+    for file in ['assets/calendar.js', 'assets/engine.bundle.js', 'assets/pdf.bundle.js', 'assets/synthesis.bundle.js', 'assets/timezones.js', 'assets/app.js', 'assets/astronomy.browser.min.js', 'assets/astrology-engine.bundle.js', 'assets/astrology-locations.js', 'assets/astrology-app.js', 'assets/numerology-engine.bundle.js', 'assets/numerology-app.js']:
         page.add_script_tag(content=(ROOT / file).read_text(encoding='utf-8'))
     page.wait_for_timeout(500)
 

@@ -4,6 +4,7 @@
   const E = window.MXiaoTuviEngine;
   const C = window.MXiaoCalendar;
   const P = window.MXiaoPdf;
+  const S = window.MXiaoWholePerson;
   const TIMEZONES = Array.isArray(window.MXiaoTimezones) ? window.MXiaoTimezones : ["Asia/Ho_Chi_Minh", "UTC"];
   if (!E || !C || !P) throw new Error("Không thể khởi tạo ứng dụng.");
 
@@ -27,7 +28,7 @@
     fortune: ["cover", "overview", "chart", "dai_van", "tieu_van", "van_han", "luu_nguyet"],
     palaces: ["cover", "overview", "chart", "menh_than", "cung_12"]
   };
-  const state = { calendarType: "solar", gender: "male", timeMode: "exact", chart: null, lastInput: null, lastNormalized: null, comparison: null, selectedPalaceId: 1, topic: "Tổng quan", pdfSections: new Set(EXPORT_SECTION_IDS), pdfPreset: "full" };
+  const state = { calendarType: "solar", gender: "male", timeMode: "exact", chart: null, lastInput: null, lastNormalized: null, comparison: null, selectedPalaceId: 1, topic: "Tổng quan", wholePersonProfile: null, pdfSections: new Set(EXPORT_SECTION_IDS), pdfPreset: "full" };
   const $ = (id) => document.getElementById(id);
 
   function esc(value) {
@@ -526,6 +527,17 @@
     return `<article class="report-card"><h3>${esc(item.title)}</h3><div class="report-copy">${paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}</div></article>`;
   }
 
+  function synthesizedOverviewCards() {
+    if (!state.wholePersonProfile || state.topic !== "Tổng quan" || !S) return "";
+    const content = S.overviewContent(state.wholePersonProfile);
+    const cards = [
+      { title: "Chân dung tổng hợp", paragraphs: [content.portrait, content.identity] },
+      ...content.strengths.map((item) => ({ title: item.title, paragraphs: item.paragraphs })),
+      ...content.tensions.map((item) => ({ title: item.title, paragraphs: item.paragraphs }))
+    ];
+    return cards.map((item) => `<article class="report-card whole-person-card"><h3>${esc(item.title)}</h3><div class="report-copy">${item.paragraphs.filter(Boolean).map((paragraph) => `<p>${esc(paragraph)}</p>`).join("")}</div></article>`).join("");
+  }
+
   function renderReport() {
     const chart = state.chart;
     const topics = orderedTopics(chart);
@@ -533,7 +545,7 @@
     const items = chart.interpretations.filter((item) => item.topic === state.topic);
     const summary = [["Phạm vi", viewScopeLabel(chart)], ...fortuneSummary(chart)];
     if (chart.analysis.nominalAge) summary.splice(1, 0, ["Tuổi mụ", `${chart.analysis.nominalAge} tuổi trong năm ${chart.input.viewYear}`]);
-    $("report-root").innerHTML = `<div class="report-summary-bar">${summary.map(([label, value]) => `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`).join("")}</div><div class="tabs" role="tablist" aria-label="Nhóm luận giải">${topics.map((topic) => `<button class="tab-button ${topic === state.topic ? "active" : ""}" type="button" role="tab" aria-selected="${topic === state.topic}" data-topic="${esc(topic)}">${esc(topic)}</button>`).join("")}</div><div class="report-section">${items.map(renderReportCard).join("")}</div>`;
+    $("report-root").innerHTML = `<div class="report-summary-bar">${summary.map(([label, value]) => `<div><strong>${esc(value)}</strong><span>${esc(label)}</span></div>`).join("")}</div><div class="tabs" role="tablist" aria-label="Nhóm luận giải">${topics.map((topic) => `<button class="tab-button ${topic === state.topic ? "active" : ""}" type="button" role="tab" aria-selected="${topic === state.topic}" data-topic="${esc(topic)}">${esc(topic)}</button>`).join("")}</div><div class="report-section">${synthesizedOverviewCards()}${items.map(renderReportCard).join("")}</div>`;
     $("report-root").querySelectorAll("[data-topic]").forEach((button) => button.addEventListener("click", () => { state.topic = button.dataset.topic; renderReport(); }));
   }
 
@@ -541,6 +553,23 @@
     renderChart();
     renderReport();
     renderPdfOptions();
+  }
+
+  async function synthesizeOverview(chart) {
+    if (!S || !chart) return;
+    const input = S.tuviInput(chart);
+    if (!input.evidence.length) return;
+    const profile = await S.requestWholePerson(input);
+    if (state.chart !== chart || !profile) return;
+    state.wholePersonProfile = profile;
+    chart.wholePersonProfile = profile;
+    const content = S.overviewContent(profile);
+    chart.wholePersonInterpretations = [
+      { id: "whole-person-portrait", topic: "Tổng quan", title: "Chân dung tổng hợp", paragraphs: [content.portrait, content.identity] },
+      ...content.strengths.map((item, index) => ({ id: `whole-person-strength-${index + 1}`, topic: "Tổng quan", title: item.title, paragraphs: item.paragraphs })),
+      ...content.tensions.map((item, index) => ({ id: `whole-person-tension-${index + 1}`, topic: "Tổng quan", title: item.title, paragraphs: item.paragraphs }))
+    ];
+    renderReport();
   }
 
   function generate() {
@@ -552,6 +581,7 @@
       state.lastInput = input;
       state.lastNormalized = normalized;
       state.comparison = null;
+      state.wholePersonProfile = null;
       state.pdfSections.delete("so_sanh_gio");
       state.selectedPalaceId = state.chart.lifePalace;
       state.topic = "Tổng quan";
@@ -559,6 +589,7 @@
       $("result-meta").textContent = `${normalized.solar.day}/${normalized.solar.month}/${normalized.solar.year} - ${normalized.timeDisplay} - ${input.timezone} - ${state.chart.input.calculationMethod} - ${viewScopeLabel(state.chart)}`;
       renderHourComparison();
       renderAll();
+      void synthesizeOverview(state.chart);
     } catch (error) {
       showError(error instanceof Error ? error.message : "Không thể lập lá số.");
     }

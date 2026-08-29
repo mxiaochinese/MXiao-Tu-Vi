@@ -44,6 +44,10 @@ for (const name of numerologyModules) {
 }
 numerologyOutput += `const engine=load('numerology/engine'); const synthesis=load('numerology/synthesis'); global.MXiaoNumerologyEngine=Object.freeze({...engine,...synthesis});\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
 fs.writeFileSync(path.join(root, 'assets/numerology-engine.bundle.js'), numerologyOutput);
+
+const synthesisSource = clean(fs.readFileSync(path.join(root, 'src/synthesis/browser.js'), 'utf8'));
+const synthesisOutput = `(function(global){\n"use strict";\nconst module={exports:{}}; const exports=module.exports;\n${synthesisSource}\nglobal.MXiaoWholePerson=Object.freeze(module.exports);\n})(typeof globalThis!=='undefined'?globalThis:window);\n`;
+fs.writeFileSync(path.join(root, 'assets/synthesis.bundle.js'), synthesisOutput);
 console.log('Browser bundles built.');
 
 const dist = path.join(root, 'dist');
@@ -55,7 +59,7 @@ fs.mkdirSync(path.join(dist, 'third_party'), { recursive: true });
 for (const file of ['astronomy-engine-LICENSE.txt', 'iztro-LICENSE.txt', 'life-chart-engine-LICENSE.txt']) {
   fs.copyFileSync(path.join(root, 'third_party', file), path.join(dist, 'third_party', file));
 }
-const publicAssets = ['app.js', 'astrology-app.js', 'astrology-locations.js', 'astronomy.browser.min.js', 'astrology-engine.bundle.js', 'numerology-app.js', 'numerology-engine.bundle.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'mxiao-logo-white.png', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
+const publicAssets = ['app.js', 'astrology-app.js', 'astrology-locations.js', 'astronomy.browser.min.js', 'astrology-engine.bundle.js', 'numerology-app.js', 'numerology-engine.bundle.js', 'synthesis.bundle.js', 'calendar.js', 'engine.bundle.js', 'pdf.bundle.js', 'styles.css', 'timezones.js', 'mxiao-mark.svg', 'mxiao-logo-white.png', 'fonts/svn-gilroy-regular.otf', 'fonts/svn-gilroy-semibold.otf'];
 for (const file of publicAssets) {
   const target = path.join(dist, 'assets', file);
   fs.mkdirSync(path.dirname(target), { recursive: true });
