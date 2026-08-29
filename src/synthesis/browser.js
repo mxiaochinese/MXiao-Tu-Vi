@@ -166,6 +166,8 @@ function validProfile(profile, allowedEvidenceIds) {
 async function requestWholePerson(input, options = {}) {
   const configuredEndpoint = options.endpoint || globalThis.MXIAO_SYNTHESIS_ENDPOINT;
   const hostname = globalThis.location?.hostname || "";
+  const enabled = Boolean(configuredEndpoint) || globalThis.MXIAO_SYNTHESIS_ENABLED === true;
+  if (!enabled) return null;
   const endpoint = configuredEndpoint || ((hostname === "mxiao.edu.vn" || hostname.endsWith(".vercel.app")) ? "/api/huyen-hoc/synthesis" : "");
   if (!endpoint) return null;
   const controller = new AbortController();
