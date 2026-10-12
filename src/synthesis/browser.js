@@ -172,7 +172,9 @@ async function requestWholePerson(input, options = {}) {
   const endpoint = configuredEndpoint || (productionHost ? "https://mxiao.edu.vn/api/huyen-hoc/synthesis" : "");
   if (!endpoint) return null;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), options.timeoutMs || 35000);
+  // The structured WholePersonProfile call can take close to a minute when
+  // Gemini is under load; keep the client timeout aligned with the API route.
+  const timeout = setTimeout(() => controller.abort(), options.timeoutMs || 55000);
   try {
     const response = await fetch(endpoint, {
       method: "POST",
