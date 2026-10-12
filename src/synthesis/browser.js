@@ -166,9 +166,10 @@ function validProfile(profile, allowedEvidenceIds) {
 async function requestWholePerson(input, options = {}) {
   const configuredEndpoint = options.endpoint || globalThis.MXIAO_SYNTHESIS_ENDPOINT;
   const hostname = globalThis.location?.hostname || "";
-  const enabled = Boolean(configuredEndpoint) || globalThis.MXIAO_SYNTHESIS_ENABLED === true;
+  const productionHost = hostname === "mxiao.edu.vn" || hostname === "www.mxiao.edu.vn" || hostname.endsWith(".vercel.app");
+  const enabled = Boolean(configuredEndpoint) || globalThis.MXIAO_SYNTHESIS_ENABLED === true || productionHost;
   if (!enabled) return null;
-  const endpoint = configuredEndpoint || ((hostname === "mxiao.edu.vn" || hostname.endsWith(".vercel.app")) ? "/api/huyen-hoc/synthesis" : "");
+  const endpoint = configuredEndpoint || (productionHost ? "https://mxiao.edu.vn/api/huyen-hoc/synthesis" : "");
   if (!endpoint) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs || 35000);
