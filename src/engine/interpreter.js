@@ -144,11 +144,13 @@ const CHALLENGE_ROLES = {
 };
 
 const TRANSFORM_ROLES = {
-    "Hóa Lộc": "mở rộng nguồn lực, khả năng tiếp nhận lợi ích và tăng tính thuận",
-    "Hóa Quyền": "tăng quyền chủ động, trách nhiệm và mức độ phải đứng ra quyết định",
-    "Hóa Khoa": "tăng tính minh bạch, khả năng học hỏi và sự ghi nhận",
-    "Hóa Kỵ": "tạo điểm nghẽn, tâm lý vướng mắc hoặc vấn đề cần xử lý nhiều lần"
+    "Hóa Lộc": "cơ hội mở rộng nguồn lực, tiếp nhận lợi ích và gặp điều kiện thuận",
+    "Hóa Quyền": "quyền chủ động lớn hơn, đi cùng trách nhiệm phải đứng ra quyết định",
+    "Hóa Khoa": "sự minh bạch hơn, cơ hội học hỏi và được ghi nhận",
+    "Hóa Kỵ": "điểm nghẽn, tâm lý vướng mắc hoặc vấn đề cần xử lý nhiều lần"
 };
+const MOVING_SUPPORT_ROLES = { ...SUPPORT_ROLES, ...TRANSFORM_ROLES };
+const MOVING_CHALLENGE_ROLES = { ...CHALLENGE_ROLES, ...TRANSFORM_ROLES };
 
 const TRIADS = [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]];
 
@@ -173,6 +175,10 @@ function formatList(list) {
     if (values.length === 2)
         return `${values[0]} và ${values[1]}`;
     return `${values.slice(0, -1).join(", ")} và ${values[values.length - 1]}`;
+}
+
+function sentenceStart(text) {
+    return `${text.charAt(0).toLocaleUpperCase("vi")}${text.slice(1)}`;
 }
 
 function getStars(palace, groups) {
@@ -294,22 +300,106 @@ function movingRoleClause(star) {
 
 function movingParagraph(palace, layerLabel, starArrayName, contextText) {
     const stars = palace[starArrayName] || [];
+    const lead = `${layerLabel.charAt(0).toUpperCase()}${layerLabel.slice(1)}`;
     if (!stars.length) {
-        return `Trong ${layerLabel}, cung ${palace.name} không có sao lưu nổi bật. ${PALACE_MANIFESTATIONS[palace.name]} vì thế chủ yếu theo đặc điểm gốc và chịu ảnh hưởng từ ${contextText}.`;
+        return `Trong ${layerLabel}, cung ${palace.name} không có sao lưu nổi bật. ${sentenceStart(PALACE_MANIFESTATIONS[palace.name])} vì thế chủ yếu theo đặc điểm gốc và chịu ảnh hưởng từ ${contextText}.`;
     }
     const support = stars.filter((item) => item.group.endsWith("support"));
     const challenge = stars.filter((item) => item.group.endsWith("malefic"));
     const cycle = stars.filter((item) => item.group.endsWith("cycle"));
     const movingRoles = (group, roleMap, fallback) => roleSummary(group.map((star) => ({ ...star, name: movingBaseName(star.name) })), roleMap, fallback);
-    let conclusion = `${layerLabel} đem lại cả cơ hội lẫn trở ngại tại cung ${palace.name}`;
+    let conclusion = `${lead} nhấn vào ${PALACE_MANIFESTATIONS[palace.name]} tại cung ${palace.name}`;
+    if (support.length && challenge.length)
+        conclusion = `${lead} đem lại cả cơ hội lẫn trở ngại tại cung ${palace.name}`;
     if ((support.length > 0 && challenge.length === 0) || support.length >= challenge.length + 2)
-        conclusion = `${layerLabel} tạo điều kiện thuận hơn bình thường cho ${PALACE_MANIFESTATIONS[palace.name]}`;
+        conclusion = `${lead} tạo điều kiện thuận hơn bình thường cho ${PALACE_MANIFESTATIONS[palace.name]}`;
     if ((challenge.length > 0 && support.length === 0) || challenge.length >= support.length + 2)
-        conclusion = `${layerLabel} dễ làm ${PALACE_MANIFESTATIONS[palace.name]} gặp độ trễ, va chạm hoặc phải đổi cách xử lý`;
+        conclusion = `${lead} dễ làm ${PALACE_MANIFESTATIONS[palace.name]} gặp độ trễ, va chạm hoặc phải đổi cách xử lý`;
     const technical = formatList([...cycle, ...support, ...challenge].slice(0, 5).map((star) => star.name));
-    const supportText = support.length ? `điểm thuận liên quan đến ${movingRoles(support, SUPPORT_ROLES, "khả năng nhận hỗ trợ và chủ động xử lý")}` : "không có trợ tinh nổi bật tại cung";
-    const challengeText = challenge.length ? `điểm khó liên quan đến ${movingRoles(challenge, CHALLENGE_ROLES, "sức cản hoặc thay đổi ngoài dự tính")}` : "không có sát tinh lưu nổi bật tại cung";
-    return `${conclusion}. ${technical} cho thấy ${supportText}, còn ${challengeText}. Kết quả thực tế cần đặt cùng ${contextText}.`;
+    const effects = [];
+    if (cycle.length)
+        effects.push(`${formatList(cycle.map((star) => star.name))} đánh dấu nơi những việc của giai đoạn này dễ bộc lộ`);
+    if (support.length)
+        effects.push(`${formatList(support.map((star) => star.name))} gợi thêm ${movingRoles(support, MOVING_SUPPORT_ROLES, "khả năng nhận hỗ trợ và chủ động xử lý")}`);
+    if (challenge.length)
+        effects.push(`${formatList(challenge.map((star) => star.name))} có thể kéo theo ${movingRoles(challenge, MOVING_CHALLENGE_ROLES, "sức cản hoặc thay đổi ngoài dự tính")}`);
+    if (!effects.length)
+        effects.push(`${technical} đánh dấu lĩnh vực cần chú ý trong thời điểm này`);
+    return `${conclusion}. ${sentenceStart(effects.join("; "))}.`;
+}
+
+function annualSubjectMovement(primary, related, viewYear) {
+    const stars = primary.annualStars || [];
+    if (!stars.length) {
+        const nearby = related.filter((palace) => palace.annualStars?.length);
+        const indirectEffects = {
+            "Quan Lộc": `Năm ${viewYear}, ${formatList(nearby.map((palace) => palace.name))} có sao lưu, còn Quan Lộc thì không. Cách nhận việc, chọn môi trường và gánh trách nhiệm có thể đổi theo những chuyển động ở các cung liên quan.`,
+            "Tài Bạch": `Các sao lưu ở ${formatList(nearby.map((palace) => palace.name))} đặt chuyện tiền bạc vào bối cảnh rộng hơn trong năm ${viewYear}. Thu nhập và kế hoạch chi tiêu cần được nhìn cùng nhịp công việc và những khoản tích lũy dài hạn.`,
+            "Phu Thê": `Năm ${viewYear}, dấu hiệu sao lưu nằm ở ${formatList(nearby.map((palace) => palace.name))} thay vì Phu Thê. Nhu cầu riêng và khả năng lắng nghe nhau có thể thay đổi theo những chuyển động ấy.`,
+            "Tật Ách": `Trong năm ${viewYear}, ${formatList(nearby.map((palace) => palace.name))} có sao lưu nhưng Tật Ách không nhận tác động trực tiếp. Nhịp nghỉ ngơi và sức bền có thể đổi theo áp lực tinh thần và cách sắp xếp đời sống thường ngày.`
+        };
+        return nearby.length
+            ? indirectEffects[primary.name]
+            : `Năm ${viewYear}, cung ${primary.name} và các cung liên quan không có sao lưu nổi bật. ${sentenceStart(PALACE_MANIFESTATIONS[primary.name])} chủ yếu tiếp nối đặc điểm gốc trong bối cảnh Đại hạn và Tiểu hạn.`;
+    }
+    const support = stars.filter((star) => star.group.endsWith("support"));
+    const challenge = stars.filter((star) => star.group.endsWith("malefic"));
+    const challengeEffects = {
+        "Quan Lộc": "khiến công việc dễ phát sinh thêm việc khó xử lý",
+        "Tài Bạch": "khiến dòng tiền và kế hoạch chi tiêu dễ bị xáo trộn",
+        "Phu Thê": "khiến việc trao đổi và phối hợp trong quan hệ dễ căng hơn",
+        "Tật Ách": "khiến nhịp sinh hoạt và hồi phục dễ bị xáo trộn"
+    };
+    const subjectContext = {
+        "Quan Lộc": "Điều đó thể hiện qua cách nhận trách nhiệm và phối hợp với người khác trong công việc.",
+        "Tài Bạch": "Tác động rõ hơn ở cách sắp xếp dòng tiền, chi tiêu và những khoản cần giữ lâu dài.",
+        "Phu Thê": "Trong quan hệ gắn bó, cách hai bên giữ cam kết và chia sẻ trách nhiệm vẫn là điều cần xét cùng.",
+        "Tật Ách": "Mức độ thể hiện còn tùy nhịp sinh hoạt, khả năng nghỉ và những việc đang phải gánh trong năm."
+    };
+    if (stars.length === 1 && support.length === 1) {
+        const role = roleSummary([{ ...stars[0], name: movingBaseName(stars[0].name) }], MOVING_SUPPORT_ROLES, "khả năng nhận hỗ trợ");
+        return `Năm ${viewYear}, ${stars[0].name} tại cung ${primary.name} gợi thêm ${role}. ${subjectContext[primary.name]}`;
+    }
+    if (stars.length === 1 && challenge.length === 1) {
+        const role = roleSummary([{ ...stars[0], name: movingBaseName(stars[0].name) }], MOVING_CHALLENGE_ROLES, "");
+        return `Năm ${viewYear}, ${stars[0].name} tại cung ${primary.name} có thể ${role ? `làm rõ ${role}` : challengeEffects[primary.name]}. ${subjectContext[primary.name]}`;
+    }
+    const clauses = [];
+    if (support.length)
+        clauses.push(`${formatList(support.map((star) => star.name))} gợi thêm ${roleSummary(support.map((star) => ({ ...star, name: movingBaseName(star.name) })), MOVING_SUPPORT_ROLES, "khả năng nhận hỗ trợ")}`);
+    if (challenge.length) {
+        const role = roleSummary(challenge.map((star) => ({ ...star, name: movingBaseName(star.name) })), MOVING_CHALLENGE_ROLES, "");
+        clauses.push(role
+            ? `${formatList(challenge.map((star) => star.name))} gợi ${role}`
+            : `${formatList(challenge.map((star) => star.name))} có thể ${challengeEffects[primary.name]}`);
+    }
+    if (!clauses.length)
+        clauses.push(`${formatList(stars.map((star) => star.name))} nhấn vào ${PALACE_MANIFESTATIONS[primary.name]}, nhưng tự chúng chưa cho biết diễn biến sẽ thuận hay khó`);
+    return `Năm ${viewYear}, ${formatList(stars.slice(0, 5).map((star) => star.name))} xuất hiện tại cung ${primary.name}. ${sentenceStart(clauses.join("; "))}.`;
+}
+
+function annualNatalFoundation(primary) {
+    const major = getStars(primary, ["major"]);
+    if (!major.length) {
+        if (primary.name === "Quan Lộc")
+            return "Quan Lộc vô chính diệu, nên hướng công việc cần đọc cùng các phụ tinh và những cung hội chiếu. Mệnh và Thiên Di giúp làm rõ cách người này nhận vai trò, thích nghi với môi trường và tìm chỗ phát huy năng lực.";
+        if (primary.name === "Tài Bạch")
+            return "Tài Bạch vô chính diệu, nên cách tạo thu nhập và giữ tiền không thể luận từ một chính tinh tại bản cung. Quan Lộc và Điền Trạch cho thêm bối cảnh về công việc, dòng tiền và kế hoạch tài sản dài hạn.";
+        if (primary.name === "Phu Thê")
+            return "Phu Thê vô chính diệu, nên quan hệ gắn bó chịu ảnh hưởng rõ hơn từ các phụ tinh và cung hội chiếu. Mệnh và Phúc Đức giúp hiểu cách người này thể hiện nhu cầu riêng và hồi phục sau bất đồng.";
+        return "Tật Ách vô chính diệu, nên nhịp sống và sức bền cần được đọc cùng các phụ tinh, cung Mệnh và Phúc Đức. Cách người này chia sẻ trách nhiệm và nghỉ ngơi có thể làm thay đổi phản ứng trước áp lực kéo dài.";
+    }
+    const abilityList = unique(major.map((star) => MAJOR_PROFILES[star.id]?.core));
+    const abilities = abilityList.length > 1 ? `${abilityList[0]} cùng ${abilityList[1]}` : abilityList[0] || "khả năng thích ứng với hoàn cảnh";
+    const tensions = unique(major.map((star) => MAJOR_PROFILES[star.id]?.tension))[0] || "áp lực từ các cung liên quan";
+    const stars = majorDisplay(primary);
+    if (primary.name === "Quan Lộc")
+        return `Con đường công việc vốn mang dấu ấn của ${stars} tại Quan Lộc. ${sentenceStart(abilities)} là điểm có thể phát huy, còn ${tensions} dễ xuất hiện khi trách nhiệm tăng; môi trường bên ngoài và cách tự đưa ra lựa chọn cũng ảnh hưởng tới vai trò nghề nghiệp.`;
+    if (primary.name === "Tài Bạch")
+        return `Tài Bạch có ${stars}, gắn cách tạo thu nhập và giữ tiền với ${abilities}. ${sentenceStart(tensions)} có thể làm các quyết định tài chính chậm hoặc khó đổi hướng; công việc và kế hoạch tài sản dài hạn cũng cần được xét cùng nhau.`;
+    if (primary.name === "Phu Thê")
+        return `Trong quan hệ gắn bó, ${stars} tại Phu Thê gợi cách người này phát huy ${abilities}. Khi ${tensions} xuất hiện, cách hai người trao đổi và chia sẻ trách nhiệm sẽ quan trọng hơn việc chỉ phân định đúng sai.`;
+    return `Ở cung Tật Ách, ${stars} gợi ${abilities}. Sức bền còn chịu ảnh hưởng từ ${tensions}; cách người này chia sẻ trách nhiệm, nghỉ ngơi và hồi phục sau những giai đoạn nhiều áp lực vì vậy cần được xét cùng nhau.`;
 }
 
 function palaceEvidence(palace, groups = ["major", "support", "malefic", "transform"]) {
@@ -725,8 +815,8 @@ function buildInterpretations(params) {
         const focusIds = [activeDecadePalaceId, annualDecadePalaceId, minorFortunePalaceId, yearBranchPalaceId];
         items.push(makeItem("year-synthesis", annualTopic, `Tổng hợp vận hạn năm ${viewYearCanChi}`, [
             `Năm ${viewYearCanChi} nằm trong Đại hạn ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại cung ${activeDecade.name}` : "chưa xác định"}. Lưu đại hạn đi vào ${annualDecade ? `${annualDecade.name} tại ${annualDecade.branch}` : "vị trí chưa xác định"}, Tiểu hạn nằm tại ${minorFortune.name} ở ${minorFortune.branch}, còn Lưu Thái Tuế đi tới ${yearBranchPalace.name} ở ${yearBranchPalace.branch}. Các vị trí này cho biết bối cảnh dài hạn và những việc dễ cần xử lý trong riêng năm.`,
-            (0, patterns_1.buildActivationParagraph)(palaces, focusIds, `Cấu trúc năm ${viewYear}`),
-            `Xét các cung trọng tâm, năm chạm tới ${formatList(unique(focusIds.filter(Boolean).map((id) => PALACE_THEMES[getPalace(palaces, id).name])))}. Những lĩnh vực này có xu hướng liên hệ với nhau, vì quyết định ở một cung có thể tạo phản ứng dây chuyền sang các cung còn lại. Báo cáo năm vì vậy ưu tiên mối liên hệ giữa các cung hơn việc diễn giải từng sao lưu đơn lẻ.`
+            (0, patterns_1.buildActivationParagraph)(palaces, focusIds, `Trong năm ${viewYear},`),
+            `Những cung trên liên quan đến ${formatList(unique(focusIds.filter(Boolean).map((id) => PALACE_THEMES[getPalace(palaces, id).name])))}. Một lựa chọn ở lĩnh vực này có thể làm thay đổi cách xử lý ở lĩnh vực khác, nên cần đọc các mối liên hệ trước khi xét từng sao lưu.`
         ]));
 
         const annualSubjects = [
@@ -738,15 +828,18 @@ function buildInterpretations(params) {
         annualSubjects.forEach(([id, title, primaryName, relatedNames]) => {
             const primary = palaces.find((item) => item.name === primaryName);
             const related = relatedNames.map((name) => palaces.find((item) => item.name === name));
-            const natalCopy = thematicSynthesis(palaces, title.startsWith("Công việc") ? "Sự nghiệp" : title.startsWith("Tài chính") ? "Tài chính" : title.startsWith("Tình cảm") ? "Tình cảm" : "Sức khỏe và nhịp sống", primaryName, relatedNames);
-            const annualAtPrimary = primary.annualStars || [];
             items.push(makeItem(id, annualTopic, `${title} năm ${viewYear}`, [
-                `So với đặc điểm gốc, ${title.toLowerCase()} trong năm ${viewYear} ${annualAtPrimary.length ? `có sao lưu trực tiếp tại cung ${primary.name}, nên ${PALACE_MANIFESTATIONS[primary.name]} đáng chú ý hơn` : `không có sao lưu nổi bật tại cung ${primary.name}; thay đổi chủ yếu đến từ Đại hạn, Tiểu hạn và các cung liên quan`}.`,
-                `Đặc điểm gốc cần đối chiếu: ${natalCopy[0]}`,
-                movingParagraph(primary, `năm ${viewYear}`, "annualStars", `${formatList(related.map((item) => item.name))}, đại vận và tiểu hạn`),
-                `Kết luận của năm còn phụ thuộc ${formatList(related.map((item) => PALACE_THEMES[item.name]))}. Khi các cung này cùng hướng với ${primary.name}, xu hướng dễ liền mạch hơn; nếu trái chiều, cơ hội ở một mặt có thể đi kèm áp lực điều chỉnh ở mặt khác, vì vậy không nên gắn toàn bộ năm với nhãn tốt hoặc xấu.`
+                annualNatalFoundation(primary),
+                annualSubjectMovement(primary, related, viewYear)
             ]));
         });
+        const subjectLabels = { "Quan Lộc": "công việc", "Tài Bạch": "tài chính", "Phu Thê": "quan hệ gắn bó", "Tật Ách": "nhịp sống" };
+        const directlyAffected = annualSubjects
+            .filter(([, , primaryName]) => palaces.find((palace) => palace.name === primaryName)?.annualStars?.length)
+            .map(([, , primaryName]) => subjectLabels[primaryName]);
+        items.push(makeItem("year-conclusion", annualTopic, `Nhìn lại vận hạn năm ${viewYear}`, [
+            `Năm ${viewYear}, ${directlyAffected.length ? `${formatList(directlyAffected)} nổi bật hơn vì có sao lưu tại các cung tương ứng` : "cả bốn lĩnh vực vừa xét chủ yếu chuyển động theo bối cảnh chung, không có sao lưu ngay tại bản cung"}. Đại hạn ${activeDecade ? `${activeDecade.decadeStart}-${activeDecade.decadeEnd} tuổi tại ${activeDecade.name}` : "đang có"} và Tiểu hạn tại ${minorFortune.name} vẫn là nền để hiểu những biến chuyển ấy. Một thay đổi trong công việc có thể kéo theo cách dùng tiền, thời gian và sức lực; lựa chọn trong quan hệ cũng có thể ảnh hưởng trở lại nhịp sống. Nhìn chung, cơ hội ở một mặt sẽ dễ phát huy hơn khi các mặt còn lại theo kịp, còn áp lực cục bộ không đủ để kết luận cả năm tốt hay xấu.`
+        ]));
     }
 
     if (viewScope !== "legacy" && monthlyFortunes.length) {

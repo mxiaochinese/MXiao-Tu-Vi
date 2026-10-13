@@ -144,6 +144,14 @@ const yearlyScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'yearly',
 assert.equal(yearlyScoped.input.viewYear, 2026);
 assert.equal('viewMonth' in yearlyScoped.input, false);
 assert.ok(yearlyScoped.interpretations.some((item) => item.topic === 'Vận hạn 2026'));
+const annualInterpretations = yearlyScoped.interpretations.filter((item) => item.topic === 'Vận hạn 2026');
+assert.equal(annualInterpretations.at(-1).id, 'year-conclusion');
+for (const id of ['year-career', 'year-finance', 'year-relationship', 'year-health']) {
+  const item = annualInterpretations.find((entry) => entry.id === id);
+  assert.equal(item.paragraphs.length, 2, `${id} phải trình bày nền lá số và sao lưu, không lặp kết luận`);
+  assert.ok(item.paragraphs.every((paragraph) => /^\p{Lu}/u.test(paragraph)), `${id} phải viết hoa đầu đoạn`);
+  assert.doesNotMatch(item.body, /Kết luận của năm|Kết quả thực tế cần đặt cùng/u);
+}
 assert.ok(!yearlyScoped.interpretations.some((item) => item.topic.startsWith('Lưu nguyệt ')));
 
 const monthScoped = engine.buildTuviChart({ ...scopedBase, viewScope: 'single_month', viewYear: 2025, viewMonth: 6, viewLeap: true, viewLeapMonth: 6 }, leapBirth);
