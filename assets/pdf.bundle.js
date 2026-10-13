@@ -1578,10 +1578,11 @@ function buildAstrologyNarrativePages(chart) {
         y = selectableHeader(page, "Luận giải Bản đồ sao", chart.profile.name || "Người xem");
         pages.push(page);
     }
-    function sectionHeading(title, continued = false) {
+    function sectionHeading(title, continued = false, followingText = "") {
         const label = continued ? `${title}, tiếp theo` : title;
         const lines = wrapPdfText(label, page.widthPt - 96, 17, 700);
-        const required = lines.length * 22 + 22;
+        const followingHeight = followingText ? wrapPdfText(followingText, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400).length * PDF_BODY_LINE_HEIGHT + 11 : 0;
+        const required = lines.length * 22 + 23 + followingHeight;
         if (!page || y + required > bottom) startPage(title);
         textBlock(page, label, 48, y, page.widthPt - 96, 17, 22, 700, RED, "H2");
         y += lines.length * 22 + 9;
@@ -1602,7 +1603,7 @@ function buildAstrologyNarrativePages(chart) {
     }
     startPage();
     for (const section of chart.narrative.sections) {
-        sectionHeading(section.title);
+        sectionHeading(section.title, false, section.paragraphs[0]?.text || "");
         section.paragraphs.forEach((item) => narrativeParagraph(item.text, section.title));
         y += 8;
     }
@@ -1795,10 +1796,11 @@ function buildNumerologyNarrativePages(profile, narrative, selected) {
         y = selectableHeader(page, "Luận giải Thần số học", profile.birth_name.original || "Người xem");
         pages.push(page);
     }
-    function heading(title, continued = false) {
+    function heading(title, continued = false, followingText = "") {
         const label = continued ? `${title}, tiếp theo` : title;
         const lines = wrapPdfText(label, page.widthPt - 96, 17, 700);
-        const required = lines.length * 22 + 24;
+        const followingHeight = followingText ? wrapPdfText(followingText, page.widthPt - 96, PDF_BODY_FONT_SIZE, 400).length * PDF_BODY_LINE_HEIGHT + 11 : 0;
+        const required = lines.length * 22 + 23 + followingHeight;
         if (!page || y + required > bottom) startPage(title);
         textBlock(page, label, 48, y, page.widthPt - 96, 17, 22, 700, RED, "H2");
         y += lines.length * 22 + 9;
@@ -1819,7 +1821,7 @@ function buildNumerologyNarrativePages(profile, narrative, selected) {
     }
     for (const section of narrative.sections.filter((item) => selected.has(item.id))) {
         if (!page) startPage(section.title);
-        heading(section.title);
+        heading(section.title, false, section.paragraphs[0] || "");
         section.paragraphs.forEach((text) => paragraph(text, section.title));
         y += 8;
     }

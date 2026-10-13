@@ -259,6 +259,51 @@ const ROLE = {
   cycle: "Các chu kỳ mô tả chủ đề của từng giai đoạn, giúp đặt trải nghiệm vào một nhịp thời gian rộng hơn."
 };
 
+const ROLE_CONTEXT = {
+  life: {
+    focus: "Chủ đề này thường hiện rõ khi bạn phải chọn một hướng đi đủ lâu, qua nhiều môi trường và vai trò khác nhau. Điều đáng theo dõi là phẩm chất ấy trưởng thành ra sao sau mỗi lần đổi trách nhiệm.",
+    strength: "Sức mạnh của Đường đời nằm ở khả năng quay lại với điều cốt lõi sau những lần thử và sai. Khi một kinh nghiệm được hiểu sâu, nó có thể dẫn đường cho lựa chọn kế tiếp thay vì chỉ trở thành một kỷ niệm rời rạc.",
+    friction: "Một giai đoạn khó không có nghĩa toàn bộ con đường đi sai. Hãy xem phản ứng nào lặp lại qua nhiều hoàn cảnh, rồi phân biệt điều cần rèn thêm với điều chỉ thuộc về sức ép tạm thời.",
+    bridge: "Sứ mệnh cho biết bạn dùng năng lực nào để đi trên con đường ấy. Nếu hướng muốn theo đuổi và cách thể hiện chưa khớp, việc điều chỉnh công cụ thường thiết thực hơn đổi ngay mục tiêu dài hạn.",
+    observe: "Nhìn lại những bước ngoặt đã qua, bạn có thể nhận ra quyết định nào làm mình hiểu rõ bản thân hơn dù kết quả trước mắt chưa nổi bật. Đường đời thường sáng tỏ qua chuỗi lựa chọn, không qua một thời điểm đơn lẻ."
+  },
+  birthday: {
+    focus: "Năng lực của Ngày sinh thường xuất hiện sớm trong những việc cụ thể: cách bắt đầu, giải quyết một vướng mắc hoặc giúp người khác đúng lúc. Nó là một thế mạnh có thể sử dụng, chứ không phải toàn bộ chân dung của bạn.",
+    strength: "Hãy để ý kiểu việc khiến khả năng này bật ra tự nhiên, kể cả khi bạn chưa gọi tên nó là sở trường. Khi được luyện đúng chỗ, một ưu thế nhỏ của ngày sinh có thể trở thành kỹ năng đáng tin trong đời sống hằng ngày.",
+    friction: "Dùng một sở trường cho mọi tình huống dễ khiến nó thành thói quen cứng. Lúc gặp việc không hợp nhịp, bạn có thể tạm dừng để xem mình cần thêm kỹ năng nào, thay vì cố tăng cường đúng cách làm quen thuộc.",
+    bridge: "Đường đời đặt năng lực này vào một hành trình rộng hơn. Một việc bạn làm giỏi ở hiện tại có ý nghĩa bền hơn khi nó phục vụ điều mình đang học qua nhiều năm, thay vì chỉ đem lại sự thuận tay trước mắt.",
+    observe: "Bạn có thể quan sát lúc nào mình tự nguyện dùng năng lực này, lúc nào người khác thường tìm đến mình vì nó, và lúc nào nên để một phẩm chất khác dẫn đường. Ba tình huống ấy cho thấy phạm vi thật của Ngày sinh."
+  },
+  expression: {
+    focus: "Sứ mệnh dễ thấy qua cách bạn biến suy nghĩ thành lời nói, sản phẩm hoặc hành động có thể chia sẻ. Cùng một năng lực sẽ tạo tác động khác nhau tùy người nghe, môi trường và mức độ chuẩn bị trước khi đưa nó ra ngoài.",
+    strength: "Khi chọn đúng hình thức thể hiện, bạn bớt phải giải thích lại điều mình muốn làm. Chất lượng đầu ra thường tăng khi thế mạnh này được đặt trong một quy trình có phản hồi, thay vì chỉ trông vào cảm hứng ban đầu.",
+    friction: "Áp lực chứng tỏ năng lực có thể khiến bạn diễn đạt quá nhanh hoặc giữ sản phẩm lại quá lâu. Một bản thử đủ rõ để nhận phản hồi sẽ giúp phân biệt vấn đề ở ý tưởng, cách trình bày hay thời điểm công bố.",
+    bridge: "Đường đời nói về hướng đi, còn Sứ mệnh nói về phương tiện để đi. Khi hai chỉ số khác nhịp, bạn có thể giữ nguyên điều coi trọng nhưng thay cách học, cách cộng tác hoặc cách trình bày kết quả.",
+    observe: "Điều hữu ích là xem ý tưởng nào thường đi được từ trong đầu ra đời sống thực, và điều gì giúp người khác hiểu đúng phần bạn muốn trao đi. Khoảng cách giữa ý định và tác động là nơi Sứ mệnh bộc lộ rõ."
+  },
+  soul: {
+    focus: "Linh hồn thường lộ rõ khi không còn áp lực phải đáp ứng một vai trò bên ngoài. Điều bạn tự tìm đến trong những khoảng lặng có thể nói nhiều về nhu cầu sâu hơn là điều mình dễ trình bày với người khác.",
+    strength: "Khi động cơ bên trong được tôn trọng, sự bền bỉ thường đến tự nhiên hơn. Bạn có thể nhận ra điều ấy qua những việc vẫn muốn quay lại dù không có phần thưởng hay sự chú ý ngay lập tức.",
+    friction: "Nhu cầu riêng dễ bị che bởi mong muốn làm vừa lòng người khác hoặc bởi một nhịp sống quá dày. Trước khi xem mình thiếu động lực, hãy thử gọi tên điều đang cần được nghỉ ngơi, được hiểu hoặc được lựa chọn lại.",
+    bridge: "Nhân cách là lớp người khác gặp đầu tiên, còn Linh hồn cho biết điều bạn muốn giữ ở bên trong. Hai phía không cần giống hệt nhau, nhưng một khoảng cách kéo dài có thể khiến việc giao tiếp trở nên mệt mỏi.",
+    observe: "Hãy nhìn những lúc bạn thấy một lựa chọn có ý nghĩa ngay cả khi nó chưa thuận lợi nhất. Cảm giác ấy không quyết định thay bạn, nhưng là dữ kiện quan trọng để hiểu vì sao mình gắn bó hoặc rời khỏi một hướng đi."
+  },
+  personality: {
+    focus: "Nhân cách được cảm nhận trong những cuộc gặp ban đầu, trước khi người khác hiểu động cơ sâu hơn của bạn. Nó giúp mở cửa quan hệ và cũng ảnh hưởng tới điều bạn chọn bộc lộ hoặc giữ lại lúc chưa đủ tin cậy.",
+    strength: "Lớp biểu hiện này có thể giúp bạn tạo một nhịp tiếp xúc dễ hiểu và nhất quán. Khi biết mình thường đem lại ấn tượng gì, bạn có thêm lựa chọn để điều chỉnh cách nói mà không cần diễn một tính cách khác.",
+    friction: "Nếu quá bám vào hình ảnh ban đầu, bạn có thể thấy khó nói ra nhu cầu đã thay đổi. Một mối quan hệ đủ an toàn cho phép cách thể hiện mở rộng dần, thay vì buộc bạn mãi ở vai trò người khác quen nhìn thấy.",
+    bridge: "Linh hồn bổ sung phần ít hiện ra trong lần gặp đầu. Khi hai chỉ số không cùng nhịp, việc nói rõ nhu cầu đúng thời điểm giúp người khác hiểu bạn sâu hơn mà không phải đoán từ vẻ ngoài.",
+    observe: "Bạn có thể so sánh ấn tượng người mới thường có với điều bạn thật sự muốn được hiểu. Chỗ trùng nhau là một lợi thế giao tiếp; chỗ lệch nhau chỉ ra lúc cần thêm thời gian, ngôn ngữ hoặc ranh giới rõ hơn."
+  },
+  maturity: {
+    focus: "Hướng Trưởng thành không xuất hiện như một bước ngoặt bắt buộc ở một tuổi cố định. Nó thường rõ dần khi kinh nghiệm khiến bạn biết chọn điều cần giữ và điều có thể giao cho người khác hoặc để lại phía sau.",
+    strength: "Một năng lực từng dùng rời rạc có thể trở nên vững hơn khi được nối với những gì đã học từ Đường đời và Sứ mệnh. Thay vì làm nhiều hơn, bạn có thể thấy mình làm đúng việc hơn và hiểu vì sao chọn việc ấy.",
+    friction: "Không phải giai đoạn nào cũng cho cảm giác tiến đều. Khi trách nhiệm đổi, một cách làm từng hiệu quả có thể cần sửa; sự chậm lại lúc này có thể là phần cần thiết của quá trình chọn lại ưu tiên.",
+    bridge: "Sứ mệnh mô tả công cụ bạn mang theo, còn Trưởng thành cho thấy cách dùng công cụ ấy sau nhiều lần va chạm thực tế. Sự phối hợp tốt thường tạo ra chiều sâu mà riêng tài năng hoặc kinh nghiệm đều chưa đủ.",
+    observe: "Dấu hiệu đáng chú ý là những quyết định bạn có thể giải thích bằng giá trị đã được kiểm nghiệm, thay vì chỉ bằng phản ứng nhất thời. Nhìn theo cách đó, trưởng thành là sự tích lũy khả năng lựa chọn, không phải một nhãn tuổi tác."
+  }
+};
+
 function meaning(number) {
   return SEMANTICS[number] || SEMANTICS[Number(String(number).slice(-1)) || 9];
 }
@@ -273,12 +318,31 @@ function valueLabel(number) {
 function coreParagraphs(role, number, relatedLabel, relatedNumber) {
   const [core, strength, friction, development] = meaning(number);
   const related = meaning(relatedNumber);
+  const context = ROLE_CONTEXT[role];
+  const roleNames = { life: "Đường đời", birthday: "Ngày sinh", expression: "Sứ mệnh", soul: "Linh hồn", personality: "Nhân cách", maturity: "Trưởng thành" };
+  const roleName = roleNames[role];
+  const focusLeads = {
+    life: `Với số ${valueLabel(number)}, trọng tâm nằm ở ${core}.`,
+    birthday: `Ngày sinh số ${valueLabel(number)} nhấn mạnh ${core}.`,
+    expression: `Số ${valueLabel(number)} đưa ${core} vào cách bạn thể hiện năng lực.`,
+    soul: `Ở lớp bên trong, số ${valueLabel(number)} gợi ${core}.`,
+    personality: `Số ${valueLabel(number)} tạo ấn tượng ban đầu qua ${core}.`,
+    maturity: `Số ${valueLabel(number)} dần hướng bạn tới ${core}.`
+  };
+  const bridgeLeads = {
+    life: `${relatedLabel} số ${valueLabel(relatedNumber)} bổ sung sắc thái ${related[0]}.`,
+    birthday: `Đặt cạnh ${relatedLabel} số ${valueLabel(relatedNumber)}, Ngày sinh được soi thêm bởi ${related[0]}.`,
+    expression: `Về hướng đi dài hạn, ${relatedLabel} số ${valueLabel(relatedNumber)} nghiêng về ${related[0]}.`,
+    soul: `${relatedLabel} số ${valueLabel(relatedNumber)} cho thấy lớp bên ngoài mang sắc thái ${related[0]}.`,
+    personality: `Bên dưới ấn tượng đầu tiên, ${relatedLabel} số ${valueLabel(relatedNumber)} gợi ${related[0]}.`,
+    maturity: `${relatedLabel} số ${valueLabel(relatedNumber)} là nền năng lực mang sắc thái ${related[0]}.`
+  };
   return [
-    `${ROLE[role]} Với số ${valueLabel(number)}, trọng tâm nằm ở ${core}. Đây là một khuynh hướng cần được đọc qua nhiều giai đoạn sống, bởi cùng một phẩm chất có thể biểu hiện rất khác khi bối cảnh, trách nhiệm và mức độ tự nhận biết thay đổi. Dấu hiệu rõ nhất thường xuất hiện trong cách bạn chọn ưu tiên, phân bổ năng lượng và phản ứng khi phải tự đưa ra quyết định.`,
-    `Mặt thuận lợi của cấu trúc này là ${strength}. Khi được đặt vào môi trường phù hợp, bạn thường phát huy tốt hơn nếu mục tiêu đủ rõ, nhịp làm việc có ý nghĩa và kết quả tạo được cảm giác tiến bộ thực chất. Năng lực ấy có thể trở thành điểm tựa ổn định, nhất là khi bạn nhận ra điều gì xứng đáng để đầu tư lâu dài thay vì phân tán theo những yêu cầu đến cùng lúc.`,
-    `Phần cần quan sát là xu hướng ${friction}. Nó thường lộ ra khi áp lực tăng, khi thời gian bị thu hẹp hoặc khi bạn chưa có đủ thông tin để cảm thấy chắc chắn. Việc nhận diện sớm giúp bạn phân biệt một phản ứng tạm thời với một lựa chọn thật sự phù hợp. Hướng phát triển hữu ích là ${development}, qua đó giữ được chất riêng mà vẫn mở ra thêm lựa chọn hành động.`,
-    `${relatedLabel} số ${valueLabel(relatedNumber)} đưa thêm sắc thái ${related[0]}. Hai nguồn lực này có thể hỗ trợ nhau khi bạn dành thời gian xác định vai trò của từng bên: số ${valueLabel(number)} giữ trục chính, còn số ${valueLabel(relatedNumber)} bổ sung cách triển khai. Khi chúng kéo theo hai nhu cầu khác nhau, một nhịp chuyển có chủ ý giữa suy nghĩ, trao đổi và hành động sẽ hiệu quả hơn việc cố dùng một cách phản ứng cho mọi tình huống.`,
-    `Trong thực tế, chất lượng của số ${valueLabel(number)} được nhìn qua sự nhất quán giữa điều bạn coi trọng và việc bạn lặp lại mỗi ngày. Một lựa chọn nhỏ nhưng được duy trì thường cho thấy nhiều hơn một tuyên bố lớn. Bạn có thể quan sát ba dấu hiệu: việc nào làm năng lượng sáng rõ hơn, quan hệ nào cho phép mình giữ đúng ranh giới, và điều gì vẫn còn ý nghĩa sau khi cảm xúc tức thời đã lắng xuống.`
+    `${ROLE[role]} ${focusLeads[role]} ${context.focus}`,
+    `Mặt thuận của ${roleName} số ${valueLabel(number)} là ${strength}. ${context.strength}`,
+    `Khi ${roleName.toLowerCase()} chịu sức ép, xu hướng ${friction} có thể rõ hơn. ${context.friction} Với ${roleName}, một hướng phát triển là ${development}.`,
+    `${bridgeLeads[role]} ${context.bridge}`,
+    context.observe
   ];
 }
 
@@ -293,7 +357,7 @@ function chartParagraphs(profile) {
     `${absent.length ? `Các số ít được đại diện trong ngày sinh là ${absent.join(", ")}.` : "Cả chín ô đều có đại diện trong ngày sinh."} Khoảng trống cho biết những phẩm chất cần được xây bằng trải nghiệm, môi trường và sự luyện tập có chủ ý. Nó không phải nhãn thiếu hụt. Khi một phẩm chất chưa tự xuất hiện, phương pháp cụ thể và nhịp lặp ổn định thường hữu ích hơn việc tự ép mình phải thay đổi ngay.`,
     `${filled.length ? `Mũi tên đầy ${filled.join(", ")} cho thấy một số tuyến năng lượng đã có sự nối liền tự nhiên.` : "Không có mũi tên đầy, vì vậy điểm nhấn nằm ở cách từng ô phối hợp qua trải nghiệm."} ${empty.length ? `Các đường trống ${empty.join(", ")} gợi ý vùng cần chủ động tạo cấu trúc hỗ trợ.` : "Không có đường trống hoàn toàn, nên việc phát triển chủ yếu nằm ở chất lượng sử dụng từng tuyến."} Cách đọc tốt nhất là nhìn tương tác giữa ô lặp, ô vắng và các con số lõi.`,
     `Biểu đồ này trở nên hữu ích khi được nối với hành vi có thể quan sát. Hãy chú ý cách bạn bắt đầu một việc, duy trì nhịp giữa chặng và hoàn tất khi hứng thú ban đầu đã giảm. Những điểm mạnh thường xuất hiện như phản xạ tự nhiên; những vùng cần xây thường cần lịch trình, người đồng hành hoặc môi trường nhắc nhở. Qua thời gian, chính cách tổ chức điều kiện xung quanh sẽ quyết định phẩm chất nào được dùng ổn định.`,
-    `Khi chọn một ô hoặc một mũi tên trên màn hình, phần giải thích nên được xem như một lớp phóng đại của toàn biểu đồ. Việc quay lại tổng thể giúp tránh kết luận quá nhanh từ một dấu hiệu riêng lẻ. Hai người có cùng mũi tên vẫn có thể biểu hiện khác nhau vì Đường đời, Sứ mệnh, động cơ bên trong và giai đoạn hiện tại tạo ra những cách phối hợp riêng.`
+    `Mỗi ô hoặc mũi tên chỉ làm rõ một phần của biểu đồ. Khi đặt nó trở lại bên cạnh các ô khác, bạn dễ thấy vì sao cùng một dấu hiệu có thể biểu hiện khác nhau ở hai người. Đường đời, Sứ mệnh, động cơ bên trong và giai đoạn hiện tại cùng góp phần tạo nên cách phối hợp riêng.`
   ];
 }
 
@@ -374,7 +438,7 @@ function buildNarrative(profile) {
       `Các chỉ số tên dùng bảng quy đổi Pythagoras từ A đến Z. Từng đơn vị tên được cộng và rút gọn riêng trước khi kết hợp. Sứ mệnh là ${valueLabel(name.expression.reduced)}, Linh hồn là ${valueLabel(name.soul_urge.reduced)}, Nhân cách là ${valueLabel(name.personality.reduced)}. Dấu tiếng Việt được bỏ khi tính, còn cấu trúc tên đã xác nhận được giữ nguyên.`,
       `Chữ Y được phân loại theo lựa chọn đã xác nhận cho từng vị trí. Nguyên âm đi vào Linh hồn, phụ âm đi vào Nhân cách, và mọi chữ cái đều tham gia Sứ mệnh. Tên hiện tại, nếu có, được tính thành một lớp riêng và không thay thế tên khai sinh.`,
       `Biểu đồ ngày sinh dùng các chữ số của ngày tháng năm sinh, bỏ số 0 và giữ số lần lặp. Mũi tên đầy cần đủ cả ba số trên một tuyến; đường trống cần vắng cả ba số. Đỉnh cao, Thử thách, ba Chu kỳ và năm cá nhân dùng các phép cộng hoặc hiệu theo quy ước hiển thị trong từng bảng.`,
-      `Các phép tính tạo ra một hệ quy ước để tổ chức quan sát cá nhân. Chúng không phải phép đo khoa học về tính cách và không dùng để thay thế đánh giá chuyên môn. Phần luận giải giữ ngôn ngữ xác suất, tôn trọng bối cảnh và quyền lựa chọn của người đọc.`
+      `Các phép tính tạo ra một hệ quy ước để tổ chức quan sát cá nhân. Chúng không phải phép đo khoa học về tính cách và không dùng để thay thế đánh giá chuyên môn. Ý nghĩa của mỗi con số cần được đối chiếu với hoàn cảnh sống và trải nghiệm thực tế của người được xem.`
     ] }
   ];
   return { sections, wordCount: sections.flatMap((section) => section.paragraphs).join(" ").trim().split(/\s+/).length };

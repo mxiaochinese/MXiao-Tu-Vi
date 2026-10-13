@@ -7,6 +7,7 @@ import time
 from urllib.request import urlopen
 from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import sync_playwright
+from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_HTML = (ROOT / 'index.html').read_text(encoding='utf-8')
@@ -77,6 +78,14 @@ def pdf_page_dark_ratio(pdf_path, page_number):
     pixels = data[index:]
     dark = sum(1 for offset in range(0, len(pixels) - 2, 3) if sum(pixels[offset:offset + 3]) < 96)
     return dark / (len(pixels) // 3)
+
+
+def assert_no_orphan_headings(pdf_path, headings):
+    for page_number, page in enumerate(PdfReader(str(pdf_path)).pages, 1):
+        lines = [line.strip() for line in (page.extract_text() or '').splitlines() if line.strip()]
+        if lines and lines[-1].startswith('MXiao Huyền Học |'):
+            lines.pop()
+        assert not lines or lines[-1] not in headings, f'Orphan heading on page {page_number}: {lines[-1]}'
 
 
 port = free_port()
@@ -339,6 +348,7 @@ try:
         with desktop.expect_download(timeout=90000) as astrology_pdf_info:
             desktop.locator('#astro-pdf-button').click()
         astrology_pdf_info.value.save_as(astrology_pdf)
+        assert_no_orphan_headings(astrology_pdf, set(desktop.locator('.astro-narrative-section h3').all_inner_texts()))
         astrology_text = subprocess.check_output(['pdftotext', str(astrology_pdf), '-'], text=True)
         astrology_info = subprocess.check_output(['pdfinfo', str(astrology_pdf)], text=True)
         assert 'BẢN ĐỒ SAO CÁ NHÂN' in astrology_text
@@ -414,6 +424,7 @@ try:
         with desktop.expect_download(timeout=90000) as numerology_pdf_info:
             desktop.locator('#numerology-pdf-button').click()
         numerology_pdf_info.value.save_as(numerology_pdf)
+        assert_no_orphan_headings(numerology_pdf, set(desktop.locator('.numerology-report h3').all_inner_texts()))
         numerology_text = subprocess.check_output(['pdftotext', str(numerology_pdf), '-'], text=True)
         numerology_info = subprocess.check_output(['pdfinfo', str(numerology_pdf)], text=True)
         assert 'BÁO CÁO THẦN SỐ HỌC CÁ NHÂN' in numerology_text

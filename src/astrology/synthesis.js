@@ -433,7 +433,12 @@ function aspectDetail(aspect, index, emphasis = "balanced") {
   const relation = pair?.axis || `${aspect.aName} và ${aspect.bName}`;
   const effect = emphasis === "resource" ? operation?.resource : emphasis === "tension" ? operation?.tension : operation?.operator;
   const signNote = aspect.outOfSign ? " Hai hành tinh đứng ở hai kiểu biểu hiện khác nhau, nên sự phối hợp có thêm một lớp lệch nhịp." : "";
-  return `${aspect.aName} và ${aspect.bName} tạo ${lowerFirst(aspect.name)}, đưa ${relation} vào cùng một mạch. ${effect ? `${String(effect).charAt(0).toUpperCase()}${String(effect).slice(1)}.` : "Hai chức năng vì thế cần được đọc cùng nhau."}${signNote}`;
+  const effectSentence = effect
+    ? emphasis === "resource" ? `Điểm thuận là ${lowerFirst(effect)}.`
+      : emphasis === "tension" ? `Điểm dễ căng là ${lowerFirst(effect)}.`
+        : `${String(effect).charAt(0).toUpperCase()}${String(effect).slice(1)}.`
+    : "Hai chức năng vì thế cần được đọc cùng nhau.";
+  return `${aspect.aName} và ${aspect.bName} tạo ${lowerFirst(aspect.name)}, đưa ${relation} vào cùng một mạch. ${effectSentence}${signNote}`;
 }
 
 function aspectInContext(aspect, index, context, emphasis = "balanced", opening = "") {
@@ -590,13 +595,33 @@ function domainParagraphs(domain, chart, index, evidence, planetMap) {
   const tension = domainAspects(["square", "opposition"])[0];
   const paragraphs = [];
 
-  const coreDescriptions = coreBodies.map((item, position) => {
-    const semantic = semanticFor(index, item);
-    const arena = item.house ? ` trong ${lowerFirst(semantic.house.house_arena || `Nhà ${item.house}`)}` : "";
-    const opening = position === 0 ? `Ở ${lowerFirst(plan.title)}` : `Cũng trong ${lowerFirst(plan.title)}`;
-    return `${opening}, ${item.name} ${item.sign.name}${item.house ? ` ở Nhà ${item.house}` : ""} đem cách ${semantic.sign.sign_style || "đáp lại hoàn cảnh"}${arena}.`;
+  const planetFunctions = {
+    sun: "ý hướng cá nhân", moon: "nhu cầu cảm xúc", mercury: "cách suy nghĩ và trao đổi",
+    venus: "cách gắn bó", mars: "động lực hành động", jupiter: "khả năng mở rộng", saturn: "trách nhiệm và giới hạn"
+  };
+  const placementGroups = new Map();
+  coreBodies.forEach((item) => {
+    const key = `${item.sign.name}:${item.house || "unknown"}`;
+    if (!placementGroups.has(key)) placementGroups.set(key, []);
+    placementGroups.get(key).push(item);
   });
-  paragraphs.push(paragraph(`${plan.lead} ${coreDescriptions.join(" ")} Trọng tâm nằm ở ${plan.focus}.`, support));
+  const coreDescriptions = [...placementGroups.values()].map((group) => {
+    const first = group[0];
+    const semantic = semanticFor(index, first);
+    const names = joinNatural(group.map((item) => item.name));
+    const functions = joinNatural(group.map((item) => planetFunctions[item.id] || "cách phản ứng"));
+    const place = `${first.sign.name}${first.house ? ` ở Nhà ${first.house}` : ""}`;
+    const arena = first.house ? ` qua ${lowerFirst(semantic.house.house_arena || `chủ đề Nhà ${first.house}`)}` : "";
+    return `${names} ${group.length > 1 ? "cùng " : ""}ở ${place}. ${functions.charAt(0).toUpperCase()}${functions.slice(1)} ${group.length > 1 ? "cùng " : ""}thể hiện${arena} theo nhịp ${semantic.sign.sign_style || "phù hợp với hoàn cảnh"}.`;
+  });
+  const domainNuance = {
+    love: "Nhu cầu được gần gũi có thể đến trước lúc bạn sẵn sàng thể hiện tình cảm bằng lời hoặc hành động. Khoảng lệch ấy đáng được hiểu qua nhịp của cả hai người, nhất là khi mức tin cậy đang thay đổi.",
+    career: "Ý hướng cá nhân, cách suy nghĩ và động lực hành động cùng tham gia vào lựa chọn nghề nghiệp. Một vai trò phù hợp cần cho mỗi phía đúng việc: có hướng để theo, có cách giải quyết vấn đề và có khoảng tự chủ tương xứng.",
+    communication: "Điều bạn hiểu nhanh chưa chắc đã là điều có thể diễn đạt ngay. Giữa lúc tiếp nhận thông tin và lúc chia sẻ kết luận thường có một bước sắp xếp lại, đặc biệt khi cảm xúc hoặc kỳ vọng của người nghe cũng hiện diện.",
+    family: "Cảm giác an toàn trong nhà gắn với sự yên tĩnh và cách mọi người nhận ra nhu cầu riêng của nhau. Một thay đổi nhỏ trong nhịp trao đổi có thể làm khác đi cảm giác được nâng đỡ.",
+    money: "Cách nhận ra giá trị, mở rộng nguồn lực và giữ giới hạn chi tiêu có thể không phát triển cùng tốc độ. Khi nhìn các chức năng ấy cạnh nhau, bạn dễ phân biệt quyết định xuất phát từ cơ hội thực tế với phản ứng trước áp lực ngắn hạn."
+  };
+  paragraphs.push(paragraph(`${plan.lead} ${coreDescriptions.join(" ")} Trọng tâm nằm ở ${plan.focus}. ${domainNuance[domain]}`, support));
 
   if (flow) {
     paragraphs.push(paragraph(`${aspectInContext(flow, index, lowerFirst(plan.title), "resource")} Nguồn thuận này giúp một chức năng mở đường cho chức năng kia, nhờ đó ${plan.focus} không bị mắc ở phản ứng đầu tiên khi hoàn cảnh thay đổi.`, evidenceForAspects(evidence, [flow], support)));
@@ -609,7 +634,7 @@ function domainParagraphs(domain, chart, index, evidence, planetMap) {
     paragraphs.push(paragraph(`${aspectInContext(tension, index, lowerFirst(plan.title), "tension")} Áp lực thường tăng khi cả hai phía đều muốn được giải quyết ngay. Nếu một chức năng phủ lên chức năng kia, ${plan.focus} có thể tạm yên nhưng sẽ quay lại dưới một hình thức khác.`, evidenceForAspects(evidence, [tension], support)));
   } else {
     const secondary = semanticFor(index, coreBodies[1] || coreBodies[0]);
-    paragraphs.push(paragraph(`Ở ${lowerFirst(plan.title)}, điểm dễ lệch không đến từ một góc căng nổi trội, mà từ việc dùng quá lâu cùng một cách phản ứng. Xu hướng ${secondary.sign.risk_style || "bám vào phản ứng quen thuộc"} dễ rõ hơn khi thiếu thời gian, thiếu thông tin hoặc cảm giác an toàn bị xáo trộn.`, support));
+    paragraphs.push(paragraph(`Ở ${lowerFirst(plan.title)}, một cách phản ứng quen thuộc có thể trở thành điểm khó khi được dùng quá lâu. Xu hướng ${secondary.sign.risk_style || "bám vào phản ứng quen thuộc"} dễ rõ hơn khi thiếu thời gian, thiếu thông tin hoặc cảm giác an toàn bị xáo trộn.`, support));
   }
 
   if (coreBodies.length > 1) {
@@ -632,13 +657,6 @@ function domainParagraphs(domain, chart, index, evidence, planetMap) {
     if (links.length) paragraphs.push(paragraph(links.join(" "), support));
   }
 
-  const first = semanticFor(index, coreBodies[0]);
-  const second = semanticFor(index, coreBodies[1] || coreBodies[0]);
-  paragraphs.push(paragraph(`Nhịp bền hơn cho ${plan.focus} xuất hiện khi ${lowerFirst(first.sign.constructive_style || "thế mạnh thứ nhất")} có thể làm việc cùng ${lowerFirst(second.sign.constructive_style || "thế mạnh thứ hai")}. Một phía tạo động lực, phía kia giữ chất lượng hoặc kiểm tra độ phù hợp. Cách chia việc này giữ cho lĩnh vực không bị kéo hoàn toàn về một phản ứng quen thuộc.`, support));
-
-  if (support.length >= 5 && paragraphs.length < 7) {
-    paragraphs.push(paragraph(`Các mối nối ở ${lowerFirst(plan.title)} khá dày, nên lĩnh vực này phản hồi mạnh với thay đổi ở những phần liên quan. Một lựa chọn tốt giải quyết mục tiêu trước mắt, đồng thời giữ điều kiện cho ${plan.focus} tiếp tục vận hành mà không buộc một nhu cầu quan trọng khác phải trả giá quá lớn.`, support));
-  }
   return paragraphs;
 }
 

@@ -149,6 +149,9 @@ assert.equal(narrativeChart.narrative.style_qa.pass, true, narrativeChart.narrat
 assert.equal(narrativeChart.narrative.style_qa.formulaic_contrast_count, 0);
 assert.ok(narrativeChart.narrative.sections.filter((section) => section.id.startsWith('domain_')).every((section) => section.paragraphs.length >= 4));
 const userProse = narrativeChart.narrative.sections.flatMap((section) => section.paragraphs.map((item) => item.text)).join('\n');
+assert.ok(narrativeChart.narrative.sections.every((section) => section.paragraphs.every((item) => /^\p{Lu}/u.test(item.text))), 'Mỗi đoạn phải viết hoa đầu câu');
+assert.doesNotMatch(userProse, /Nhịp bền hơn cho|Các mối nối ở [^.!?]+ khá dày/iu);
+assert.doesNotMatch(userProse, /\. Xung đột lặp lại, phản ứng quá mức/iu);
 assert.ok(userProse.split(/\s+/).length >= 4500, 'Bản đầy đủ cần đủ chiều sâu theo mật độ tín hiệu của lá số kiểm thử');
 assert.doesNotMatch(userProse, /[–—]/);
 assert.doesNotMatch(userProse, /\b(?:placement|evidence|operator|weighting|confidence|rule id|dataset|json|debug)\b/i);
